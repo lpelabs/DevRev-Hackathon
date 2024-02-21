@@ -1,67 +1,27 @@
-from typing import Union
+import os
+from fastapi import APIRouter, HTTPException, Depends, status,  Query
+import logging
+import requests
 from google_play_scraper import Sort, reviews
 import praw
 import tweepy
-import requests
 import csv
 from openpyxl import Workbook
 import pandas as pd
 import json
 import itertools
 
-from fastapi import FastAPI, Query
+from config.config import SECRETS
+consumer_key = SECRETS["consumer_key"]
+consumer_secret = SECRETS["consumer_secret"]
+access_token = SECRETS["access_token"]
+access_token_secret = SECRETS["access_token_secret"]
 
-import re
+from helpers.remove_emoji import remove_emoji
 
+router = APIRouter()
 
-def remove_emoji(text):
-    """
-    Removes emojis from a given text string.
-
-    Args:
-        text: The text string to remove emojis from.
-
-    Returns:
-        str: The text string with emojis removed.
-    """
-    emoji_pattern = re.compile(
-        "["
-        "\U0001F600-\U0001F64F"  # Emoticons
-        "\U0001F300-\U0001F5FF"  # Misc Symbols and Pictographs
-        "\U0001F680-\U0001F6FF"  # Transport and Map Symbols
-        "\U0001F1E0-\U0001F1FF"  # Flags
-        "\U0001F000-\U0001F0FF"  # Symbols
-        "]+",
-        flags=re.UNICODE,
-    )
-    return emoji_pattern.sub("", text)
-
-
-app = FastAPI()
-
-consumer_key = "ChvUYRSoyT5R8UojdInGs8ecE"
-consumer_secret = "cPFgldAPTp3QtBqKrzLolQVrb4GgmfguZiYc0u2d3xMLeSoEo8"
-access_token = "1522583300895821825-ozGpU6VjNMLEFi4wb3WbgSkFMJuHE1"
-access_token_secret = "AKeHaDzC5EL58tdZLk9CgPbBalmsgdQpDxjbHIgbLht4N"
-
-# def csv_to_xlsx(csv_file_path, xlsx_file_path):
-#     workbook = Workbook()
-#     sheet = workbook.active
-
-#     with open(csv_file_path, 'r') as csvfile:
-#         reader = csv.reader(csvfile)
-#         for row in reader:
-#             sheet.append(row)
-
-#     workbook.save(xlsx_file_path)
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/reviews")
+@router.get("/reviews")
 def read_item():
     result, continuation_token = reviews(
         "in.swiggy.android",
@@ -83,14 +43,10 @@ def read_item():
                 "user": review["userName"],
             }
         )
-        print(review["content"])
-
     if any(play_review):  # Check if data exists
         fieldnames = list(play_review[0].keys())
 
-    with open(
-        "voc_data.csv", "a", newline="", encoding="utf-8"
-    ) as csvfile:  # Open in append mode
+    with open("../data/new_voc_data.csv", "a", newline="", encoding="utf-8") as csvfile:  # Open in append mode
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if csvfile.tell() == 0:  # Check if file is empty (write header only once)
             writer.writeheader()
@@ -99,8 +55,7 @@ def read_item():
 
     return result
 
-
-@app.get("/reddit-reviews")
+@router.get("/reddit-reviews")
 def get_subreddit():
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
 
@@ -144,35 +99,34 @@ def get_subreddit():
 
     # CSV handling (adapted from Response A with improvements)
     try:
-        with open("voc_data.csv", "a", newline="") as csvfile:  # Open in append mode
+        with open("../data/new_reddit_voc_data.csv", "a", newline="") as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
                 writer.writeheader()
             for issue in redditdata:
                 writer.writerow(issue)
 
-            df = pd.read_csv("voc_data.csv", encoding="unicode_escape")
+            df = pd.read_csv("../data/new_reddit_voc_data.csv", encoding="unicode_escape")
             print(df)
             return "Reddit reviews appended to voc_data.csv successfully."
     except FileNotFoundError:
         print("File not found. Creating a new CSV file.")
         with open(
-            "voc_data.csv", "w", newline=""
+            "../data/new_reddit_voc_data.csv", "w", newline=""
         ) as csvfile:  # Create new file if needed
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for issue in redditdata:
                 writer.writerow(issue)
 
-            df = pd.read_csv("voc_data.csv", encoding="unicode_escape")
+            df = pd.read_csv("../data/new_reddit_voc_data.csv", encoding="unicode_escape")
             return "Reddit reviews appended to a new voc_data.csv file."
     except Exception as e:  # Handle other potential errors
-        df = pd.read_csv("voc_data.csv")
+        df = pd.read_csv("../data/new_reddit_voc_data.csv")
         print(f"An error occurred: {e}")
         return "An error occurred while appending reviews to voc_data.csv."
 
-
-@app.get("/github-issues")
+@router.get("/github-issues")
 def get_github_issues(
     owner: str = Query(..., description="Owner of the repository"),
     repo: str = Query(..., description="Name of the repository"),
@@ -204,13 +158,13 @@ def get_github_issues(
     else:
         fieldnames = []
 
-    with open("voc_data.csv", "w", newline="") as csvfile:
+    with open("../data/new_github_voc_data.csv", "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for issue in filtered_data:
             writer.writerow(issue)
 
-    df = pd.read_csv("voc_data.csv")
+    df = pd.read_csv("../data/new_github_voc_data.csv")
     df.to_excel("github_issues.xlsx", index=False)
 
     return filtered_data
