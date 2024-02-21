@@ -10,6 +10,9 @@ from openpyxl import Workbook
 import pandas as pd
 import json
 import itertools
+from helpers.search import google_search
+from enums.gsearch_info import SearchInfo
+from bs4 import BeautifulSoup
 
 from config.config import SECRETS
 consumer_key = SECRETS["consumer_key"]
@@ -168,3 +171,21 @@ def get_github_issues(
     df.to_excel("github_issues.xlsx", index=False)
 
     return filtered_data
+
+@router.post("/search")
+def search_on(query: str):
+    output = []
+    result = google_search(query, search_info=SearchInfo.URLS)
+    for url in result:
+        print(url)
+        output.append(url)
+
+    return output
+
+@router.get("/scrape")
+async def scrape(url):
+    result = requests.get(url)
+    soup = BeautifulSoup(result.text, "html.parser")
+
+    print (soup.prettify())
+
