@@ -14,6 +14,12 @@ from helpers.search import google_search
 from enums.gsearch_info import SearchInfo
 from bs4 import BeautifulSoup
 
+import dotenv
+dotenv.load_dotenv()
+GITHUB_PAT = os.getenv("GITHUB_PAT")
+CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
+CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
+
 from config.config import SECRETS
 consumer_key = SECRETS["consumer_key"]
 consumer_secret = SECRETS["consumer_secret"]
@@ -66,10 +72,8 @@ def get_subreddit():
         str: A message indicating the CSV file was updated successfully.
     """
 
-    client_id = "VZF8OjxlxZfEF2qnjp9skA"  # Replace with your actual client ID
-    client_secret = (
-        "eEbdNTN3chmek3gOve-l0wbqkXj7EA"  # Replace with your actual client secret
-    )
+    client_id = CLIENT_ID  # Replace with your actual client ID
+    client_secret = CLIENT_SECRET #Replace with actual client secret
     user_agent = "web:devrev-forge:v1 (by /u/smooth_profit4543)"  # Replace with your actual user agent
 
     reddit = praw.Reddit(
@@ -137,7 +141,7 @@ def get_github_issues(
     url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open&labels=bug"
     headers = {
         "Accept": "application/vnd.github+json",
-        "Authorization": "Bearer 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",
+        "Authorization": f"Bearer {GITHUB_PAT}",
         "X-GitHub-Api-Version": "2022-11-28",
     }
 
