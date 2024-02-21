@@ -1,0 +1,4 @@
+source,url,title,body,user_html_url
+github,https://api.github.com/repos/lpelabs/reDocs.ai/issues/2,[Bug]: Improve the Clustering Logic,"* The existing code in [traverse_file.py](https://github.com/LPE-Labs/reDocs.ai/blob/37853fa4de0defbdd6d7cf7c7b0716cb35f015a7/server/app/utils/traverse_file.py#L113-L117) demonstrates functionality for generating different prompts based on the context. While it generally works well, there are instances where it crashes, causing instability.
+
+https://github.com/LPE-Labs/reDocs.ai/blob/37853fa4de0defbdd6d7cf7c7b0716cb35f015a7/server/app/utils/traverse_file.py#L113-L117",https://github.com/marcdhi
