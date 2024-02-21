@@ -1,0 +1,1317 @@
+source,url,title,body,user_html_url
+github,https://api.github.com/repos/tweepy/tweepy/issues/1712,[bug] `chunked_upload` is not working properly,"When using the `chunked_upload` i get this error:
+```python
+   3514         media_id = self.chunked_upload_init(
+   3515             file_size, file_type, media_category=media_category,
+-> 3516             additional_owners=additional_owners, **kwargs
+   3517         ).media_id
+   3518 
+
+AttributeError: 'dict' object has no attribute 'media_id'
+```
+
+Due to:
+
+https://github.com/tweepy/tweepy/blob/22e378d35c4ed064bb73e71485d75dd97506024f/tweepy/api.py#L3514-L3517
+
+This method returns a `dict` object:
+
+https://github.com/tweepy/tweepy/blob/22e378d35c4ed064bb73e71485d75dd97506024f/tweepy/api.py#L3640-L3643
+
+",https://github.com/codesankalp
+github,https://api.github.com/repos/tweepy/tweepy/issues/1606,Handle connection errors for requests made from `API` methods,"This includes:
+- `ConnectionResetError: [Errno 54] Connection reset by peer` or `ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host` leading to `urllib3.exceptions.ProtocolError`, `requests.exceptions.ConnectionError` or `requests.exceptions.ChunkedEncodingError`, and `tweepy.error.TweepError`
+- `ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine` leading to `requests.packages.urllib3.exceptions.ProtocolError`, `requests.exceptions.ConnectionError`, and `tweepy.error.TweepError`
+- other types of `requests.exceptions.ConnectionError`, including `('Connection aborted.', OSError(0, 'Error'))` and `('Connection aborted.', BadStatusLine(""''"",))`
+- `tweepy.error.TweepError: Failed to send request: HTTPSConnectionPool(host='api.twitter.com', port=443): Read timed out. (read timeout=60)`
+- `HTTPSConnectionPool(host='api.twitter.com', port=443): Max retries exceeded with url: [. . .] (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at [. . .]>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))`
+
+in Tweepy v3.10.
+
+This issue consolidates #617, #641, #645, #835, #937, #1205, #1528, #1555, #1559, and #1583.",https://github.com/Harmon758
+github,https://api.github.com/repos/tweepy/tweepy/issues/604,Invalid value 52 for parameter page parameter is invalid.,"Hi I have sample code:
+
+``` python
+    with open('temp_users.json', 'w') as f:
+        all_data = []
+        print ""Searching users"",
+        for user in tweepy.Cursor(api.search_users,q = ""ziemniaki"").items():
+            print ""."",
+            sys.stdout.flush()
+            all_data.append(user._json)
+        f.write(json.dumps(all_data))
+        f.close()
+    print """"
+    return
+
+And I got this error:
+raise TweepError(error_msg, resp)
+tweepy.error.TweepError: [{u'message': u'Invalid value 52 for parameter page parameter is invalid.', u'code': 44}]
+
+And second uncaught exception:
+    raise TweepError(error_msg, resp)
+tweepy.error.TweepError: [{u'message': u'Rate limit exceeded', u'code': 88}]
+```
+",https://github.com/ghost
+github,https://api.github.com/repos/tweepy/tweepy/issues/514,Cursor + JSONParser + followers_ids(),"I'm having trouble wrapping api.followers_ids with Cursor when the api parser is JSONParser(). Here's an example. Not sure if this is a problem with other API calls. Any ideas?
+
+```
+api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
+for f in Cursor(api.followers_ids).items():
+    print f
+
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+<ipython-input-56-df1d83b05c72> in <module>()
+----> 1 for f in Cursor(api.followers_ids).items():
+      2     print f
+      3 
+
+/Users/mike/miniconda/lib/python2.7/site-packages/tweepy/cursor.pyc in next(self)
+    183         self.page_index += 1
+    184         self.num_tweets += 1
+--> 185         return self.current_page[self.page_index]
+    186 
+    187     def prev(self):
+
+KeyError: 0
+```
+",https://github.com/mikepqr
+reddit,https://www.reddit.com/r/aws/comments/16ep32j/calling_all_new_aws_users_read_this_first/,Calling all new AWS users: read this first!,"Hello and welcome to the `/r/AWS` subreddit! We are here to support those that are new to Amazon Web Services (`AWS`) along with those that continue to maintain and deploy on the *AWS Cloud*! An important consideration of utilizing the *AWS Cloud* is controlling operational expense (costs) when maintaining your AWS resources and services utilized.
+
+We've curated a set of documentation, articles and posts that help to understand costs along with controlling them accordingly. See below for recommended reading based on your `AWS` journey:
+
+## If you're new to AWS and want to ensure you're utilizing the free tier..
+
+* [What is the AWS Free Tier, and how do I use it?](https://aws.amazon.com/premiumsupport/knowledge-center/what-is-free-tier/)
+* [How do I make sure I don't incur charges when I'm using the AWS Free Tier?](https://aws.amazon.com/premiumsupport/knowledge-center/free-tier-charges/)
+* [A Beginnerís Guide to AWS Cost Management](https://aws.amazon.com/blogs/aws-cloud-financial-management/beginners-guide-to-aws-cost-management/)
+* [Using the AWS Free Tier](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-free-tier.html)
+
+## If you're a regular user (think: developer / engineer / architect) and want to ensure costs are controlled and reduce/eliminate operational expense surprises..
+
+* [AWS Well-Architected Framework: Cost Optimization Pillar](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
+* [AWS Cost Optimization Best Practices](https://aws.amazon.com/aws-cost-management/aws-cost-optimization/)
+* [How to manage cost overruns in your AWS multi-account environment pt1](https://aws.amazon.com/blogs/mt/manage-cost-overruns-part-1/)
+* [How to manage cost overruns in your AWS multi-account environment pt2](https://aws.amazon.com/blogs/mt/manage-cost-overruns-part-2/)
+
+## Enable multi-factor authentication whenever possible!
+
+* [Enabling a virtual multi-factor authentication (MFA) device (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html)
+* [Different forms of MFA](https://aws.amazon.com/iam/features/mfa/)
+* [Guided tour on how to add MFA to your AWS IAM users](https://pages.awscloud.com/how-to-enable-multi-factor-authentication-for-aws-account.html?nc1=f_ls)
+* [Adding multiple MFA devices to IAM users](https://aws.amazon.com/blogs/security/you-can-now-assign-multiple-mfa-devices-in-iam/)
+
+## [Continued reading material, straight from the /r/AWS community..](https://www.reddit.com/r/aws/search/?q=free%20tier%20AND%20bill%20AND%20costs%20AND%20cost%20AND%20billing&restrict_sr=1&sr_nsfw=&sort=relevance&t=all)
+
+Please note, this is a living thread and we'll do our best to continue to update it with new resources/blog posts/material to help support the community.
+
+Thank you!
+
+**Your** `/r/AWS` **Moderation Team**
+
+    changelog
+    09.09.2023_v1.3 - Readded post
+    12.31.2022_v1.2 - Added MFA entry and bumped back to the top.
+    07.12.2022_v1.1 - Revision includes post about MFA, thanks to a /u/fjleon for the reminder!
+    06.28.2022_v1.0 - Initial draft and stickied post",goguppy
+reddit,https://www.reddit.com/r/aws/comments/1avih1p/s3_bucket_best_practices/,S3 Bucket Best Practices,"Hello everyone,
+
+I am currently trying to get a better understanding of best practices of S3 buckets. For that I was evaluating my previous setups with S3 buckets. The way I have went about S3 buckets was to control access to them with IAM policies. I do not have a lot of understanding about ACLs and if I understand correctly is that they add an additional layer of security to the S3 bucket. My question would be: with what do you protect your bucket to deny public access?",n4il1k
+reddit,https://www.reddit.com/r/aws/comments/1avngnq/in_aws_using_textract_or_something_similar_is/,"In AWS, using Textract or something similar, is there a way to copy style from one xls to another? Or to convert image (document scan) to a styled xls file?","Hi all,
+
+I have an app fully built inside of AWS. I need to add some functionality to it.
+
+Specifically, I'm trying to find a way to copy the **style** **and layout** of an xls using AWS services. I'm going to end up building another xls (with different data) using this formatting - so it will display in a familiar fashion.
+
+Using textract, you can take a scan and extract the *data* and create an excel file. It would be trivial to turn an existing xls into a scan and then use this AWS service, but **I need the size, color, etc. to be copied** \- not the data.
+
+[https://aws-samples.github.io/amazon-textract-textractor/notebooks/table\_data\_to\_various\_formats.html](https://aws-samples.github.io/amazon-textract-textractor/notebooks/table_data_to_various_formats.html)
+
+Using document analysis and textract, you can copy a pdf and translate it ***including formatting***:
+
+[https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/](https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/)
+
+This makes it close because I could always go XLS -> PDF -> AWS document layout entities -> new PDF, but then I can't do the last step to convert to the final xls with formatting. Or, maybe there is a way to go from the entities directly to xls that I'm unaware of?
+
+If anyone has suggestions of how to do this in AWS, I would greatly appreciate it.
+
+If someone is able to provide a suggestion for a path that ends up working, I'm happy to send you some cash as appreciation. I've been banging my head against this problem for weeks.",chazzmoney
+reddit,https://www.reddit.com/r/aws/comments/1avm55k/best_aws_book_for_saa_knowledge/,Best AWS book for SAA knowledge?,"I do better reading rather than watching videos. 
+
+Are there any good books that the community recommends?",mr_riddler24
+reddit,https://www.reddit.com/r/aws/comments/1avlufv/is_it_necessary_to_train_my_rekognition_model_in/,Is it necessary to train my rekognition model in another account or can I copy from non-production to production?,"This isn't really a technical question about how to copy a trained model to another account but rather a question about best-practices regarding where our recognition custom label projects should be trained before copying to our non-production/production accounts
+
+I have a multi-account architecture setup where my prod/non-prod compute workloads run in separate accounts managed by a central organization account. We current have a rekognition label detection project in our non-prod account.
+
+I wonder, should I have a separate account for our rekognition projects? Is it sufficient (from a security and well-architected perspective) to have one project in non-production and simply copy trained models to production? It seems overkill to have a purpose built account for this but I'm not finding a lot of discussion on the topic (which makes me think it doesn't really matter). I was curious if anyone had any strong opinions one way or the other?",pribnow
+reddit,https://www.reddit.com/r/aws/comments/1avkjur/ecs_fargate_single_service_with_multiple_tasks/,ECS: Fargate - Single Service with Multiple Tasks (Microservices),"I'm pretty new to ECS and have been tasked with setting up resources for a new project. The developers are asking for a single ECS Service to be configured with multiple tasks, one for each microservice for the application. Most of what I am reading only ever refers to an ECS Service with a single task, I can't tell if this is for ease of explanation, or if this is best practice and what our devs are asking for outside the norm. I would appreciate some guidance here.  
+",ozziephotog
+reddit,https://aws.amazon.com/blogs/mobile/custom-ssl-amplify-hosting,Amplify Hosting launched custom SSL certificates/TLS support,,tennisfan0526
+reddit,https://www.reddit.com/r/aws/comments/1avoixr/best_way_to_mount_an_external_storage_service_to/,Best way to mount an external storage service to Windows server 2022 ECS Fargate?,"Hi all,
+
+Looking for some guidance on the best service(s) to mount persistent storage to windows server 2022 running on Fargate.
+
+I've looked at FSx for Windows, but I'm not sure I want to use it. We do have a managed AD service, but I feel like the whole setup and management of it is going to be really annoying and complex.
+
+My understanding is that EFS is not able to be mounted directly. I did see some articles mentioning mounting it via WSL2 (which is available on Server 2022 apparently), but this seems to me to be incredibly hacky and fragile.
+
+Does anybody know of any other solutions? Without this, we're probably just going to go back to EC2 as it seems like Fargate may not fit our use case, which would be a real shame because we want to migrate to serverless as much as possible.",Marquis77
+reddit,https://www.reddit.com/r/aws/comments/1avo40h/how_to_connect_server_to_own_backend/,How to connect server to own backend.,"Hello. 
+
+I have a simple Vue application which I have uploaded to an Amplify. When run on localhost, It makes simple requests to my backend which go through Zincsearch and retrieves the data. 
+
+As of now, I don't know how I could configure this so I can maybe have my backend and database uploaded and both applications communicate.
+
+I was thinking about hosting the backend myself but it's proving to be much more difficult than expected. 
+
+Do you know what I could use to either upload everything to AWS or host it by myself?",CronoRiddle
+reddit,https://www.reddit.com/r/aws/comments/1avikpv/does_ecs_have_to_be_in_the_same_vpc_as_sqs_to/,Does ECS have to be in the same VPC as SQS to publish a message to the queue?,"I have an ECS service in a VPC. I then have an SQS queue and Lambda so it goes like
+
+ECS -> SQS -> Lamba
+
+Should all of these services be in the same VPC as ECS?",Serious_Reply_5214
+reddit,/r/OpenText/comments/1avnroo/how_to_documentum_idfsession_with_aws_cognito/,how to Documentum IDfSession with AWS Cognito token,,alfredomova
+reddit,https://www.reddit.com/r/aws/comments/1avf42r/transferring_a_domain_to_route53_while_keeping/,Transferring a domain to Route53 while keeping privacy enabled,"Hi, I was looking into moving my (personal) domain from Google Domains to Route53 which is currently already used as the nameserver. The AWS docs state to ""Confirm that the email for the registrant contact for your domain is up to date"". However due to privacy mode being enabled the WHOIS entry for the registrants email address is a link like domains.google.com/contactregistrant?domain=xxxx . The link shows a captcha and reveals a 1-day temproray email address. I would prefer not to disable privacy protection as my home address would be publicly available. Does anyone have some ideas on how to proceed?",mynameismarcin
+reddit,https://www.reddit.com/r/aws/comments/1av7rph/why_does_one_of_the_endpoints_on_my_lambda_api/,"Why does one of the endpoints on my lambda api return a 503, but none of the others do?","I have a backend written in Rust using axum that I run in a Lambda function. I have about 10 different endpoints all on this single lambda. Until now, they've all worked great. They all consume json payloads and return json responses. 
+
+
+I had to add a new feature which allows the user to upload a file. So I decided to use a multipart form for this. I have my api setup where I can test locally by spinning up a server. The library I'm using allows this very easily. https://crates.io/crates/lambda-web
+
+
+When I test my new endpoint locally, it works great. I can use postman or my web app to upload a file and get an appropriate response. It can take up to 45 seconds or so for this request to complete, as I have to make requests from my backend to other services before returning a response.
+
+
+However, when I push this function to aws, I get a 503 when hitting this endpoint. I get no information other than 503: ""Sevice unavailable""
+
+I added some prints inside the handler for this endpoint to see if there were any errors. There were not. Execution made it go the very end and the response it should have sent back looked correct.
+
+The really weird part is that this endpoint *WAS* working on Friday. I didn't change anything, but when I tried it this morning I got the 503. This is an error from AWS, not my function. 
+
+
+Everytime I get the 503, the request is almost exactly 30 seconds. Usually it's between 30.1 and 30.3 seconds. So it looks like a timeout of some sort. However, I have my function timeout set to 4 minutes. Some of my other endpoints can take over a minute and still complete as expected.
+
+
+So... what's happening? I can't find any error logs or any information about what's happening at all. My cloud watch logs show all the prints and debug information I'm outputting, and it all looks normal. 
+
+
+Am I hitting some sort of size or time limit? Can this be configured? Where would I even look to find out what's causing this issue?
+
+",Barbacamanitu00
+reddit,https://www.reddit.com/r/aws/comments/1avc0nu/rds_read_replicas/,RDS read replicas?,"Iím curious, how does it actually work when using a read replica? Are users pointed to it automatically, or do you have to set the endpoint using code? How do you do it? Have some method that checks which endpoint was last used, and then set the other endpoint for the next call? And the. Back again for the next user that makes a call, and so on?
+
+Please enlighten me?",mightybob4611
+reddit,https://awsteele.com/blog/2024/02/20/when-aws-invariants-are-not.html,When AWS invariants arenít [invariant],,mooreds
+reddit,https://www.reddit.com/r/aws/comments/1avhz21/lambda_and_ffmpeg/,Lambda and Ffmpeg,"I am trying to use ffmpeg by creating a layer following this article  
+[https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a](https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a)  
+
+
+when I use some command that generally works on my system, it does not work in lambda.  
+Here's my code can someone help me with this?  
+
+
+import { promisify } from 'util';
+
+import { exec } from 'child\_process';
+
+const commander = promisify(exec);
+
+export const handler = async (event) => {
+
+  const { stdout } = await commander(\`/opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4'\`](https://dwzxneeggli32.cloudfront.net/ad1.mp4'`));
+
+  return {
+
+statusCode: 200,
+
+body: JSON.stringify(stdout), //For me, N-66244-g468615f204-static... 
+
+  };
+
+};  
+
+
+error which I am getting=>  
+{
+
+  ""errorType"": ""Error"",
+
+  ""errorMessage"": ""Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'\\n"",
+
+  ""trace"": \[
+
+""Error: Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'"",
+
+"""",
+
+""    at ChildProcess.exithandler (node:child\_process:422:12)"",
+
+""    at ChildProcess.emit (node:events:518:28)"",
+
+""    at maybeClose (node:internal/child\_process:1105:16)"",
+
+""    at ChildProcess.\_handle.onexit (node:internal/child\_process:305:5)""
+
+  \]
+
+}",harshitchaudhari
+reddit,https://www.reddit.com/r/aws/comments/1avhu1q/long_duration_python_code_best_awsazure_solution/,Long duration python code. Best AWS/Azure solution?," Hello!
+
+I have python code that runs simulations and exports several graphs and a pickle (the pickle alone stores the main results and can be used to generate the graphs). The code is split into 4 .py scripts (3 of them are just functions called by the ""main"" .py script). And the code also uses a small dataset saved in an excel file (I could obviously change the format).
+
+If it's of any relevance, those simulations are simulating the behaviour of individuals in an Economics macro model. And I am by no means a python expert and never used AWS/Azure before.
+
+At this moment running all the code takes around 10 hours, which is too much for what I am doing. I am testing how the results change when I change some of the parameters of the simulation and trying to find which is the best choice of parameters. So, waiting 10 hours to obtain the results, then changing one parameter and waiting again to get the results is making the process really slow. I would like to be able to run the whole code in parallel, with different choices of parameters, and not having to use my laptop for that.
+
+My question is: Which is the best solution in AWS/Azure? I have seen that there are many options in AWS: EC2, lambda, workspaces... And it's just difficult to figure out what's appropriate for me.
+
+Thank you in advance!",Connect-Comparison69
+reddit,https://www.reddit.com/r/aws/comments/1avhh5o/am_i_the_only_one_who_has_this_any_tips/,Am I the only one who has this? Any tips?,"When deploying a lambda with SAM and the ""most popular option"" of Python/zip
+
+https://preview.redd.it/3oh93wjyqqjc1.png?width=844&format=png&auto=webp&s=25604520015cefcfae290fe3325176214e800e22",Sem_Gl
+reddit,https://www.reddit.com/r/aws/comments/1avgrjs/how_to_build_a_custom_ami_with_minimal_packages/,How to build a custom AMI with minimal packages,"Hello, 
+
+I plan to create a Debian-based custom AMI for my workloads but with minimal packages. 
+
+One way I am aware of this is building the ""OVA"" and then migrating that to AMI. 
+
+The other way is creating an AMI out of an EC2 instance. 
+
+But other than this way, how do you guys build a hardened AMI in a more efficient way?
+
+Thanks.
+
+&#x200B;",Material-Grade-491
+reddit,https://quickwit.io/blog/log-search-service-for-under-7-dollars,Building a log search service with AWS Lambda for under $7/month,,massus
+reddit,https://www.smily.com/engineering/a-story-of-a-spectacular-success-intro-to-aws-rds-database-migration-series,A story of a spectacular success - Intro to AWS RDS database migration series,,Azdaroth
+reddit,https://www.reddit.com/r/aws/comments/1av8t7d/apprunner_useast1_rds_cacentral1_advice/,AppRunner (us-east-1) + RDS (ca-central-1) advice...,"Hey folks.
+
+I have an interesting situation I've been battling to figure out.  Hoping someone can give me some direction.  AppRunner is awesome for the size of my company and the project we are using it for.  It makes life so easy. Right now we use it for our web (React) front ends.
+
+Now we want to move our APIs to AppRunner.
+
+Our problem:  Our RDS (mySQL) has to be located in Canada (ca-central-1).  AppRunner isn't available in Canada (yet). I really wish it was, this wouldn't be an issue! :(
+
+We are attempting to setup our API containers on AppRunner.  To get the DB connection to work from us-east-1 (AppRunner) to ca-central-1 (RDS), we've setup a Peering Connection.  ""Perfect"" I'm thinking, except in learning this stuff on the fly, I learn that I can't have the AppRunner container go over a Peering Connection AND have internet access.  
+
+Our API needs to make public calls out to other APIs on the internet, as well as hit our RDS server in Canada over the Peering Connection.
+
+Instead of a Peering Connection to get to the DB in Canada, could we, in theory, assign an elastic IP to the ENI that our App Runner container VPC is connected to and then allow that IP address access via the security group of the RDS DB in Canada? 
+
+Thanks in advance!
+
+&#x200B;
+
+&#x200B;",jBucketo
+reddit,https://www.reddit.com/r/aws/comments/1av7ttu/connecting_to_rds_outside_of_aws/,Connecting to RDS outside of AWS,"Hi all,
+
+I'm a noob with AWS. I want to host my Flask app with AWS; one of the first things I have to do is migrate my SQLite database that I am currently using to a MySQL DB on RDS. I have data in a dataframe in a Jupyter notebook, and I am able to create a connection with SQLAlchemy. However, when I call df.to\_sql() and pass in the engine, I get an Assertion Error with no explanation. I think it may be a problem with my connection settings in my console. 
+
+Can anybody help me out here? Would really appreciate it!",jackkelly1212
+reddit,https://www.reddit.com/r/aws/comments/1av8ol0/handling_respondtoauthchallenge/,Handling RespondToAuthChallenge,"I don't know if I'm missing something obvious, but how do I properly parse the response from this API call? It's working, and I can get a response, but I don't know how to parse out the passed/failed challenge result.
+
+    RespondToAuthChallengeResponse response_challenge = await m_IDProviderClient.RespondToAuthChallengeAsync(request_challenge);
+    
+    if(response_challenge.HttpStatusCode == HttpStatusCode.OK)
+    {    
+    }
+    else
+    {
+    }
+
+The above code is where I'm at. It seems that the HTTP code is always ""OK"", even if the user failed the challenge. That's fine, since I assume the HTTP is purely indicating that the communications are OK and has no bearing on the content of said communication.
+
+The docs for `RespondToAuthChallengeResponse` say :
+
+>If the action is successful, the service sends back an HTTP 200 response.
+
+Again, I assume that just means if the communication between AWS and the client succeeded, not the result of the challenge itself.
+
+So my question is, which variable in the `RespondToAuthChallengeResponse` class indicates what happened with the verification? (so that I can tell the user they messed up and have x tries left before failing auth altogether) (verifyAuthChallenge lambda is just comparing two numbers that need to be equal, assigning pass or fail as a result).
+
+The `AuthenticationResult` is null when the attempt fails. Is it as simple as just testing for null there, and assuming that's a failed result? I was reluctant to do this as I'm not sure that the null object would *always* represent a failed validation.",Cactorious
+reddit,https://www.reddit.com/r/aws/comments/1av2fnu/ec2_logs_to_cloudwatch_for_amazon_linux_3_not/,EC2 logs to Cloudwatch for Amazon Linux 3 not (easily) possible,"Sanity check - does AWS' own Cloudwatch log agent not support the only system logging mechanism supported by AWS' own AL3 ""journald""? This seems ridiculous to me. I would have thought this would be a super important use case for EC2, with business drivers both operational and security.
+
+It used to be so easy, install the agent, so long as the instance profile is setup you get the logs.
+
+I find this issue on the cw log agent asking for journald support:
+
+[https://github.com/aws/amazon-cloudwatch-agent/issues/382](https://github.com/aws/amazon-cloudwatch-agent/issues/382)
+
+And the best solution I can find (apart from using Datadog's Vector) is this, changing the system services to write the log files then configuring the log agent to point to them [https://gist.github.com/adam-hanna/06afe09209589c80ba460662f7dce65c](https://gist.github.com/adam-hanna/06afe09209589c80ba460662f7dce65c)",VengaBusdriver37
+reddit,https://www.reddit.com/r/aws/comments/1av6t97/a_good_architectural_pattern_to_process_timebased/,A good architectural pattern to process time-based events.,"Hello everyone,
+
+I'm new to AWS and am in the process of figuring out the most suitable architectural pattern for a relatively simple web app  I plan to develop. This application isn't for critical business purposes, and I anticipate it will have a few thousand users at most.
+
+Here's my plan:
+
+1. I intend to use DynamoDB to store entries, with each entry tagged by a timestamp. Precise time tracking isn't necessary; a day's granularity is sufficient (for example, entries might be tagged as '2/20/2024').
+2. On a specific day (like 2/20), my goal is to retrieve all entries from that day and then send out emails to the respective recipients. Each entry corresponds to a different recipient. The volume of these emails might range from tens to a few hundred per day.
+3. For various reasons, I'm considering dividing each day into four quarters. The entries in DynamoDB will be processed according to these time slots. For instance, when adding an entry to DynamoDB, its primary key might be something like '2024\_02\_20\_1' to denote the first quarter of February 20, 2024. Having such a PK, as I understand, will significantly speed up retrieval and keep costs low rather than scan the whole table.
+
+Based on my current understanding, which is primarily theoretical, I'm thinking about using a Lambda function that triggers every six hours (I've read about AWS step functions, would I use that?). This function would retrieve all relevant entries from DynamoDB and then pass these entries to EventBridge. From there, AWS Pinpoint would manage the email dispatch. *If my approach seems flawed or if I'm misunderstanding anything, please feel free to correct me.*
+
+Is there a more efficient method than batch processing via Lambda for this task? I don't require more precise time tracking. I prefer using DynamoDB for storing entries, as I might need to modify them occasionally based on specific user scenarios.",NewCoderNoob
+reddit,https://www.reddit.com/r/aws/comments/1avb6qg/how_to_remove_the_ipv4_from_my_rds_while/,How to remove the IPv4 from my RDS while continuing to access it through the subdomain?,"I have an RDS instance which I access using:
+
+    database-name.XXXXXX.us-east-1.rds.amazonaws.com
+    port:5432
+
+I noticed that I have an IPv4, but I don't really use it ever, and don't want to pay for it.
+
+When clicking ""modify"" for the RDS instance, under connectivity, I can only choose IPv4 or Dual-stack Mode. There is also an option to ""Not publicly accessible"".
+
+I don't want to disable all public access (I want to continue to access it through the sub-domain), but I don't need the IPv4.
+
+Will setting the Security Group inbound rules for my local home IP to access the DB through the subdomain work despite disabling public access?
+
+How to set up the options correctly, any ideas?",schmore31
+reddit,https://www.reddit.com/r/aws/comments/1av3zx4/csacse_interview_helpful_tips/,CSA/CSE Interview helpful tips?,"Hey guys Iím going to be doing my final interview for the CSA/CSE role at Amazon in a couple weeks and I was wondering if anyone had any other tips or advice? 
+
+Iíve  looked over the Leadership Principles and I am using the STAR method to format my answers so I think Iím good there but regarding the networking/linux portion any advice?
+
+The position is in TX and with SCD.
+
+I have 8 years of networking experience with Linux and a couple of related certs from my time in the military. (Network +, sec +, ITIL, AWS SAA and RHSCA and a couple of Microsoft ones)
+
+Iím 30/F Iím a-little worried Iím too old for this position but does anyone have a general idea of the age range? Itís silly to worry about this but Iím worried about the potential knowledge barrier?",Warm_Yogurtcloset305
+reddit,https://www.reddit.com/r/aws/comments/1av3m8p/transitioning_from_hardcoded_ip_addresses_to_dns/,Transitioning from hardcoded IP addresses to DNS,"Howdy folks
+
+I just wanted some advice and suggestions for transitioning from hardcoded IP Addresses to DNS in AWS. The reason for this is for IoT devices out in the field to connect using DNS instead of the IP addresses and if SHTF DNS can be used to point at another address etc. Does this sound like a reasonable use case? also, any advice thoughts and suggestions are welcome and appreciated.
+
+The architecture is:  
+
+
+1. 3 x EC2 instances using Elastic IP addresses - dev, staging, production
+2. RDS instances, dev, staging and production
+3. A 3rd party provider hosts DNS (R53 is currently not being used)
+4. We want to create a subdomain/public hosted zone in AWS to reach AWS resources by DNS
+
+* Once the hosted zone is created; the configuration of the DNS records will be:
+* Updating the 3rd party DNS with the NS provided by AWS for the DNS records.
+* Adding (A) records for the dev, staging and production EC2 instances > pointing to the EIP addresses. 
+   * dev.example.com, staging.example.com, production.example.com
+* Creating CNAME records for the dev, staging and production RDS instances > pointing to the RDS endpoints.
+   * dev-db.example.com , staging-db.example.com, prod-db.example.com
+* Perform testing by logging into the DB's using MySQL Workbench using the DNS hostname.
+* Perform testing by using dig, curl and nslookup.
+
+&#x200B;",EatTheRichNZ
+reddit,https://www.reddit.com/r/aws/comments/1aupwlt/upgrading_rds_t3_instance/,Upgrading RDS T3 instance,"We are currently using a T3.medium RDS MySQL instance. Sometimes we need more connects than it can handle (we also use a RDS proxy). CPU usage is never a problem, never gets higher than 20% (avarage is 5%).
+
+I'm considering T3.xlarge or T4g.xlarge.
+
+any reason not to choose a T4g instance over a T3?",wiebsel1991
+reddit,https://www.reddit.com/r/aws/comments/1av214l/i_have_a_single_ec2_instance_running_nginx_and_id/,I have a single EC2 instance running nginx and I'd like to enable HTTPS,"But I don't think I can?
+
+From what I read I can't download my AWS-created certificates and toss them into the nginx conf, I need to use and ELB to use my certs. But when I try to create and ELB:
+
+`Select at least two Availability Zones and one subnet per zone. The load balancer routes traffic to targets in these Availability Zones only. Availability Zones that are not supported by the load balancer or the VPC are not available for selection.` ",rbtcacct
+reddit,https://www.reddit.com/r/aws/comments/1auppmy/deploying_llms_in_aws_lambda/,Deploying LLMs in AWS Lambda,"Hey guys, I am building an AI chatbot and was wanting to know if AWS Lambda is able to do the following:
+
+1. is AWS Lambda able to host open source LLM models like Mixtral 8x7B Instruct v0.1 from Hugging Face?
+
+2. I am thinking to use vLLM, a GPU optimized library for LLM. Will AWS Lambda allow me to do this?
+
+3. I am looking to connect my LLM model with a PostgreSQL database. Will AWS Lambda allow me to do this?
+
+4. to connect my LLM to my front-end, I am thinking of using FastAPI for my API endpoints to connect to my front-end website. Will AWS Lambda allow me to do this?
+
+Would really appreciate any input even if you only know answers to some of the above. Many thanks in advance!",redd-dev
+reddit,https://community.aws/content/2cXuki31b6cvPtkoOMdNNxfLKfr/aws-open-source-newsletter-189,"AWS open source newsletter, #189",,094459
+reddit,https://www.reddit.com/r/aws/comments/1aunkid/opensearch_mix_query_string_and_nested/,OpenSearch mix query_string and nested,"Hi everyone,
+
+Is it possible to query all fields of an index while still filtering based on some nested attributes?
+
+For instance, if I have this `student` index
+
+    {
+      name: string
+      lastName: string
+      // many fields here
+      scores: [
+        {
+          date: string
+          value: number
+        }
+      ]
+    }
+
+how can I make a query that search for a text in all fields while sill filtering on `avg(scores.value) > 80` for each student?",IndependentThink1590
+reddit,https://aws.amazon.com/blogs/mobile/custom-ssl-amplify-hosting,Amplify Hosting launched custom SSL certificates/TLS support,,tennisfan0526
+reddit,https://www.reddit.com/r/aws/comments/1avoixr/best_way_to_mount_an_external_storage_service_to/,Best way to mount an external storage service to Windows server 2022 ECS Fargate?,"Hi all,
+
+Looking for some guidance on the best service(s) to mount persistent storage to windows server 2022 running on Fargate.
+
+I've looked at FSx for Windows, but I'm not sure I want to use it. We do have a managed AD service, but I feel like the whole setup and management of it is going to be really annoying and complex.
+
+My understanding is that EFS is not able to be mounted directly. I did see some articles mentioning mounting it via WSL2 (which is available on Server 2022 apparently), but this seems to me to be incredibly hacky and fragile.
+
+Does anybody know of any other solutions? Without this, we're probably just going to go back to EC2 as it seems like Fargate may not fit our use case, which would be a real shame because we want to migrate to serverless as much as possible.",Marquis77
+reddit,https://www.reddit.com/r/aws/comments/1avo40h/how_to_connect_server_to_own_backend/,How to connect server to own backend.,"Hello. 
+
+I have a simple Vue application which I have uploaded to an Amplify. When run on localhost, It makes simple requests to my backend which go through Zincsearch and retrieves the data. 
+
+As of now, I don't know how I could configure this so I can maybe have my backend and database uploaded and both applications communicate.
+
+I was thinking about hosting the backend myself but it's proving to be much more difficult than expected. 
+
+Do you know what I could use to either upload everything to AWS or host it by myself?",CronoRiddle
+reddit,/r/OpenText/comments/1avnroo/how_to_documentum_idfsession_with_aws_cognito/,how to Documentum IDfSession with AWS Cognito token,,alfredomova
+reddit,https://www.reddit.com/r/aws/comments/1avngnq/in_aws_using_textract_or_something_similar_is/,"In AWS, using Textract or something similar, is there a way to copy style from one xls to another? Or to convert image (document scan) to a styled xls file?","Hi all,
+
+I have an app fully built inside of AWS. I need to add some functionality to it.
+
+Specifically, I'm trying to find a way to copy the **style** **and layout** of an xls using AWS services. I'm going to end up building another xls (with different data) using this formatting - so it will display in a familiar fashion.
+
+Using textract, you can take a scan and extract the *data* and create an excel file. It would be trivial to turn an existing xls into a scan and then use this AWS service, but **I need the size, color, etc. to be copied** \- not the data.
+
+[https://aws-samples.github.io/amazon-textract-textractor/notebooks/table\_data\_to\_various\_formats.html](https://aws-samples.github.io/amazon-textract-textractor/notebooks/table_data_to_various_formats.html)
+
+Using document analysis and textract, you can copy a pdf and translate it ***including formatting***:
+
+[https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/](https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/)
+
+This makes it close because I could always go XLS -> PDF -> AWS document layout entities -> new PDF, but then I can't do the last step to convert to the final xls with formatting. Or, maybe there is a way to go from the entities directly to xls that I'm unaware of?
+
+If anyone has suggestions of how to do this in AWS, I would greatly appreciate it.
+
+If someone is able to provide a suggestion for a path that ends up working, I'm happy to send you some cash as appreciation. I've been banging my head against this problem for weeks.",chazzmoney
+reddit,https://www.reddit.com/r/aws/comments/1avm55k/best_aws_book_for_saa_knowledge/,Best AWS book for SAA knowledge?,"I do better reading rather than watching videos. 
+
+Are there any good books that the community recommends?",mr_riddler24
+reddit,https://www.reddit.com/r/aws/comments/1avlufv/is_it_necessary_to_train_my_rekognition_model_in/,Is it necessary to train my rekognition model in another account or can I copy from non-production to production?,"This isn't really a technical question about how to copy a trained model to another account but rather a question about best-practices regarding where our recognition custom label projects should be trained before copying to our non-production/production accounts
+
+I have a multi-account architecture setup where my prod/non-prod compute workloads run in separate accounts managed by a central organization account. We current have a rekognition label detection project in our non-prod account.
+
+I wonder, should I have a separate account for our rekognition projects? Is it sufficient (from a security and well-architected perspective) to have one project in non-production and simply copy trained models to production? It seems overkill to have a purpose built account for this but I'm not finding a lot of discussion on the topic (which makes me think it doesn't really matter). I was curious if anyone had any strong opinions one way or the other?",pribnow
+reddit,https://www.reddit.com/r/aws/comments/1avkjur/ecs_fargate_single_service_with_multiple_tasks/,ECS: Fargate - Single Service with Multiple Tasks (Microservices),"I'm pretty new to ECS and have been tasked with setting up resources for a new project. The developers are asking for a single ECS Service to be configured with multiple tasks, one for each microservice for the application. Most of what I am reading only ever refers to an ECS Service with a single task, I can't tell if this is for ease of explanation, or if this is best practice and what our devs are asking for outside the norm. I would appreciate some guidance here.  
+",ozziephotog
+reddit,https://awsteele.com/blog/2024/02/20/when-aws-invariants-are-not.html,When AWS invariants arenít [invariant],,mooreds
+reddit,https://www.reddit.com/r/aws/comments/1avikpv/does_ecs_have_to_be_in_the_same_vpc_as_sqs_to/,Does ECS have to be in the same VPC as SQS to publish a message to the queue?,"I have an ECS service in a VPC. I then have an SQS queue and Lambda so it goes like
+
+ECS -> SQS -> Lamba
+
+Should all of these services be in the same VPC as ECS?",Serious_Reply_5214
+reddit,https://www.reddit.com/r/aws/comments/1avih1p/s3_bucket_best_practices/,S3 Bucket Best Practices,"Hello everyone,
+
+I am currently trying to get a better understanding of best practices of S3 buckets. For that I was evaluating my previous setups with S3 buckets. The way I have went about S3 buckets was to control access to them with IAM policies. I do not have a lot of understanding about ACLs and if I understand correctly is that they add an additional layer of security to the S3 bucket. My question would be: with what do you protect your bucket to deny public access?",n4il1k
+reddit,https://www.reddit.com/r/aws/comments/1avhz21/lambda_and_ffmpeg/,Lambda and Ffmpeg,"I am trying to use ffmpeg by creating a layer following this article  
+[https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a](https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a)  
+
+
+when I use some command that generally works on my system, it does not work in lambda.  
+Here's my code can someone help me with this?  
+
+
+import { promisify } from 'util';
+
+import { exec } from 'child\_process';
+
+const commander = promisify(exec);
+
+export const handler = async (event) => {
+
+  const { stdout } = await commander(\`/opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4'\`](https://dwzxneeggli32.cloudfront.net/ad1.mp4'`));
+
+  return {
+
+statusCode: 200,
+
+body: JSON.stringify(stdout), //For me, N-66244-g468615f204-static... 
+
+  };
+
+};  
+
+
+error which I am getting=>  
+{
+
+  ""errorType"": ""Error"",
+
+  ""errorMessage"": ""Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'\\n"",
+
+  ""trace"": \[
+
+""Error: Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'"",
+
+"""",
+
+""    at ChildProcess.exithandler (node:child\_process:422:12)"",
+
+""    at ChildProcess.emit (node:events:518:28)"",
+
+""    at maybeClose (node:internal/child\_process:1105:16)"",
+
+""    at ChildProcess.\_handle.onexit (node:internal/child\_process:305:5)""
+
+  \]
+
+}",harshitchaudhari
+reddit,https://www.reddit.com/r/aws/comments/1avhu1q/long_duration_python_code_best_awsazure_solution/,Long duration python code. Best AWS/Azure solution?," Hello!
+
+I have python code that runs simulations and exports several graphs and a pickle (the pickle alone stores the main results and can be used to generate the graphs). The code is split into 4 .py scripts (3 of them are just functions called by the ""main"" .py script). And the code also uses a small dataset saved in an excel file (I could obviously change the format).
+
+If it's of any relevance, those simulations are simulating the behaviour of individuals in an Economics macro model. And I am by no means a python expert and never used AWS/Azure before.
+
+At this moment running all the code takes around 10 hours, which is too much for what I am doing. I am testing how the results change when I change some of the parameters of the simulation and trying to find which is the best choice of parameters. So, waiting 10 hours to obtain the results, then changing one parameter and waiting again to get the results is making the process really slow. I would like to be able to run the whole code in parallel, with different choices of parameters, and not having to use my laptop for that.
+
+My question is: Which is the best solution in AWS/Azure? I have seen that there are many options in AWS: EC2, lambda, workspaces... And it's just difficult to figure out what's appropriate for me.
+
+Thank you in advance!",Connect-Comparison69
+reddit,https://www.reddit.com/r/aws/comments/1avhh5o/am_i_the_only_one_who_has_this_any_tips/,Am I the only one who has this? Any tips?,"When deploying a lambda with SAM and the ""most popular option"" of Python/zip
+
+https://preview.redd.it/3oh93wjyqqjc1.png?width=844&format=png&auto=webp&s=25604520015cefcfae290fe3325176214e800e22",Sem_Gl
+reddit,https://www.reddit.com/r/aws/comments/1avgrjs/how_to_build_a_custom_ami_with_minimal_packages/,How to build a custom AMI with minimal packages,"Hello, 
+
+I plan to create a Debian-based custom AMI for my workloads but with minimal packages. 
+
+One way I am aware of this is building the ""OVA"" and then migrating that to AMI. 
+
+The other way is creating an AMI out of an EC2 instance. 
+
+But other than this way, how do you guys build a hardened AMI in a more efficient way?
+
+Thanks.
+
+&#x200B;",Material-Grade-491
+reddit,https://www.smily.com/engineering/a-story-of-a-spectacular-success-intro-to-aws-rds-database-migration-series,A story of a spectacular success - Intro to AWS RDS database migration series,,Azdaroth
+reddit,https://www.reddit.com/r/aws/comments/1avf42r/transferring_a_domain_to_route53_while_keeping/,Transferring a domain to Route53 while keeping privacy enabled,"Hi, I was looking into moving my (personal) domain from Google Domains to Route53 which is currently already used as the nameserver. The AWS docs state to ""Confirm that the email for the registrant contact for your domain is up to date"". However due to privacy mode being enabled the WHOIS entry for the registrants email address is a link like domains.google.com/contactregistrant?domain=xxxx . The link shows a captcha and reveals a 1-day temproray email address. I would prefer not to disable privacy protection as my home address would be publicly available. Does anyone have some ideas on how to proceed?",mynameismarcin
+reddit,https://www.reddit.com/r/aws/comments/1avc0nu/rds_read_replicas/,RDS read replicas?,"Iím curious, how does it actually work when using a read replica? Are users pointed to it automatically, or do you have to set the endpoint using code? How do you do it? Have some method that checks which endpoint was last used, and then set the other endpoint for the next call? And the. Back again for the next user that makes a call, and so on?
+
+Please enlighten me?",mightybob4611
+reddit,https://www.reddit.com/r/aws/comments/1avb6qg/how_to_remove_the_ipv4_from_my_rds_while/,How to remove the IPv4 from my RDS while continuing to access it through the subdomain?,"I have an RDS instance which I access using:
+
+    database-name.XXXXXX.us-east-1.rds.amazonaws.com
+    port:5432
+
+I noticed that I have an IPv4, but I don't really use it ever, and don't want to pay for it.
+
+When clicking ""modify"" for the RDS instance, under connectivity, I can only choose IPv4 or Dual-stack Mode. There is also an option to ""Not publicly accessible"".
+
+I don't want to disable all public access (I want to continue to access it through the sub-domain), but I don't need the IPv4.
+
+Will setting the Security Group inbound rules for my local home IP to access the DB through the subdomain work despite disabling public access?
+
+How to set up the options correctly, any ideas?",schmore31
+reddit,https://www.reddit.com/r/aws/comments/1av8t7d/apprunner_useast1_rds_cacentral1_advice/,AppRunner (us-east-1) + RDS (ca-central-1) advice...,"Hey folks.
+
+I have an interesting situation I've been battling to figure out.  Hoping someone can give me some direction.  AppRunner is awesome for the size of my company and the project we are using it for.  It makes life so easy. Right now we use it for our web (React) front ends.
+
+Now we want to move our APIs to AppRunner.
+
+Our problem:  Our RDS (mySQL) has to be located in Canada (ca-central-1).  AppRunner isn't available in Canada (yet). I really wish it was, this wouldn't be an issue! :(
+
+We are attempting to setup our API containers on AppRunner.  To get the DB connection to work from us-east-1 (AppRunner) to ca-central-1 (RDS), we've setup a Peering Connection.  ""Perfect"" I'm thinking, except in learning this stuff on the fly, I learn that I can't have the AppRunner container go over a Peering Connection AND have internet access.  
+
+Our API needs to make public calls out to other APIs on the internet, as well as hit our RDS server in Canada over the Peering Connection.
+
+Instead of a Peering Connection to get to the DB in Canada, could we, in theory, assign an elastic IP to the ENI that our App Runner container VPC is connected to and then allow that IP address access via the security group of the RDS DB in Canada? 
+
+Thanks in advance!
+
+&#x200B;
+
+&#x200B;",jBucketo
+reddit,https://www.reddit.com/r/aws/comments/1av8ol0/handling_respondtoauthchallenge/,Handling RespondToAuthChallenge,"I don't know if I'm missing something obvious, but how do I properly parse the response from this API call? It's working, and I can get a response, but I don't know how to parse out the passed/failed challenge result.
+
+    RespondToAuthChallengeResponse response_challenge = await m_IDProviderClient.RespondToAuthChallengeAsync(request_challenge);
+    
+    if(response_challenge.HttpStatusCode == HttpStatusCode.OK)
+    {    
+    }
+    else
+    {
+    }
+
+The above code is where I'm at. It seems that the HTTP code is always ""OK"", even if the user failed the challenge. That's fine, since I assume the HTTP is purely indicating that the communications are OK and has no bearing on the content of said communication.
+
+The docs for `RespondToAuthChallengeResponse` say :
+
+>If the action is successful, the service sends back an HTTP 200 response.
+
+Again, I assume that just means if the communication between AWS and the client succeeded, not the result of the challenge itself.
+
+So my question is, which variable in the `RespondToAuthChallengeResponse` class indicates what happened with the verification? (so that I can tell the user they messed up and have x tries left before failing auth altogether) (verifyAuthChallenge lambda is just comparing two numbers that need to be equal, assigning pass or fail as a result).
+
+The `AuthenticationResult` is null when the attempt fails. Is it as simple as just testing for null there, and assuming that's a failed result? I was reluctant to do this as I'm not sure that the null object would *always* represent a failed validation.",Cactorious
+reddit,https://www.reddit.com/r/aws/comments/1av7ttu/connecting_to_rds_outside_of_aws/,Connecting to RDS outside of AWS,"Hi all,
+
+I'm a noob with AWS. I want to host my Flask app with AWS; one of the first things I have to do is migrate my SQLite database that I am currently using to a MySQL DB on RDS. I have data in a dataframe in a Jupyter notebook, and I am able to create a connection with SQLAlchemy. However, when I call df.to\_sql() and pass in the engine, I get an Assertion Error with no explanation. I think it may be a problem with my connection settings in my console. 
+
+Can anybody help me out here? Would really appreciate it!",jackkelly1212
+reddit,https://www.reddit.com/r/aws/comments/1av7rph/why_does_one_of_the_endpoints_on_my_lambda_api/,"Why does one of the endpoints on my lambda api return a 503, but none of the others do?","I have a backend written in Rust using axum that I run in a Lambda function. I have about 10 different endpoints all on this single lambda. Until now, they've all worked great. They all consume json payloads and return json responses. 
+
+
+I had to add a new feature which allows the user to upload a file. So I decided to use a multipart form for this. I have my api setup where I can test locally by spinning up a server. The library I'm using allows this very easily. https://crates.io/crates/lambda-web
+
+
+When I test my new endpoint locally, it works great. I can use postman or my web app to upload a file and get an appropriate response. It can take up to 45 seconds or so for this request to complete, as I have to make requests from my backend to other services before returning a response.
+
+
+However, when I push this function to aws, I get a 503 when hitting this endpoint. I get no information other than 503: ""Sevice unavailable""
+
+I added some prints inside the handler for this endpoint to see if there were any errors. There were not. Execution made it go the very end and the response it should have sent back looked correct.
+
+The really weird part is that this endpoint *WAS* working on Friday. I didn't change anything, but when I tried it this morning I got the 503. This is an error from AWS, not my function. 
+
+
+Everytime I get the 503, the request is almost exactly 30 seconds. Usually it's between 30.1 and 30.3 seconds. So it looks like a timeout of some sort. However, I have my function timeout set to 4 minutes. Some of my other endpoints can take over a minute and still complete as expected.
+
+
+So... what's happening? I can't find any error logs or any information about what's happening at all. My cloud watch logs show all the prints and debug information I'm outputting, and it all looks normal. 
+
+
+Am I hitting some sort of size or time limit? Can this be configured? Where would I even look to find out what's causing this issue?
+
+",Barbacamanitu00
+reddit,https://www.reddit.com/r/aws/comments/1av6t97/a_good_architectural_pattern_to_process_timebased/,A good architectural pattern to process time-based events.,"Hello everyone,
+
+I'm new to AWS and am in the process of figuring out the most suitable architectural pattern for a relatively simple web app  I plan to develop. This application isn't for critical business purposes, and I anticipate it will have a few thousand users at most.
+
+Here's my plan:
+
+1. I intend to use DynamoDB to store entries, with each entry tagged by a timestamp. Precise time tracking isn't necessary; a day's granularity is sufficient (for example, entries might be tagged as '2/20/2024').
+2. On a specific day (like 2/20), my goal is to retrieve all entries from that day and then send out emails to the respective recipients. Each entry corresponds to a different recipient. The volume of these emails might range from tens to a few hundred per day.
+3. For various reasons, I'm considering dividing each day into four quarters. The entries in DynamoDB will be processed according to these time slots. For instance, when adding an entry to DynamoDB, its primary key might be something like '2024\_02\_20\_1' to denote the first quarter of February 20, 2024. Having such a PK, as I understand, will significantly speed up retrieval and keep costs low rather than scan the whole table.
+
+Based on my current understanding, which is primarily theoretical, I'm thinking about using a Lambda function that triggers every six hours (I've read about AWS step functions, would I use that?). This function would retrieve all relevant entries from DynamoDB and then pass these entries to EventBridge. From there, AWS Pinpoint would manage the email dispatch. *If my approach seems flawed or if I'm misunderstanding anything, please feel free to correct me.*
+
+Is there a more efficient method than batch processing via Lambda for this task? I don't require more precise time tracking. I prefer using DynamoDB for storing entries, as I might need to modify them occasionally based on specific user scenarios.",NewCoderNoob
+reddit,https://www.reddit.com/r/aws/comments/1auqb5v/nodejs_api_performance_issues_on_aws_t2micro/,NodeJS API Performance Issues on AWS t2.micro - Selecting the Right Instance for Optimization,"Hi everyone,   
+
+
+I have developed a NodeJS API which is currently running on a t2.micro instance on AWS. This application is relatively small and doesn't involve any advanced computations. It only performs basic CRUD operations. However, the API is experiencing some performance issues, with a latency of 2-3.5 seconds when running on the t2.micro instance, even though it performs well on localhost. In localhost it not have any significant latency.
+
+To resolve this issue, I am planning to deploy the API on another instance. However, I am not sure which instance type to choose for optimal performance. I will attach the monitoring details of the current t2.micro instance for your reference. Could you please provide some guidance on which instance type I should choose for my API? Since all these intances are same. I could'nt undestand why is that and what should i select.
+
+Monitoring details of current t2.micro instance
+
+[Monitoring details of current t2.micro instance](https://preview.redd.it/z9oec1bp9kjc1.png?width=2466&format=png&auto=webp&s=4709bd8d1b6c995533363bf7f0b9ada298929b40)
+
+&#x200B;
+
+New instances I plan to deploy next.
+
+![img](kz664frw9kjc1 ""New instances I plan to deploy next.
+"")",ESHAN12341
+reddit,https://www.reddit.com/r/aws/comments/1av3zx4/csacse_interview_helpful_tips/,CSA/CSE Interview helpful tips?,"Hey guys Iím going to be doing my final interview for the CSA/CSE role at Amazon in a couple weeks and I was wondering if anyone had any other tips or advice? 
+
+Iíve  looked over the Leadership Principles and I am using the STAR method to format my answers so I think Iím good there but regarding the networking/linux portion any advice?
+
+The position is in TX and with SCD.
+
+I have 8 years of networking experience with Linux and a couple of related certs from my time in the military. (Network +, sec +, ITIL, AWS SAA and RHSCA and a couple of Microsoft ones)
+
+Iím 30/F Iím a-little worried Iím too old for this position but does anyone have a general idea of the age range? Itís silly to worry about this but Iím worried about the potential knowledge barrier?",Warm_Yogurtcloset305
+reddit,https://www.reddit.com/r/aws/comments/1av3m8p/transitioning_from_hardcoded_ip_addresses_to_dns/,Transitioning from hardcoded IP addresses to DNS,"Howdy folks
+
+I just wanted some advice and suggestions for transitioning from hardcoded IP Addresses to DNS in AWS. The reason for this is for IoT devices out in the field to connect using DNS instead of the IP addresses and if SHTF DNS can be used to point at another address etc. Does this sound like a reasonable use case? also, any advice thoughts and suggestions are welcome and appreciated.
+
+The architecture is:  
+
+
+1. 3 x EC2 instances using Elastic IP addresses - dev, staging, production
+2. RDS instances, dev, staging and production
+3. A 3rd party provider hosts DNS (R53 is currently not being used)
+4. We want to create a subdomain/public hosted zone in AWS to reach AWS resources by DNS
+
+* Once the hosted zone is created; the configuration of the DNS records will be:
+* Updating the 3rd party DNS with the NS provided by AWS for the DNS records.
+* Adding (A) records for the dev, staging and production EC2 instances > pointing to the EIP addresses. 
+   * dev.example.com, staging.example.com, production.example.com
+* Creating CNAME records for the dev, staging and production RDS instances > pointing to the RDS endpoints.
+   * dev-db.example.com , staging-db.example.com, prod-db.example.com
+* Perform testing by logging into the DB's using MySQL Workbench using the DNS hostname.
+* Perform testing by using dig, curl and nslookup.
+
+&#x200B;",EatTheRichNZ
+reddit,https://www.reddit.com/r/aws/comments/1aup67g/aws_batch_stuck_in_runnable/,AWS Batch Stuck in RUNNABLE,"Hey all, Happy Presidents' Day to those in the US! Yet another ""AWS Batch stuck in RUNNABLE"" issue - I've read through probably a dozen posts on this topic here and on SO, but still can't figure out this specific case, so hoping the collective wisdom can help me out. 
+
+Background: I'm using Batch for HPC workloads (quantum chemistry) and have been using Fargate compute environments for months without issue, but want to run some heftier calculations using c5 EC2 instances. I've created an EC2 compute environment, but can't even get the basic ""hello world"" job to run - it just stays at RUNNABLE indefinitely. 
+
+Little unsure what could be going wrong: c5.2xlarge instances are being allocated in the underlying EC2 Auto Scaling group, so I don't think it's the typical availability/account quota issue, and I can reduce the resource requirements all the way down to 1 CPU/2 GB memory and the jobs are still stuck. I can run Fargate jobs without issue, which precludes any drastic IAM role issues, although maybe there's some EC2-specific IAM config issue I'm missing.  
+
+Here's a sample job JSON:
+
+`{`
+
+  `""jobArn"": ""arn:aws:batch:us-east-1:xxxxx:job/31deec5f-71dd-41a8-9bc9-712edd48a95e"",`
+
+  `""jobName"": ""hello-world-1"",`
+
+  `""jobId"": ""31deec5f-71dd-41a8-9bc9-712edd48a95e"",`
+
+  `""jobQueue"": ""arn:aws:batch:us-east-1:xxxxx:job-queue/c5-queue"",`
+
+  `""status"": ""RUNNABLE"",`
+
+  `""attempts"": [],`
+
+  `""createdAt"": 1708353181873,`
+
+  `""dependsOn"": [],`
+
+  `""jobDefinition"": ""arn:aws:batch:us-east-1:xxxxx:job-definition/hello-world:1"",`
+
+  `""parameters"": {},`
+
+  `""container"": {`
+
+`""image"": ""`[`public.ecr.aws/amazonlinux/amazonlinux:latest`](https://public.ecr.aws/amazonlinux/amazonlinux:latest)`"",`
+
+`""command"": [`
+
+`""echo"",`
+
+`""hello world""`
+
+`],`
+
+`""volumes"": [],`
+
+`""environment"": [],`
+
+`""mountPoints"": [],`
+
+`""ulimits"": [],`
+
+`""networkInterfaces"": [],`
+
+`""resourceRequirements"": [`
+
+`{`
+
+`""value"": ""8"",`
+
+`""type"": ""VCPU""`
+
+`},`
+
+`{`
+
+`""value"": ""15000"",`
+
+`""type"": ""MEMORY""`
+
+`}`
+
+`],`
+
+`""secrets"": []`
+
+  `},`
+
+  `""tags"": {},`
+
+  `""platformCapabilities"": [`
+
+`""EC2""`
+
+  `],`
+
+  `""eksAttempts"": []`
+
+`}`
+
+&#x200B;
+
+And here's the compute environment:
+
+`{`
+
+  `""computeEnvironmentName"": ""c5-compute-env"",`
+
+  `""computeEnvironmentArn"": ""arn:aws:batch:us-east-1:xxxxx:compute-environment/c5-compute-env"",`
+
+  `""ecsClusterArn"": ""arn:aws:ecs:us-east-1:xxxxx:cluster/AWSBatch-c5-compute-env-4237da7a-b768-3046-bc29-c49ea983c3d3"",`
+
+  `""tags"": {},`
+
+  `""type"": ""MANAGED"",`
+
+  `""state"": ""ENABLED"",`
+
+  `""status"": ""VALID"",`
+
+  `""statusReason"": ""ComputeEnvironment Healthy"",`
+
+  `""computeResources"": {`
+
+`""type"": ""EC2"",`
+
+`""allocationStrategy"": ""BEST_FIT_PROGRESSIVE"",`
+
+`""minvCpus"": 0,`
+
+`""maxvCpus"": 512,`
+
+`""desiredvCpus"": 18,`
+
+`""instanceTypes"": [`
+
+`""c5"",`
+
+`""optimal""`
+
+`],`
+
+`""subnets"": [`
+
+`""subnet-0fbf9851a903c019c"",`
+
+`""subnet-015bbd39e1aa3e995"",`
+
+`""subnet-0062a6efa9523d443"",`
+
+`""subnet-0aa2ca6c2be31456a"",`
+
+`""subnet-02d42b65a20abfc8b"",`
+
+`""subnet-0f16299c2da237e3b""`
+
+`],`
+
+`""securityGroupIds"": [`
+
+`""sg-058e9f802412035e9""`
+
+`],`
+
+`""instanceRole"": ""arn:aws:iam::xxxxx:instance-profile/ecsTaskExecutionRole"",`
+
+`""tags"": {},`
+
+`""ec2Configuration"": [`
+
+`{`
+
+`""imageType"": ""ECS_AL2""`
+
+`}`
+
+`]`
+
+  `},`
+
+  `""serviceRole"": ""arn:aws:iam::xxxxx:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch"",`
+
+  `""containerOrchestrationType"": ""ECS"",`
+
+  `""uuid"": ""a1ab0e04-9376-3187-9ad8-700d89523b7b""`
+
+`}`
+
+Any brainstorming about what might be going wrong would be appreciated - I feel like I'm running out of ideas here...
+
+&#x200B;",cwagen
+reddit,https://www.reddit.com/r/aws/comments/1av2fnu/ec2_logs_to_cloudwatch_for_amazon_linux_3_not/,EC2 logs to Cloudwatch for Amazon Linux 3 not (easily) possible,"Sanity check - does AWS' own Cloudwatch log agent not support the only system logging mechanism supported by AWS' own AL3 ""journald""? This seems ridiculous to me. I would have thought this would be a super important use case for EC2, with business drivers both operational and security.
+
+It used to be so easy, install the agent, so long as the instance profile is setup you get the logs.
+
+I find this issue on the cw log agent asking for journald support:
+
+[https://github.com/aws/amazon-cloudwatch-agent/issues/382](https://github.com/aws/amazon-cloudwatch-agent/issues/382)
+
+And the best solution I can find (apart from using Datadog's Vector) is this, changing the system services to write the log files then configuring the log agent to point to them [https://gist.github.com/adam-hanna/06afe09209589c80ba460662f7dce65c](https://gist.github.com/adam-hanna/06afe09209589c80ba460662f7dce65c)",VengaBusdriver37
+reddit,https://www.reddit.com/r/aws/comments/1av214l/i_have_a_single_ec2_instance_running_nginx_and_id/,I have a single EC2 instance running nginx and I'd like to enable HTTPS,"But I don't think I can?
+
+From what I read I can't download my AWS-created certificates and toss them into the nginx conf, I need to use and ELB to use my certs. But when I try to create and ELB:
+
+`Select at least two Availability Zones and one subnet per zone. The load balancer routes traffic to targets in these Availability Zones only. Availability Zones that are not supported by the load balancer or the VPC are not available for selection.` ",rbtcacct
+reddit,https://www.reddit.com/r/aws/comments/1aukn29/figuring_saas_cloud_development_requirements/,Figuring SaaS cloud development requirements," I have an SaaS software underdevelopment Django rest framework as a backend and angular as a front-end and this is the state if the architecture :
+
+ECS services running using a load balancer with CodePipelines for each service making sure the services are up to date with the code on CodeCommit.
+
+Now i am working on a terraform project for this setup so that we can start working with IaC and the next step is to get 2 more environment running ( using terraform ) and get the system of migrating from dev to test to prod running and i assume the next step would be getting the system for tenant creation and deletion up and running.
+
+according to latest SaaS business(that you know of) practices are those steps correct and is there more to build on such architecture to reach a point where the application is conforming to industry practices(that you know of).
+
+I need to get the global picture to the product owner with the goal and future tasks to reach such goal.
+
+PS: I have about 5 months of experience and I am the only one in the company with prior knowledge to any cloud services or infrastructure(I am coming up with the requirements trying to get the project up to standard because the PO has no knowledge about devops or cloud engineering).
+
+ ",GoofyPelikan
+reddit,https://www.reddit.com/r/aws/comments/1av1nui/i_have_an_idea_and_im_looking_for_some_feedback/,"I have an idea and Iím looking for some feedback, and thoughts.","Every once in a while, I come across someone running an instance, but just needing it during business hours. So, in my case, we had a Jira instance up that we really only needed to run during the work day. A company we work with was going to spin up a stable diffusion instance to make sure they had control of the content that was created. This wouldnít have needed to run outside of work hours. Another type of instance came up with a trainium instance where it wasnít checked over a long weekend and all work was done late Thursday, but someone paid through Tuesday morning. 
+
+Iím wondering if it would be worthwhile to create a service that would stop these instances when they arenít needed and spin them back up when they are. Probably start out with just a basic time schedule, but then add the ability to stop based on being below a threshold for bandwidth and/or CPU utilization. Maybe make it so you start up on a request (that could get tricky depending on how the IP address is set up, but might have to change Route 53, etc). 
+
+I mean if the month is 720/744 hours and the work hours top out at 184 in a given month, we are talking about a 75% ish savings pretty quickly. This could be set up run on fargate and stay really lightweight. 
+
+Thoughts?",GenerallyObvious
+reddit,https://www.reddit.com/r/aws/comments/1av0st2/aws_or_azure/,AWS or Azure?,"Hey guys,
+
+With AWS' marketshare decreasing (now 32%) and Azure's marketshare increasing (now 23%)  
+
+
+I was wondering which of the two is a better option to choose towards a Cloud Consulting business.  
+
+
+Which one of the two (AWS/Azure) do you think will have more potential clients for a Cloud Consulting firm?",hanneninn
+reddit,https://i.redd.it/xnblsjm6v5371.png,"The recent ""all the ways to run containers on AWS"" posts have left me super confused, so I made this flowchart. It's probably also wrong.",,1622774197.0
+reddit,https://i.redd.it/yd8auoi5rza71.png,"Since you all liked the containers one, I made another Probably Wrong Flowchart on AWS database services!",,1626186983.0
+reddit,https://www.reddit.com/r/aws/comments/ivwj2w/acloudguru_is_scamming_people_secretly_removed/,Acloudguru is scamming people. Secretly removed Linuxacademy courses and replaced it with their inferior content,"**Acloudguru is scamming people and going back on their promise.**
+
+When Acloudguru took over LinuxAcademy they assured us that we will have access to both catalog of courses. This was a lie.
+
+I paid for Linuxacademy yearly subscription to access their AWS Architect Pro and Devops Pro courses. 
+
+**When I logged in a few days ago I found out that ACG removed 50 hour Aws Architect Pro Linuxacademy course by Adrian Cantrill and replaced it with their ACG inferior 14 hour course by Scott Pelter**
+
+**ACG removed 32 hour Devops Pro course and replaced it with their garbage 6 hour course. In actuality itís only 4 hours!! Because they sneakily marked each section quiz as 4 hours long and added it to course total.**
+
+This is clearly not what I and other Linuxacademy members paid for. We would like the content that we paid for. Ryan Kroonenburg should be ashamed of himself for scamming people.
+
+I opened a ticket and was told by ACG rep that if I didnít watch any video from Linuxacademy AWS Pro courses before then I wonít have access to them. Which is completely the opposite of what we were told when ACG took over.
+
+They are slowly replacing all LinuxAcademy courses with shorter, vomit inducing ACG products. 
+
+**Also they sneakily inflate course length by making their quizzes as 4 hour long each. For example there are 6 quiz for AWS Devops Pro exam. So 6 x 4 is 24 hours. The total length of AWS Devops pro course advertised by ACG is 27 hours. So there is only 3 hours of content. No really, go check!**
+
+Linux academy had such great courses and content. Acloudguru is completely destroying all of its credibility and scamming people on top of it. I advise not to get any subscription with them. 
+
+Rather support people like Stephen Maarek, Adrian Cantrill, Eissa Sharif, Neal Davis etc.",1600535539.0
+reddit,https://i.redd.it/gqvebjo9hf9b1.jpg,What does he mean by ìtech stack is on an AWS S3 clusterî?,,1688249747.0
+reddit,https://i.redd.it/xnblsjm6v5371.png,"The recent ""all the ways to run containers on AWS"" posts have left me super confused, so I made this flowchart. It's probably also wrong.",,937
+reddit,https://i.redd.it/yd8auoi5rza71.png,"Since you all liked the containers one, I made another Probably Wrong Flowchart on AWS database services!",,756
+reddit,https://www.reddit.com/r/aws/comments/ivwj2w/acloudguru_is_scamming_people_secretly_removed/,Acloudguru is scamming people. Secretly removed Linuxacademy courses and replaced it with their inferior content,"**Acloudguru is scamming people and going back on their promise.**
+
+When Acloudguru took over LinuxAcademy they assured us that we will have access to both catalog of courses. This was a lie.
+
+I paid for Linuxacademy yearly subscription to access their AWS Architect Pro and Devops Pro courses. 
+
+**When I logged in a few days ago I found out that ACG removed 50 hour Aws Architect Pro Linuxacademy course by Adrian Cantrill and replaced it with their ACG inferior 14 hour course by Scott Pelter**
+
+**ACG removed 32 hour Devops Pro course and replaced it with their garbage 6 hour course. In actuality itís only 4 hours!! Because they sneakily marked each section quiz as 4 hours long and added it to course total.**
+
+This is clearly not what I and other Linuxacademy members paid for. We would like the content that we paid for. Ryan Kroonenburg should be ashamed of himself for scamming people.
+
+I opened a ticket and was told by ACG rep that if I didnít watch any video from Linuxacademy AWS Pro courses before then I wonít have access to them. Which is completely the opposite of what we were told when ACG took over.
+
+They are slowly replacing all LinuxAcademy courses with shorter, vomit inducing ACG products. 
+
+**Also they sneakily inflate course length by making their quizzes as 4 hour long each. For example there are 6 quiz for AWS Devops Pro exam. So 6 x 4 is 24 hours. The total length of AWS Devops pro course advertised by ACG is 27 hours. So there is only 3 hours of content. No really, go check!**
+
+Linux academy had such great courses and content. Acloudguru is completely destroying all of its credibility and scamming people on top of it. I advise not to get any subscription with them. 
+
+Rather support people like Stephen Maarek, Adrian Cantrill, Eissa Sharif, Neal Davis etc.",658
+reddit,https://i.redd.it/gqvebjo9hf9b1.jpg,What does he mean by ìtech stack is on an AWS S3 clusterî?,,649
+reddit,https://i.redd.it/xnblsjm6v5371.png,"The recent ""all the ways to run containers on AWS"" posts have left me super confused, so I made this flowchart. It's probably also wrong.",
+reddit,https://i.redd.it/yd8auoi5rza71.png,"Since you all liked the containers one, I made another Probably Wrong Flowchart on AWS database services!",
+reddit,https://www.reddit.com/r/aws/comments/ivwj2w/acloudguru_is_scamming_people_secretly_removed/,Acloudguru is scamming people. Secretly removed Linuxacademy courses and replaced it with their inferior content,"**Acloudguru is scamming people and going back on their promise.**
+
+When Acloudguru took over LinuxAcademy they assured us that we will have access to both catalog of courses. This was a lie.
+
+I paid for Linuxacademy yearly subscription to access their AWS Architect Pro and Devops Pro courses. 
+
+**When I logged in a few days ago I found out that ACG removed 50 hour Aws Architect Pro Linuxacademy course by Adrian Cantrill and replaced it with their ACG inferior 14 hour course by Scott Pelter**
+
+**ACG removed 32 hour Devops Pro course and replaced it with their garbage 6 hour course. In actuality itís only 4 hours!! Because they sneakily marked each section quiz as 4 hours long and added it to course total.**
+
+This is clearly not what I and other Linuxacademy members paid for. We would like the content that we paid for. Ryan Kroonenburg should be ashamed of himself for scamming people.
+
+I opened a ticket and was told by ACG rep that if I didnít watch any video from Linuxacademy AWS Pro courses before then I wonít have access to them. Which is completely the opposite of what we were told when ACG took over.
+
+They are slowly replacing all LinuxAcademy courses with shorter, vomit inducing ACG products. 
+
+**Also they sneakily inflate course length by making their quizzes as 4 hour long each. For example there are 6 quiz for AWS Devops Pro exam. So 6 x 4 is 24 hours. The total length of AWS Devops pro course advertised by ACG is 27 hours. So there is only 3 hours of content. No really, go check!**
+
+Linux academy had such great courses and content. Acloudguru is completely destroying all of its credibility and scamming people on top of it. I advise not to get any subscription with them. 
+
+Rather support people like Stephen Maarek, Adrian Cantrill, Eissa Sharif, Neal Davis etc."
+reddit,https://i.redd.it/gqvebjo9hf9b1.jpg,What does he mean by ìtech stack is on an AWS S3 clusterî?,
+reddit,https://i.redd.it/xnblsjm6v5371.png,"The recent ""all the ways to run containers on AWS"" posts have left me super confused, so I made this flowchart. It's probably also wrong.",
+reddit,https://i.redd.it/yd8auoi5rza71.png,"Since you all liked the containers one, I made another Probably Wrong Flowchart on AWS database services!",
+reddit,https://www.reddit.com/r/aws/comments/ivwj2w/acloudguru_is_scamming_people_secretly_removed/,Acloudguru is scamming people. Secretly removed Linuxacademy courses and replaced it with their inferior content,"**Acloudguru is scamming people and going back on their promise.**
+
+When Acloudguru took over LinuxAcademy they assured us that we will have access to both catalog of courses. This was a lie.
+
+I paid for Linuxacademy yearly subscription to access their AWS Architect Pro and Devops Pro courses. 
+
+**When I logged in a few days ago I found out that ACG removed 50 hour Aws Architect Pro Linuxacademy course by Adrian Cantrill and replaced it with their ACG inferior 14 hour course by Scott Pelter**
+
+**ACG removed 32 hour Devops Pro course and replaced it with their garbage 6 hour course. In actuality itís only 4 hours!! Because they sneakily marked each section quiz as 4 hours long and added it to course total.**
+
+This is clearly not what I and other Linuxacademy members paid for. We would like the content that we paid for. Ryan Kroonenburg should be ashamed of himself for scamming people.
+
+I opened a ticket and was told by ACG rep that if I didnít watch any video from Linuxacademy AWS Pro courses before then I wonít have access to them. Which is completely the opposite of what we were told when ACG took over.
+
+They are slowly replacing all LinuxAcademy courses with shorter, vomit inducing ACG products. 
+
+**Also they sneakily inflate course length by making their quizzes as 4 hour long each. For example there are 6 quiz for AWS Devops Pro exam. So 6 x 4 is 24 hours. The total length of AWS Devops pro course advertised by ACG is 27 hours. So there is only 3 hours of content. No really, go check!**
+
+Linux academy had such great courses and content. Acloudguru is completely destroying all of its credibility and scamming people on top of it. I advise not to get any subscription with them. 
+
+Rather support people like Stephen Maarek, Adrian Cantrill, Eissa Sharif, Neal Davis etc."
+reddit,https://i.redd.it/gqvebjo9hf9b1.jpg,What does he mean by ìtech stack is on an AWS S3 clusterî?,
+reddit,https://aws.amazon.com/blogs/mobile/custom-ssl-amplify-hosting,Amplify Hosting launched custom SSL certificates/TLS support,,1708454519.0
+reddit,https://www.reddit.com/r/aws/comments/1avih1p/s3_bucket_best_practices/,S3 Bucket Best Practices,"Hello everyone,
+
+I am currently trying to get a better understanding of best practices of S3 buckets. For that I was evaluating my previous setups with S3 buckets. The way I have went about S3 buckets was to control access to them with IAM policies. I do not have a lot of understanding about ACLs and if I understand correctly is that they add an additional layer of security to the S3 bucket. My question would be: with what do you protect your bucket to deny public access?",1708438066.0
+reddit,https://www.reddit.com/r/aws/comments/1avngnq/in_aws_using_textract_or_something_similar_is/,"In AWS, using Textract or something similar, is there a way to copy style from one xls to another? Or to convert image (document scan) to a styled xls file?","Hi all,
+
+I have an app fully built inside of AWS. I need to add some functionality to it.
+
+Specifically, I'm trying to find a way to copy the **style** **and layout** of an xls using AWS services. I'm going to end up building another xls (with different data) using this formatting - so it will display in a familiar fashion.
+
+Using textract, you can take a scan and extract the *data* and create an excel file. It would be trivial to turn an existing xls into a scan and then use this AWS service, but **I need the size, color, etc. to be copied** \- not the data.
+
+[https://aws-samples.github.io/amazon-textract-textractor/notebooks/table\_data\_to\_various\_formats.html](https://aws-samples.github.io/amazon-textract-textractor/notebooks/table_data_to_various_formats.html)
+
+Using document analysis and textract, you can copy a pdf and translate it ***including formatting***:
+
+[https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/](https://aws.amazon.com/blogs/machine-learning/retain-original-pdf-formatting-to-view-translated-documents-with-amazon-textract-amazon-translate-and-pdfbox/)
+
+This makes it close because I could always go XLS -> PDF -> AWS document layout entities -> new PDF, but then I can't do the last step to convert to the final xls with formatting. Or, maybe there is a way to go from the entities directly to xls that I'm unaware of?
+
+If anyone has suggestions of how to do this in AWS, I would greatly appreciate it.
+
+If someone is able to provide a suggestion for a path that ends up working, I'm happy to send you some cash as appreciation. I've been banging my head against this problem for weeks.",1708450396.0
+reddit,https://www.reddit.com/r/aws/comments/1avm55k/best_aws_book_for_saa_knowledge/,Best AWS book for SAA knowledge?,"I do better reading rather than watching videos. 
+
+Are there any good books that the community recommends?",1708447297.0
+reddit,https://www.reddit.com/r/aws/comments/1avlufv/is_it_necessary_to_train_my_rekognition_model_in/,Is it necessary to train my rekognition model in another account or can I copy from non-production to production?,"This isn't really a technical question about how to copy a trained model to another account but rather a question about best-practices regarding where our recognition custom label projects should be trained before copying to our non-production/production accounts
+
+I have a multi-account architecture setup where my prod/non-prod compute workloads run in separate accounts managed by a central organization account. We current have a rekognition label detection project in our non-prod account.
+
+I wonder, should I have a separate account for our rekognition projects? Is it sufficient (from a security and well-architected perspective) to have one project in non-production and simply copy trained models to production? It seems overkill to have a purpose built account for this but I'm not finding a lot of discussion on the topic (which makes me think it doesn't really matter). I was curious if anyone had any strong opinions one way or the other?",1708446596.0
+reddit,https://www.reddit.com/r/aws/comments/1avkjur/ecs_fargate_single_service_with_multiple_tasks/,ECS: Fargate - Single Service with Multiple Tasks (Microservices),"I'm pretty new to ECS and have been tasked with setting up resources for a new project. The developers are asking for a single ECS Service to be configured with multiple tasks, one for each microservice for the application. Most of what I am reading only ever refers to an ECS Service with a single task, I can't tell if this is for ease of explanation, or if this is best practice and what our devs are asking for outside the norm. I would appreciate some guidance here.  
+",1708443461.0
+reddit,https://www.reddit.com/r/aws/comments/1avf42r/transferring_a_domain_to_route53_while_keeping/,Transferring a domain to Route53 while keeping privacy enabled,"Hi, I was looking into moving my (personal) domain from Google Domains to Route53 which is currently already used as the nameserver. The AWS docs state to ""Confirm that the email for the registrant contact for your domain is up to date"". However due to privacy mode being enabled the WHOIS entry for the registrants email address is a link like domains.google.com/contactregistrant?domain=xxxx . The link shows a captcha and reveals a 1-day temproray email address. I would prefer not to disable privacy protection as my home address would be publicly available. Does anyone have some ideas on how to proceed?",1708427182.0
+reddit,https://www.reddit.com/r/aws/comments/1avoixr/best_way_to_mount_an_external_storage_service_to/,Best way to mount an external storage service to Windows server 2022 ECS Fargate?,"Hi all,
+
+Looking for some guidance on the best service(s) to mount persistent storage to windows server 2022 running on Fargate.
+
+I've looked at FSx for Windows, but I'm not sure I want to use it. We do have a managed AD service, but I feel like the whole setup and management of it is going to be really annoying and complex.
+
+My understanding is that EFS is not able to be mounted directly. I did see some articles mentioning mounting it via WSL2 (which is available on Server 2022 apparently), but this seems to me to be incredibly hacky and fragile.
+
+Does anybody know of any other solutions? Without this, we're probably just going to go back to EC2 as it seems like Fargate may not fit our use case, which would be a real shame because we want to migrate to serverless as much as possible.",1708452875.0
+reddit,https://www.reddit.com/r/aws/comments/1avo40h/how_to_connect_server_to_own_backend/,How to connect server to own backend.,"Hello. 
+
+I have a simple Vue application which I have uploaded to an Amplify. When run on localhost, It makes simple requests to my backend which go through Zincsearch and retrieves the data. 
+
+As of now, I don't know how I could configure this so I can maybe have my backend and database uploaded and both applications communicate.
+
+I was thinking about hosting the backend myself but it's proving to be much more difficult than expected. 
+
+Do you know what I could use to either upload everything to AWS or host it by myself?",1708451931.0
+reddit,https://www.reddit.com/r/aws/comments/1avikpv/does_ecs_have_to_be_in_the_same_vpc_as_sqs_to/,Does ECS have to be in the same VPC as SQS to publish a message to the queue?,"I have an ECS service in a VPC. I then have an SQS queue and Lambda so it goes like
+
+ECS -> SQS -> Lamba
+
+Should all of these services be in the same VPC as ECS?",1708438342.0
+reddit,/r/OpenText/comments/1avnroo/how_to_documentum_idfsession_with_aws_cognito/,how to Documentum IDfSession with AWS Cognito token,,1708451181.0
+reddit,https://www.reddit.com/r/aws/comments/1av7rph/why_does_one_of_the_endpoints_on_my_lambda_api/,"Why does one of the endpoints on my lambda api return a 503, but none of the others do?","I have a backend written in Rust using axum that I run in a Lambda function. I have about 10 different endpoints all on this single lambda. Until now, they've all worked great. They all consume json payloads and return json responses. 
+
+
+I had to add a new feature which allows the user to upload a file. So I decided to use a multipart form for this. I have my api setup where I can test locally by spinning up a server. The library I'm using allows this very easily. https://crates.io/crates/lambda-web
+
+
+When I test my new endpoint locally, it works great. I can use postman or my web app to upload a file and get an appropriate response. It can take up to 45 seconds or so for this request to complete, as I have to make requests from my backend to other services before returning a response.
+
+
+However, when I push this function to aws, I get a 503 when hitting this endpoint. I get no information other than 503: ""Sevice unavailable""
+
+I added some prints inside the handler for this endpoint to see if there were any errors. There were not. Execution made it go the very end and the response it should have sent back looked correct.
+
+The really weird part is that this endpoint *WAS* working on Friday. I didn't change anything, but when I tried it this morning I got the 503. This is an error from AWS, not my function. 
+
+
+Everytime I get the 503, the request is almost exactly 30 seconds. Usually it's between 30.1 and 30.3 seconds. So it looks like a timeout of some sort. However, I have my function timeout set to 4 minutes. Some of my other endpoints can take over a minute and still complete as expected.
+
+
+So... what's happening? I can't find any error logs or any information about what's happening at all. My cloud watch logs show all the prints and debug information I'm outputting, and it all looks normal. 
+
+
+Am I hitting some sort of size or time limit? Can this be configured? Where would I even look to find out what's causing this issue?
+
+",1708400091.0
+reddit,https://www.reddit.com/r/aws/comments/1avc0nu/rds_read_replicas/,RDS read replicas?,"Iím curious, how does it actually work when using a read replica? Are users pointed to it automatically, or do you have to set the endpoint using code? How do you do it? Have some method that checks which endpoint was last used, and then set the other endpoint for the next call? And the. Back again for the next user that makes a call, and so on?
+
+Please enlighten me?",1708414643.0
+reddit,https://awsteele.com/blog/2024/02/20/when-aws-invariants-are-not.html,When AWS invariants arenít [invariant],,1708440368.0
+reddit,https://www.reddit.com/r/aws/comments/1avhz21/lambda_and_ffmpeg/,Lambda and Ffmpeg,"I am trying to use ffmpeg by creating a layer following this article  
+[https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a](https://aws.plainenglish.io/automated-video-processing-with-aws-lambda-and-ffmpeg-51ea9c79aa2a)  
+
+
+when I use some command that generally works on my system, it does not work in lambda.  
+Here's my code can someone help me with this?  
+
+
+import { promisify } from 'util';
+
+import { exec } from 'child\_process';
+
+const commander = promisify(exec);
+
+export const handler = async (event) => {
+
+  const { stdout } = await commander(\`/opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4'\`](https://dwzxneeggli32.cloudfront.net/ad1.mp4'`));
+
+  return {
+
+statusCode: 200,
+
+body: JSON.stringify(stdout), //For me, N-66244-g468615f204-static... 
+
+  };
+
+};  
+
+
+error which I am getting=>  
+{
+
+  ""errorType"": ""Error"",
+
+  ""errorMessage"": ""Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'\\n"",
+
+  ""trace"": \[
+
+""Error: Command failed: /opt/ffmpeg/ffprobe -v error -select\_streams v:0 -show\_entries stream=width,height -of csv=s=x:p=0 '[https://dwzxneeggli32.cloudfront.net/ad1.mp4](https://dwzxneeggli32.cloudfront.net/ad1.mp4)'"",
+
+"""",
+
+""    at ChildProcess.exithandler (node:child\_process:422:12)"",
+
+""    at ChildProcess.emit (node:events:518:28)"",
+
+""    at maybeClose (node:internal/child\_process:1105:16)"",
+
+""    at ChildProcess.\_handle.onexit (node:internal/child\_process:305:5)""
+
+  \]
+
+}",1708436687.0
+reddit,https://www.reddit.com/r/aws/comments/1avhu1q/long_duration_python_code_best_awsazure_solution/,Long duration python code. Best AWS/Azure solution?," Hello!
+
+I have python code that runs simulations and exports several graphs and a pickle (the pickle alone stores the main results and can be used to generate the graphs). The code is split into 4 .py scripts (3 of them are just functions called by the ""main"" .py script). And the code also uses a small dataset saved in an excel file (I could obviously change the format).
+
+If it's of any relevance, those simulations are simulating the behaviour of individuals in an Economics macro model. And I am by no means a python expert and never used AWS/Azure before.
+
+At this moment running all the code takes around 10 hours, which is too much for what I am doing. I am testing how the results change when I change some of the parameters of the simulation and trying to find which is the best choice of parameters. So, waiting 10 hours to obtain the results, then changing one parameter and waiting again to get the results is making the process really slow. I would like to be able to run the whole code in parallel, with different choices of parameters, and not having to use my laptop for that.
+
+My question is: Which is the best solution in AWS/Azure? I have seen that there are many options in AWS: EC2, lambda, workspaces... And it's just difficult to figure out what's appropriate for me.
+
+Thank you in advance!",1708436284.0
+reddit,https://www.reddit.com/r/aws/comments/1avhh5o/am_i_the_only_one_who_has_this_any_tips/,Am I the only one who has this? Any tips?,"When deploying a lambda with SAM and the ""most popular option"" of Python/zip
+
+https://preview.redd.it/3oh93wjyqqjc1.png?width=844&format=png&auto=webp&s=25604520015cefcfae290fe3325176214e800e22",1708435238.0
+reddit,https://www.reddit.com/r/aws/comments/1avgrjs/how_to_build_a_custom_ami_with_minimal_packages/,How to build a custom AMI with minimal packages,"Hello, 
+
+I plan to create a Debian-based custom AMI for my workloads but with minimal packages. 
+
+One way I am aware of this is building the ""OVA"" and then migrating that to AMI. 
+
+The other way is creating an AMI out of an EC2 instance. 
+
+But other than this way, how do you guys build a hardened AMI in a more efficient way?
+
+Thanks.
+
+&#x200B;",1708433020.0
+reddit,https://quickwit.io/blog/log-search-service-for-under-7-dollars,Building a log search service with AWS Lambda for under $7/month,,1708364868.0
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Kishan Gopal
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Kishan Gopal
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Kishan Gopal
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good üòä,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Mahesh Bhai
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good service üëçüèª,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,TOXIC gaming
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Roll of this particular Kathi junction is crunchy and delicious,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",PRIYA RANJAN
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Its good,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Pranav Panchal
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very user friendly,"Hey there, we're pleased that you enjoyed your experience with Swiggy. We'll endeavor to keep it up. Keep ordering. üôÇ",martin jose
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Best delivery app,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Nishit Legend
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Best service,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Aman Singh
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,best app,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",vijay kumar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Burgerking is a best üëå üëç,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Aarti Mallick
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Exceptional,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Aegle Shiva
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very nice service,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Kavita Biloniya
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very testi food in burger King üçîüëë,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Mansi Kashyap
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,üëåüëåüëåüëåüëå,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Puja Dara
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Excellent and good.,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",Jagesh Kamath
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,"Sugar High is the best in Ranchi,and I am vvv appreciate for taste, aroma, texture and vvv good flavour.‚ù§Ô∏è‚ù§Ô∏è","Hey, thank you for your feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Harashchandra Swain
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Customer friendly app,We are happy to hear such positive feedback. üòä,Elizabeth Joseph
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Raju KNR
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice üëç,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Sasimathangi R
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Nargis Khan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,I will giving you 5 star Team Swiggy pls give some exciting offers üò≠,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Devendra Sharma
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Outstanding,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Amit Srivastava
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Excellent app on food delivery,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Vincent Fernandes
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good delivery,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Rajeev Yadav
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,üëçüëçüëç,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Virajanand Kampili
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,you give me offers and discount,"Hey, thank you for your kind review. We hope to keep on giving you a consistent service every time. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Rishi Rajput
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,The resturant and their food in this app is so delicious and tasty . I love this app,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Lekshmi Vinod
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Food,"Hey, thank you for your kind review. We hope to keep on giving you a consistent service every time. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Guru Gill
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Awesome,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",sri Mirra
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good oder,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Dhruv Khajuria
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Osm app for delivery,"Hey, thank you for the ratings. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Raj Sharma
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,I get no offers like trynew,"Hi there, thank you and we value your feedback. Do let us know more about your experience by dropping an email at swiggysocial@swiggy.in from your registered email address & we'll surely work towards improving the services.",Simi Saiju
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Hema Hema
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,üëç Good,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Thejavizo Kehie
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Edit: I got this reviewed by swiggy social team. Didn't want to rate down because of one experience while the app still very reliable and user friendly. My last order experience was terrible from both support and delivery agent who was non responsive. Late + picked up wrong order + no compensation and cancelled after 3 hrs of waiting at 2 am. Leaving swiggy.,"Hi there, thank you and we value your feedback. Do let us know more about your experience by dropping an email at swiggysocial@swiggy.in from your registered email address & we'll surely work towards improving the services.",aqil bary
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Krishna Mohan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good service,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Fathima Manica
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Last delivery I had a delay problem The order was from the nearest restaurant on 80ft road and a person from jayprakash naraysn park was given the task of delivery who delivered the food after more than an hour. Due to this and no fault of delivery man I had to give 2 stars and since then the app is not functioning. I am also forced to delete the app. This is for your information please,"Hi there, thank you and we value your feedback. Do let us know more about your experience by dropping an email at swiggysocial@swiggy.in from your registered email address & we'll surely work towards improving the services.",kr vasanthi
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,My most favourite app‚ù§Ô∏è‚Äçüî•,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Vysakh Nair
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Op,"Hey, thank you for your feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Ayan Khan786
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Real thise app is cooooooo√≥l! $$$,"Hey there, appreciate you for rating us 5-star and giving us your honest feedback. Do elaborate your concern along with the necessary details by writing an email at swiggysocial@swiggy.in from your registered email ID, we'll look into it.",Vaishali lohar Vaishali lohar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Excellent.,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Aanshi Singh
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Superb tast3,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,MATHS & PHYSICS
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Veena.B Veena
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Best food delivery app,"Hey there, we're pleased that you enjoyed your experience with Swiggy. We'll endeavor to keep it up. Keep ordering. üôÇ",Ghansham Sharma
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,I am Foody and foody always like swiggyü•∞,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Girish Rathod
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Great and delicious,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Avinash prakash Singh
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,azad ansari
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,So sweet,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Sanjib Das
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",Dr Simy Vineesh
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice app,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. üôÇ",Jagdeesh Bhoothpur
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very good,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Sachi Pradhan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good dependable app,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. üôÇ",N Dinesh.
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Best wishes,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",THE BUDDHAMOOMI DHAMMADOOT SANGHA
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice bhery nice,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Mohammad Kashif
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Excellent options and offers,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Vasudev Murthy
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Amazing app and service as always. Loved it. Delivery is always on time.,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Pratik Suryawanshi
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",NGU Manikandan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good fast,We are happy to hear such positive feedback. üôÇ,Sai Chavan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,I like this app so much .so helpful and useful this always help us in my grocery ordering .the food and the grocery items are always so fresh and pretty tasty .the delivery agents are always polite and obedient towards the customers and their work .,"Hey, thank you for the ratings. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Ghazala Zubair
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Mast,"Hey, thank you for your feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Sonu Goklani
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very good swiggy,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Muzammil Khan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",suma gowda
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,üëçüëç,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Satyam
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good üëç,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Nisha Kumar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,‡§è‡§ï‡•ç‡§∏‡•Ä‡§≤‡•á‡§Ç‡§ü,"Hey, thank you for your feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",SAMA BARVE
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Nade x Sk
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,great app,Yay! We are super happy to know that you are enjoying our services. Thanks for taking the time out and sharing the review with a perfect star rating. Keep Ordering. üôÇ,Nanda rajeev
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good app ‚ù§Ô∏è,"Hello, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üòä",Assiston raj
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice service,Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,Shantanu Kumar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very good restaurant,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. üôÇ",Prakash K
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,super,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Aravind Reddy
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,"Taisty and fast delivery ,",Hey there! It's a bliss to see that our service brought a smile to your face. We'll endeavor to keep it up. Keep Swiggying. üôÇ,shajukjkattu joseph
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very fast food deliverey thank you.,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",patel viral
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Amazing,"Hey there, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üôÇ",Sonu Jaiswar (Rahul)
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Were good service,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Jeram kamaliya
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Super,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",VSP PANDI@GAMIL.COM pandi
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Nice and good sometimea rarely things happen,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. üôÇ",Ramesvar L
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Rtfdfj krishnanagar,"Hey, thank you for the ratings. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Sasikala Ganesan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,I love swiggy,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",Priyanka Choudhary
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Exlent,"Hey, thank you for your kind review. We hope to keep on giving you a consistent service every time. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Lovely Kittu
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Fast delivery,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Srijani Anand
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,nice app brother üëçüëçüëçüòÅ,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. üôÇ",Moumita Bhunia
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,"I only order by food beverages and DESSERTS from Cafe Coffee Day and Brew Witch at Skyye UB City EVERYDAY. I eat everything on both menus. I go to Brew Witch at Skyye UB City EVERYDAY mostly weekdays,afternoons for lunch tea or dinner or I get my food picked up by my driver. I only drink a Johnnie Walker or a red wine or a beer at Skyye UB City","Hey, thank you for your kind review. We hope to keep on giving you a consistent service every time. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Zahir Khan
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,It's a good app reaches the food correct time and delicious food üç≤,"Hello, nothing delights us more than hearing this. We are happy that you had a great experience. Keep Swiggying. üòä",Ganga R R
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good taste,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",Ch archana Reddy
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Every should visit,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",divya naini
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Super,"Hey, we are glad to have patrons like you and will strive towards providing better services to keep such reviews coming our way. Keep ordering.",ravikiran kumar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good delivery app supportive employees,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Pooja Aswani
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,good,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,goli ramesh
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Hunger savior! Ease of use 5 stars. Reliable n timely delivery. Good when you are in a crunch n can't wait. üõü App has gotten better.. membership is worth the price. Offers and discounts.,"Hey there, thank you for the valuable feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",G Proxy
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Rishana Begam
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,"I was looking for alternative to zomato, and i think this app is better overall, nice deals and coupons and cheaper than zomato!","Hey there, thank you for the valuable feedback. We request you to let us know more about your experience by writing an email to swiggysocial@swiggy.in so we can make our services better.",Bishwadeep Kirat
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Thanks for the prompt response,Hey there! Such positive reviews motivate us to strive hard to provide you a much better experience. Happy ordering. üôÇ,Deenu Lazarus
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,very good,"Hi there, thank you for your patronage and the perfect rating. We will strive to provide consistent seamless ordering experiences. Keep Swiggying!",karan sharma haridwar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Better then Zomato becz it's price is less then Zomato,"Hey there, appreciate you for rating us 5-star and giving us your honest feedback. Do elaborate your concern along with the necessary details by writing an email at swiggysocial@swiggy.in from your registered email ID, we'll look into it.",Smarak Ranjan Parida
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,The app is very good,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Mohamed Solah
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Good,"Hey there, thank you for the perfect ratings. We appreciate your efforts in contributing to our improvements.",Balu M
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Unable to download the application. Kindly help in this regard,"Hey there, thank you for rating us 5-Star. Please let us know how we can further improve our services by dropping an email at swiggysocial@swiggy.in from your registered email address.",Hemant Kumar
+google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Amazing app,"Hey, thanks for the rating! This motivates us to keep serving you better with every order.",Majid Khan

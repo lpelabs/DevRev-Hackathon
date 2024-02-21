@@ -1,0 +1,55 @@
+version: "2"
+name: "VoiceToHelp"
+description: "Create a ticket by identifying customer problems from different platforms."
+
+service_account:
+  display_name: Voice To Help Bot
+
+event_sources:
+    organization:
+        - name: timer-event-source
+          description: Event source that sends events every 10 minutes.
+          display_name: Timer Event Source
+          type: timer-events
+          config:
+            # CRON expression for triggering every 10 minutes.
+            cron: "*/10 * * * *"
+            metadata:
+                event_key: ten_minute_event
+
+functions:
+  - name: "ticket_creator"
+    description: "Function to create a new ticket when triggered."
+  - name: "snapin_intro"
+    description: "Function to give an intro about the Voice To Help Snap-in."
+
+tags:
+  - name: "bug"
+    description: "This is a bug."
+  - name: "feature_request"
+    description: "This is a feature request."
+  - name: "question"
+    description: "This is a question."
+  - name: "feedback"
+    description: "This is feedback."
+  - name: "failed_to_infer_category"
+    description: "Failed to infer category."
+
+commands:
+  - name: "info"
+    namespace: "devrev"
+    description: "Gives info about this Snap-in."
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+    usage_hint: "/info"
+    function: "snapin_intro"
+
+automations:
+    - name: periodic_ticket_creator
+      description: Automation to create a ticket every 10 minutes
+      source: timer-event-source
+      event_types:
+        - timer.tick
+      function: ticket_creator
