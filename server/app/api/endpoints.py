@@ -19,6 +19,8 @@ from bs4 import BeautifulSoup
 
 from helpers.search import google_search
 from helpers.remove_emoji import remove_emoji
+from helpers.use_ai import request_chat_gpt_api
+from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
 import dotenv
 dotenv.load_dotenv()
@@ -219,3 +221,16 @@ async def news_to_csv(url: str):
             writer.writerow(item)
     
     return news
+
+
+@router.get("/ai")
+async def use_ai():
+    review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
+    score = request_chat_gpt_api(NOISE_PROMPT, review)
+    swot = request_chat_gpt_api(SWOT_PROMPT, review)
+    sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review)
+
+    print(score, swot, sentiment)
+
+    # to csv
+
