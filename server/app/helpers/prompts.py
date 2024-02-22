@@ -2,11 +2,9 @@ NOISE_PROMPT = """
 I am a top analyst at a large technological firm. 
 
 I will give you a review of a customer, and you need to give me a score between 1 and 10, that 
-represents the usefulness of the review for my analysis. 
+represents the relevance of the review for my analysis. 
 
-If it contains vague remarks, or unecessary information, it will be less useful.
-
-If it contains specific details, and is well written, it will be more useful.
+If the review contains irrelevant information, give it a low score.
 
 Strictly output the score between 1 and 10, and nothing else.
 
