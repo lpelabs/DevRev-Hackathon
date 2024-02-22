@@ -3,6 +3,7 @@ from enums.gsearch_info import SearchInfo
 
 def google_search(query, search_info):
     # Perform the Google search
+    links = []
     results = search(query, num_results=10, advanced=True)
     
     # Extract requested information from search results
@@ -13,5 +14,9 @@ def google_search(query, search_info):
     elif search_info == SearchInfo.SNIPPETS:
         info_list = [result.description for result in results]
     
-    return info_list
+    # Print the information
+    for url in info_list:
+        print(url)
+        links.append(url)
 
+    return links
