@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter, HTTPException, Depends, status,  Query
+from fastapi import APIRouter, HTTPException, Depends, status, Query
 import logging
 import requests
 
@@ -23,6 +23,7 @@ from helpers.use_ai import request_chat_gpt_api
 from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
 import dotenv
+
 dotenv.load_dotenv()
 
 GITHUB_PAT = os.getenv("GITHUB_PAT")
@@ -34,6 +35,7 @@ from config.config import SECRETS
 import csv
 import requests
 from bs4 import BeautifulSoup
+
 consumer_key = SECRETS["consumer_key"]
 consumer_secret = SECRETS["consumer_secret"]
 access_token = SECRETS["access_token"]
@@ -41,6 +43,7 @@ access_token_secret = SECRETS["access_token_secret"]
 
 
 router = APIRouter()
+
 
 @router.get("/reviews")
 async def read_item():
@@ -62,13 +65,15 @@ async def read_item():
                 "user": review["userName"],
                 "upvote": review["thumbsUpCount"],
                 "rating": review["score"],
-                "created_at": review["at"]
+                "created_at": review["at"],
             }
         )
     if any(play_review):  # Check if data exists
         fieldnames = list(play_review[0].keys())
 
-    with open("../data/google_play_voc.csv", "a", newline="", encoding="utf-8") as csvfile:  # Open in append mode
+    with open(
+        "../data/google_play_voc.csv", "a", newline="", encoding="utf-8"
+    ) as csvfile:  # Open in append mode
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if csvfile.tell() == 0:  # Check if file is empty (write header only once)
             writer.writeheader()
@@ -76,6 +81,7 @@ async def read_item():
             writer.writerow(issue)
 
     return result
+
 
 @router.get("/reddit-reviews")
 async def get_subreddit():
@@ -86,7 +92,7 @@ async def get_subreddit():
     """
 
     client_id = CLIENT_ID  # Replace with your actual client ID
-    client_secret = CLIENT_SECRET #Replace with actual client secret
+    client_secret = CLIENT_SECRET  # Replace with actual client secret
     user_agent = "web:devrev-forge:v1 (by /u/smooth_profit4543)"  # Replace with your actual user agent
 
     reddit = praw.Reddit(
@@ -106,7 +112,8 @@ async def get_subreddit():
                 "url": submission.url,
                 "title": submission.title,
                 "body": remove_emoji(submission.selftext),
-                "user": submission.created_utc,
+                "created_at": submission.created_utc,
+                "upvote": submission.score,
             }
         )
 
@@ -119,14 +126,18 @@ async def get_subreddit():
 
     # CSV handling (adapted from Response A with improvements)
     try:
-        with open("../data/new_reddit_voc_data.csv", "a", newline="") as csvfile:  # Open in append mode
+        with open(
+            "../data/new_reddit_voc_data.csv", "a", newline=""
+        ) as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
                 writer.writeheader()
             for issue in redditdata:
                 writer.writerow(issue)
 
-            df = pd.read_csv("../data/new_reddit_voc_data.csv", encoding="unicode_escape")
+            df = pd.read_csv(
+                "../data/new_reddit_voc_data.csv", encoding="unicode_escape"
+            )
             print(df)
             return "Reddit reviews appended to voc_data.csv successfully."
     except FileNotFoundError:
@@ -139,12 +150,15 @@ async def get_subreddit():
             for issue in redditdata:
                 writer.writerow(issue)
 
-            df = pd.read_csv("../data/new_reddit_voc_data.csv", encoding="unicode_escape")
+            df = pd.read_csv(
+                "../data/new_reddit_voc_data.csv", encoding="unicode_escape"
+            )
             return "Reddit reviews appended to a new voc_data.csv file."
     except Exception as e:  # Handle other potential errors
         df = pd.read_csv("../data/new_reddit_voc_data.csv")
         print(f"An error occurred: {e}")
         return "An error occurred while appending reviews to voc_data.csv."
+
 
 @router.get("/github-issues")
 async def get_github_issues(
@@ -170,6 +184,7 @@ async def get_github_issues(
                 "title": issue["title"],
                 "body": issue["body"],
                 "user_html_url": issue["user"]["html_url"],
+                "created_at": issue["created_at"],
             }
         )
 
@@ -189,26 +204,36 @@ async def get_github_issues(
 
     return filtered_data
 
+
 @router.post("/example_search")
 async def example_search_function(query: str):
     result = google_search(query, search_info=SearchInfo.URLS)
     return result
 
+
 @router.get("/example_scrape")
 async def scrape(url):
     result = requests.get(url)
     soup = BeautifulSoup(result.text, "html.parser")
-    print (soup.prettify())
+    print(soup.prettify())
+
 
 @router.get("/twitter")
 async def get_tweets():
     url = "https://twitter154.p.rapidapi.com/search/search"
 
-    querystring = {"query":"#python","section":"top","min_retweets":"1","min_likes":"1","limit":"20","language":"en"}
+    querystring = {
+        "query": "#python",
+        "section": "top",
+        "min_retweets": "1",
+        "min_likes": "1",
+        "limit": "20",
+        "language": "en",
+    }
 
     headers = {
         "X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "twitter154.p.rapidapi.com"
+        "X-RapidAPI-Host": "twitter154.p.rapidapi.com",
     }
 
     response = requests.get(url, headers=headers, params=querystring)
@@ -223,8 +248,9 @@ async def get_tweets():
                 "url": tweet["expanded_url"],
                 "title": "tweet status",
                 "body": tweet["text"],
+                "created_at": tweet["creation_date"],
                 "username": tweet["user"]["username"],
-                "date": tweet["creation_date"],
+                "upvote": tweet["favorite_count"],
             }
         )
 
@@ -233,17 +259,17 @@ async def get_tweets():
     else:
         fieldnames = []
 
-    with open("../data/twitter_data.csv", "a", newline="", encoding='utf-8') as csvfile:
+    with open("../data/twitter_data.csv", "a", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for tweet in filtered_data:
             writer.writerow(tweet)
-    
-    return(result["results"])
+
+    return result["results"]
+
 
 @router.get("/news_to_csv")
 async def news_to_csv(url: str):
-
     """
     Scrapes news from a given URL and saves it to a CSV file. Currently, the function scrapes headlines and paragraphs from the URL and saves them to a CSV file.
     """
@@ -255,14 +281,14 @@ async def news_to_csv(url: str):
         news.append({"Heading": headline.text, "Content": "", "Category": ""})
     for paragraph in soup.find_all("p"):
         news.append({"Heading": "", "Content": paragraph.text, "Category": ""})
-    
+
     fieldnames = ["Heading", "Content", "Category"]
     with open("../data/news.csv", "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for item in news:
             writer.writerow(item)
-    
+
     return news
 
 
@@ -276,4 +302,3 @@ async def use_ai():
     print(score, swot, sentiment)
 
     # to csv
-
