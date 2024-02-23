@@ -24,9 +24,11 @@ from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
 import dotenv
 dotenv.load_dotenv()
+
 GITHUB_PAT = os.getenv("GITHUB_PAT")
 CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 
 from config.config import SECRETS
 import csv
@@ -197,6 +199,46 @@ async def scrape(url):
     soup = BeautifulSoup(result.text, "html.parser")
     print (soup.prettify())
 
+@router.get("/twitter")
+async def get_tweets():
+    url = "https://twitter154.p.rapidapi.com/search/search"
+
+    querystring = {"query":"#python","section":"top","min_retweets":"1","min_likes":"1","limit":"20","language":"en"}
+
+    headers = {
+        "X-RapidAPI-Key": RAPIDAPI_KEY,
+        "X-RapidAPI-Host": "twitter154.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    result = response.json()
+
+    filtered_data = []
+    for tweet in result["results"]:
+        filtered_data.append(
+            {
+                "source": "twitter",
+                "url": tweet["expanded_url"],
+                "title": "tweet status",
+                "body": tweet["text"],
+                "username": tweet["user"]["username"],
+                "date": tweet["creation_date"],
+            }
+        )
+
+    if filtered_data:
+        fieldnames = filtered_data[0].keys()  # Extract keys as field names
+    else:
+        fieldnames = []
+
+    with open("../data/twitter_data.csv", "a", newline="", encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for tweet in filtered_data:
+            writer.writerow(tweet)
+    
+    return(result["results"])
 
 @router.get("/news_to_csv")
 async def news_to_csv(url: str):
