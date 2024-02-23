@@ -1,9 +1,83 @@
 version: "2"
-name: "VoiceToHelp"
+name: "Voice To Help"
 description: "Create a ticket by identifying customer problems from different platforms."
 
 service_account:
   display_name: Voice To Help Bot
+
+keyrings:
+  organization:
+    - name: openai_api_key
+      description: API Key for OPENAI, follow https://platform.openai.com/api-keys to get one.
+      types:
+        - snap_in_secret
+      display_name: OpenAI API Key
+
+inputs:
+  organization:
+    - name: company_name
+      description: "The name of your Company"
+      field_type: text
+      is_required: true
+      ui:
+        display_name: Company
+    - name: app_id
+      description: "The Google Play id of the application (the ?id= parameter on the url). In case of mutiple apps, separate value by comma."
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Application ID
+    - name: default_part_id
+      description: "Default part under which to create tickets."
+      field_type: id
+      id_type:
+        - product
+        - capability
+        - feature
+        - enhancement
+      is_required: true
+      default_value: "don:core:dvrv-us-1:devo/xxx:product/xxx"
+      ui:
+        display_name: Default Part
+    - name: default_owner_id
+      description: "Default owner of the tickets."
+      field_type: id
+      id_type:
+        - devu
+      is_required: true
+      default_value: "don:identity:dvrv-us-1:devo/xxx:devu/xxx"
+      ui:
+        display_name: Default Owner
+    - name: subreddit
+      description: "The name of your subreddit"
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Subreddit Name
+    - name: github_repo
+      description: "url of the public github repo to track the issues."
+      base_type: text
+      field_type: array
+      is_required: true
+      default_value: [""]
+      ui:
+        display_name: Github Repo
+    - name: twitter_handle
+      description: "Username of company on twitter. in case of mutiple ids, separate usernames by comma"
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Twitter Username
+    - name: twitter_hashtag
+      description: "hashtags to look for on twitter.In case of mutiple values, separate hashtags by comma"
+      field_type: text
+      is_required: true
+      default_value: "#help"
+      ui:
+        display_name: Twitter Hashtags
 
 event_sources:
     organization:
@@ -13,9 +87,9 @@ event_sources:
           type: timer-events
           config:
             # CRON expression for triggering every 10 minutes.
-            cron: "*/10 * * * *"
+            cron: "0 */6 * * *"
             metadata:
-                event_key: ten_minute_event
+                event_key: six_hour_event
 
 functions:
   - name: "ticket_creator"
@@ -44,6 +118,25 @@ commands:
         object_types:
           - "snap_in"
     usage_hint: "/info"
+    function: "snapin_intro"
+  - name: "review_tweets"
+    namespace: "devrev"
+    description: "Fetched tweets from twitter with specified hashtags and username during configuration and create tickets"
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+          - "ticket"
+    usage_hint: "/review-tweets [number of tweet to fetch and process]"
+    function: "snapin_intro"
+  - name: "play_store_review"
+    namespace: "devrev"
+    description: "Fetch reviews from play store, Process and make tickets."
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+    usage_hint: "/play-store-review [rating (default value : 1)] [number of reviews to fetch and process]"
     function: "snapin_intro"
 
 automations:
