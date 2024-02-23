@@ -2,6 +2,7 @@ import { publicSDK, client } from '@devrev/typescript-sdk';
 import { ApiUtils } from './utils';
 
 export const run = async (events: any[]) => {
+    console.log(events)
     for (const event of events) {
         const endpoint: string = event.execution_metadata.devrev_endpoint;
         const token: string = event.context.secrets.service_account_token;

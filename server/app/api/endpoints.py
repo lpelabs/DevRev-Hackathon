@@ -45,10 +45,8 @@ async def read_item():
     result, continuation_token = reviews(
         "in.swiggy.android",
         lang="en",  # defaults to 'en'
-        country="us",  # defaults to 'us'
         sort=Sort.NEWEST,  # defaults to Sort.NEWEST
         count=100,  # defaults to 100
-        filter_score_with=5,  # defaults to None(means all score)
     )
 
     play_review = []
@@ -60,12 +58,15 @@ async def read_item():
                 "title": review["content"],
                 "body": review["replyContent"],
                 "user": review["userName"],
+                "upvote": review["thumbsUpCount"],
+                "rating": review["score"],
+                "created_at": review["at"]
             }
         )
     if any(play_review):  # Check if data exists
         fieldnames = list(play_review[0].keys())
 
-    with open("../data/new_voc_data.csv", "a", newline="", encoding="utf-8") as csvfile:  # Open in append mode
+    with open("../data/google_play_voc.csv", "a", newline="", encoding="utf-8") as csvfile:  # Open in append mode
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if csvfile.tell() == 0:  # Check if file is empty (write header only once)
             writer.writeheader()
