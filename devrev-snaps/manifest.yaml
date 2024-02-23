@@ -5,6 +5,65 @@ description: "Create a ticket by identifying customer problems from different pl
 service_account:
   display_name: Voice To Help Bot
 
+inputs:
+  organization:
+    - name: app_id
+      description: "The Google Play id of the application (the ?id= parameter on the url)."
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Application ID
+    - name: default_part_id
+      description: "Default part under which to create tickets."
+      field_type: id
+      id_type:
+        - product
+        - capability
+        - feature
+        - enhancement
+      is_required: true
+      default_value: "don:core:dvrv-us-1:devo/xxx:product/xxx"
+      ui:
+        display_name: Default Part
+    - name: default_owner_id
+      description: "Default owner of the tickets."
+      field_type: id
+      id_type:
+        - devu
+      is_required: true
+      default_value: "don:identity:dvrv-us-1:devo/xxx:devu/xxx"
+      ui:
+        display_name: Default Owner
+    - name: subreddit
+      description: "The name of your subreddit"
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Subreddit Name
+    - name: company_name
+      description: "The name of your Company"
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Company
+    - name: github_repo
+      description: "Url of the github to track the issues."
+      field_type: array
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Github Repo
+    - name: twitter_handle
+      description: "Username of company on twitter"
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Twitter Username
+
 event_sources:
     organization:
         - name: timer-event-source
@@ -13,9 +72,9 @@ event_sources:
           type: timer-events
           config:
             # CRON expression for triggering every 10 minutes.
-            cron: "*/10 * * * *"
+            cron: "0 */6 * * *"
             metadata:
-                event_key: ten_minute_event
+                event_key: six_hour_event
 
 functions:
   - name: "ticket_creator"

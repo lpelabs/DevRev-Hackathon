@@ -17,7 +17,7 @@ export const run = async (events: any[]) => {
 
         if (!parameters) {
             // Send a help message in CLI help format.
-            const helpMessage = `This help user to create ticket based on the issue faced by the customer by ingesting data from different platform`;
+            const helpMessage = `Voice To Help Snap-in will help in gathering insights from user feedback across different channel which is in unstructured format. This will also create ticket based on the issue faced by the customer by ingesting data from different platform like twitter and google play store.`;
             let postResp = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, helpMessage, 1);
             if (!postResp.success) {
                 console.error(`Error while creating timeline entry: ${postResp.message}`);
