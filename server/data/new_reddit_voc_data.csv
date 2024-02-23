@@ -1,5 +1,41 @@
-source,url,title,body,user
-reddit,https://www.reddit.com/r/aws/comments/1axf0ll/failed_loop/,Failed Loop,"I interviewed for a senior TAM position and today I got the rejection, 2 days after the loop.
+source,url,title,body,created_at,upvote
+swiggy,https://www.reddit.com/r/aws/comments/1axx5c9/how_to_forward_authorization_header_using/,How to forward Authorization header using CloudFront Origin Request whitelist?,"I'm using AWS AppSync as origin (think of it as similar to API Gateway). I've disabled my CloudFront cache using using the [CachingDisabled](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html#managed-cache-policy-caching-disabled) managed policy.
+
+I don't want to forward the `Host` header as it may [prevent AppSync form working](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-origin-request-policies.html#managed-origin-request-policy-all-viewer-except-host-header), and I need to forward the `Authorization` header. In simple terms:
+
+*  `Host`: Should not be forwarded
+* `Authorization`: Should be forwarded
+
+When I try to implement this strategy with my own Origin Request Policy [whitelist](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudfront/create-origin-request-policy.html#:~:text=whitelist) I get an error:
+
+>You can't use an origin request policy to forward the Authorization header. The header must be a part of the cache key to prevent the cache from satisfying unauthorized requests.
+
+&#x200B;
+
+[CloudFront Origin Request Policy doesn't allow to whitelist Authorization HTTP header](https://preview.redd.it/dn51y3td7bkc1.png?width=531&format=png&auto=webp&s=59a4448e5d29de3a71a8eb46bc7543dd7782b992)
+
+What? But my cache is disabled by design.
+
+Now when instead of a [whitelist](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudfront/create-origin-request-policy.html#:~:text=whitelist) I use [allExcept](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudfront/create-origin-request-policy.html#:~:text=allExcept) and I explicitly block the `Host` header and implicitely forward  `Authorization` then everything works fine.
+
+Why that? It doesn't make any sense, I should be able to achieve the same using a whitelist or a black list. I prefer the whitelist approach because it expresses more strict rules.
+
+Is this a bug? if now, someone could explain me the rationale behind this?
+
+PS: This is somewhat related to this SO question: [https://serverfault.com/questions/1053906/how-to-whitelist-authorization-header-in-cloudfront-custom-origin-request-policy](https://serverfault.com/questions/1053906/how-to-whitelist-authorization-header-in-cloudfront-custom-origin-request-policy)
+
+&#x200B;",1708683425.0,3
+swiggy,https://www.reddit.com/r/aws/comments/1axwufl/launch_template_that_always_uses_latest_image/,Launch template that always uses latest image ?,"Currently I have a launch template that uses the SSM parameter (
+/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64 ) as the image_id however this means  that I need to update the launch template each time (with my CI/CD). 
+
+
+Is there a way to make a launch template that ""always takes the latest image"" without having to make a new launch template ?",1708682242.0,3
+swiggy,https://www.reddit.com/r/aws/comments/1axvg7q/asynchronous_lambda_gotchas/,Asynchronous lambda gotchas?,"My team is planning to go all-in on async lambda. 
+
+Our company already uses a bunch of lambda, but through sqs -> lambda for our data processing jobs, part of which we might change to async.
+
+Wondering if people know of anything to look out for, like any weird behavior with it to keep track of",1708676349.0,4
+swiggy,https://www.reddit.com/r/aws/comments/1axf0ll/failed_loop/,Failed Loop,"I interviewed for a senior TAM position and today I got the rejection, 2 days after the loop.
 
 I got very positive feedback from at least two interviewers, one of which was the hiring manager. The HM commented after one of my STAR stories saying it was very good, and hoped I would do well in the other interviews as he really enjoyed speaking with me.
 
@@ -9,8 +45,47 @@ I asked specifics related to on-call, sign on bonus etc, but didn't specify a sa
 
 2 hours later, recruiter emailed a rejection, saying I wasn't a functional fit and the decision was based on the examples I provided during the interviews. They also said I could apply for another role directly, no cool off period. I did reuse examples but no more than twice, all with different interviewers. That was a mistake of course, but I was expecting that would just downgrade me from L6 senior to L5 TAM. 
 
-What to make of this? I really want to join Amazon because I am specialized in cloud computing. Should I keep refining my skills and try again in the future, or give up? I don't know what to fix exactly given the lack of feedback from the recruiter...",1708629617.0
-reddit,https://www.reddit.com/r/aws/comments/1ax9fzh/comprehensive_guide_costperformance_compared_of/,Comprehensive Guide: Cost/Performance Compared of AWS File Storage Options,"Hello everyone!
+What to make of this? I really want to join Amazon because I am specialized in cloud computing. Should I keep refining my skills and try again in the future, or give up? I don't know what to fix exactly given the lack of feedback from the recruiter...",1708629617.0,17
+swiggy,https://www.reddit.com/r/aws/comments/1axxsa2/creating_a_qc_ui_for_textract_quality_checking/,Creating a QC UI for Textract Quality Checking.," I am using Textract to extract tabular data. Unfortunately, Textract does not actually give out the correct OCR values most of the times, so I am using a Elastic Search to fit the values returned by Textract to my required domain. 
+
+I also need to create an interface where a human reviewer can review the Image and the Textract output side by side. I need this to be a web interface. Any ideas how I can go about this ? I am only an intern at this place so really needing some help here. ",1708686013.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axxs9v/creating_a_qc_ui_for_textract_quality_checking/,Creating a QC UI for Textract Quality Checking.," I am using Textract to extract tabular data. Unfortunately, Textract does not actually give out the correct OCR values most of the times, so I am using a Elastic Search to fit the values returned by Textract to my required domain. 
+
+I also need to create an interface where a human reviewer can review the Image and the Textract output side by side. I need this to be a web interface. Any ideas how I can go about this ? I am only an intern at this place so really needing some help here. ",1708686013.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axw0t8/aws_cloudformation_create_secret_with_variables/,aws cloud-formation create secret with variables,"I am trying to take username and password from user as input parameters and create the secret in secret manager. Using ${Username}  
+ doesnt seem to replace and could not find a documentation on how to go about this. Is it even supported? if not, any recommended workarounds?
+
+    AWSTemplateFormatVersion: '2010-09-09'
+    Resources:
+      MySecret:
+        Type: 'AWS::SecretsManager::Secret'
+        Properties:
+          Description: 'My example secret'
+          GenerateSecretString:
+            SecretStringTemplate: '{""username"": ""${Username}"", ""password"": ""${Password}""}'
+            GenerateStringKey: 'password'
+            PasswordLength: 16
+            ExcludePunctuation: true
+          Tags:
+            - Key: 'Name'
+              Value: 'MySecret'
+    Parameters:
+      Username:
+        Type: String
+        Description: 'Username for the secret'
+      Password:
+        Type: String
+        Description: 'Password for the secret'
+    
+
+&#x200B;",1708678764.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axpid4/cloud_role/,Cloud Role,"Hey folks, I'm curious about how my standing compares to other upcoming fall 2024 graduates. My ultimate goal is to secure a position as a cloud engineer (AWS) right out of college. I understand it may seem ambitious, but I believe in aiming high. To date, I've completed four internships: one year as an IT intern, one year as a part-time cyber analyst, three months as a GRC intern, and my current role as a cyber range automation intern.
+
+Throughout these experiences, I've successfully executed numerous projects and I've never stopped labing in my spare time. Additionally, I've earned my Sec+, Cloud+, and Secure Cloud Professional certs. Presently, I'm preparing for my AWS Cloud Architect certification, which I aim to achieve within the next three months. While I once held a CCNA, I'm contemplating on if I should renew it. Nevertheless, I retain the knowledge and skills gained from it, which is what I'm happy about.
+
+I'm eager to hear your thoughts on how I stack up for a cloud engineer role. Furthermore, if you have any recommendations for additional resources that could enhance my preparation, I would greatly appreciate it. Thank you for taking the time to read my post.",1708656073.0,4
+swiggy,https://www.reddit.com/r/aws/comments/1axkjgd/whats_your_experience_using_opensearch_anybody/,What's your experience using opensearch? Anybody ingesting lots of data?,"My use case is IoT ingesting maybe 100,000s of messages a minute. How does opensearch serverless scale. I've been stung by elastic before, has aws fixed anything?",1708642708.0,6
+swiggy,https://www.reddit.com/r/aws/comments/1ax9fzh/comprehensive_guide_costperformance_compared_of/,Comprehensive Guide: Cost/Performance Compared of AWS File Storage Options,"Hello everyone!
 
 If you’re struggling with choosing the right AWS storage solution, [this article](https://cuno.io/blog/making-the-right-choice-comparing-the-cost-performance-of-different-efs-options-and-alternatives/) has a clear breakdown and comparison of different EFS, EBS, FSx Lustre, and S3 options, focusing on cost and performance. It includes:
 
@@ -22,24 +97,29 @@ If you’re struggling with choosing the right AWS storage solution, [this article
 4. Delves into EFS Elastic vs Bursting vs Provisioned, each type of EBS and FSx Lustre  
 5. Price vs. Performance
 
-Let me know your thoughts about it!",1708616549.0
-reddit,https://www.reddit.com/r/aws/comments/1axkjgd/whats_your_experience_using_opensearch_anybody/,What's your experience using opensearch? Anybody ingesting lots of data?,"My use case is IoT ingesting maybe 100,000s of messages a minute. How does opensearch serverless scale. I've been stung by elastic before, has aws fixed anything?",1708642708.0
-reddit,https://www.reddit.com/r/aws/comments/1axpid4/cloud_role/,Cloud Role,"Hey folks, I'm curious about how my standing compares to other upcoming fall 2024 graduates. My ultimate goal is to secure a position as a cloud engineer (AWS) right out of college. I understand it may seem ambitious, but I believe in aiming high. To date, I've completed four internships: one year as an IT intern, one year as a part-time cyber analyst, three months as a GRC intern, and my current role as a cyber range automation intern.
+Let me know your thoughts about it!",1708616549.0,16
+swiggy,https://www.reddit.com/r/aws/comments/1axsycr/elastic_cache_redis_bug/,Elastic cache redis bug,"I had setup a production redis instance with the **Transit encryption** mode set as **User group access control list.** Everything was working smoothly since the deployment. We were able to connect to the instance through Lambda and the application was working as expected. Approximately 5 hours back, the **Transit encryption** mode got automatically changed to **Redis AUTH default user access.** Since then the application was unable to connect to the instance and our services were down. Is this normal? Has anyone else faced this?  
+What should I do to prevent it from happening in the future?
 
-Throughout these experiences, I've successfully executed numerous projects and I've never stopped labing in my spare time. Additionally, I've earned my Sec+, Cloud+, and Secure Cloud Professional certs. Presently, I'm preparing for my AWS Cloud Architect certification, which I aim to achieve within the next three months. While I once held a CCNA, I'm contemplating on if I should renew it. Nevertheless, I retain the knowledge and skills gained from it, which is what I'm happy about.
+P.s - I don't have a support plan for technical support from AWS.
 
-I'm eager to hear your thoughts on how I stack up for a cloud engineer role. Furthermore, if you have any recommendations for additional resources that could enhance my preparation, I would greatly appreciate it. Thank you for taking the time to read my post.",1708656073.0
-reddit,https://watch-aws-lambda-scale.com/,Watch AWS Lambda scale,,1708609148.0
-reddit,https://www.reddit.com/r/aws/comments/1axjnmf/do_i_need_to_care_about_vpc_security_groups_waf/,"Do I need to care about VPC, security groups, WAF, etc.?","I have the following setup:
+Thanks!",1708666927.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axscnv/help_with_running_pytorch_on_aws_lambda/,Help with Running PyTorch on AWS lambda,"I’m trying to run an AWS lambda function that uses PyTorch and I’m running into an error where NNPACK, a library that PyTorch uses, says it’s out of memory even though there are 3gb of RAM left when memory usage is at its peak. I’m not sure what to do in this case. If this was vague I can provide more info. ",1708664919.0,1
+swiggy,https://watch-aws-lambda-scale.com/,Watch AWS Lambda scale,,1708609148.0,16
+swiggy,https://www.reddit.com/r/aws/comments/1axrbyz/is_aws_nfw_enterprise_grade/,"Is AWS NFW ""Enterprise Grade""?","We're using NFW for a landing zone, in central networking account, for all AWS traffic.
 
-* Frontend: Route53 -> Cloudfront > S3 (React app).
-* Backend: API Gateway -> Lambda Function (Proxy Integration) -> MongoDB Atlas.
-* Blob Storage: S3 buckets to store files.
+I was told recently by a colleague, that they normally see larger orgs using e.g. a Palo Virtual Appliance instead. And Platform colleagues I've spoken too have said they don't consider NFW to be Enterprise Grade.
 
-I was watching this video today of an AWS security specialist and listened to him talk about all of these terms VPC, Availability Zone, security groups, WAF, etc.
+For background - we made the decision wo use just NFW with input from some of our Platform crew, and our AWS Architect. Netsec (who manage the onprem Palo) didn't seem fussed one way or the other, so long as we did TLS inspection (for web, we're forwarding through a proxy that does it) (this was before NFW introduced TLS inspection on egress).
 
-Is this something I need to worry about with my current setup or is this more geared towards big organisations? Also, he only mentioned EC2 for this setup which got me wondering if all of these concepts make sense for a serverless approach with api gateway and lambda like I'm using.",1708640585.0
-reddit,https://www.reddit.com/r/aws/comments/1axg8xb/alb_502_bad_gateway/,ALB 502 Bad Gateway,"Hi All,
+It's working pretty well and seems secure enough. We're using mainly the AWS-managed rule groups, plus domain filtering and some custom suricata rules, haven't hit any big problems.
+
+In the past I've worked with onprem Palo and it was ok. I do note since NFW doesn't have anything like Wildfire with constantly updated rules based on emerging threats, that's a possible gap there.
+
+I do also know with a Palo virtual appliance it'd hook into Panorama for centralized config & monitoring.
+
+My question is, what other areas is NFW lacking in comparison to e.g. a Palo Virtual Appliance?",1708661596.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axg8xb/alb_502_bad_gateway/,ALB 502 Bad Gateway,"Hi All,
 
 I have an ECS service running a .NET 8 API. The container has port 8080 open. I am setting up an application load balancer to point to the ECS service using https:443. I am using a rule on the listener utilizing a subdomain. When I try hitting it, I get a 502 Bad Gateway. This only occurs on HTTPS; everything works fine on HTTP:80.
 
@@ -65,16 +145,23 @@ Are any of those indications of the ALB or my ECS service is the issue?
 
 If I setup all my same rules and everything but using the HTTP listener minus the ACM certificate, all works well.
 
-I feel I’ve hit a wall in trying to figure this out so any insight is much appreciated.",1708632518.0
-reddit,https://www.reddit.com/r/aws/comments/1axl177/why_do_we_still_need_to_scale_with_aws_shield_and/,Why do we still need to scale with AWS Shield and WAF caught all the attack?,Might be a noob question but I dont understand why every time we talk to AWS SRT they always recommended to still need to autoscale the resources behind WAF where AWS Shield and WAF block all of the DDoS attack? Why would the volume of traffic still reach our endpoint when it got clipped by WAF and auto ddos mitigation integration,1708643885.0
-reddit,https://www.reddit.com/r/aws/comments/1ax9hwq/captcha_loop_on_console_signin_am_i_going_insane/,Captcha loop on Console sign-in. Am I going insane?,"I'm in my first Captcha loop (I learned this term today) and my mind is blown by how useless AWS are in resolving it. 
+I feel I’ve hit a wall in trying to figure this out so any insight is much appreciated.",1708632518.0,4
+swiggy,https://www.reddit.com/r/aws/comments/1axqa0f/aws_findmatches_confidence_scores_null_confidence/,AWS FindMatches Confidence Scores (Null confidence for subset of matches),"I am trying to use the FindMatches transformation, and have already gone through several rounds of training, tuning, etc.  My training set has gone through a few iterations and includes only hand-labeled data, with edge cases and normal cases all included.  The transformation is doing really well for most of the records.
 
-I've gotten a number of boilerplate, refer-to-this-article fob-offs from the Support team, however I'm staggered that this is even a thing. 
+The big question I have is that I am experiencing a large number of rows coming back with no match score at all.  I can't seem to see any mention of this online.  It is not 0 confidence, it is just no number at all in the output.  I cannot see any pattern to the records that are getting this behavior.  
 
-Feels like some automated process somewhere has decided I'm a bot and nobody at AWS has any kind of admin power over this. 
+Anyone know anything about this?",1708658334.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axl177/why_do_we_still_need_to_scale_with_aws_shield_and/,Why do we still need to scale with AWS Shield and WAF caught all the attack?,Might be a noob question but I dont understand why every time we talk to AWS SRT they always recommended to still need to autoscale the resources behind WAF where AWS Shield and WAF block all of the DDoS attack? Why would the volume of traffic still reach our endpoint when it got clipped by WAF and auto ddos mitigation integration,1708643885.0,2
+swiggy,https://www.reddit.com/r/aws/comments/1axjnmf/do_i_need_to_care_about_vpc_security_groups_waf/,"Do I need to care about VPC, security groups, WAF, etc.?","I have the following setup:
 
-Utterly shocked. ",1708616682.0
-reddit,https://www.reddit.com/r/aws/comments/1axf4je/aws_alternatives_to_replace_airflow_for_data/,AWS alternatives to replace Airflow for data pipelines,"The current set up on the company I'm working uses Airflow DAGs to:
+* Frontend: Route53 -> Cloudfront > S3 (React app).
+* Backend: API Gateway -> Lambda Function (Proxy Integration) -> MongoDB Atlas.
+* Blob Storage: S3 buckets to store files.
+
+I was watching this video today of an AWS security specialist and listened to him talk about all of these terms VPC, Availability Zone, security groups, WAF, etc.
+
+Is this something I need to worry about with my current setup or is this more geared towards big organisations? Also, he only mentioned EC2 for this setup which got me wondering if all of these concepts make sense for a serverless approach with api gateway and lambda like I'm using.",1708640585.0,2
+swiggy,https://www.reddit.com/r/aws/comments/1axf4je/aws_alternatives_to_replace_airflow_for_data/,AWS alternatives to replace Airflow for data pipelines,"The current set up on the company I'm working uses Airflow DAGs to:
 
 Gather data from a source > run some scripts (on Databricks notebooks) using the data > upload the data on a database if everything goes right. The scripts also use some variables set on airflow and DynamoDB.
 
@@ -86,8 +173,15 @@ Currently what I'm thinking of is using Step Functions to set workflows similar 
 
 &#x200B;
 
-If anyone got some tips about my idea or suggestions for other services that can accomplish what I need, I'd be happy to hear about it.",1708629884.0
-reddit,https://www.reddit.com/r/aws/comments/1axae6e/do_i_need_to_limit_the_amount_of_records_returned/,Do I need to limit the amount of records returned from a DDB query?,"I'm currently following the DDB docs for pagination with looping through until last evaluated key is no longer there. 
+If anyone got some tips about my idea or suggestions for other services that can accomplish what I need, I'd be happy to hear about it.",1708629884.0,3
+swiggy,https://www.reddit.com/r/aws/comments/1ax9hwq/captcha_loop_on_console_signin_am_i_going_insane/,Captcha loop on Console sign-in. Am I going insane?,"I'm in my first Captcha loop (I learned this term today) and my mind is blown by how useless AWS are in resolving it. 
+
+I've gotten a number of boilerplate, refer-to-this-article fob-offs from the Support team, however I'm staggered that this is even a thing. 
+
+Feels like some automated process somewhere has decided I'm a bot and nobody at AWS has any kind of admin power over this. 
+
+Utterly shocked. ",1708616682.0,5
+swiggy,https://www.reddit.com/r/aws/comments/1axae6e/do_i_need_to_limit_the_amount_of_records_returned/,Do I need to limit the amount of records returned from a DDB query?,"I'm currently following the DDB docs for pagination with looping through until last evaluated key is no longer there. 
 
 Do i also need to consider limiting the amount of results returned from my query function? There doesn't seem to be a simple way of doing so. 
 
@@ -101,8 +195,8 @@ This is for an API that will call DDB and return some records that are enriched 
 
 What would you suggest?
 
-Also.. i'm using API GW > Lambda (python/boto3)",1708618817.0
-reddit,https://www.reddit.com/r/aws/comments/1axj8gz/bug_in_lambda_function_attempts_to_terminate_all/,Bug in lambda function attempts to terminate all EC2s instead of just EC2s scoped to a specific ASG,"I have a solution involving an ASG spawning stateful workers which poll messages from an SQS queue, process data, and self-terminate. Because I don't want a scale in event to terminate a worker mid-process, I enable `scale-in protection` on the workers, and have workers explicitly self-terminate when finished processing. However, I want to have an external way to ensure these workers are terminated so that an uncaught error prevents the self-terminating logic from running (the ASG `Maximum instance lifetime` parameter doesn't seem to be able to terminate instances with `scale-in protection`).
+Also.. i'm using API GW > Lambda (python/boto3)",1708618817.0,3
+swiggy,https://www.reddit.com/r/aws/comments/1axj8gz/bug_in_lambda_function_attempts_to_terminate_all/,Bug in lambda function attempts to terminate all EC2s instead of just EC2s scoped to a specific ASG,"I have a solution involving an ASG spawning stateful workers which poll messages from an SQS queue, process data, and self-terminate. Because I don't want a scale in event to terminate a worker mid-process, I enable `scale-in protection` on the workers, and have workers explicitly self-terminate when finished processing. However, I want to have an external way to ensure these workers are terminated so that an uncaught error prevents the self-terminating logic from running (the ASG `Maximum instance lifetime` parameter doesn't seem to be able to terminate instances with `scale-in protection`).
 
 I decided to do this simply and schedule a lambda to identify and terminate all long-running workers (>8 hours) in the ASG, and it looked like everything was working fine! ASG instances were terminated...
 
@@ -153,142 +247,7 @@ I decided to do this simply and schedule a lambda to identify and terminate all 
             'body': json.dumps(ec2_terminate_resp)
         }
 
-&#x200B;",1708639575.0
-reddit,https://www.reddit.com/r/aws/comments/1axddzy/aws_marketplace_publishing_a_product_is_taking_so/,AWS Marketplace: publishing a product is taking SO long,"Has anyone been able to publish their products (AMI, SaaS, etc) to AWS marketplace recently? My team has tried to publish a few things since like August 2023 but I think none of the products went through the review process, its been stuck on a request to change from limited visibility to public since then.
+&#x200B;",1708639575.0,1
+swiggy,https://www.reddit.com/r/aws/comments/1axddzy/aws_marketplace_publishing_a_product_is_taking_so/,AWS Marketplace: publishing a product is taking SO long,"Has anyone been able to publish their products (AMI, SaaS, etc) to AWS marketplace recently? My team has tried to publish a few things since like August 2023 but I think none of the products went through the review process, its been stuck on a request to change from limited visibility to public since then.
 
-Any ideas or information will be useful, its been very frustrating.",1708625773.0
-reddit,https://www.reddit.com/r/aws/comments/1axii2s/aws_s3_api_response_in_json/,AWS S3 api response in JSON,I am trying to use s3 api to get the list of objects. But the issue that i am getting is it gives me response in XML. I tried to pass content-type json in the header but that doesn’t work. If any one has an idea please help me with this,1708637796.0
-reddit,https://www.reddit.com/r/aws/comments/1axb2gt/aws_cli_weird_output_on_sonoma_1431/,aws cli Weird Output on Sonoma 14.3.1,"I am using Apple M1 Max and on MacOS Sonoma 14.3.1 (I was previously on Monterey and upgraded to this new version today). When I run an aws command, I see this output (notice the weird ESC thing)
-
-    $ aws cloudwatch help
-    
-    ESC[4mCLOUDWATCHESC[24m()                                                      ESC[4mCLOUDWATCHESC[24m()
-    
-    ESC[1mNAMEESC[0m
-           cloudwatch -
-    
-    ESC[1mDESCRIPTIONESC[0m
-
-I have this version installed:
-
-    [tmp]$ which aws
-    /usr/local/bin/aws
-    
-    [tmp]$ aws --version
-    aws-cli/2.15.22 Python/3.11.6 Darwin/23.3.0 exe/x86_64 prompt/off
-    
-    [tmp]$ /opt/homebrew/bin/groff -v
-    GNU groff version 1.23.0
-    Copyright (C) 2022 Free Software Foundation, Inc.
-    GNU groff comes with ABSOLUTELY NO WARRANTY.
-    You may redistribute copies of groff and its subprograms
-    under the terms of the GNU General Public License.
-    For more information about these matters, see the file
-    named COPYING.
-    
-    called subprograms:
-    
-    GNU troff (groff) version 1.23.0
-
-Has anyone seen this weird behavior before? Thanks.",1708620410.0
-reddit,https://www.reddit.com/r/aws/comments/1axaxn9/aws_rds_iam_authentication_on_cross_account/,AWS RDS IAM Authentication on cross account centralization model,"Hi everyone!  
-Currently, our user management model is defined in a root account where all nominal users for human operators are defined. Those users belong to different groups that are able to assume different roles in the different accounts we have (prod, staging, development, etc).  
-
-
-We are currently running a PoC over AWS IAM auth on RDS, and it works like great definitely using the assumerole approach. The thing is that we would like to at least be able to:  
-\- define a fine-grained access per user, so not all users that can assume a given role can access to all the databases defined for such role.  
-\- track users operations in the database. Meaning we would like to be able to map somehow an IAM identity (user, role, whatever) to a database user so we are able to audit any command running in the database.  
-
-
-I've been trying to figure out how to do it following this IAM centralization model... Any clues?  
-
-
-Thanks in advance!",1708620100.0
-reddit,https://www.reddit.com/r/aws/comments/1awu7bg/anyone_else_having_iam_503_errors_now/,Anyone else having IAM 503 errors now?,"As stated, anyone else having 503 errors querying IAM policies and roles atm?
-
-&#x200B;
-
-[https://health.aws.amazon.com/health/status?eventID=arn:aws:health:global::event/IAM/AWS\_IAM\_OPERATIONAL\_ISSUE/AWS\_IAM\_OPERATIONAL\_ISSUE\_17420\_186FEFE5CFE](https://health.aws.amazon.com/health/status?eventID=arn:aws:health:global::event/IAM/AWS_IAM_OPERATIONAL_ISSUE/AWS_IAM_OPERATIONAL_ISSUE_17420_186FEFE5CFE)
-
-edited to add link to issue",1708566561.0
-reddit,https://www.reddit.com/r/aws/comments/1axgfz8/getting_an_amazon_web_services_sign_in_with/,"Getting an ""Amazon Web Services Sign In With Authentication Device"" when accessing Login & Security in Account page on Amazon store","Apologies, this isn't exactly an AWS issue, but a mix of AWS and the Amazon store.
-
-This is a really weird one, and I think caused by some quirk or bug somewhere, possibly linked to an old, no longer existing AWS account.
-
-I can sign into the amazon web shop no problem, but when I attempt to go to the Login & Security page via my account settings, after entering my 2FA OTP, I'm then faced with an AWS sign in asking for an authentication code. This isn't an Amazon web store 2FA code.
-
-As it happens, I have a 2FA app on an old phone that has an entry for AWS using that email address, which doesn't make sense. I have no AWS account on that email address. But what do you know, the code it produces works, so I effectively have 2.5FA on the web store?
-
-If I disable 2FA on my Amazon store account, I still get this AWS authentication code request when trying to access this page.
-
-I have absolutely no idea how to disable it or change the device used to generate the code. I have no way of accessing how or where this is configured.
-
-I'm completely lost. The only thing I can imagine is that maybe I setup 2FA on Amazon a long time ago, and it used AWS IAM and somehow this has stuck around in addition to whatever is in place now. But the problem is that I'll need to maintain this random 2FA code in an app on an old device forever, because I have no idea how to change it. 
-
-I tried logging into AWS with the email address in question, but no root account is found for the email. I do have access to a couple of AWS accounts, but not with this particular email address used for Amazon. 
-
-Does anyone even have the first idea about what could be happening here?",1708632949.0
-reddit,https://www.reddit.com/r/aws/comments/1ax2u2w/load_balancer_migrating_from_ec2_instances_to_api/,Load Balancer - Migrating from ec2 instances to API Gateway/Lambda,"We currently host a java application that uses a load balancer to forward http/https traffic to a Target Group consisting of 3 ec2 instances.  We're in the process of migrating our app to use the api gateway & lambda (snapStart) instead.  
-
-I'm curious if there is a way, when we pull the switch to migrate, that we can redirect traffic from the load balancer to the api gateway.  The reason is I'd like to is we'd rather not modify our DNS records so we can quickly revert back if there are any unforeseen problems.  We've paid for the ec2 instances for a few more months so it would be nice to keep them as a fallback just in case.  Note we've done a lot of testing but we just want to play it as safe as possible.  Updating DNS records works but it can take hours to propagate and I'd prefer to do this once we've had full traffic on lambda for some time.
-
-Anyone have any experience with this kind of migration.  Any help/suggestions would be greatly appreciated.
-
-&#x200B;
-
-&#x200B;",1708596017.0
-reddit,https://www.reddit.com/r/aws/comments/1axc7ht/dynamic_react_website_with_vite_with_a_go_backend/,Dynamic React website with Vite with a Go backend on AWS?,"Hello, I am working on a personal website project with a friend who is doing frontend. I am inexperienced with AWS, React and Vite, and I am wondering where do I put the React and Vite application on AWS.
-
-I know that I am putting the Go server in an EC2 instance (or are there any other suggestions?), and I'm thinking of putting the React and Vite website into an S3 bucket with a hosted zone that routes to that bucket, but I am unsure if S3 works for hosting dynamic web front ends as it would have to communicate with the EC2 instance.
-
-I am thinking:  
-1) Route 53 that routes to S3 bucket  
-2) S3 bucket containing React website that communicates with EC2  
-3) Go server on EC2
-
-Is this architecture ok? Are there any changes I should make?",1708623025.0
-reddit,https://www.reddit.com/r/aws/comments/1ax91lc/after_a_day_outline_vpn_cant_connect_to_amazon/,After a day Outline VPN can't connect to Amazon Lightsail instance,"It starts working only after the instance is reboot. To use a Outline, I have to connect and restart the instance every day. What is the reason? 
-
-And one more question, is there an application for managing AVS Lightsail?",1708615551.0
-reddit,https://www.reddit.com/r/aws/comments/1awr83c/use_github_actions_to_copy_from_one_bucket_to/,Use Github Actions to copy from one bucket to another in a different account,"I honestly didn't think this would be too terrible, but IAM is after all the last stand with AWS. 
-
-I want to use github actions to copy the entire contents of any bucket in AWS account *source* , to a bucket in account *target*. I set it up to use the **aws s3 sync** command to do the work.
-
-I created a role in each account. In *source*, a role to read any buckets contents. In *target*, a role to create and write to a new bucket.
-
-Then I configured the role in  *target* to be assumed by actions via the OIDC provider. So effectively the build job starts out in *target.*  
-
-Next I set up a trust policy on the *source* role, so it trusts the *target* role. The idea being that the build job will first create the bucket in *target,* then assume the role in *source,*  so it can read the bucket and copy the contents into *target.* I think my problem is how to have the actions job have the right permissions at the right time. It seems to me that it is linear in how it works, and only has one role at a time. Which kinda begs the question how can it be possible at all.
-
-My build job does these steps:  
-
-
-1. configure aws credentials to assume the *target* role with OIDC. This works fine
-2. create the destination bucket in *target* if it does not already exist. Also works fine.
-3. Assume the role in *source,*  and set up temporary creds. This is some voodoo with the sts assume role command to extract access and secret keys out, and export them into vars.
-4. do **aws s3 sync s3://*****sourcebucketname*** **s3://*****targetbucketname***
-
-The step 3 looks like this:
-
- 
-
-    aws sts assume-role --role-arn arn:aws:iam::acct_id:role/<role in source> --role-session-name CrossAccountAccessSession > creds.json
-
-    export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' creds.json)
-
-    export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' creds.json)
-
-    export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' creds.json)
-
-&#x200B;
-
-When I run the job, I get the error:   >! An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied !<
-
-&#x200B;
-
-To me it seems like since the sync command is hitting both accounts, how does that even work?
-
-&#x200B;",1708558748.0
-reddit,https://www.reddit.com/r/aws/comments/1ax08cv/how_does_aws_waf_or_any_other_stateful_waf_handle/,How does AWS WAF (or any other stateful WAF) handle response traffic?,"Let's say I have a stateful firewall server that sits in front of my application server. When it forwards a client request, it will change the source IP frrom the client IP to it's own IP. 
-
-After my application processes the request and sends a response, I'm assuming it goes back through the firewall (since it's stateful). Does the firewall just pass through the return traffic? If so, how does it figure out the original client address? Is it in the x-forwarded-for header?",1708585632.0
+Any ideas or information will be useful, its been very frustrating.",1708625773.0,2

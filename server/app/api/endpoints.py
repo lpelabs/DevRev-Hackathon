@@ -45,7 +45,12 @@ access_token_secret = SECRETS["access_token_secret"]
 router = APIRouter()
 
 
-@router.get("/reviews")
+@router.get("/")
+async def default():
+    return "server is running"
+
+
+@router.get("/googleplay-reviews")
 async def read_item():
     result, continuation_token = reviews(
         "in.swiggy.android",
@@ -60,8 +65,8 @@ async def read_item():
             {
                 "source": "google play store",
                 "url": "https://play.google.com/store/apps/details?id=in.swiggy.android",
-                "title": review["content"],
-                "body": review["replyContent"],
+                "title": "google play review",
+                "body": review["content"],
                 "user": review["userName"],
                 "upvote": review["thumbsUpCount"],
                 "rating": review["score"],
@@ -108,7 +113,7 @@ async def get_subreddit():
     for submission in subreddit.rising(limit=limit):
         redditdata.append(
             {
-                "source": "reddit",
+                "source": "swiggy",
                 "url": submission.url,
                 "title": submission.title,
                 "body": remove_emoji(submission.selftext),
@@ -223,7 +228,7 @@ async def get_tweets():
     url = "https://twitter154.p.rapidapi.com/search/search"
 
     querystring = {
-        "query": "#python",
+        "query": "swiggy #help",
         "section": "top",
         "min_retweets": "1",
         "min_likes": "1",
