@@ -1,7 +1,7 @@
 import configparser
 
 config = configparser.ConfigParser()
-config.read("config/configuration.ini")
+config.read("app/config/configuration.ini")
 
 SECRETS = {
     "consumer_key": config.get("SECRETS", "consumer_key"),

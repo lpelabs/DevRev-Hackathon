@@ -14,13 +14,13 @@ import json
 import itertools
 
 
-from enums.gsearch_info import SearchInfo
+from app.enums.gsearch_info import SearchInfo
 from bs4 import BeautifulSoup
 
-from helpers.search import google_search
-from helpers.remove_emoji import remove_emoji
-from helpers.use_ai import request_chat_gpt_api
-from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
+from app.helpers.search import google_search
+from app.helpers.remove_emoji import remove_emoji
+from app.helpers.use_ai import request_chat_gpt_api
+from app.helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
 import dotenv
 
@@ -31,7 +31,7 @@ CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 
-from config.config import SECRETS
+from app.config.config import SECRETS
 import csv
 import requests
 from bs4 import BeautifulSoup

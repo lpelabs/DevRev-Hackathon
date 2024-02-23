@@ -5,7 +5,7 @@ from fastapi import FastAPI
 #####
 # API routers
 #####
-from api import endpoints
+from app.api import endpoints
 
 
 app = FastAPI()

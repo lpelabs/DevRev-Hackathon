@@ -1,5 +1,5 @@
 from googlesearch import search
-from enums.gsearch_info import SearchInfo
+from app.enums.gsearch_info import SearchInfo
 
 def google_search(query, search_info):
     # Perform the Google search
