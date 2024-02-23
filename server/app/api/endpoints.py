@@ -2,6 +2,8 @@ import os
 from fastapi import APIRouter, HTTPException, Depends, status,  Query
 import logging
 import requests
+
+
 from google_play_scraper import Sort, reviews
 import praw
 import tweepy
@@ -10,9 +12,15 @@ from openpyxl import Workbook
 import pandas as pd
 import json
 import itertools
-from helpers.search import google_search
+
+
 from enums.gsearch_info import SearchInfo
 from bs4 import BeautifulSoup
+
+from helpers.search import google_search
+from helpers.remove_emoji import remove_emoji
+from helpers.use_ai import request_chat_gpt_api
+from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
 import dotenv
 dotenv.load_dotenv()
@@ -23,17 +31,19 @@ CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 
 from config.config import SECRETS
+import csv
+import requests
+from bs4 import BeautifulSoup
 consumer_key = SECRETS["consumer_key"]
 consumer_secret = SECRETS["consumer_secret"]
 access_token = SECRETS["access_token"]
 access_token_secret = SECRETS["access_token_secret"]
 
-from helpers.remove_emoji import remove_emoji
 
 router = APIRouter()
 
 @router.get("/reviews")
-def read_item():
+async def read_item():
     result, continuation_token = reviews(
         "in.swiggy.android",
         lang="en",  # defaults to 'en'
@@ -67,7 +77,7 @@ def read_item():
     return result
 
 @router.get("/reddit-reviews")
-def get_subreddit():
+async def get_subreddit():
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
 
     Returns:
@@ -136,7 +146,7 @@ def get_subreddit():
         return "An error occurred while appending reviews to voc_data.csv."
 
 @router.get("/github-issues")
-def get_github_issues(
+async def get_github_issues(
     owner: str = Query(..., description="Owner of the repository"),
     repo: str = Query(..., description="Name of the repository"),
 ):
@@ -178,21 +188,15 @@ def get_github_issues(
 
     return filtered_data
 
-@router.post("/search")
-def search_on(query: str):
-    output = []
+@router.post("/example_search")
+async def example_search_function(query: str):
     result = google_search(query, search_info=SearchInfo.URLS)
-    for url in result:
-        print(url)
-        output.append(url)
+    return result
 
-    return output
-
-@router.get("/scrape")
+@router.get("/example_scrape")
 async def scrape(url):
     result = requests.get(url)
     soup = BeautifulSoup(result.text, "html.parser")
-
     print (soup.prettify())
 
 @router.get("/twitter")
@@ -235,3 +239,40 @@ async def get_tweets():
             writer.writerow(tweet)
     
     return(result["results"])
+
+@router.get("/news_to_csv")
+async def news_to_csv(url: str):
+
+    """
+    Scrapes news from a given URL and saves it to a CSV file. Currently, the function scrapes headlines and paragraphs from the URL and saves them to a CSV file.
+    """
+
+    result = requests.get(url)
+    soup = BeautifulSoup(result.text, "html.parser")
+    news = []
+    for headline in soup.find_all("h3"):
+        news.append({"Heading": headline.text, "Content": "", "Category": ""})
+    for paragraph in soup.find_all("p"):
+        news.append({"Heading": "", "Content": paragraph.text, "Category": ""})
+    
+    fieldnames = ["Heading", "Content", "Category"]
+    with open("../data/news.csv", "w", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for item in news:
+            writer.writerow(item)
+    
+    return news
+
+
+@router.get("/ai")
+async def use_ai():
+    review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
+    score = request_chat_gpt_api(NOISE_PROMPT, review)
+    swot = request_chat_gpt_api(SWOT_PROMPT, review)
+    sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review)
+
+    print(score, swot, sentiment)
+
+    # to csv
+
