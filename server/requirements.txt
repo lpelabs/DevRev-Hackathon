@@ -19,7 +19,7 @@ numpy==1.24.4
 oauthlib==3.2.2
 openai==1.12.0
 openpyxl==3.1.2
-pandas==2.2.0
+pandas==2.0.3
 praw==7.7.1
 prawcore==2.4.0
 pydantic==2.6.1
