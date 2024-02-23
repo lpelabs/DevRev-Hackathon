@@ -1,0 +1,104 @@
+[
+    {
+        "index": 0,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: Customer's awareness of various services (Swiggy, Zomato, UberEATS).\nWeaknesses: Poor communication - ambiguous message with excessive use of emoticons.\nOpportunities: Potential for the company to address user concerns during disturbances.\nThreats: Disruptions and disturbances negatively impacting brand image.",
+        "sentiment": "Sentiment: 4"
+    },
+    {
+        "index": 1,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Customers actively use social media to communicate with the brand.\nWeaknesses: Previous complaint handling was ineffective as the issue reoccurred.\nOpportunities: Use customer feedback to improve food customization and allergen notices.\nThreats: Reputation risk due to negative social media feedback and handling of serious issues like food allergies.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 2,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer is engaged and cares enough to inform the company about issues.\nWeaknesses: The current help section lacks specific complaint options which the customer finds frustrating.\nOpportunities: By addressing this issue quickly, they can reach out to this customer and possibly improve future customer experiences.\nThreats: Not addressing this quickly may lead to negative publicity and impact customer trust.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 3,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer took the initiative to vocalize their concern, providing direct feedback.\nWeaknesses: The customer reported a delay in delivery and confusing communication, leading to dissatisfaction.\nOpportunities: Improve delivery time and communication strategy to maintain customer satisfaction.\nThreats: Negative customer experience may cause a decrease in loyalty and damage company's reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 4,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer is actively using Twitter to contact the company and request assistance.\nWeaknesses: Their experience is negatively impacted due to technical issues causing restaurants to appear unserviceable.\nOpportunities: By resolving this issue promptly, trust can be reestablished and the customer relationship can be improved.\nThreats: Unresolved issues might lead to customer loss and negative impressions shared within the customer's social network.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 5,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: Positive customer perception due to delivery agent's lifesaving actions.\nWeaknesses: Dependency on individual acts of kindness which may not extend to all agents.\nOpportunities: Using this as a PR opportunity to enhance brand image.\nThreats: Potential harm to reputation if similar instances aren't handled effectively in the future.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 6,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: The review provides a direct and personal mention of the account, facilitating a direct response.\nWeaknesses: The content is disruptive, containing negative language, possibly alienating other customers.\nOpportunities: This presents an opportunity to engage in a dialogue with the user and address their concerns.\nThreats: The review can potentially harm the company's image publicly if not handled positively and quickly.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 7,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: The customer is willing to use and promote Swiggy\u2019s API integration.\nWeaknesses: The customer is unclear about the procedure for API integration. \nOpportunities: There's a chance for customer education and satisfaction through proper guidance on API integration.\nThreats: Poor communication or lack of response can lead to customer frustration or potentially losing the customer to a competitor.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 8,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: Demonstrates ambition and drive to balance work duties with continuing education.\nWeaknesses: Relies on external help for necessary work tools (cycle).\nOpportunities: Use of social media for crowdsourcing, potential for further support to improve situation.\nThreats: Sustainability of work/study balance, reliance on external aid could lead to unstable conditions.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 9,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Communication with authorities is clear and direct.\nWeaknesses: Having trouble reaching customers due to restrictions.\nOpportunities: Could collaborate with authorities to find a solution during festivals.\nThreats: Restrictions could result in customer dissatisfaction and lower ratings.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 10,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Positive feedback received on weather resilience and diligent work by @swiggy_in, @zomato, and @DunzoIt.\nWeaknesses: Discontent presented for @Olacabs and @Uber due to perceived failure and high charging during rain events.\nOpportunities: The dissatisfaction expressed provides a chance for @swiggy_in, @zomato, and @DunzoIt to capture a larger customer base.\nThreats: An ongoing bad performance in difficult weather could lead to significant reputation damage for @Olacabs and @Uber.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 11,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: Shows a human side of the company through a real-life situation.\nWeaknesses: Might make Swiggy look as if they underpay their employees.\nOpportunities: Engage people's emotional side to garner support or business.\nThreats: Can lead to negative PR about employee work conditions.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 12,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: Active initiative in arranging meals for covid-affected families.\nWeaknesses: Dependent on external parties for meal collection and distribution.\nOpportunities: Possible collaboration with food delivery services for better reach.\nThreats: Changes in covid restrictions could disrupt their service.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 13,
+        "score": "Usefulness: 6",
+        "swot": "Strengths: The customer seeks assistance, indicating a potential for resolving concerns.\nWeaknesses: Delay in assigning a delivery driver is causing dissatisfaction.\nOpportunities: Timely help and support could increase customer satisfaction and loyalty.\nThreats: Unresolved issues might result in negative word-of-mouth and decreased reputation.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 14,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: The review indicates the customer's confidence in the company to help in resolving their issues.\nWeaknesses: There was a mistake made with the order as the wrong restaurant delivered it. \nOpportunities: The issue could be an opportunity to strengthen customer service processes and check for review patterns to prevent future wrong deliveries.\nThreats: There is a risk of losing trust and business from the customer due to this order error.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 15,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer has been loyal since 2016, indicating trust in the company despite the present issue.\nWeaknesses: There was a mistake in the order resulting in a missing item, and the refund process appears to be slow or unresponsive.\nOpportunities: Swiftly resolving the customer's issue could help regain their trust and could potentially elevate company's reputation for customer service.\nThreats: If the issue remains unresolved, it could lead to customer churn and negative social media exposure.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 16,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer actively reaches out for help and uses the platform's direct handle, showing engagement and recognition.\nWeaknesses: There is dissatisfaction towards the delivery service and application functionality, implying poor user experience.\nOpportunities: Improvement in the delivery tracking system and customer service responsiveness could enhance customer satisfaction.\nThreats: Ongoing service errors could deter customer loyalty and lead to negative social media exposure.",
+        "sentiment": "Sentiment: 2"
+    }
+]

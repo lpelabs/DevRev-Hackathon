@@ -11,6 +11,7 @@ def request_chat_gpt_api(prompt, review):
     completion = openai.chat.completions.create(
     model="gpt-4",
     messages=[
+        {"role": "system", "content": "You are a helpful assistant which will help me in classification of text and help me identify useful text."},
         {
             "role": "user",
             "content": ppl,

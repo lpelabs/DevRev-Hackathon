@@ -1,0 +1,602 @@
+[
+    {
+        "index": 0,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Customer shows patience by continuing to order despite delivery issues.\nWeaknesses: The service is slow and the food is consistently delivered cold.\nOpportunities: Improving speed and quality of delivery could significantly enhance customer satisfaction.\nThreats: Continuation of poor service may result in customer's defection and negative word-of-mouth.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 1,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: The customer review suggests high satisfaction with the app as indicated by the 5-star rating.\nWeaknesses: The review lacks detail and insight into specific features or elements that the customer appreciates about the app.\nOpportunities: More probing prompts for reviews could elicit insightful feedback for improvement or highlight strengths.\nThreats: The lack of upvotes indicates that the positive perception is not yet influencing or resonating with other users.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 2,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: The customer gave a highly positive review with a 5-star rating. \nWeaknesses: The review lacks specific details about the customer's experience. \nOpportunities: Can outreach to the customer to learn more about their positive experience and gain insights.\nThreats: Low engagement with the review as indicated by zero upvotes, could signal less visibility.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 3,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: The customer review is positive.\nWeaknesses: The review provides no specific details about the product or service.\nOpportunities: There is room to encourage customers for more detailed feedback.\nThreats: The lack of information may not persuade potential customers.",
+        "sentiment": "Sentiment: 7"
+    },
+    {
+        "index": 4,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None apparent in the review.\nWeaknesses: The company has late delivery issues.\nOpportunities: Can improve punctuality in services and ultimately customer satisfaction.\nThreats: Subsequent bad reviews due to late delivery affecting the firm's reputation adversely.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 5,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Availability of quick delivery previously.\nWeaknesses: Lack of proper communication and transparency regarding changes in service.\nOpportunities: Improvement in communication and service consistency could increase customer satisfaction.\nThreats: Decrease in trust from customers due to unfulfilled promises can damage the brand's reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 6,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None highlighted in the review.\nWeaknesses: The customer had a poor experience.\nOpportunities: Significant room for improvement in customer experience.\nThreats: Customer dissatisfaction could lead to negative word of mouth.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 7,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None mentioned.\nWeaknesses: High delivery time, cold food upon reception, lack of delivery executive.\nOpportunities: Improvement on delivery times, ensure food is delivered hot, investment in more delivery executives.\nThreats: Customer preferences switching to competition like Zomato Gold.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 8,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nNone apparent from the given review.\nWeaknesses: \nCustomer perceives the delivery charge to be very high.\nOpportunities: \nPotential to increase customer satisfaction and possibly sales by lowering the delivery charge.\nThreats: \nElevated delivery charge could lead to loss of customers or decreased order frequency.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 9,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None.\nWeaknesses: The customer perceives the product as not good and expensive.\nOpportunities: By improving product quality and adjusting price, satisfaction may increase.\nThreats: This negative review and low rating could deter potential customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 10,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer rates the service as excellent.\nWeaknesses: Review lacks specific details and explanations for the high rating.\nOpportunities: Positive word of mouth could attract new customers.\nThreats: The review may not appear credible due to lack of upvotes.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 11,
+        "score": "Usefulness: 1",
+        "swot": "Strengths: The customer appears to be satisfied as indicated by their high rating of 5.\nWeaknesses: The review text \"Suii\" is vague and non-informative.\nOpportunities: The possibility to encourage this customer to provide more detailed feedback in the future.\nThreats: The risk that the high rating received may not accurately represent customer satisfaction due to the lack of accompanying feedback.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 12,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: High customer satisfaction indicated by a 5-star rating.\nWeaknesses: Inadequate feedback as the review body is just \"Good\".\nOpportunities: Improving customer engagement by encouraging more detailed reviews.\nThreats: No threats evident as customer sentiment is positive.",
+        "sentiment": "Sentiment: 6"
+    },
+    {
+        "index": 13,
+        "score": "Usefulness: 5",
+        "swot": "Strengths: None identified from this review.\nWeaknesses: Possible false advertising or technical issue causing customer dissatisfaction.\nOpportunities: Fixing technical bugs or clearing any miscommunication to improve customer experience.\nThreats: Negative customer perception and lack of trust due to the mentioned issue.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 14,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: No strengths can be identified from this review.\nWeaknesses: The customer experiences an ineffective support system with inappropriate resolution.\nOpportunities: Improvement could be in enhancing support system efficiency and implementing rational measures for issue resolution.\nThreats: The unresolved issues and unsatisfying solutions may lead to customer dropout and negative reviews, affecting the company's reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 15,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: The customer has given a high rating despite the identified issue, reflecting overall satisfaction.\nWeaknesses: The cash on delivery option is currently not functioning.\nOpportunities: Fixing the cash on delivery issue can improve customer experience and satisfaction.\nThreats: If not addressed promptly, the issue may deter customers from using cash on delivery, potentially impacting sales.",
+        "sentiment": "Sentiment: 4"
+    },
+    {
+        "index": 16,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: None observed from the review.\nWeaknesses: Poor customer service, lack of a functioning problem reporting system.\nOpportunities: Improve customer service, enhance problem reporting system, address issues without solely focusing on refunds.\nThreats: Negative reviews and low customer ratings due to poor customer experience.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 17,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Nil.\nWeaknesses: Unfulfilled orders and miscommunication leading to customer dissatisfaction.\nOpportunities: Improve app functionality to ensure accurate order completion.\nThreats: Negative customer reviews and ratings diminishing brand reputation.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 18,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: None mentioned in the review.\nWeaknesses: Issues with food quality, management, and lack of customer support were noted.\nOpportunities: Improve food quality, customer service and overall management to enhance user experience.\nThreats: Negative reviews like this could discourage new customers from using the app.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 19,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: High customer rating indicates satisfaction with the product.\nWeaknesses: Lack of detailed feedback makes it challenging to identify areas of improvement.\nOpportunities: Encourage this satisfied customer to provide a more comprehensive review to enhance product knowledge and improvements.\nThreats: Low upvote count may limit the reach and influence of the positive review.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 20,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The product/service received a neutral rating indicating average performance.\nWeaknesses: Poor customer service and staff's disrespectful behaviour were highlighted.\nOpportunities: Improving customer care can enhance customer satisfaction and overall rating.\nThreats: Continuation of poor interactions can potentially cause loss of clients.",
+        "sentiment": "Sentiment: 4"
+    },
+    {
+        "index": 21,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Highly satisfied customer with the food quality stating it as \"very very delicious\".\nWeaknesses: There are no complaint-related issues, and reviewer didn\u2019t garner upvotes indicating lack of community engagement.\nOpportunities: To establish long-term customer loyalty through consistent quality service and capitalize on the great review.\nThreats:  The level of customer satisfaction may vary in case of service inconsistencies or product quality changes.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 22,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: None noted.\nWeaknesses: Extremely negative review with limited details, unhelpful feedback for improvement.\nOpportunities: Seek additional feedback from the customer to better understand their dissatisfaction.\nThreats: Potential damage to brand reputation and customer trust due to negative reviews.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 23,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Not applicable as the review doesn't highlight any.\nWeaknesses: Serious customer dissatisfaction with perceived poor service and unjust cancellation charges.\nOpportunities: The company could significantly improve customer service and provide clearer policies on deliveries and cancellations.\nThreats: Threat of losing customer loyalty and referrals to competing services due to negative customer experiences.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 24,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: Customer gave a 5 star rating indicating high satisfaction.\nWeaknesses: The review \"Super bro\" is non-descriptive and doesn't give specific detail about product/service's features.\nOpportunities: Chance to engage with satisfied customer for more detailed feedback.\nThreats: Lack of details may result in misunderstanding the real product/service value leading to ineffective improvements.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 25,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None observed from the customer's review.\nWeaknesses: Issue with user login and excessive notification alerts leading to customer dissatisfaction.\nOpportunities: Improve log-in system and possibly review notification settings for better user experience.\nThreats: Continued issues with user interface could deter users from returning or recommend the app to others.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 26,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Nil.\nWeaknesses: The review indicates that the service is not available in the customer's city.\nOpportunities: Expansion to the customer's location could lead to increased usage.\nThreats: Potential for losing potential clients to competitors in areas where the service is unavailable.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 27,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None mentioned in the review.\nWeaknesses: Product or service delivery seems to be delayed.\nOpportunities: Customer service improvements could lead to customer satisfaction and loyalty.\nThreats: Dissatisfied customers may spread bad word of mouth impacting company image.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 28,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: N/A\nWeaknesses: Bad customer service.\nOpportunities: Improved customer service experience could result in customer satisfaction and loyalty.\nThreats: Current low-quality service may lead to loss of customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 29,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None identified from the review.\nWeaknesses: The lack of cash on delivery option has effectively dissatisfied this customer.\nOpportunities: An opportunity lies in the possibility of introducing a 'Cash on Delivery' option to improve customer satisfaction.\nThreats: Continuation of not providing cash delivery can lead to more negative feedback and potentially loss of customers.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 30,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None displayed from the given review.\nWeaknesses: High packaging charges amounting to roughly 12% of order value. \nOpportunities: Possible reduction in packaging cost to improve customer satisfaction.\nThreats: Potential loss of customer base due to high packaging costs.",
+        "sentiment": "Sentiment: 2.5"
+    },
+    {
+        "index": 31,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nNone.\nWeaknesses: \nA lack of satisfactory customer service with a problematic refund policy.\nOpportunities: \nImprove on customer service by incorporating a better refund policy to increase customer satisfaction.\nThreats: \nPotential loss of customers due to bad experiences, negatively affecting the company's reputation.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 32,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: \nNone revealed in the review.\nWeaknesses: \nRestaurant onboarding without taking quality and response time seriously, lengthy wait times for customers and partners, cancellation fee imposition.\nOpportunities: \nImproving the onboarding process for higher quality restaurants, faster response times, reconsidering cancellation policy.\nThreats: \nFrustrated customers leaving the platform and negatively influencing potential users.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 33,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nNone. \n\nWeaknesses: \nIssues with payment gateway, poor customer service, software malfunctions. \n\nOpportunities: \nImprove software reliability, enhance customer service training, rectify payment system.\n\nThreats: \nLosing customers due to poor experiences, increased negative reviews affecting brand reputation.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 34,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None identified in this review.\nWeaknesses: Inefficiency and inaccurate time-keeping as per customer's review.\nOpportunities: Improvement in service timing and transparency in operations could enhance customer satisfaction. \nThreats: Negative review and low rating can deter potential customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 35,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: Nil.\nWeaknesses: Outdated app, poor tracking, inefficient customer service.\nOpportunities: Update app, improve delivery tracking, better communication, enhance customer service.\nThreats: Customer dissatisfaction, potential loss of business.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 36,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Not observable in the provided review.\nWeaknesses: The review indicates poor customer service.\nOpportunities: Improve customer service to enhance client experience.\nThreats: Negative customer perception which could affect company reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 37,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: N/A\nWeaknesses: Slow delivery time and potentially scattered deliveries.\nOpportunities: Can improve customer satisfaction through faster and more efficient delivery methods.\nThreats: Could lose customers to competitors with faster delivery times due to current delivery practices.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 38,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None from the provided review.\nWeaknesses: Customer dissatisfaction with service, indicating potential issues with quality or delivery.\nOpportunities: Improve customer service and user experience to dissuade clients from switching to competitors.\nThreats: Competitors are cited as better options, illustrating a real risk of losing market share.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 39,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: High customer rating and positive feedback regarding food taste.\nWeaknesses: Typographical errors and limited information in review.\nOpportunities: Potential to enhance marketing efforts based on customer satisfaction.\nThreats: Low upvote count may impact brand visibility.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 40,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The reviewer advises to be specific and detailed, implying a clear suggestion for improvement.\nWeaknesses: The review lacks any concrete examples or clear details about the product or service.\nOpportunities: Could respond to the review by offering more detailed and specific information about the products/services to address the reviewer's suggestion.\nThreats: Potential for confusion or misunderstandings due to the lack of specificity and detail in the communication with the consumer.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 41,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None identified due to solely negative feedback.\nWeaknesses: Poor delivery timings, slow food delivery, and high commission charges.\nOpportunities: Improve delivery speed, align delivery timings with customer expectations, and reassess commission rates.\nThreats: Customers advising others not to use the service, implying potential for reputation damage and loss of customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 42,
+        "score": "Usefulness: 1",
+        "swot": "Strengths: High customer rating showing positive feedback.\nWeaknesses: Incomprehensible review text and lack of upvotes indicating low visibility or engagement. \nOpportunities: Potential for better engagement by clarifying or requesting more detailed reviews from customers.\nThreats: Risk of negative effects on overall customer understanding and product evaluation due to unclear reviews.",
+        "sentiment": "Sentiment: 4"
+    },
+    {
+        "index": 43,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None identified in the review.\nWeaknesses: Lack of strong customer service and responsiveness.\nOpportunities: Could improve company reputation and gain customer trust by increasing communications with customers.\nThreats: Risk of losing customers and getting bad reviews due to poor customer service.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 44,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: High customer satisfaction indicated by the 5-star rating.\nWeaknesses: No visible customer engagement shown by the zero upvotes received.\nOpportunities: Positive feedback on the Kheer Peysamm can be utilized for marketing purposes.\nThreats: Possible variability in customer preferences, as only one product was reviewed.",
+        "sentiment": "Sentiment: 8.5"
+    },
+    {
+        "index": 45,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nThe reviewer is actively communicating their issues, providing valuable feedback regarding missing items and lacking customer service. \n\nWeaknesses: \nThe company's issue resolution process is ineffective, leading to a poor customer review due to missing items and a non-responsive helpline.\n\nOpportunities: \nAddress the gaps in order processing and customer service, also an opportunity to redefine refund or replacement policies to regain customer trust.\n\nThreats: \nPotential loss of customer loyalty and negative brand reputation due to unaddressed complaints and a poor customer service experience.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 46,
+        "score": "Usefulness: 5",
+        "swot": "Strengths: The customer rated the app 5 stars indicating satisfactory user experience.\nWeaknesses: The review is brief and doesn't provide detailed feedback.\nOpportunities: Encourage more comprehensive reviews to gain insight on what aspects of the app the users appreciate.\nThreats: No upvotes on the review may indicate lack of visibility and engagement from other users.",
+        "sentiment": "Sentiment: 7"
+    },
+    {
+        "index": 47,
+        "score": "Usefulness: 6",
+        "swot": "Strengths: High customer rating and positive remarks on food and ambience.\nWeaknesses: Zero upvotes, indicating potential lack of visibility or agreement with the review.\nOpportunities: Can enhance popularity by improving user engagement and sharing of reviews.\nThreats: Relying solely on one positive review could be misleading if not supported by further positive feedback.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 48,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None identified in the review.\nWeaknesses: Customer reports both poor quality and insufficient quantity of food.\nOpportunities: Improve food quality and portions to satisfy customer needs.\nThreats: Negative customer experiences and ratings might deter potential customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 49,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None.\nWeaknesses: Customer feedback indicates the app fails to function as it doesn't open.\nOpportunities: Fixing the app's opening issue could improve user satisfaction and experience.\nThreats: Continued non-functionality could deter future downloads, impacting the app's user base negatively.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 50,
+        "score": "Usefulness: 1",
+        "swot": "Strengths: Neutral customer rating indicates average satisfaction.\nWeaknesses: Review lacks readable text content, making it challenging to extract valuable feedback.\nOpportunities: Potential exists to improve customer experience due to neutral rating.\nThreats: Inability to understand feedback could result in potential issues not being addressed.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 51,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: No identifiable strengths mentioned in the review. \nWeaknesses: Poor delivery service and consistent lateness reported by the customer.\nOpportunities: Improvement of delivery service and speed can enhance customer satisfaction. \nThreats: Continued poor service could risk loss of customer trust and lower ratings.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 52,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: The customer review is positive.\nWeaknesses: The review is vague and provides no specific details.\nOpportunities: There's scope to solicit more valuable and detailed feedback from customers.\nThreats: The lack of upvotes may suggest limited visibility or engagement with the review.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 53,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None mentioned in the review.\nWeaknesses: High cost and extra charges dissatisfy the customer.\nOpportunities: Reducing pricing could attract back dissatisfied customers.\nThreats: The customer is encouraging people to boycott the app because of his dissatisfaction.",
+        "sentiment": "Sentiment: 1.5"
+    },
+    {
+        "index": 54,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: High customer satisfaction reflected in the 5-star rating.\nWeaknesses: Unclear feedback due to the poor grammar and 0 upvotes.\nOpportunities: Potential to improve communication and clarity in customer reviews.\nThreats: Risk of misinterpretation due to unclear feedback.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 55,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The customer has a good internet connection.\nWeaknesses: The user experiences app loading issues that require multiple refreshes.\nOpportunities: Improving app performance could enhance user experience and satisfaction.\nThreats: Continued app performance issues risk frustration and the potential loss of the customer.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 56,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: Timeliness in food delivery demonstrated.\nWeaknesses: The review lacks detail about the quality of food or service.\nOpportunities: Can build on the punctuality, potentially improving service areas not commented on.\nThreats: The potential dissatisfaction with an aspect of service, as indicated by lack of upvotes and not receiving full rating.",
+        "sentiment": "Sentiment: 4"
+    },
+    {
+        "index": 57,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: No specific strengths identified in the review.\nWeaknesses: Persistent login issues, particularly with OTP authentication, negatively impacting user experience.\nOpportunities: Enhancing the OTP authentication system could significantly improve the user experience and app rating.\nThreats: Continued login issues could lead to a plunge in app usage and customer retention.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 58,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: Customer satisfaction with the app's effective and prompt delivery service.\nWeaknesses: Potential lack of awareness as the service is new in the town.\nOpportunities: Expansion within the area given customer's positive experience and satisfaction.\nThreats: Competition may step up delivery speed and app user experience.",
+        "sentiment": "Sentiment: 8.5"
+    },
+    {
+        "index": 59,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: -\nWeaknesses: The app lacks the feature of Instamart, leading to customer dissatisfaction.\nOpportunities: The app can include Instamart, enhancing its functionality and user experience.\nThreats: Continued absence of popular features like Instamart might lead to lower customer ratings and upvotes, affecting the app's popularity.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 60,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: High customer satisfaction indicated by a 5-star rating.\nWeaknesses: Lack of detailed feedback, as the review text is simply \"Very good\".\nOpportunities: Potential for growth since customer seems pleased but did not specify details.\nThreats: Non-engagement of other customers, represented by zero upvotes.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 61,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: None reported in the review.\nWeaknesses: Poor customer service, incorrect order delivery, and low willingness to assist from support staff.\nOpportunities: Improve customer service quality, accuracy in order fulfillment, and staff training.\nThreats: Deteriorating reputation due to poor customer service experiences and incorrect deliveries.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 62,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: \nNone.\nWeaknesses: \nPoor customer satisfaction due to not receiving refunds.\nOpportunities: \nImprovement needed on refund policies to ensure customer retention.\nThreats: \nCustomer dissatisfaction could lead to negative word-of-mouth, potentially damaging the company's image.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 63,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Wide variety of food options and user satisfaction.\nWeaknesses: Lack of specific food preference mentioned.\nOpportunities: Can enhance personalized recommendations based on preferred food type.\nThreats: No threats mentioned in this review.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 64,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None given the dissatisfaction reflected in the customer's review.\nWeaknesses: The firm's arbitrary decision-making causing refusal of orders.\nOpportunities: Investigate and rectify the cause for non-acceptance of orders to improve customer satisfaction.\nThreats: Negative reviews and low customer ratings may tarnish the firm's reputation and customer trust.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 65,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: N/A\nWeaknesses: Customer perception of the app is extremely negative.\nOpportunities: There is a crucial requirement for drastic improvements in current app functionalities.\nThreats: The poor review and rating might devalue the brand image and deter potential users.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 66,
+        "score": "Usefulness: 6",
+        "swot": "Strengths: No strengths can be identified from the review.\nWeaknesses: The customer signaled difficulties with the downloading process.\nOpportunities: There's an opportunity to improve the downloading process to enhance customer experience.\nThreats: Dissatisfied customers may reduce user base and negatively influence potential customers.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 67,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: User-friendly organization and excellent customer support.\nWeaknesses: Offers do not cater to everyone.\nOpportunities: Implement the 'SWIGGYIT' offer to cater to a broader range of customers.\nThreats: Dependence on certain credit card offers may alienate customers.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 68,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Intuitive and user-friendly interface with a wide variety of restaurant options.\nWeaknesses: Review doesn't mention any difficulties or problems with the app.\nOpportunities: App receives high-ranking reviews consistently, which can lead to a broader user base.\nThreats: Ignored complaints or issues from users that the review didn't refer to.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 69,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: N/A.\nWeaknesses: Customer dissatisfaction due to late delivery and poor customer service. \nOpportunities: Improve delivery speed and customer service responsiveness.\nThreats: Losing customers to competitors such as Zomato.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 70,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: The customer gave a high rating which indicates satisfaction.\nWeaknesses: The review text is vague and lacks detailed feedback.\nOpportunities: Encourage the customer for more informative reviews to improve offerings.\nThreats: The lack of specifics in feedback could prevent effective improvements.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 71,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: High user satisfaction due to the app's ease of use, variety of restaurant options, and quick delivery service.\nWeaknesses: No weaknesses mentioned in the review.\nOpportunities: Can further improve on aspects liked by users such as quick deliveries and restaurant variety to attract more customers.\nThreats: Possible competition from other food delivery apps or changing user preferences.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 72,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: The app layout and customer service are functioning excellently.\nWeaknesses: Could feel generic due to other companies copying the template.\nOpportunities: Keeping an edge with original innovative features can set apart from copycats.\nThreats: High customer expectations due to excellence and competition from companies who copied the template.",
+        "sentiment": "Sentiment: 9"
+    },
+    {
+        "index": 73,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: Positive customer review and high customer rating indicate satisfaction.\nWeaknesses: Lack of specific feedback or constructive criticism for improvement.\nOpportunities: Continue doing what is working well to sustain similar positive reviews.\nThreats: Inability to make improvements due to lack of specific feedback.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 74,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: The app has a positive reception from the customer. \nWeaknesses: Poor customer service and issues with food temperature were reported.\nOpportunities: Implementing a more effective support system and ensuring quality of food could enhance customer satisfaction.\nThreats: Customers displeased with customer support and food quality might possibly rate the app low and deter potential users.",
+        "sentiment": "Sentiment: 3"
+    },
+    {
+        "index": 75,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: The review indicates high customer satisfaction about timely delivery and efficiency in refund management.\nWeaknesses: The review barely mentions anything about the quality of food.\nOpportunities: Higher levels of customer service could be marketed for more positive reviews.\nThreats: Any potential slip in the punctuality in delivery and quick refund system could pose a risk to customer satisfaction.",
+        "sentiment": "Sentiment: 10"
+    },
+    {
+        "index": 76,
+        "score": "Usefulness: 8",
+        "swot": "Strengths:\nNot applicable as the review does not highlight any strengths.\n\nWeaknesses:\nThe GPS functionality of the product is unreliable, presenting inconsistent distance measurements.\n\nOpportunities:\nThere's a chance to significantly improve the GPS feature, enhancing the product's utility to the customer.\n\nThreats:\nContinual GPS issues may lead to more negative reviews and overall dissatisfaction, potentially damaging the brand's reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 77,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None mentioned in the review.\nWeaknesses: The customer perceives the company as a market looter with low credibility.\nOpportunities: Improving company's image and increasing trustworthiness could lead to a better market situation.\nThreats: The customer predicts a similar future for the company as Paytm, indicating a declining market position.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 78,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: No strengths were identified in the customer review.\nWeaknesses: The delay in service is a significant weakness highlighted by the customer.\nOpportunities: There is an opportunity to improve timely response or delivery to enhance customer satisfaction.\nThreats: The threat is customers' dissatisfaction and negative customer rating due to the delay which may impair the company's reputation.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 79,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nNone mentioned in the review.\n\nWeaknesses: \nThe review shows that the company suffers from poor packaging, inefficient problem resolution, and lacking customer service.\n\nOpportunities: \nThere's an opportunity to enhance the packaging for the dishes, improve customer service, and develop better problem solving processes.\n\nThreats: \nThe company risks losing not only this particular customer but potentially others due to negative reviews and ratings.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 80,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None provided in the review.\nWeaknesses: Customer exhibits strong dissatisfaction regarding imposed cancellation fee. \nOpportunities: Potential for improvement in cancellation policy to boost customer satisfaction.\nThreats: Continuation of current protocols may lead to further customer dissatisfaction and potential loss of clientele.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 81,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None mentioned in the review.\nWeaknesses: Poor communication about order cancellation, subpar customer service, and possible system glitches.\nOpportunities: Streamline the order process, improve customer support response, and enhance customer communication.\nThreats: Customer dissatisfaction may lead to loss of customers and negative online reviews.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 82,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: The review consists of a positive comment implying customer satisfaction and a rating of 5.\nWeaknesses: The feedback is not detailed enough to detect specific areas of excellence.\nOpportunities: The high customer rating allows the prospect to showcase the quality of the product or service.\nThreats: The absence of specific details, and lack of upvotes could undermine the credibility of the review if compared to more detailed feedback.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 83,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None identified.\nWeaknesses: The customer support app is unsatisfactory.\nOpportunities: There is potential for improvement in restaurant ordering and roadside food delivery services.\nThreats: Low customer rating and negative feedback could affect reputation and customer trust.",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 84,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: High customer satisfaction indicated by the 5-star rating.\nWeaknesses: Discontent with return policy compared to competitors.\nOpportunities: Could improve return policy to increase customer satisfaction.\nThreats: Price competition from other services like Zomato.",
+        "sentiment": "Sentiment: 6"
+    },
+    {
+        "index": 85,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: None identified.\nWeaknesses: Criticism of customer service and delivery staff.\nOpportunities: Need for service improvement and staff training.\nThreats: The review could discourage potential customers.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 86,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: Free shipping at shopping of 99 was initially an attractive service.\nWeaknesses: Now charging minimum 400 for delivery, which amounts to bad customer strategy.\nOpportunities: Improving delivery policies can potentially regain customer's trust and loyalty.\nThreats: Competitive local vendors and dissatisfaction from customers due to poor shipping pricing strategy.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 87,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: \nNone identified based on provided information.\nWeaknesses: \nCustomer unhappy with payment process and service quality.\nOpportunities: \nAddressing payment processing delays and improving customer service.\nThreats: \nPoor customer reviews and ratings risk deterring potential users.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 88,
+        "score": "Usefulness: 8",
+        "swot": "Strengths: None demonstrated in the review.\nWeaknesses: The product is not compatible with international phone numbers.\nOpportunities: The company could consider expanding phone number compatibility to include international options.\nThreats: Customer dissatisfaction could lead to negative reviews and decreased product usage.\n",
+        "sentiment": "Sentiment: 2"
+    },
+    {
+        "index": 89,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None identified due to negative feedback.\nWeaknesses: The app is perceived as very bad, implicating there may be severe issues in functionality or user experience.\nOpportunities: Significant potential for improvement based on customer's dissatisfaction.\nThreats: Perception of the app as a 'theft app' could potentially damage the company's credibility and lose customer trust.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 90,
+        "score": "Usefulness: 3",
+        "swot": "Strengths: The customer gave the highest rating, showing satisfaction.\nWeaknesses: The review's wording is vague and does not provide specific feedback.\nOpportunities: It\u2019s possible to obtain more detailed feedback by reaching out to the customer.\nThreats: The review does not carry enough weight due to zero upvotes and could be missed by others.",
+        "sentiment": "Sentiment: 8"
+    },
+    {
+        "index": 91,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: None identified from the provided review.\nWeaknesses: Customer expresses extreme dissatisfaction with their experience, impacting the product's reputation.\nOpportunities: The strong negative review offers an opportunity for the company to analyze and improve its product/service.\nThreats: The product faces the threat of reduction in user base due to subpar user experiences.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 92,
+        "score": "Usefulness: 9",
+        "swot": "Strengths: Not applicable as the customer review is purely negative.\nWeaknesses: The app has frequent login issues, preventing users from utilizing Swiggy One membership.\nOpportunities: There is an opportunity to improve user experience by fixing login issues and ensuring smooth use of memberships.\nThreats: Poor app functionality could lead to loss of users and lower customer ratings.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 93,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: N/A\nWeaknesses: Customer finding the support team ineffective and dishonest, culminating in low customer rating.\nOpportunities: An opportunity to improve support team interactions, ensuring order deliveries, and increasing customer satisfaction.\nThreats: The poor review and low rating pose a loss of potential customers and a negative brand image.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 94,
+        "score": "Usefulness: 4",
+        "swot": "Strengths: N/A\nWeaknesses: Negative customer perception of dishonesty, low customer rating.\nOpportunities: Improve business ethics and customer service to restore consumer trust.\nThreats: Continued negative reviews may lead to loss of consumers.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 95,
+        "score": "Usefulness: 5",
+        "swot": "Strengths: High customer rating indicates satisfaction with the product or service.\nWeaknesses: Lack of detailed feedback may not provide enough insight for improvement efforts.\nOpportunities: The positive review may attract new customers if shared or publicized.\nThreats: No upvotes imply the review might not be very influential or visible to other potential customers.",
+        "sentiment": "Sentiment: 7"
+    },
+    {
+        "index": 96,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: None evidenced in the review.\nWeaknesses: Poor customer experience as showcased in the review.\nOpportunities: Vast room to improve customer satisfaction and experience.\nThreats: Negative reviews like this can deteriorate the reputation of the firm.",
+        "sentiment": "Sentiment: 1"
+    },
+    {
+        "index": 97,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: Positive customer rating of 5 highlights customer satisfaction.\nWeaknesses: Lack of detailed feedback in the \"Good\" review hinders improvement.\nOpportunities: More specific customer feedback in the future can help improve services or products.\nThreats: Absence of upvotes may indicate low social engagement or visibility.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 98,
+        "score": "Usefulness: 2",
+        "swot": "Strengths: High customer rating suggests satisfaction with the current service.\nWeaknesses: Absence of grocery delivery service in Bareilly which the customer expressed explicit demand for.\nOpportunities: Expansion of delivery services to Bareilly to meet customer demands.\nThreats: Neglecting such requests may lead to loss of customers to local competitors offering the same services.",
+        "sentiment": "Sentiment: 5"
+    },
+    {
+        "index": 99,
+        "score": "Usefulness: 7",
+        "swot": "Strengths: Strong customer satisfaction is evident from the high customer rating and positive comment.\nWeaknesses: Lack of detailed feedback makes it challenging to pinpoint specific areas of success.\nOpportunities: There is a chance to encourage more elaborate reviews to gain better feedback.\nThreats: There's a potential cyclical threat of minimal feedback not contributing to constant improvement.",
+        "sentiment": "Sentiment: 10"
+    }
+]
