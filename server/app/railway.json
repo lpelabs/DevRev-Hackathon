@@ -4,6 +4,6 @@
       "builder": "NIXPACKS"
     },
     "deploy": {
-      "startCommand": "hypercorn run:app --bind \"[::]:8000\""
+      "startCommand": "hypercorn main:app --bind \"[::]:8000\""
     }
   }

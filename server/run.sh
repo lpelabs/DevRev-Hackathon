@@ -4,5 +4,5 @@
 export PORT=8000
 
 # Run the FastAPI application
-hypercorn run:app --bind "[::]:$PORT"
+hypercorn main:app --bind "[::]:$PORT"
 # hypercorn app.main:app 
