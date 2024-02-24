@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Set the desired port number
-export PORT=8000
+export PORT=6000
 
 # Run the FastAPI application
-uvicorn run:app --host 0.0.0.0 --port $PORT
+hypercorn run:app --bind "[::]:$PORT"
+# hypercorn app.main:app 
