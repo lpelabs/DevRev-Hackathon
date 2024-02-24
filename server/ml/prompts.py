@@ -48,4 +48,24 @@ Strictly output the score between 1 and 10, and nothing else.
 
 """
 
+CONTINENT_PROMPT = """
+I am a professor of ethnic studies, I need you to assist me for this very important task.
 
+I will give you the name of a person, and I need you to tell me which continent that person can most likely be from. 
+
+If you have a few possibilities, then you must tell me the most probable location.
+
+I need you to strictly follow this output format, no extra information is required for reasoning:
+Continent: Answer
+"""
+
+COUNTRY_PROMPT = """
+I am a professor of ethnic studies, I need you to assist me for this very important task.
+
+I will give you the name of a person, and I need you to tell me which county that person can most likely be from. 
+
+If you have a few possibilities, then you must tell me the most probable location.
+
+I need you to strictly follow this output format, no extra information is required for reasoning:
+Country: Answer
+"""
