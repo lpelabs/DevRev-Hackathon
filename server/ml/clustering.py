@@ -5,64 +5,83 @@ import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn.decomposition import PCA
 
+def parser(embedding_string):
+    # Convert string to list of floats
+    embedding_list = [float(num) for num in embedding_string.strip('[]').split()]
+
+    # Convert list to numpy array and then to NumPy tensor
+    embedding_tensor = np.array(embedding_list)
+    
+    return embedding_tensor
 
 def find_optimal_clusters(embeddings):
-    """
-    Finds the optimal number of clusters using the Elbow Method.
+    # print(type(embeddings.values))
+    # embeddings = eval(embeddings.replace(' ',',').replace('\n',','))
+    # embeddings = np.array(embeddings)
+    #If taking from final_df.csv
+    embeddings = embeddings.values
+    embeddings = np.array([parser(embedding) for embedding in embeddings])
     
-    Parameters:
-    - embeddings: numpy array containing embeddings
-    
-    Returns:
-    - optimal_n_clusters: optimal number of clusters
-    """
     distortions = []
-    max_clusters = 21 
+    max_clusters = min(len(embeddings), 15)  
+    
     for i in range(1, max_clusters + 1):
         kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
-        kmeans.fit(embeddings)
+        embeddings_reshaped = np.vstack(embeddings)  
+        kmeans.fit(embeddings_reshaped)
         distortions.append(kmeans.inertia_)
-    distortions_diff = np.diff(distortions, 2)
-    optimal_n_clusters = np.argmax(distortions_diff) + 2
-
-    return optimal_n_clusters
-
-def cluster_and_visualize(embeddings, optimal_n_clusters):
-    """
-    Clusters the embeddings and visualizes them in a 3D plot.
     
-    Parameters:
-    - embeddings: numpy array containing embeddings
-    - optimal_n_clusters: optimal number of clusters
-    """
-    kmeans = KMeans(n_clusters=optimal_n_clusters, init='k-means++', random_state=42)
-    cluster_labels = kmeans.fit_predict(embeddings)
+    distortions_diff = np.diff(distortions, 2)
+    
+
+    optimal_num_clusters = np.argmax(distortions_diff) + 2  
+    
+    elbow = 'NO'
+    if elbow == 'YES': 
+        plt.plot(range(1, max_clusters + 1), distortions, marker='o')
+        plt.xlabel('Number of clusters')
+        plt.ylabel('Distortion')
+        plt.title('Elbow Method')
+        plt.show()
+    return optimal_num_clusters
+
+def perform_clustering(embeddings, num_clusters):
+    embeddings = np.array([parser(embedding) for embedding in embeddings])
+    kmeans = KMeans(n_clusters=num_clusters, init='k-means++', random_state=42)
+    embeddings_reshaped = np.vstack(embeddings)  # Convert the list of embeddings to a 2D array
+    clusters = kmeans.fit_predict(embeddings_reshaped)
+    return clusters
 
 
+def visualize_clusters_3d(embeddings, clusters):
+    pca = PCA(n_components=3)
+    embeddings = np.array([parser(embedding) for embedding in embeddings])
+    embeddings_reshaped = np.vstack(embeddings)  # Convert the list of embeddings to a 2D array
+    embeddings_3d = pca.fit_transform(embeddings_reshaped)
+    
+    print(f"Embeddings 3D are {embeddings_3d.shape}")
+    print(f"Ereshaped are {embeddings_reshaped.shape}")
+    
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-
-    for cluster_label in np.unique(cluster_labels):
-        cluster_embeddings = embeddings[cluster_labels == cluster_label]
-        ax.scatter(cluster_embeddings[:, 0], cluster_embeddings[:, 1], cluster_embeddings[:, 2], label=f'Cluster {cluster_label}')
-
-    ax.set_xlabel('Dimension x')
-    ax.set_ylabel('Dimension y')
-    ax.set_zlabel('Dimension z')
-    ax.set_title('3D Projection of Clustered Embeddings')
-    plt.legend()
-    plt.show()
-
-def cluster_embeddings_and_visualize(df, column_name):
-    """
-    Clusters embeddings from the specified column in the DataFrame
-    and visualizes them in a 3D plot.
     
-    Parameters:
-    - df: DataFrame containing the embeddings
-    - column_name: name of the column containing embeddings
-    """
-    embeddings = np.array(df[column_name].to_list())
-    optimal_n_clusters = find_optimal_clusters(embeddings)
-    cluster_and_visualize(embeddings, optimal_n_clusters)
+    # Assign a unique color to each cluster
+    num_clusters = len(np.unique(clusters))
+    colors = plt.cm.viridis(np.linspace(0, 1, num_clusters))
+    
+    cluster_dict = {}
+    
+    for cluster_id, color in zip(range(num_clusters), colors):
+        cluster_points = embeddings_3d[clusters == cluster_id]
+        cluster_dict[cluster_id] = cluster_points.tolist()
+        ax.scatter(cluster_points[:, 0], cluster_points[:, 1], cluster_points[:, 2], c=color, label=f'Cluster {cluster_id}')
+    
+        print(f"cluster points are {cluster_points} \n and cluster id is {cluster_id}")
+    
+    print("Cluster dict is")
+    print(cluster_dict)
+    
+    return cluster_dict
+
