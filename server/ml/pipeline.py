@@ -18,7 +18,25 @@ import json
 import pandas as pd
 import os
 
-def runPipeline(source_name):
+def processData(client_name,TESTING=False):
+    previous_data_dict = {}#One level up
+    processed_data_dict = {}
+    
+    save_path = os.path.abspath("../output/")
+    
+    with open(os.path.join(save_path,"processed.json"), "r") as f:
+        previous_data_dict = json.load(f)
+    
+    for source in ["google_play", "twitter", "reddit"]:
+        print(f"Running pipeline for {source}")
+        processed_data_dict[source] = runPipeline(source, TESTING=TESTING)
+        
+    previous_data_dict[client_name] = processed_data_dict
+        
+    with open(os.path.join(save_path,"processed.json"), "w") as f:
+        json.dump(previous_data_dict, f)
+
+def runPipeline(source_name, TESTING=False):
     """
     This function will run the pipeline depending on the source.
     
@@ -35,25 +53,38 @@ def runPipeline(source_name):
     if source_name == "google_play":
         df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
         #For testing purposes, take only 5 rows
-        df = df.head()
+        if TESTING:
+            df = df.head()
         
         with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            json.dump(googlePlayModel(df), f)
+            analytics = googlePlayModel(df)
+            json.dump(analytics, f)
+            
+            return analytics
         
     elif source_name == "twitter":
         df = pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
         #For testing purposes, take only 5 rows
-        df = df.head()
+        if TESTING:
+            df = df.head()
         
         with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            json.dump(twitterModel(df), f)
+            analytics = twitterModel(df)
+            json.dump(analytics, f)
+            
+            return analytics
+            
     elif source_name == "reddit":
         df = pd.read_csv(os.path.join(base_path, "new_reddit_voc_data.csv"), encoding='latin1')
         #For testing purposes, take only 5 rows
-        df = df.head()
+        if TESTING:
+            df = df.head()
         
         with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            json.dump(redditModel(df), f)
+            analytics = redditModel(df)
+            json.dump(analytics, f)
+            
+            return analytics
     else:
         raise Exception("Invalid source name")
 

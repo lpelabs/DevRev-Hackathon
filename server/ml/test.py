@@ -1,3 +1,3 @@
-from pipeline import runPipeline
+from pipeline import processData
 
-runPipeline("reddit")
+processData(client_name='Swiggy',TESTING=True)
