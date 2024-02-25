@@ -10,7 +10,7 @@
 #Use Prophet to forecast
 #Give analytics
 
-from swot_analysis import generateEmbeddings, dataframeEmbeddings, usefulDataframeEmbeddings
+from swot_analysis import generateEmbeddings, dataframeEmbeddings, usefulDataframeEmbeddings, sentimentDataframeEmbeddings
 from geographical_analysis import geoDataframeEmbeddings
 from prompting import request_chat_gpt_api
 import pandas as pd
@@ -74,17 +74,19 @@ def googlePlayModel(raw_data_df):
     print(f"Date Data: {date_df.head()}")
     rating_df = raw_data_df['rating']
     print(f"Rating Data: {rating_df.head()}")
+    sentiment_df['review'] = raw_data_df['body']
+    sentiment_df = sentimentDataframeEmbeddings(sentiment_df)
+    print(f"Sentiment Data: {sentiment_df.head()}")
     
     review_df['tf_embedding'] = review_df['review'].apply(lambda x: generateEmbeddings(x))
     swot_embeddings = dataframeEmbeddings(review_df)
     geographical_embeddings = geoDataframeEmbeddings(name_df)
     
-    final_df = pd.concat([swot_embeddings, geographical_embeddings, date_df, rating_df], axis=1)
+    final_df = pd.concat([swot_embeddings, geographical_embeddings, sentiment_df, date_df, rating_df], axis=1)
     final_df.to_csv("final_df.csv")
     
     #Cluster based on SWOT 
     #Cluster based on Geographical Data - send dataframe with continent and review
-    #Add sentiment analysis
     
     #For each Continent - sentiment timeline
     #Work on weaknesses prompt

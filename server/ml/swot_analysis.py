@@ -10,7 +10,7 @@ import numpy as np
 import torch 
 import torch.nn as nn 
 from prompting import request_chat_gpt_api
-from prompts import SWOT_PROMPT,NOISE_PROMPT
+from prompts import SWOT_PROMPT,NOISE_PROMPT,SENTIMENT_PROMPT
 from sentence_transformers import SentenceTransformer
 
 def generateEmbeddings(body):
@@ -42,6 +42,10 @@ def swotDataframeEmbeddings(reviews_df):
 
 def usefulDataframeEmbeddings(reviews_df):
     reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(NOISE_PROMPT,x).split()[1]))
+    return reviews_df
+
+def sentimentDataframeEmbeddings(reviews_df):
+    reviews_df['sentiment'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(SENTIMENT_PROMPT,x).split()[1]))
     return reviews_df
 
 def dataframeEmbeddings(df):
