@@ -5,7 +5,7 @@ import os
 #####
 # API routers
 #####
-from app.api import endpoints
+# from app.api import endpoints
 
 
 app = FastAPI()
@@ -24,7 +24,7 @@ def read_root():
     return {"message": "Server is running!"}
 
 # Include your API routers here
-app.include_router(endpoints.router, prefix="", tags=["Home"])
+# app.include_router(endpoints.router, prefix="", tags=["Home"])
 
 
 # if __name__ == "__main__":
