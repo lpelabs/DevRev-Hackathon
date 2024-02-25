@@ -19,6 +19,7 @@ inputs:
       description: "The name of your Company"
       field_type: text
       is_required: true
+      default_value: ""
       ui:
         display_name: Company
     - name: app_id
@@ -64,6 +65,20 @@ inputs:
       default_value: [""]
       ui:
         display_name: Github Repo
+    - name: github_owner
+      description: "Name of the owner of public github repo to track the issues."
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Github Owner Name
+    - name: github_repo_name
+      description: "Name of the repo of the public github repo to track the issues."
+      field_type: text
+      is_required: true
+      default_value: ""
+      ui:
+        display_name: Github Repo Name
     - name: twitter_handle
       description: "Username of company on twitter. in case of mutiple ids, separate usernames by comma"
       field_type: text
@@ -96,6 +111,9 @@ functions:
     description: "Function to create a new ticket when triggered."
   - name: "snapin_intro"
     description: "Function to give an intro about the Voice To Help Snap-in."
+  - name: "fetch_play_store_reviews"
+    description: "Function to fetch reviews from play store."
+
 
 tags:
   - name: "bug"
@@ -137,7 +155,7 @@ commands:
         object_types:
           - "snap_in"
     usage_hint: "/play-store-review [rating (default value : 1)] [number of reviews to fetch and process]"
-    function: "snapin_intro"
+    function: "fetch_play_store_reviews"
 
 automations:
     - name: periodic_ticket_creator
