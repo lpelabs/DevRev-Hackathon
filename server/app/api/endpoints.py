@@ -60,9 +60,10 @@ async def read_item():
     )
 
     play_review = []
-    for review in result:
+    for index, review in enumerate(result):
         play_review.append(
             {
+                "index": index,
                 "source": "google play store",
                 "url": "https://play.google.com/store/apps/details?id=in.swiggy.android",
                 "title": "google play review",
@@ -106,13 +107,14 @@ async def get_subreddit():
         user_agent=user_agent,
     )
 
-    subreddit = reddit.subreddit("aws")  # Replace with the desired subreddit
+    subreddit = reddit.subreddit("swiggy")  # Replace with the desired subreddit
     limit = 100  # Set the desired limit for fetched posts
 
     redditdata = []
-    for submission in subreddit.rising(limit=limit):
+    for index, submission in enumerate(subreddit.new(limit=limit)):
         redditdata.append(
             {
+                "index": index,
                 "source": "swiggy",
                 "url": submission.url,
                 "title": submission.title,
@@ -132,7 +134,7 @@ async def get_subreddit():
     # CSV handling (adapted from Response A with improvements)
     try:
         with open(
-            "../data/new_reddit_voc_data.csv", "a", newline=""
+            "../data/reddit_voc.csv", "a", newline=""
         ) as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
@@ -181,9 +183,10 @@ async def get_github_issues(
     issues = response.json()
 
     filtered_data = []
-    for issue in issues:
+    for index, issue in enumerate(issues):
         filtered_data.append(
             {
+                "index": index,
                 "source": "github",
                 "url": issue["url"],
                 "title": issue["title"],
@@ -204,7 +207,7 @@ async def get_github_issues(
         for issue in filtered_data:
             writer.writerow(issue)
 
-    df = pd.read_csv("../data/new_github_voc_data.csv")
+    df = pd.read_csv("../data/github_voc.csv")
     df.to_excel("github_issues.xlsx", index=False)
 
     return filtered_data
@@ -228,7 +231,7 @@ async def get_tweets():
     url = "https://twitter154.p.rapidapi.com/search/search"
 
     querystring = {
-        "query": "swiggy #help",
+        "query": "@swiggy #help",
         "section": "top",
         "min_retweets": "1",
         "min_likes": "1",
@@ -246,9 +249,10 @@ async def get_tweets():
     result = response.json()
 
     filtered_data = []
-    for tweet in result["results"]:
+    for index, tweet in enumerate(result["results"]):
         filtered_data.append(
             {
+                "index": index,
                 "source": "twitter",
                 "url": tweet["expanded_url"],
                 "title": "tweet status",
@@ -307,3 +311,94 @@ async def use_ai():
     print(score, swot, sentiment)
 
     # to csv
+
+
+@router.get("/ai/twitter")
+async def process_twitter_data():
+    df = pd.read_csv("../data/twitter_data.csv")
+    processed_data = []
+
+    for index, row in df.iterrows():
+        review = {
+            "review_body": row["body"],
+            "created_at": row["created_at"],
+            "upvote_count": row["upvote"],
+        }
+
+        review_str = json.dumps(review)
+
+        score = request_chat_gpt_api(NOISE_PROMPT, review_str)
+        swot = request_chat_gpt_api(SWOT_PROMPT, review_str)
+        sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review_str)
+
+        processed_data.append(
+            {"index": index, "score": score, "swot": swot, "sentiment": sentiment}
+        )
+
+    json_file_path = "twitter_processed_data.json"
+
+    with open(json_file_path, "w") as json_file:
+        json.dump(processed_data, json_file)
+
+    print("completed")
+
+
+@router.get("/ai/googleplay")
+async def process_googleplay_data():
+    df = pd.read_csv("../data/google_play_voc.csv")
+    processed_data = []
+
+    for index, row in df.iterrows():
+        review = {
+            "review_body": row["body"],
+            "created_at": row["created_at"],
+            "upvote_count": row["upvote"],
+            "customer_rating": row["rating"],
+        }
+
+        review_str = json.dumps(review)
+
+        score = request_chat_gpt_api(NOISE_PROMPT, review_str)
+        swot = request_chat_gpt_api(SWOT_PROMPT, review_str)
+        sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review_str)
+
+        processed_data.append(
+            {"index": index, "score": score, "swot": swot, "sentiment": sentiment}
+        )
+
+    json_file_path = "googleplay_processed_data.json"
+
+    with open(json_file_path, "w") as json_file:
+        json.dump(processed_data, json_file)
+
+    print("completed processing")
+
+@router.get("/ai/reddit")
+async def process_reddit_data():
+    df = pd.read_csv("../data/reddit_voc.csv")
+    processed_data = []
+
+    for index, row in df.iterrows():
+        review = {
+            "review_body": row["body"],
+            "created_at": row["created_at"],
+            "upvote_count": row["upvote"],
+            "review_title": row["title"],
+        }
+
+        review_str = json.dumps(review)
+
+        score = request_chat_gpt_api(NOISE_PROMPT, review_str)
+        swot = request_chat_gpt_api(SWOT_PROMPT, review_str)
+        sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review_str)
+
+        processed_data.append(
+            {"index": index, "score": score, "swot": swot, "sentiment": sentiment}
+        )
+
+    json_file_path = "reddit_processed_data.json"
+
+    with open(json_file_path, "w") as json_file:
+        json.dump(processed_data, json_file)
+
+    print("completed processing")
