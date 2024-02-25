@@ -342,4 +342,4 @@ async def generate_csv(app_name: str = "swiggy", subreddit_name: str = "aws", ow
 async def get_insights(client_name: str = "swiggy"):
     with open("./data/processed_data.json", "r") as file:
         data = json.load(file)
-        return data[client_name]
+        return { "data" : data[client_name]}
