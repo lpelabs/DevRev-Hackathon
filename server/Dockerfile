@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./ /code/
 
 # Specify the command to start the application using hypercorn
-CMD ["hypercorn", "main:app", "--bind", "[::]:8000"]
+CMD ["hypercorn", "main:app", "--bind", "[::]:8080"]
