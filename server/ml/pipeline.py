@@ -22,7 +22,7 @@ def processData(client_name,TESTING=False):
     previous_data_dict = {}#One level up
     processed_data_dict = {}
     
-    save_path = os.path.abspath("../output/")
+    save_path = os.path.abspath("./output/")
     
     with open(os.path.join(save_path,"processed.json"), "a+") as f:
         f.seek(0)
@@ -52,7 +52,7 @@ def runPipeline(source_name, TESTING=False):
     """
     
     base_path = os.path.abspath("../data/")
-    save_path = os.path.abspath("../output/")
+    save_path = os.path.abspath("./output/")
     
     if source_name == "google_play":
         df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
@@ -60,11 +60,11 @@ def runPipeline(source_name, TESTING=False):
         if TESTING:
             df = df.head()
         
-        with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = googlePlayModel(df)
-            json.dump(analytics, f)
-            
-            return analytics
+        # with open(os.path.join(save_path,source_name+".json"), "w") as f:
+        analytics = googlePlayModel(df)
+            # json.dump(analytics, f)
+        
+        return analytics
         
     elif source_name == "twitter":
         df = pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
@@ -72,11 +72,11 @@ def runPipeline(source_name, TESTING=False):
         if TESTING:
             df = df.head()
         
-        with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = twitterModel(df)
-            json.dump(analytics, f)
-            
-            return analytics
+        # with open(os.path.join(save_path,source_name+".json"), "w") as f:
+        analytics = twitterModel(df)
+        # json.dump(analytics, f)
+        
+        return analytics
             
     elif source_name == "reddit":
         df = pd.read_csv(os.path.join(base_path, "new_reddit_voc_data.csv"), encoding='latin1')
@@ -84,11 +84,11 @@ def runPipeline(source_name, TESTING=False):
         if TESTING:
             df = df.head()
         
-        with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = redditModel(df)
-            json.dump(analytics, f)
-            
-            return analytics
+        # with open(os.path.join(save_path,source_name+".json"), "w") as f:
+        analytics = redditModel(df)
+        # json.dump(analytics, f)
+        
+        return analytics
     else:
         raise Exception("Invalid source name")
 
