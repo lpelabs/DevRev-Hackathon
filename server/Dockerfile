@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir virtualenv
 
 # Create and activate the virtual environment
 RUN virtualenv venv
-RUN /bin/bash -c "source venv/bin/activate"
+RUN /bin/bash -c "source /code/venv/bin/activate"
 
 # Copy requirements and install them in the virtual environment
 COPY ./requirements.txt /code/requirements.txt
