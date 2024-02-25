@@ -1,5 +1,5 @@
 import {publicSDK } from '@devrev/typescript-sdk';
-import * as gplay from "google-play-scraper";
+import gplay from "google-play-scraper";
 import { ApiUtils, HTTPResponse } from './utils';
 import {LLMUtils} from './llm_utils';
 
