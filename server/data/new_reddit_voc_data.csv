@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+source,url,title,body,created_at,upvote
+aws,https://www.reddit.com/r/aws/comments/1ayykyl/aws_transcribe_is_crazy_expensive_how_to_lower/,AWS Transcribe is crazy expensive. How to lower costs and keep comparable performance?,"Looking for information on AWS hosted alternatives, e.g. Whisper on EC2. Has anyone switched over to this? If so how low are you able to get your costs to transcribe audio and video with comparable quality?",1708792054.0,17
+aws,https://www.reddit.com/r/aws/comments/1azggur/one_vs_more_vpn/,One vs more VPN,"We are debating if se should use one or more Customer Gateway/VPN connections with our Transit Gateway. To me it looks like it just increases how much resources we need to maintain(more in Aws and onprem both), without adding much resiliency.
+=======
 source,url,title,body,created_at,upvote
 swiggy,https://www.reddit.com/r/aws/comments/1axx5c9/how_to_forward_authorization_header_using/,How to forward Authorization header using CloudFront Origin Request whitelist?,"I'm using AWS AppSync as origin (think of it as similar to API Gateway). I've disabled my CloudFront cache using using the [CachingDisabled](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html#managed-cache-policy-caching-disabled) managed policy.
 
@@ -36,15 +41,22 @@ Our company already uses a bunch of lambda, but through sqs -> lambda for our da
 
 Wondering if people know of anything to look out for, like any weird behavior with it to keep track of",1708676349.0,4
 swiggy,https://www.reddit.com/r/aws/comments/1axf0ll/failed_loop/,Failed Loop,"I interviewed for a senior TAM position and today I got the rejection, 2 days after the loop.
+>>>>>>> main
 
-I got very positive feedback from at least two interviewers, one of which was the hiring manager. The HM commented after one of my STAR stories saying it was very good, and hoped I would do well in the other interviews as he really enjoyed speaking with me.
+As I can tell our current CGW/connection have never been down, did AWS ever have outtage id this service?
+And if it did, it would impact us the same no matter if we had 1 or 4 CGWs as they would all be affected.",1708840108.0,1
+aws,https://www.reddit.com/r/aws/comments/1azburu/new_accounts_under_organisation_are_not/,New accounts under organisation are not consolidating billing,"I have a personal AWS org. The management account is setup with billing and so I can create resources within it. Obviously, I don't want to use the management account for that - but every time I create a new account in the org it is considered ""NotSignedUp"", so accessing S3 will 404, etc. 
 
-Today, the recruiter emailed me saying they will have the debrief the same day and asked what my salary expectations are, so that they can quickly send me an offer if I get the job.
+As I understand it, any new/invited account within an org now, by default, consolidates its billing under the management account?
 
-I asked specifics related to on-call, sign on bonus etc, but didn't specify a salary. Recruiter said if I cannot disclose a number, they would come back with an offer based on my experience and interview performance. I asked them to do so and didn't provide a range. I was very respectful and formal.
+Does anyone know why new accounts might be treated as NotSignedUp?",1708825514.0,2
+aws,https://www.reddit.com/r/aws/comments/1azfkay/mqtt_connection_failure_with_aws_iot_core/,MQTT connection failure with AWS IoT Core,"I need some assistance with a frustrating issue I'm encountering while connecting my device to AWS IoT Core. I'm using the \`aws-iot-device-sdk-v2\` library for JS and keep hitting this error:
 
-2 hours later, recruiter emailed a rejection, saying I wasn't a functional fit and the decision was based on the examples I provided during the interviews. They also said I could apply for another role directly, no cool off period. I did reuse examples but no more than twice, all with different interviewers. That was a mistake of course, but I was expecting that would just downgrade me from L6 senior to L5 TAM. 
+`Error: aws-c-io: AWS_IO_TLS_ERROR_NEGOTIATION_FAILURE, TLS (SSL) negotiation failed`
 
+<<<<<<< HEAD
+This happens when I try to connect using `newWebsocketMqttBuilderWithSigv4Auth`
+=======
 What to make of this? I really want to join Amazon because I am specialized in cloud computing. Should I keep refining my skills and try again in the future, or give up? I don't know what to fix exactly given the lack of feedback from the recruiter...",1708629617.0,17
 swiggy,https://www.reddit.com/r/aws/comments/1axxsa2/creating_a_qc_ui_for_textract_quality_checking/,Creating a QC UI for Textract Quality Checking.," I am using Textract to extract tabular data. Unfortunately, Textract does not actually give out the correct OCR values most of the times, so I am using a Elastic Search to fit the values returned by Textract to my required domain. 
 
@@ -86,11 +98,16 @@ Throughout these experiences, I've successfully executed numerous projects and I
 I'm eager to hear your thoughts on how I stack up for a cloud engineer role. Furthermore, if you have any recommendations for additional resources that could enhance my preparation, I would greatly appreciate it. Thank you for taking the time to read my post.",1708656073.0,4
 swiggy,https://www.reddit.com/r/aws/comments/1axkjgd/whats_your_experience_using_opensearch_anybody/,What's your experience using opensearch? Anybody ingesting lots of data?,"My use case is IoT ingesting maybe 100,000s of messages a minute. How does opensearch serverless scale. I've been stung by elastic before, has aws fixed anything?",1708642708.0,6
 swiggy,https://www.reddit.com/r/aws/comments/1ax9fzh/comprehensive_guide_costperformance_compared_of/,Comprehensive Guide: Cost/Performance Compared of AWS File Storage Options,"Hello everyone!
+>>>>>>> main
 
-If you�re struggling with choosing the right AWS storage solution, [this article](https://cuno.io/blog/making-the-right-choice-comparing-the-cost-performance-of-different-efs-options-and-alternatives/) has a clear breakdown and comparison of different EFS, EBS, FSx Lustre, and S3 options, focusing on cost and performance. It includes:
+This code is from samples provided by AWS
 
-1. Comparisons in graphs & tables
+Because other functions of the SDK aren't available for react-native.
 
+<<<<<<< HEAD
+    function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+=======
 2. Explanations of different storage and throughput modes
 
 3. Insights into when to choose EFS over other AWS storage options  
@@ -205,49 +222,1202 @@ I decided to do this simply and schedule a lambda to identify and terminate all 
     import json
     import boto3
     from datetime import datetime, timedelta
+>>>>>>> main
     
-    # Global vars
-    ASG_NAME = 'example-asg'
-    CUTOFF_TIME = 8 # hours
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
     
-    # # Init resource clients/resources
-    asg_client = boto3.client('autoscaling')
-    ec2_client = boto3.client('ec2')
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
     
-    def lambda_handler(event, context):
-        
-        # Get cutoff time
-        now = datetime.now()
-        cutoff = now - timedelta(hours=CUTOFF_TIME)
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
     
-        # Get all instance IDs in ASG
-        asg_resp = asg_client.describe_auto_scaling_groups(
-            AutoScalingGroupNames=[ASG_NAME]
-        )
-        asg_instances = []
-        for i in asg_resp['AutoScalingGroups'][0]['Instances']:
-            asg_instances.append(i['InstanceId'])
+      return builder.build();
+    }function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
     
-        # Get all instance IDs in ASG to terminate (launch time < cutoff time) 
-        ec2_resp = ec2_client.describe_instances(
-            InstanceIds=asg_instances
-        )
-        asg_instances_2_terminate = []
-        for i in ec2_resp['Reservations']:
-            for j in i['Instances']:
-                if j['LaunchTime'].replace(tzinfo=None) < cutoff:
-                    asg_instances_2_terminate.append(j['InstanceId'])
     
-        # Terminate instances
-        ec2_terminate_resp = ec2_client.terminate_instances(
-            InstanceIds=asg_instances_2_terminate
-        )
-        return {
-            'statusCode': 200,
-            'body': json.dumps(ec2_terminate_resp)
-        }
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+    
+      return builder.build();
+    }
 
+
+
+`credentialsProvider: auth.AwsCredentialsProvider.newDefault()`
+
+This line was suggested by GPT which didn't do shit.
+
+I guess I need to add some sort of auth on the AWS side first and then use that to access the endpoint from here. But what and how?
+
+The method below works fine when run in Node, but it's not available on react-native
+
+    if (args.key && args.cert) {
+     builder =
+       iot.AwsIotMqtt5ClientConfigBuilder.newDirectMqttBuilderWithMtlsFromPath(
+         args.endpoint,
+         args.cert,
+         args.key
+       );
+
+I've tried several things to resolve it, but I'm still scratching my head.
+
+There's a few tutorials about slightly different things that talk about doing something with Cognito or Amplify but I couldn't really understand them (or didn't want to). I thought that maybe there was a simpler way
+
+This is my first time dabbling in IoT, AWS and React Native.
+
+I truly appreciate any insights or suggestions you can offer!",1708837081.0,1
+aws,https://www.reddit.com/gallery/1azcz6i,Cloud Quest - API Gateway,"Can someone please help me with this one. I am now too invested in this game and I cant just ignore it. Hahaha 🥹
+
+And I got this result though I did everything. I already spent 1hour configuring it but still the result was ""AN ERROR (403) OCCURED WHILE INVOKING API WITH THE URL YOU PROVIDED.""",1708828822.0,0
+aws,https://www.reddit.com/r/aws/comments/1aza0fo/java_shared_code_in_a_lambda_layer_how_will/,[Java] Shared code in a lambda layer. How will lambdas access this layer?,"I have 5+ lambdas. Each lambda does its work by using 1 specific class and multiple utility classes. All the lambdas live in the same repository. Their `build.gradle`s all have the same dependencies. Small example:
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+This results in identical utility classes being duplicated everywhere. Therefore I am looking into creating a `lambda layer` that will contain all the common dependencies and shared utility classes that the 3 lambdas will use. Small updated example:
+
+    LambdaLayer
+      src
+       main
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+      build.gradle
+
+My question is: **How would the lambdas import the lambda layer as a dependency?** Would they just have to import it as a dependency in the `build.gradle` as they would with any other dependency? That would mean that the lambda layer JAR would have to be published first before the lambdas can use it right? This is for work and at my company all JARs get published to a company maven repository.
+
+Anything else I need to know in order to do this properly? Lambda layer tutorials in Java are rare when I google",1708820419.0,1
+aws,https://www.reddit.com/r/aws/comments/1az9s0s/video_on_demand_via_aws_media_convert/,Video on Demand via AWS Media Convert?,"Hello, using S3 and cloudfront for video on demand services(50mb - 5gb files), however data transfer costs are getting out of hand;
+
+1. Is media convert a suitable approach(cost, overhead, efficacy, etc)?
+2. Does media convert have adaptive bitrate streaming?
+3. Id like to load videos in ""chunks"" instead of loading entire file like i am currently, does media convert help with this?",1708819813.0,1
+aws,https://www.reddit.com/r/aws/comments/1az94ga/video_on_demand_options/,Video On Demand options?,"Currently storing via S3 and serving via CloudFront, however the data transfer costs are still too high and id like to find a solution:
+
+1. Should I even be using s3 + CloudFront for this?
+2. What is adaptive bitrate? What are my options for this?
+3. Should I convert/compress videos upon upload? If so what are my options
+4. Proper CloudFront utlization? Currently im signing cloudfront URLs and sending it directly to client, does cloudfront automatically cache and compress files or must I do something else?",1708818106.0,0
+aws,https://www.reddit.com/r/aws/comments/1az8hwb/is_it_possible_to_grant_a_lightsail_instance/,Is it possible to grant a Lightsail instance access to Bedrock via Service Roles?,"I have a Lighsail instance that I would like to make requests to my Bedrock FM. I could create Access Key/Access Key Secret, but I am wondering if this is possible via Service Roles. It seems Lightsail uses a Service Linked Role, which cannot be modified. I just want to make sure I am understanding that correctly.
+
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_aws-services-that-work-with-iam.html#all\_svcs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html#all_svcs)",1708816473.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayy7hq/aws_cognito_giving_me_code_that_violates_their/,AWS Cognito giving me code that violates their own policy?,"I am creating a website using AWS S3 and I am using Cognito for user accounts.  
+
+
+I have Cognito set up and working on my website to where a user can sign up for an account. However, whenever a user is directed to the link provided by Cognito for authentication (ex: https://<website name>-login.auth.us-east-1.amazoncognito.com/login?client\_id=<client id>&response\_type=code&scope=email+openid&redirect\_uri=https%3A%2F%2F<domain name>%2F<website\_name>.html), the following error is had in the console:  
+
+
+""Refused to execute inline script because it violates the following Content Security Policy directive: ""script-src [https://d3oia8etllorh5.cloudfront.net](https://d3oia8etllorh5.cloudfront.net) https://<website name>-login.auth.us-east-1.amazoncognito.com"". Either the 'unsafe-inline' keyword, a hash ('sha256-fWEffNYGDN+XQ+YrsU/LKDZAnOcnSlra1fOIm+7oskM='), or a nonce ('nonce-...') is required to enable inline execution.""  
+
+
+Basically, it is saying that on this authentication website provided by Cognito, it uses an inline script, which is not allowed by AWS' Content Security Policy. When opening up the code for the authentication website via ""Inspect"", there is in fact inline script.  
+
+
+How come AWS gave me code that violates their own CSP Policy? How do I get around this? I've tried many things, but nothing seems to work.  
+
+
+Thanks for any help!",1708791127.0,4
+aws,https://www.reddit.com/r/aws/comments/1aym3nw/how_do_you_implement_platform_engineering/,How do you implement platform engineering??,"Okay, I’m working as a sr “devops” engineer with a software developer background trying to build a platform for a client. I’ll try to keep my opinions out of it, but I don’t love platform engineering and I don’t understand how it could possibly scale…at least not with what we have built. 
+
+Some context, we are using a gitops approach for deploying infrastructure onto aws. We use Kubernetes based terraform operator (yeah questionable…I know) and ArgoCD to manage deployments of infra. 
+
+We created several terraform modules that contain a SINGLE aws resource in its own git repository. There are some “sensible defaults” in the modules and a bunch of variables for users to input if they choose or not. Tons of conditional logic in the templates. 
+
+Our plan is to enable these to be consumed through an IDP (internal developer portal) to give devs an easy button. 
+
+My question is, how does this scale. It’s very challenging to write single modules that can be deployed with their own individual terraform state. So I can’t reference outputs and bind resources together very easily without multi step deployments sometimes. Or guessing at what the output name of a resource might be. 
+
+For example, it’s very hard to do this with a native aws cloud solution like s3 bucket that triggers lambda based on putObject that then sends a message to sqs and is consumed by another lambda. Or triggering a lambda based on RDS input etc etc. 
+
+So, my question is how do you make a “platform/product” that allows for flexibility for product teams and devs to consume services through a UI or some easy button without writing the terraform themselves?? 
+
+TL;DR: 
+How do you write terraform modules in a platform? ",1708750638.0,20
+aws,https://www.reddit.com/r/aws/comments/1az3tm4/nvidia_driver_for_g5xlarge/,Nvidia driver for g5.xlarge,"Hello,
+
+I just take a g5.xlarge  with an Amazon Linux 2023 AMI and I struggle to install an nvidia driver,  so please I have some questions:
+
+How can I install an nvida driver there ? I konw there is some AMI which comes already with a driver but I don't want thid solution
+
+Which driver should I use ? My purpose is to play with llama2 to do some GenAI (RAG)
+
+Are nvidia drivers free ?
+
+Thanks a lot
+",1708804929.0,0
+aws,https://www.reddit.com/r/aws/comments/1az31m3/aws_cli_how_can_i_filter_a_file_list_from_the_ls/,[AWS CLI] how can i filter a file list from the ls command?,"Is there a way to filter a file listing from the ls command in the AWS CLI? e.g. What would I have to do (from the command line) if I just want to see or download a list of all the zip files in a folder that has over a million files where only some are zips? I tried:  
+  
+aws s3 ls s3://(bucket)/(folder) --exclude ""*"" --include ""*.zip""  
+  
+but that doesn't work - surely there must be some way to do this? I guess it'd take the same amount of time to list the results either way but it'd be nice to be able to get a filtered result (and a smaller text output file) after the wait rather than having to do manually filter that for what i want afterwards.",1708802953.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayxgg5/questions_on_org_trail_in_control_tower/,Question(s) on Org Trail in Control Tower,"Hello,
+
+I would appreciate if some kind soul could give me pointers on what I am trying to achieve. I may not be using the correct search terms when looking around the interwebs.
+
+ We are getting started with our AWS journey with Control Tower being used to come up with a well architected framework as recommended by AWS.
+
+The one thing I am a bit confused about is, how do we monitor all the CloudTrail events in the ""Audit"" account with our own custom alert.  The Control Tower framework has created the OrgTrail with the Audit account having access to all accounts events, I see AWS Guard Duty monitoring and occasionally alerting me on stuff.  
+
+Q1: How do I extend the alerting above and beyond what AWS Guard Duty does?  
+
+Q2: We are comfortable with our on-prem SIEM and although I am aware of the costs involved in bringing in CloudTrail events through our OrgTrail, it is something we are comfortable with to get started.  How do I do this?  I am assuming this is possible.  
+
+Thank you all!
+
+GT
+
+&#x200B;",1708789240.0,2
+aws,https://www.reddit.com/r/aws/comments/1az2jsb/deployment/,Deployment,"I need yalls help!! 
+
+I've never used aws before and i have a question regarding the deployment of a website. 
+
+Im working on a school project and the topic is gitlab ci/cd pipeline. I've developed my own web app using flask and angular and i have two separate folders for each of those. The app is for demonstrational purposes only, nobody would actually be using it. How do i deploy that? Ive read that for backend i could probably use beanstalk? What about the frontend? Do you make two separate jobs in a pipeline for backend and frontend? How do they communicate in the cloud? 
+
+Lol, i have so many questions and no idea where to start. Any courses/literature recommendations are welcomed. ",1708801726.0,0
+aws,https://www.reddit.com/r/aws/comments/1ayr108/combining_aurora_serverless_v2_with_reserved/,Combining Aurora Serverless v2 with Reserved Instances,"Hey everyone, I'd like to validate an approach before diving a rabbit hole of setup:
+
+* We have a fairly standard baseline use to our Aurora databases, so we use a couple r7g.large instances in each of the major regions we operate. This is great 99.9% of the time.
+* However, within each region things can get spikey - often only for a few minutes each day - which can cause degraded performance as we go over our provisioned vCPUs.
+* My reading is that you can setup Aurora Serverless v2 to sit as a reader *alongside* regular RI readers, so traffic can go to both types at the same time, and this will be handled by RDS Proxy.
+
+So the core assumption I'm looking to validate: **can I use RIs to cut costs for our baseline usage and use Aurora Serverless v2 to sit on standby to handle spikiness?** I realise there might be an obvious answer based on my last bullet point above, but every blog post I'm reading always compares the two services as an either/or option, and typically concludes that Aurora Serverless v2 ends up simply being more expensive because it doesn't make sense for baseline usage. I haven't found any posts of people talking about this setup.
+
+Follow on questions that I'm also not getting clear answers on:
+
+* Is RDS Proxy intelligent enough when you're using readers and serverless together (i.e. will it start sending spiky traffic to serverless, rather than splitting amongst all readers?)
+* Can our apu be left at 0.5 and it will autoscale to any capacity we need, or should we try and optimise our apu minimum to be equal to the memory our database typically needs? Is there a simple way of working this out?
+* What are the other gotchas that we should be considering?
+
+Final more unrelated question:
+
+* We don't have an AWS support contract today. If we had one, would they be good at answering these types of questions, or are they more useful for just having someone to call when something goes wrong?",1708768936.0,6
+aws,https://www.reddit.com/r/aws/comments/1ayplbk/lambda_function_authentication/,Lambda function authentication ,"Really new to all this stuff. I have a lambda function talking to OpenAI api which accessible via an endpoint (API gateway). This endpoint is being called from my react native app. 
+
+The whole reason to create this function was because I did not want to store the api key in the app code. 
+
+Now, I am facing issue with authenticating this endpoint. What simple yet secure enough solutions can I use to authenticate my endpoint? Another api key might be a solution but again it gets exposed client side",1708763157.0,6
+aws,https://www.reddit.com/r/aws/comments/1aytl6f/lambdaedge_cold_start/,Lambda@Edge cold start?,"Hello
+
+Is there any way to keep lambda @ edge warmed up? 
+
+Otherwise, it ends up slowing down the website significantly... which is counter intuitive ",1708778364.0,3
+aws,https://www.reddit.com/r/aws/comments/1aywm89/any_python_libraries_out_there_that_mock_the/,Any Python libraries out there that mock the MultiProcessing module and instead pass code to AWS Lambda to run?,"There are isolated functions / modules in my code that get invoked \~100k times (around 3 minutes for each invocation) each time I launch my code.  I can easily make this parallel using Python's multiprocessing module, but even with multiprocessing it'll take forever to run. Is there an interface similar to multiprocessing that pipes to lambda instead? The isolated functions are in heavy development, so I'm trying to avoid having to futz with aws-cli, AWS Console, IAM permissions, downloading from S3, etc... everytime I make a small change. I just want to run and have the results come back directly into Python.
+
+Does such a thing exist?",1708787084.0,1
+aws,https://www.reddit.com/r/aws/comments/1aywfuv/aws_policy_need_explaination_for_the_forallvalues/,"AWS policy: need explaination for the ""ForAllValues"" qualifier","I have this SCP attached to account A in my org
+
+    {
+      ""Version"": ""2012-10-17"",
+      ""Statement"": [
+        {
+          ""Effect"": ""Deny"",
+          ""Action"": [
+            ""route53:ChangeResourceRecordSets""
+          ],
+          ""Resource"": ""*"",
+          ""Condition"": {
+            ""ForAllValues:StringEquals"": {
+              ""route53:ChangeResourceRecordSetsRecordTypes"": [
+                ""A"",
+                ""AAAA""
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+<<<<<<< HEAD
+As I understand:
+
+* the SCP will deny if each and every record's type in my create-record request equals A or AAAA
+* the SCP will not deny if at least one record's type in my create-record request is not equal A or AAAA
+
+However, when I create R53 records in account A using the console:
+
+https://preview.redd.it/kn6lkirqrjkc1.png?width=3360&format=png&auto=webp&s=e2de7f40ae3affcb39578ce271047ab4051bedf3
+
+the SCP still blocks the request even though the request contains a record of type ""CNAME"" which is not A or AAAA
+
+What is wrong in my understanding of this ""ForAllValues"" ? Please help me. Thanks",1708786626.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayrqmq/is_it_recommended_to_use_aws_to_host_docker/,is it recommended to use aws to host docker containers,"so I have a docker image that I have pushed to the docker hub registry. Now I have to host it somewhere and I was looking at some of the different options. AWS seems really good but i keep reading that they have a free tier but its not actually free and people being charged thousands of dollars unknowingly. If I were to start playing around with AWS today, how likely would it be that something like that would happen to me? Are there any other options I should try instead? thanks",1708771695.0,2
+aws,https://www.reddit.com/r/aws/comments/1ay99so/bedrock_adds_mistral_ai_models/,Bedrock adds Mistral AI models,"even more AI models are being added to Bedrock:  
+
+
+[https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock](https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock)",1708716383.0,21
+aws,https://www.reddit.com/r/aws/comments/1ay9pon/is_anyone_using_codecommit_codebuild_codedeploy/,"Is anyone using CodeCommit, CodeBuild, CodeDeploy and CodePipeline?","I am currently studying for the AWS DevOps Professional certificate. On A Cloud Guru there is this section about CodeCommit, CodeBuild, CodeDeploy and CodePipeline. Why would I use any of those services if I can also use Github and Github Actions?",1708717463.0,18
+aws,https://www.reddit.com/r/aws/comments/1ayykyl/aws_transcribe_is_crazy_expensive_how_to_lower/,AWS Transcribe is crazy expensive. How to lower costs and keep comparable performance?,"Looking for information on AWS hosted alternatives, e.g. Whisper on EC2. Has anyone switched over to this? If so how low are you able to get your costs to transcribe audio and video with comparable quality?",1708792054.0,16
+aws,https://www.reddit.com/r/aws/comments/1azggur/one_vs_more_vpn/,One vs more VPN,"We are debating if se should use one or more Customer Gateway/VPN connections with our Transit Gateway. To me it looks like it just increases how much resources we need to maintain(more in Aws and onprem both), without adding much resiliency.
+
+As I can tell our current CGW/connection have never been down, did AWS ever have outtage id this service?
+And if it did, it would impact us the same no matter if we had 1 or 4 CGWs as they would all be affected.",1708840108.0,1
+aws,https://www.reddit.com/r/aws/comments/1azburu/new_accounts_under_organisation_are_not/,New accounts under organisation are not consolidating billing,"I have a personal AWS org. The management account is setup with billing and so I can create resources within it. Obviously, I don't want to use the management account for that - but every time I create a new account in the org it is considered ""NotSignedUp"", so accessing S3 will 404, etc. 
+
+As I understand it, any new/invited account within an org now, by default, consolidates its billing under the management account?
+
+Does anyone know why new accounts might be treated as NotSignedUp?",1708825514.0,2
+aws,https://www.reddit.com/r/aws/comments/1azfkay/mqtt_connection_failure_with_aws_iot_core/,MQTT connection failure with AWS IoT Core,"I need some assistance with a frustrating issue I'm encountering while connecting my device to AWS IoT Core. I'm using the \`aws-iot-device-sdk-v2\` library for JS and keep hitting this error:
+
+`Error: aws-c-io: AWS_IO_TLS_ERROR_NEGOTIATION_FAILURE, TLS (SSL) negotiation failed`
+
+This happens when I try to connect using `newWebsocketMqttBuilderWithSigv4Auth`
+
+This code is from samples provided by AWS
+
+Because other functions of the SDK aren't available for react-native.
+
+    function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+      return builder.build();
+    }function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+    
+      return builder.build();
+    }
+
+
+
+`credentialsProvider: auth.AwsCredentialsProvider.newDefault()`
+
+This line was suggested by GPT which didn't do shit.
+
+I guess I need to add some sort of auth on the AWS side first and then use that to access the endpoint from here. But what and how?
+
+The method below works fine when run in Node, but it's not available on react-native
+
+    if (args.key && args.cert) {
+     builder =
+       iot.AwsIotMqtt5ClientConfigBuilder.newDirectMqttBuilderWithMtlsFromPath(
+         args.endpoint,
+         args.cert,
+         args.key
+       );
+
+I've tried several things to resolve it, but I'm still scratching my head.
+
+There's a few tutorials about slightly different things that talk about doing something with Cognito or Amplify but I couldn't really understand them (or didn't want to). I thought that maybe there was a simpler way
+
+This is my first time dabbling in IoT, AWS and React Native.
+
+I truly appreciate any insights or suggestions you can offer!",1708837081.0,1
+aws,https://www.reddit.com/gallery/1azcz6i,Cloud Quest - API Gateway,"Can someone please help me with this one. I am now too invested in this game and I cant just ignore it. Hahaha 🥹
+
+And I got this result though I did everything. I already spent 1hour configuring it but still the result was ""AN ERROR (403) OCCURED WHILE INVOKING API WITH THE URL YOU PROVIDED.""",1708828822.0,0
+aws,https://www.reddit.com/r/aws/comments/1aza0fo/java_shared_code_in_a_lambda_layer_how_will/,[Java] Shared code in a lambda layer. How will lambdas access this layer?,"I have 5+ lambdas. Each lambda does its work by using 1 specific class and multiple utility classes. All the lambdas live in the same repository. Their `build.gradle`s all have the same dependencies. Small example:
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+This results in identical utility classes being duplicated everywhere. Therefore I am looking into creating a `lambda layer` that will contain all the common dependencies and shared utility classes that the 3 lambdas will use. Small updated example:
+
+    LambdaLayer
+      src
+       main
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+      build.gradle
+
+My question is: **How would the lambdas import the lambda layer as a dependency?** Would they just have to import it as a dependency in the `build.gradle` as they would with any other dependency? That would mean that the lambda layer JAR would have to be published first before the lambdas can use it right? This is for work and at my company all JARs get published to a company maven repository.
+
+Anything else I need to know in order to do this properly? Lambda layer tutorials in Java are rare when I google",1708820419.0,1
+aws,https://www.reddit.com/r/aws/comments/1az9s0s/video_on_demand_via_aws_media_convert/,Video on Demand via AWS Media Convert?,"Hello, using S3 and cloudfront for video on demand services(50mb - 5gb files), however data transfer costs are getting out of hand;
+
+1. Is media convert a suitable approach(cost, overhead, efficacy, etc)?
+2. Does media convert have adaptive bitrate streaming?
+3. Id like to load videos in ""chunks"" instead of loading entire file like i am currently, does media convert help with this?",1708819813.0,1
+aws,https://www.reddit.com/r/aws/comments/1az94ga/video_on_demand_options/,Video On Demand options?,"Currently storing via S3 and serving via CloudFront, however the data transfer costs are still too high and id like to find a solution:
+
+1. Should I even be using s3 + CloudFront for this?
+2. What is adaptive bitrate? What are my options for this?
+3. Should I convert/compress videos upon upload? If so what are my options
+4. Proper CloudFront utlization? Currently im signing cloudfront URLs and sending it directly to client, does cloudfront automatically cache and compress files or must I do something else?",1708818106.0,0
+aws,https://www.reddit.com/r/aws/comments/1az8hwb/is_it_possible_to_grant_a_lightsail_instance/,Is it possible to grant a Lightsail instance access to Bedrock via Service Roles?,"I have a Lighsail instance that I would like to make requests to my Bedrock FM. I could create Access Key/Access Key Secret, but I am wondering if this is possible via Service Roles. It seems Lightsail uses a Service Linked Role, which cannot be modified. I just want to make sure I am understanding that correctly.
+
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_aws-services-that-work-with-iam.html#all\_svcs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html#all_svcs)",1708816473.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayy7hq/aws_cognito_giving_me_code_that_violates_their/,AWS Cognito giving me code that violates their own policy?,"I am creating a website using AWS S3 and I am using Cognito for user accounts.  
+
+
+I have Cognito set up and working on my website to where a user can sign up for an account. However, whenever a user is directed to the link provided by Cognito for authentication (ex: https://<website name>-login.auth.us-east-1.amazoncognito.com/login?client\_id=<client id>&response\_type=code&scope=email+openid&redirect\_uri=https%3A%2F%2F<domain name>%2F<website\_name>.html), the following error is had in the console:  
+
+
+""Refused to execute inline script because it violates the following Content Security Policy directive: ""script-src [https://d3oia8etllorh5.cloudfront.net](https://d3oia8etllorh5.cloudfront.net) https://<website name>-login.auth.us-east-1.amazoncognito.com"". Either the 'unsafe-inline' keyword, a hash ('sha256-fWEffNYGDN+XQ+YrsU/LKDZAnOcnSlra1fOIm+7oskM='), or a nonce ('nonce-...') is required to enable inline execution.""  
+
+
+Basically, it is saying that on this authentication website provided by Cognito, it uses an inline script, which is not allowed by AWS' Content Security Policy. When opening up the code for the authentication website via ""Inspect"", there is in fact inline script.  
+
+
+How come AWS gave me code that violates their own CSP Policy? How do I get around this? I've tried many things, but nothing seems to work.  
+
+
+Thanks for any help!",1708791127.0,2
+aws,https://www.reddit.com/r/aws/comments/1aym3nw/how_do_you_implement_platform_engineering/,How do you implement platform engineering??,"Okay, I’m working as a sr “devops” engineer with a software developer background trying to build a platform for a client. I’ll try to keep my opinions out of it, but I don’t love platform engineering and I don’t understand how it could possibly scale…at least not with what we have built. 
+
+Some context, we are using a gitops approach for deploying infrastructure onto aws. We use Kubernetes based terraform operator (yeah questionable…I know) and ArgoCD to manage deployments of infra. 
+
+We created several terraform modules that contain a SINGLE aws resource in its own git repository. There are some “sensible defaults” in the modules and a bunch of variables for users to input if they choose or not. Tons of conditional logic in the templates. 
+
+Our plan is to enable these to be consumed through an IDP (internal developer portal) to give devs an easy button. 
+
+My question is, how does this scale. It’s very challenging to write single modules that can be deployed with their own individual terraform state. So I can’t reference outputs and bind resources together very easily without multi step deployments sometimes. Or guessing at what the output name of a resource might be. 
+
+For example, it’s very hard to do this with a native aws cloud solution like s3 bucket that triggers lambda based on putObject that then sends a message to sqs and is consumed by another lambda. Or triggering a lambda based on RDS input etc etc. 
+
+So, my question is how do you make a “platform/product” that allows for flexibility for product teams and devs to consume services through a UI or some easy button without writing the terraform themselves?? 
+
+TL;DR: 
+How do you write terraform modules in a platform? ",1708750638.0,19
+aws,https://www.reddit.com/r/aws/comments/1az3tm4/nvidia_driver_for_g5xlarge/,Nvidia driver for g5.xlarge,"Hello,
+
+I just take a g5.xlarge  with an Amazon Linux 2023 AMI and I struggle to install an nvidia driver,  so please I have some questions:
+
+How can I install an nvida driver there ? I konw there is some AMI which comes already with a driver but I don't want thid solution
+
+Which driver should I use ? My purpose is to play with llama2 to do some GenAI (RAG)
+
+Are nvidia drivers free ?
+
+Thanks a lot
+",1708804929.0,0
+aws,https://www.reddit.com/r/aws/comments/1az31m3/aws_cli_how_can_i_filter_a_file_list_from_the_ls/,[AWS CLI] how can i filter a file list from the ls command?,"Is there a way to filter a file listing from the ls command in the AWS CLI? e.g. What would I have to do (from the command line) if I just want to see or download a list of all the zip files in a folder that has over a million files where only some are zips? I tried:  
+  
+aws s3 ls s3://(bucket)/(folder) --exclude ""*"" --include ""*.zip""  
+  
+but that doesn't work - surely there must be some way to do this? I guess it'd take the same amount of time to list the results either way but it'd be nice to be able to get a filtered result (and a smaller text output file) after the wait rather than having to do manually filter that for what i want afterwards.",1708802953.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayxgg5/questions_on_org_trail_in_control_tower/,Question(s) on Org Trail in Control Tower,"Hello,
+
+I would appreciate if some kind soul could give me pointers on what I am trying to achieve. I may not be using the correct search terms when looking around the interwebs.
+
+ We are getting started with our AWS journey with Control Tower being used to come up with a well architected framework as recommended by AWS.
+
+The one thing I am a bit confused about is, how do we monitor all the CloudTrail events in the ""Audit"" account with our own custom alert.  The Control Tower framework has created the OrgTrail with the Audit account having access to all accounts events, I see AWS Guard Duty monitoring and occasionally alerting me on stuff.  
+
+Q1: How do I extend the alerting above and beyond what AWS Guard Duty does?  
+
+Q2: We are comfortable with our on-prem SIEM and although I am aware of the costs involved in bringing in CloudTrail events through our OrgTrail, it is something we are comfortable with to get started.  How do I do this?  I am assuming this is possible.  
+
+Thank you all!
+
+GT
+
+&#x200B;",1708789240.0,2
+aws,https://www.reddit.com/r/aws/comments/1az2jsb/deployment/,Deployment,"I need yalls help!! 
+
+I've never used aws before and i have a question regarding the deployment of a website. 
+
+Im working on a school project and the topic is gitlab ci/cd pipeline. I've developed my own web app using flask and angular and i have two separate folders for each of those. The app is for demonstrational purposes only, nobody would actually be using it. How do i deploy that? Ive read that for backend i could probably use beanstalk? What about the frontend? Do you make two separate jobs in a pipeline for backend and frontend? How do they communicate in the cloud? 
+
+Lol, i have so many questions and no idea where to start. Any courses/literature recommendations are welcomed. ",1708801726.0,0
+aws,https://www.reddit.com/r/aws/comments/1ayr108/combining_aurora_serverless_v2_with_reserved/,Combining Aurora Serverless v2 with Reserved Instances,"Hey everyone, I'd like to validate an approach before diving a rabbit hole of setup:
+
+* We have a fairly standard baseline use to our Aurora databases, so we use a couple r7g.large instances in each of the major regions we operate. This is great 99.9% of the time.
+* However, within each region things can get spikey - often only for a few minutes each day - which can cause degraded performance as we go over our provisioned vCPUs.
+* My reading is that you can setup Aurora Serverless v2 to sit as a reader *alongside* regular RI readers, so traffic can go to both types at the same time, and this will be handled by RDS Proxy.
+
+So the core assumption I'm looking to validate: **can I use RIs to cut costs for our baseline usage and use Aurora Serverless v2 to sit on standby to handle spikiness?** I realise there might be an obvious answer based on my last bullet point above, but every blog post I'm reading always compares the two services as an either/or option, and typically concludes that Aurora Serverless v2 ends up simply being more expensive because it doesn't make sense for baseline usage. I haven't found any posts of people talking about this setup.
+
+Follow on questions that I'm also not getting clear answers on:
+
+* Is RDS Proxy intelligent enough when you're using readers and serverless together (i.e. will it start sending spiky traffic to serverless, rather than splitting amongst all readers?)
+* Can our apu be left at 0.5 and it will autoscale to any capacity we need, or should we try and optimise our apu minimum to be equal to the memory our database typically needs? Is there a simple way of working this out?
+* What are the other gotchas that we should be considering?
+
+Final more unrelated question:
+
+* We don't have an AWS support contract today. If we had one, would they be good at answering these types of questions, or are they more useful for just having someone to call when something goes wrong?",1708768936.0,5
+aws,https://www.reddit.com/r/aws/comments/1ayplbk/lambda_function_authentication/,Lambda function authentication ,"Really new to all this stuff. I have a lambda function talking to OpenAI api which accessible via an endpoint (API gateway). This endpoint is being called from my react native app. 
+
+The whole reason to create this function was because I did not want to store the api key in the app code. 
+
+Now, I am facing issue with authenticating this endpoint. What simple yet secure enough solutions can I use to authenticate my endpoint? Another api key might be a solution but again it gets exposed client side",1708763157.0,6
+aws,https://www.reddit.com/r/aws/comments/1aytl6f/lambdaedge_cold_start/,Lambda@Edge cold start?,"Hello
+
+Is there any way to keep lambda @ edge warmed up? 
+
+Otherwise, it ends up slowing down the website significantly... which is counter intuitive ",1708778364.0,1
+aws,https://www.reddit.com/r/aws/comments/1aywm89/any_python_libraries_out_there_that_mock_the/,Any Python libraries out there that mock the MultiProcessing module and instead pass code to AWS Lambda to run?,"There are isolated functions / modules in my code that get invoked \~100k times (around 3 minutes for each invocation) each time I launch my code.  I can easily make this parallel using Python's multiprocessing module, but even with multiprocessing it'll take forever to run. Is there an interface similar to multiprocessing that pipes to lambda instead? The isolated functions are in heavy development, so I'm trying to avoid having to futz with aws-cli, AWS Console, IAM permissions, downloading from S3, etc... everytime I make a small change. I just want to run and have the results come back directly into Python.
+
+Does such a thing exist?",1708787084.0,1
+aws,https://www.reddit.com/r/aws/comments/1aywfuv/aws_policy_need_explaination_for_the_forallvalues/,"AWS policy: need explaination for the ""ForAllValues"" qualifier","I have this SCP attached to account A in my org
+
+    {
+      ""Version"": ""2012-10-17"",
+      ""Statement"": [
+        {
+          ""Effect"": ""Deny"",
+          ""Action"": [
+            ""route53:ChangeResourceRecordSets""
+          ],
+          ""Resource"": ""*"",
+          ""Condition"": {
+            ""ForAllValues:StringEquals"": {
+              ""route53:ChangeResourceRecordSetsRecordTypes"": [
+                ""A"",
+                ""AAAA""
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+As I understand:
+
+* the SCP will deny if each and every record's type in my create-record request equals A or AAAA
+* the SCP will not deny if at least one record's type in my create-record request is not equal A or AAAA
+
+However, when I create R53 records in account A using the console:
+
+https://preview.redd.it/kn6lkirqrjkc1.png?width=3360&format=png&auto=webp&s=e2de7f40ae3affcb39578ce271047ab4051bedf3
+
+the SCP still blocks the request even though the request contains a record of type ""CNAME"" which is not A or AAAA
+
+What is wrong in my understanding of this ""ForAllValues"" ? Please help me. Thanks",1708786626.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayrqmq/is_it_recommended_to_use_aws_to_host_docker/,is it recommended to use aws to host docker containers,"so I have a docker image that I have pushed to the docker hub registry. Now I have to host it somewhere and I was looking at some of the different options. AWS seems really good but i keep reading that they have a free tier but its not actually free and people being charged thousands of dollars unknowingly. If I were to start playing around with AWS today, how likely would it be that something like that would happen to me? Are there any other options I should try instead? thanks",1708771695.0,3
+aws,https://www.reddit.com/r/aws/comments/1ay99so/bedrock_adds_mistral_ai_models/,Bedrock adds Mistral AI models,"even more AI models are being added to Bedrock:  
+
+
+[https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock](https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock)",1708716383.0,20
+aws,https://www.reddit.com/r/aws/comments/1ay9pon/is_anyone_using_codecommit_codebuild_codedeploy/,"Is anyone using CodeCommit, CodeBuild, CodeDeploy and CodePipeline?","I am currently studying for the AWS DevOps Professional certificate. On A Cloud Guru there is this section about CodeCommit, CodeBuild, CodeDeploy and CodePipeline. Why would I use any of those services if I can also use Github and Github Actions?",1708717463.0,15
+aws,https://www.reddit.com/r/aws/comments/1ayykyl/aws_transcribe_is_crazy_expensive_how_to_lower/,AWS Transcribe is crazy expensive. How to lower costs and keep comparable performance?,"Looking for information on AWS hosted alternatives, e.g. Whisper on EC2. Has anyone switched over to this? If so how low are you able to get your costs to transcribe audio and video with comparable quality?",1708792054.0,17
+aws,https://www.reddit.com/r/aws/comments/1azggur/one_vs_more_vpn/,One vs more VPN,"We are debating if se should use one or more Customer Gateway/VPN connections with our Transit Gateway. To me it looks like it just increases how much resources we need to maintain(more in Aws and onprem both), without adding much resiliency.
+
+As I can tell our current CGW/connection have never been down, did AWS ever have outtage id this service?
+And if it did, it would impact us the same no matter if we had 1 or 4 CGWs as they would all be affected.",1708840108.0,1
+aws,https://www.reddit.com/r/aws/comments/1azburu/new_accounts_under_organisation_are_not/,New accounts under organisation are not consolidating billing,"I have a personal AWS org. The management account is setup with billing and so I can create resources within it. Obviously, I don't want to use the management account for that - but every time I create a new account in the org it is considered ""NotSignedUp"", so accessing S3 will 404, etc. 
+
+As I understand it, any new/invited account within an org now, by default, consolidates its billing under the management account?
+
+Does anyone know why new accounts might be treated as NotSignedUp?",1708825514.0,2
+aws,https://www.reddit.com/r/aws/comments/1azfkay/mqtt_connection_failure_with_aws_iot_core/,MQTT connection failure with AWS IoT Core,"I need some assistance with a frustrating issue I'm encountering while connecting my device to AWS IoT Core. I'm using the \`aws-iot-device-sdk-v2\` library for JS and keep hitting this error:
+
+`Error: aws-c-io: AWS_IO_TLS_ERROR_NEGOTIATION_FAILURE, TLS (SSL) negotiation failed`
+
+This happens when I try to connect using `newWebsocketMqttBuilderWithSigv4Auth`
+
+This code is from samples provided by AWS
+
+Because other functions of the SDK aren't available for react-native.
+
+    function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+      return builder.build();
+    }function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+    
+      return builder.build();
+    }
+
+
+
+`credentialsProvider: auth.AwsCredentialsProvider.newDefault()`
+
+This line was suggested by GPT which didn't do shit.
+
+I guess I need to add some sort of auth on the AWS side first and then use that to access the endpoint from here. But what and how?
+
+The method below works fine when run in Node, but it's not available on react-native
+
+    if (args.key && args.cert) {
+     builder =
+       iot.AwsIotMqtt5ClientConfigBuilder.newDirectMqttBuilderWithMtlsFromPath(
+         args.endpoint,
+         args.cert,
+         args.key
+       );
+
+I've tried several things to resolve it, but I'm still scratching my head.
+
+There's a few tutorials about slightly different things that talk about doing something with Cognito or Amplify but I couldn't really understand them (or didn't want to). I thought that maybe there was a simpler way
+
+This is my first time dabbling in IoT, AWS and React Native.
+
+I truly appreciate any insights or suggestions you can offer!",1708837081.0,1
+aws,https://www.reddit.com/gallery/1azcz6i,Cloud Quest - API Gateway,"Can someone please help me with this one. I am now too invested in this game and I cant just ignore it. Hahaha 🥹
+
+And I got this result though I did everything. I already spent 1hour configuring it but still the result was ""AN ERROR (403) OCCURED WHILE INVOKING API WITH THE URL YOU PROVIDED.""",1708828822.0,0
+aws,https://www.reddit.com/r/aws/comments/1aza0fo/java_shared_code_in_a_lambda_layer_how_will/,[Java] Shared code in a lambda layer. How will lambdas access this layer?,"I have 5+ lambdas. Each lambda does its work by using 1 specific class and multiple utility classes. All the lambdas live in the same repository. Their `build.gradle`s all have the same dependencies. Small example:
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+This results in identical utility classes being duplicated everywhere. Therefore I am looking into creating a `lambda layer` that will contain all the common dependencies and shared utility classes that the 3 lambdas will use. Small updated example:
+
+    LambdaLayer
+      src
+       main
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+      build.gradle
+
+My question is: **How would the lambdas import the lambda layer as a dependency?** Would they just have to import it as a dependency in the `build.gradle` as they would with any other dependency? That would mean that the lambda layer JAR would have to be published first before the lambdas can use it right? This is for work and at my company all JARs get published to a company maven repository.
+
+Anything else I need to know in order to do this properly? Lambda layer tutorials in Java are rare when I google",1708820419.0,1
+aws,https://www.reddit.com/r/aws/comments/1az9s0s/video_on_demand_via_aws_media_convert/,Video on Demand via AWS Media Convert?,"Hello, using S3 and cloudfront for video on demand services(50mb - 5gb files), however data transfer costs are getting out of hand;
+
+1. Is media convert a suitable approach(cost, overhead, efficacy, etc)?
+2. Does media convert have adaptive bitrate streaming?
+3. Id like to load videos in ""chunks"" instead of loading entire file like i am currently, does media convert help with this?",1708819813.0,1
+aws,https://www.reddit.com/r/aws/comments/1az94ga/video_on_demand_options/,Video On Demand options?,"Currently storing via S3 and serving via CloudFront, however the data transfer costs are still too high and id like to find a solution:
+
+1. Should I even be using s3 + CloudFront for this?
+2. What is adaptive bitrate? What are my options for this?
+3. Should I convert/compress videos upon upload? If so what are my options
+4. Proper CloudFront utlization? Currently im signing cloudfront URLs and sending it directly to client, does cloudfront automatically cache and compress files or must I do something else?",1708818106.0,0
+aws,https://www.reddit.com/r/aws/comments/1az8hwb/is_it_possible_to_grant_a_lightsail_instance/,Is it possible to grant a Lightsail instance access to Bedrock via Service Roles?,"I have a Lighsail instance that I would like to make requests to my Bedrock FM. I could create Access Key/Access Key Secret, but I am wondering if this is possible via Service Roles. It seems Lightsail uses a Service Linked Role, which cannot be modified. I just want to make sure I am understanding that correctly.
+
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_aws-services-that-work-with-iam.html#all\_svcs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html#all_svcs)",1708816473.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayy7hq/aws_cognito_giving_me_code_that_violates_their/,AWS Cognito giving me code that violates their own policy?,"I am creating a website using AWS S3 and I am using Cognito for user accounts.  
+
+
+I have Cognito set up and working on my website to where a user can sign up for an account. However, whenever a user is directed to the link provided by Cognito for authentication (ex: https://<website name>-login.auth.us-east-1.amazoncognito.com/login?client\_id=<client id>&response\_type=code&scope=email+openid&redirect\_uri=https%3A%2F%2F<domain name>%2F<website\_name>.html), the following error is had in the console:  
+
+
+""Refused to execute inline script because it violates the following Content Security Policy directive: ""script-src [https://d3oia8etllorh5.cloudfront.net](https://d3oia8etllorh5.cloudfront.net) https://<website name>-login.auth.us-east-1.amazoncognito.com"". Either the 'unsafe-inline' keyword, a hash ('sha256-fWEffNYGDN+XQ+YrsU/LKDZAnOcnSlra1fOIm+7oskM='), or a nonce ('nonce-...') is required to enable inline execution.""  
+
+
+Basically, it is saying that on this authentication website provided by Cognito, it uses an inline script, which is not allowed by AWS' Content Security Policy. When opening up the code for the authentication website via ""Inspect"", there is in fact inline script.  
+
+
+How come AWS gave me code that violates their own CSP Policy? How do I get around this? I've tried many things, but nothing seems to work.  
+
+
+Thanks for any help!",1708791127.0,4
+aws,https://www.reddit.com/r/aws/comments/1aym3nw/how_do_you_implement_platform_engineering/,How do you implement platform engineering??,"Okay, I’m working as a sr “devops” engineer with a software developer background trying to build a platform for a client. I’ll try to keep my opinions out of it, but I don’t love platform engineering and I don’t understand how it could possibly scale…at least not with what we have built. 
+
+Some context, we are using a gitops approach for deploying infrastructure onto aws. We use Kubernetes based terraform operator (yeah questionable…I know) and ArgoCD to manage deployments of infra. 
+
+We created several terraform modules that contain a SINGLE aws resource in its own git repository. There are some “sensible defaults” in the modules and a bunch of variables for users to input if they choose or not. Tons of conditional logic in the templates. 
+
+Our plan is to enable these to be consumed through an IDP (internal developer portal) to give devs an easy button. 
+
+My question is, how does this scale. It’s very challenging to write single modules that can be deployed with their own individual terraform state. So I can’t reference outputs and bind resources together very easily without multi step deployments sometimes. Or guessing at what the output name of a resource might be. 
+
+For example, it’s very hard to do this with a native aws cloud solution like s3 bucket that triggers lambda based on putObject that then sends a message to sqs and is consumed by another lambda. Or triggering a lambda based on RDS input etc etc. 
+
+So, my question is how do you make a “platform/product” that allows for flexibility for product teams and devs to consume services through a UI or some easy button without writing the terraform themselves?? 
+
+TL;DR: 
+How do you write terraform modules in a platform? ",1708750638.0,19
+aws,https://www.reddit.com/r/aws/comments/1az3tm4/nvidia_driver_for_g5xlarge/,Nvidia driver for g5.xlarge,"Hello,
+
+I just take a g5.xlarge  with an Amazon Linux 2023 AMI and I struggle to install an nvidia driver,  so please I have some questions:
+
+How can I install an nvida driver there ? I konw there is some AMI which comes already with a driver but I don't want thid solution
+
+Which driver should I use ? My purpose is to play with llama2 to do some GenAI (RAG)
+
+Are nvidia drivers free ?
+
+Thanks a lot
+",1708804929.0,0
+aws,https://www.reddit.com/r/aws/comments/1az31m3/aws_cli_how_can_i_filter_a_file_list_from_the_ls/,[AWS CLI] how can i filter a file list from the ls command?,"Is there a way to filter a file listing from the ls command in the AWS CLI? e.g. What would I have to do (from the command line) if I just want to see or download a list of all the zip files in a folder that has over a million files where only some are zips? I tried:  
+  
+aws s3 ls s3://(bucket)/(folder) --exclude ""*"" --include ""*.zip""  
+  
+but that doesn't work - surely there must be some way to do this? I guess it'd take the same amount of time to list the results either way but it'd be nice to be able to get a filtered result (and a smaller text output file) after the wait rather than having to do manually filter that for what i want afterwards.",1708802953.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayxgg5/questions_on_org_trail_in_control_tower/,Question(s) on Org Trail in Control Tower,"Hello,
+
+I would appreciate if some kind soul could give me pointers on what I am trying to achieve. I may not be using the correct search terms when looking around the interwebs.
+
+ We are getting started with our AWS journey with Control Tower being used to come up with a well architected framework as recommended by AWS.
+
+The one thing I am a bit confused about is, how do we monitor all the CloudTrail events in the ""Audit"" account with our own custom alert.  The Control Tower framework has created the OrgTrail with the Audit account having access to all accounts events, I see AWS Guard Duty monitoring and occasionally alerting me on stuff.  
+
+Q1: How do I extend the alerting above and beyond what AWS Guard Duty does?  
+
+Q2: We are comfortable with our on-prem SIEM and although I am aware of the costs involved in bringing in CloudTrail events through our OrgTrail, it is something we are comfortable with to get started.  How do I do this?  I am assuming this is possible.  
+
+Thank you all!
+
+GT
+
+&#x200B;",1708789240.0,2
+aws,https://www.reddit.com/r/aws/comments/1az2jsb/deployment/,Deployment,"I need yalls help!! 
+
+I've never used aws before and i have a question regarding the deployment of a website. 
+
+Im working on a school project and the topic is gitlab ci/cd pipeline. I've developed my own web app using flask and angular and i have two separate folders for each of those. The app is for demonstrational purposes only, nobody would actually be using it. How do i deploy that? Ive read that for backend i could probably use beanstalk? What about the frontend? Do you make two separate jobs in a pipeline for backend and frontend? How do they communicate in the cloud? 
+
+Lol, i have so many questions and no idea where to start. Any courses/literature recommendations are welcomed. ",1708801726.0,0
+aws,https://www.reddit.com/r/aws/comments/1ayr108/combining_aurora_serverless_v2_with_reserved/,Combining Aurora Serverless v2 with Reserved Instances,"Hey everyone, I'd like to validate an approach before diving a rabbit hole of setup:
+
+* We have a fairly standard baseline use to our Aurora databases, so we use a couple r7g.large instances in each of the major regions we operate. This is great 99.9% of the time.
+* However, within each region things can get spikey - often only for a few minutes each day - which can cause degraded performance as we go over our provisioned vCPUs.
+* My reading is that you can setup Aurora Serverless v2 to sit as a reader *alongside* regular RI readers, so traffic can go to both types at the same time, and this will be handled by RDS Proxy.
+
+So the core assumption I'm looking to validate: **can I use RIs to cut costs for our baseline usage and use Aurora Serverless v2 to sit on standby to handle spikiness?** I realise there might be an obvious answer based on my last bullet point above, but every blog post I'm reading always compares the two services as an either/or option, and typically concludes that Aurora Serverless v2 ends up simply being more expensive because it doesn't make sense for baseline usage. I haven't found any posts of people talking about this setup.
+
+Follow on questions that I'm also not getting clear answers on:
+
+* Is RDS Proxy intelligent enough when you're using readers and serverless together (i.e. will it start sending spiky traffic to serverless, rather than splitting amongst all readers?)
+* Can our apu be left at 0.5 and it will autoscale to any capacity we need, or should we try and optimise our apu minimum to be equal to the memory our database typically needs? Is there a simple way of working this out?
+* What are the other gotchas that we should be considering?
+
+Final more unrelated question:
+
+* We don't have an AWS support contract today. If we had one, would they be good at answering these types of questions, or are they more useful for just having someone to call when something goes wrong?",1708768936.0,5
+aws,https://www.reddit.com/r/aws/comments/1ayplbk/lambda_function_authentication/,Lambda function authentication ,"Really new to all this stuff. I have a lambda function talking to OpenAI api which accessible via an endpoint (API gateway). This endpoint is being called from my react native app. 
+
+The whole reason to create this function was because I did not want to store the api key in the app code. 
+
+Now, I am facing issue with authenticating this endpoint. What simple yet secure enough solutions can I use to authenticate my endpoint? Another api key might be a solution but again it gets exposed client side",1708763157.0,7
+aws,https://www.reddit.com/r/aws/comments/1aytl6f/lambdaedge_cold_start/,Lambda@Edge cold start?,"Hello
+
+Is there any way to keep lambda @ edge warmed up? 
+
+Otherwise, it ends up slowing down the website significantly... which is counter intuitive ",1708778364.0,3
+aws,https://www.reddit.com/r/aws/comments/1aywm89/any_python_libraries_out_there_that_mock_the/,Any Python libraries out there that mock the MultiProcessing module and instead pass code to AWS Lambda to run?,"There are isolated functions / modules in my code that get invoked \~100k times (around 3 minutes for each invocation) each time I launch my code.  I can easily make this parallel using Python's multiprocessing module, but even with multiprocessing it'll take forever to run. Is there an interface similar to multiprocessing that pipes to lambda instead? The isolated functions are in heavy development, so I'm trying to avoid having to futz with aws-cli, AWS Console, IAM permissions, downloading from S3, etc... everytime I make a small change. I just want to run and have the results come back directly into Python.
+
+Does such a thing exist?",1708787084.0,1
+aws,https://www.reddit.com/r/aws/comments/1aywfuv/aws_policy_need_explaination_for_the_forallvalues/,"AWS policy: need explaination for the ""ForAllValues"" qualifier","I have this SCP attached to account A in my org
+
+    {
+      ""Version"": ""2012-10-17"",
+      ""Statement"": [
+        {
+          ""Effect"": ""Deny"",
+          ""Action"": [
+            ""route53:ChangeResourceRecordSets""
+          ],
+          ""Resource"": ""*"",
+          ""Condition"": {
+            ""ForAllValues:StringEquals"": {
+              ""route53:ChangeResourceRecordSetsRecordTypes"": [
+                ""A"",
+                ""AAAA""
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+As I understand:
+
+* the SCP will deny if each and every record's type in my create-record request equals A or AAAA
+* the SCP will not deny if at least one record's type in my create-record request is not equal A or AAAA
+
+However, when I create R53 records in account A using the console:
+
+https://preview.redd.it/kn6lkirqrjkc1.png?width=3360&format=png&auto=webp&s=e2de7f40ae3affcb39578ce271047ab4051bedf3
+
+the SCP still blocks the request even though the request contains a record of type ""CNAME"" which is not A or AAAA
+
+What is wrong in my understanding of this ""ForAllValues"" ? Please help me. Thanks",1708786626.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayrqmq/is_it_recommended_to_use_aws_to_host_docker/,is it recommended to use aws to host docker containers,"so I have a docker image that I have pushed to the docker hub registry. Now I have to host it somewhere and I was looking at some of the different options. AWS seems really good but i keep reading that they have a free tier but its not actually free and people being charged thousands of dollars unknowingly. If I were to start playing around with AWS today, how likely would it be that something like that would happen to me? Are there any other options I should try instead? thanks",1708771695.0,1
+aws,https://www.reddit.com/r/aws/comments/1ay99so/bedrock_adds_mistral_ai_models/,Bedrock adds Mistral AI models,"even more AI models are being added to Bedrock:  
+
+
+[https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock](https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock)",1708716383.0,21
+aws,https://www.reddit.com/r/aws/comments/1ay9pon/is_anyone_using_codecommit_codebuild_codedeploy/,"Is anyone using CodeCommit, CodeBuild, CodeDeploy and CodePipeline?","I am currently studying for the AWS DevOps Professional certificate. On A Cloud Guru there is this section about CodeCommit, CodeBuild, CodeDeploy and CodePipeline. Why would I use any of those services if I can also use Github and Github Actions?",1708717463.0,16
+aws,https://www.reddit.com/r/aws/comments/1ayykyl/aws_transcribe_is_crazy_expensive_how_to_lower/,AWS Transcribe is crazy expensive. How to lower costs and keep comparable performance?,"Looking for information on AWS hosted alternatives, e.g. Whisper on EC2. Has anyone switched over to this? If so how low are you able to get your costs to transcribe audio and video with comparable quality?",1708792054.0,18
+aws,https://www.reddit.com/r/aws/comments/1azhazj/awssecretinject/,aws-secret-inject,"Hi,
+
+I made a quick little tool that might help others.  
+
+https://www.npmjs.com/package/aws-secret-inject
+
+My team would typically create local .env files inside 1Password or LastPass.  It always created multiple places to keep in sync which caused headaches. 
+
+Now the team can checkin to source control some kind of local.env.template that a new person could generate a .env file from.  
+
+I wrote the tool text file agnostic, so it works for any text file , not just .env
+
+It’s going to be useful for my team, figured I would share in case it’s helpful for others. 
+",1708843117.0,1
+aws,https://www.reddit.com/r/aws/comments/1azggur/one_vs_more_vpn/,One vs more VPN,"We are debating if se should use one or more Customer Gateway/VPN connections with our Transit Gateway. To me it looks like it just increases how much resources we need to maintain(more in Aws and onprem both), without adding much resiliency.
+
+As I can tell our current CGW/connection have never been down, did AWS ever have outtage id this service?
+And if it did, it would impact us the same no matter if we had 1 or 4 CGWs as they would all be affected.",1708840108.0,1
+aws,https://www.reddit.com/r/aws/comments/1azburu/new_accounts_under_organisation_are_not/,New accounts under organisation are not consolidating billing,"I have a personal AWS org. The management account is setup with billing and so I can create resources within it. Obviously, I don't want to use the management account for that - but every time I create a new account in the org it is considered ""NotSignedUp"", so accessing S3 will 404, etc. 
+
+As I understand it, any new/invited account within an org now, by default, consolidates its billing under the management account?
+
+Does anyone know why new accounts might be treated as NotSignedUp?",1708825514.0,2
+aws,https://www.reddit.com/r/aws/comments/1azfkay/mqtt_connection_failure_with_aws_iot_core/,MQTT connection failure with AWS IoT Core,"I need some assistance with a frustrating issue I'm encountering while connecting my device to AWS IoT Core. I'm using the \`aws-iot-device-sdk-v2\` library for JS and keep hitting this error:
+
+`Error: aws-c-io: AWS_IO_TLS_ERROR_NEGOTIATION_FAILURE, TLS (SSL) negotiation failed`
+
+This happens when I try to connect using `newWebsocketMqttBuilderWithSigv4Auth`
+
+This code is from samples provided by AWS
+
+Because other functions of the SDK aren't available for react-native.
+
+    function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+      return builder.build();
+    }function createClientConfig(args: any): mqtt5.Mqtt5ClientConfig {
+      let builder: iot.AwsIotMqtt5ClientConfigBuilder | undefined = undefined;
+    
+    
+      let wsOptions: iot.WebsocketSigv4Config | undefined = undefined;
+      if (args.region) {
+        wsOptions = {
+          region: args.region,
+          // credentialsProvider: auth.AwsCredentialsProvider.newDefault(),
+        };
+      }
+    
+    
+      builder =
+        iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+          args.endpoint,
+          wsOptions
+        );
+      builder.withCertificateAuthorityFromPath(undefined, args.cert);
+    
+    
+      builder.withConnectProperties({
+        keepAliveIntervalSeconds: 1200,
+      });
+    
+    
+      return builder.build();
+    }
+
+
+
+`credentialsProvider: auth.AwsCredentialsProvider.newDefault()`
+
+This line was suggested by GPT which didn't do shit.
+
+I guess I need to add some sort of auth on the AWS side first and then use that to access the endpoint from here. But what and how?
+
+The method below works fine when run in Node, but it's not available on react-native
+
+    if (args.key && args.cert) {
+     builder =
+       iot.AwsIotMqtt5ClientConfigBuilder.newDirectMqttBuilderWithMtlsFromPath(
+         args.endpoint,
+         args.cert,
+         args.key
+       );
+
+I've tried several things to resolve it, but I'm still scratching my head.
+
+There's a few tutorials about slightly different things that talk about doing something with Cognito or Amplify but I couldn't really understand them (or didn't want to). I thought that maybe there was a simpler way
+
+This is my first time dabbling in IoT, AWS and React Native.
+
+I truly appreciate any insights or suggestions you can offer!",1708837081.0,1
+aws,https://www.reddit.com/gallery/1azcz6i,Cloud Quest - API Gateway,"Can someone please help me with this one. I am now too invested in this game and I cant just ignore it. Hahaha 🥹
+
+And I got this result though I did everything. I already spent 1hour configuring it but still the result was ""AN ERROR (403) OCCURED WHILE INVOKING API WITH THE URL YOU PROVIDED.""",1708828822.0,0
+aws,https://www.reddit.com/r/aws/comments/1aza0fo/java_shared_code_in_a_lambda_layer_how_will/,[Java] Shared code in a lambda layer. How will lambdas access this layer?,"I have 5+ lambdas. Each lambda does its work by using 1 specific class and multiple utility classes. All the lambdas live in the same repository. Their `build.gradle`s all have the same dependencies. Small example:
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+This results in identical utility classes being duplicated everywhere. Therefore I am looking into creating a `lambda layer` that will contain all the common dependencies and shared utility classes that the 3 lambdas will use. Small updated example:
+
+    LambdaLayer
+      src
+       main
+        CommonUtility1.java
+        CommonUtility2.java
+      build.gradle
+
+    CreateLambda
+      src
+       main
+        CreateHandler.java
+      build.gradle
+
+    UpdateLambda
+      src
+       main
+        UpdateHandler.java
+      build.gradle
+
+My question is: **How would the lambdas import the lambda layer as a dependency?** Would they just have to import it as a dependency in the `build.gradle` as they would with any other dependency? That would mean that the lambda layer JAR would have to be published first before the lambdas can use it right? This is for work and at my company all JARs get published to a company maven repository.
+
+Anything else I need to know in order to do this properly? Lambda layer tutorials in Java are rare when I google",1708820419.0,1
+aws,https://www.reddit.com/r/aws/comments/1az9s0s/video_on_demand_via_aws_media_convert/,Video on Demand via AWS Media Convert?,"Hello, using S3 and cloudfront for video on demand services(50mb - 5gb files), however data transfer costs are getting out of hand;
+
+1. Is media convert a suitable approach(cost, overhead, efficacy, etc)?
+2. Does media convert have adaptive bitrate streaming?
+3. Id like to load videos in ""chunks"" instead of loading entire file like i am currently, does media convert help with this?",1708819813.0,1
+aws,https://www.reddit.com/r/aws/comments/1az94ga/video_on_demand_options/,Video On Demand options?,"Currently storing via S3 and serving via CloudFront, however the data transfer costs are still too high and id like to find a solution:
+
+1. Should I even be using s3 + CloudFront for this?
+2. What is adaptive bitrate? What are my options for this?
+3. Should I convert/compress videos upon upload? If so what are my options
+4. Proper CloudFront utlization? Currently im signing cloudfront URLs and sending it directly to client, does cloudfront automatically cache and compress files or must I do something else?",1708818106.0,0
+aws,https://www.reddit.com/r/aws/comments/1az8hwb/is_it_possible_to_grant_a_lightsail_instance/,Is it possible to grant a Lightsail instance access to Bedrock via Service Roles?,"I have a Lighsail instance that I would like to make requests to my Bedrock FM. I could create Access Key/Access Key Secret, but I am wondering if this is possible via Service Roles. It seems Lightsail uses a Service Linked Role, which cannot be modified. I just want to make sure I am understanding that correctly.
+
+[https://docs.aws.amazon.com/IAM/latest/UserGuide/reference\_aws-services-that-work-with-iam.html#all\_svcs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html#all_svcs)",1708816473.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayy7hq/aws_cognito_giving_me_code_that_violates_their/,AWS Cognito giving me code that violates their own policy?,"I am creating a website using AWS S3 and I am using Cognito for user accounts.  
+
+
+I have Cognito set up and working on my website to where a user can sign up for an account. However, whenever a user is directed to the link provided by Cognito for authentication (ex: https://<website name>-login.auth.us-east-1.amazoncognito.com/login?client\_id=<client id>&response\_type=code&scope=email+openid&redirect\_uri=https%3A%2F%2F<domain name>%2F<website\_name>.html), the following error is had in the console:  
+
+
+""Refused to execute inline script because it violates the following Content Security Policy directive: ""script-src [https://d3oia8etllorh5.cloudfront.net](https://d3oia8etllorh5.cloudfront.net) https://<website name>-login.auth.us-east-1.amazoncognito.com"". Either the 'unsafe-inline' keyword, a hash ('sha256-fWEffNYGDN+XQ+YrsU/LKDZAnOcnSlra1fOIm+7oskM='), or a nonce ('nonce-...') is required to enable inline execution.""  
+
+
+Basically, it is saying that on this authentication website provided by Cognito, it uses an inline script, which is not allowed by AWS' Content Security Policy. When opening up the code for the authentication website via ""Inspect"", there is in fact inline script.  
+
+
+How come AWS gave me code that violates their own CSP Policy? How do I get around this? I've tried many things, but nothing seems to work.  
+
+
+Thanks for any help!",1708791127.0,2
+aws,https://www.reddit.com/r/aws/comments/1aym3nw/how_do_you_implement_platform_engineering/,How do you implement platform engineering??,"Okay, I’m working as a sr “devops” engineer with a software developer background trying to build a platform for a client. I’ll try to keep my opinions out of it, but I don’t love platform engineering and I don’t understand how it could possibly scale…at least not with what we have built. 
+
+Some context, we are using a gitops approach for deploying infrastructure onto aws. We use Kubernetes based terraform operator (yeah questionable…I know) and ArgoCD to manage deployments of infra. 
+
+We created several terraform modules that contain a SINGLE aws resource in its own git repository. There are some “sensible defaults” in the modules and a bunch of variables for users to input if they choose or not. Tons of conditional logic in the templates. 
+
+Our plan is to enable these to be consumed through an IDP (internal developer portal) to give devs an easy button. 
+
+My question is, how does this scale. It’s very challenging to write single modules that can be deployed with their own individual terraform state. So I can’t reference outputs and bind resources together very easily without multi step deployments sometimes. Or guessing at what the output name of a resource might be. 
+
+For example, it’s very hard to do this with a native aws cloud solution like s3 bucket that triggers lambda based on putObject that then sends a message to sqs and is consumed by another lambda. Or triggering a lambda based on RDS input etc etc. 
+
+So, my question is how do you make a “platform/product” that allows for flexibility for product teams and devs to consume services through a UI or some easy button without writing the terraform themselves?? 
+
+TL;DR: 
+How do you write terraform modules in a platform? ",1708750638.0,21
+aws,https://www.reddit.com/r/aws/comments/1az3tm4/nvidia_driver_for_g5xlarge/,Nvidia driver for g5.xlarge,"Hello,
+
+I just take a g5.xlarge  with an Amazon Linux 2023 AMI and I struggle to install an nvidia driver,  so please I have some questions:
+
+How can I install an nvida driver there ? I konw there is some AMI which comes already with a driver but I don't want thid solution
+
+Which driver should I use ? My purpose is to play with llama2 to do some GenAI (RAG)
+
+Are nvidia drivers free ?
+
+Thanks a lot
+",1708804929.0,0
+aws,https://www.reddit.com/r/aws/comments/1az31m3/aws_cli_how_can_i_filter_a_file_list_from_the_ls/,[AWS CLI] how can i filter a file list from the ls command?,"Is there a way to filter a file listing from the ls command in the AWS CLI? e.g. What would I have to do (from the command line) if I just want to see or download a list of all the zip files in a folder that has over a million files where only some are zips? I tried:  
+  
+aws s3 ls s3://(bucket)/(folder) --exclude ""*"" --include ""*.zip""  
+  
+but that doesn't work - surely there must be some way to do this? I guess it'd take the same amount of time to list the results either way but it'd be nice to be able to get a filtered result (and a smaller text output file) after the wait rather than having to do manually filter that for what i want afterwards.",1708802953.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayxgg5/questions_on_org_trail_in_control_tower/,Question(s) on Org Trail in Control Tower,"Hello,
+
+I would appreciate if some kind soul could give me pointers on what I am trying to achieve. I may not be using the correct search terms when looking around the interwebs.
+
+ We are getting started with our AWS journey with Control Tower being used to come up with a well architected framework as recommended by AWS.
+
+The one thing I am a bit confused about is, how do we monitor all the CloudTrail events in the ""Audit"" account with our own custom alert.  The Control Tower framework has created the OrgTrail with the Audit account having access to all accounts events, I see AWS Guard Duty monitoring and occasionally alerting me on stuff.  
+
+Q1: How do I extend the alerting above and beyond what AWS Guard Duty does?  
+
+Q2: We are comfortable with our on-prem SIEM and although I am aware of the costs involved in bringing in CloudTrail events through our OrgTrail, it is something we are comfortable with to get started.  How do I do this?  I am assuming this is possible.  
+
+Thank you all!
+
+GT
+
+&#x200B;",1708789240.0,2
+aws,https://www.reddit.com/r/aws/comments/1az2jsb/deployment/,Deployment,"I need yalls help!! 
+
+I've never used aws before and i have a question regarding the deployment of a website. 
+
+Im working on a school project and the topic is gitlab ci/cd pipeline. I've developed my own web app using flask and angular and i have two separate folders for each of those. The app is for demonstrational purposes only, nobody would actually be using it. How do i deploy that? Ive read that for backend i could probably use beanstalk? What about the frontend? Do you make two separate jobs in a pipeline for backend and frontend? How do they communicate in the cloud? 
+
+Lol, i have so many questions and no idea where to start. Any courses/literature recommendations are welcomed. ",1708801726.0,0
+aws,https://www.reddit.com/r/aws/comments/1ayr108/combining_aurora_serverless_v2_with_reserved/,Combining Aurora Serverless v2 with Reserved Instances,"Hey everyone, I'd like to validate an approach before diving a rabbit hole of setup:
+
+* We have a fairly standard baseline use to our Aurora databases, so we use a couple r7g.large instances in each of the major regions we operate. This is great 99.9% of the time.
+* However, within each region things can get spikey - often only for a few minutes each day - which can cause degraded performance as we go over our provisioned vCPUs.
+* My reading is that you can setup Aurora Serverless v2 to sit as a reader *alongside* regular RI readers, so traffic can go to both types at the same time, and this will be handled by RDS Proxy.
+
+So the core assumption I'm looking to validate: **can I use RIs to cut costs for our baseline usage and use Aurora Serverless v2 to sit on standby to handle spikiness?** I realise there might be an obvious answer based on my last bullet point above, but every blog post I'm reading always compares the two services as an either/or option, and typically concludes that Aurora Serverless v2 ends up simply being more expensive because it doesn't make sense for baseline usage. I haven't found any posts of people talking about this setup.
+
+Follow on questions that I'm also not getting clear answers on:
+
+* Is RDS Proxy intelligent enough when you're using readers and serverless together (i.e. will it start sending spiky traffic to serverless, rather than splitting amongst all readers?)
+* Can our apu be left at 0.5 and it will autoscale to any capacity we need, or should we try and optimise our apu minimum to be equal to the memory our database typically needs? Is there a simple way of working this out?
+* What are the other gotchas that we should be considering?
+
+Final more unrelated question:
+
+* We don't have an AWS support contract today. If we had one, would they be good at answering these types of questions, or are they more useful for just having someone to call when something goes wrong?",1708768936.0,5
+aws,https://www.reddit.com/r/aws/comments/1ayplbk/lambda_function_authentication/,Lambda function authentication ,"Really new to all this stuff. I have a lambda function talking to OpenAI api which accessible via an endpoint (API gateway). This endpoint is being called from my react native app. 
+
+The whole reason to create this function was because I did not want to store the api key in the app code. 
+
+Now, I am facing issue with authenticating this endpoint. What simple yet secure enough solutions can I use to authenticate my endpoint? Another api key might be a solution but again it gets exposed client side",1708763157.0,6
+aws,https://www.reddit.com/r/aws/comments/1aytl6f/lambdaedge_cold_start/,Lambda@Edge cold start?,"Hello
+
+Is there any way to keep lambda @ edge warmed up? 
+
+Otherwise, it ends up slowing down the website significantly... which is counter intuitive ",1708778364.0,3
+aws,https://www.reddit.com/r/aws/comments/1aywm89/any_python_libraries_out_there_that_mock_the/,Any Python libraries out there that mock the MultiProcessing module and instead pass code to AWS Lambda to run?,"There are isolated functions / modules in my code that get invoked \~100k times (around 3 minutes for each invocation) each time I launch my code.  I can easily make this parallel using Python's multiprocessing module, but even with multiprocessing it'll take forever to run. Is there an interface similar to multiprocessing that pipes to lambda instead? The isolated functions are in heavy development, so I'm trying to avoid having to futz with aws-cli, AWS Console, IAM permissions, downloading from S3, etc... everytime I make a small change. I just want to run and have the results come back directly into Python.
+
+Does such a thing exist?",1708787084.0,1
+aws,https://www.reddit.com/r/aws/comments/1aywfuv/aws_policy_need_explaination_for_the_forallvalues/,"AWS policy: need explaination for the ""ForAllValues"" qualifier","I have this SCP attached to account A in my org
+
+    {
+      ""Version"": ""2012-10-17"",
+      ""Statement"": [
+        {
+          ""Effect"": ""Deny"",
+          ""Action"": [
+            ""route53:ChangeResourceRecordSets""
+          ],
+          ""Resource"": ""*"",
+          ""Condition"": {
+            ""ForAllValues:StringEquals"": {
+              ""route53:ChangeResourceRecordSetsRecordTypes"": [
+                ""A"",
+                ""AAAA""
+              ]
+            }
+          }
+        }
+      ]
+    }
+
+As I understand:
+
+* the SCP will deny if each and every record's type in my create-record request equals A or AAAA
+* the SCP will not deny if at least one record's type in my create-record request is not equal A or AAAA
+
+However, when I create R53 records in account A using the console:
+
+https://preview.redd.it/kn6lkirqrjkc1.png?width=3360&format=png&auto=webp&s=e2de7f40ae3affcb39578ce271047ab4051bedf3
+
+the SCP still blocks the request even though the request contains a record of type ""CNAME"" which is not A or AAAA
+
+What is wrong in my understanding of this ""ForAllValues"" ? Please help me. Thanks",1708786626.0,1
+aws,https://www.reddit.com/r/aws/comments/1ayrqmq/is_it_recommended_to_use_aws_to_host_docker/,is it recommended to use aws to host docker containers,"so I have a docker image that I have pushed to the docker hub registry. Now I have to host it somewhere and I was looking at some of the different options. AWS seems really good but i keep reading that they have a free tier but its not actually free and people being charged thousands of dollars unknowingly. If I were to start playing around with AWS today, how likely would it be that something like that would happen to me? Are there any other options I should try instead? thanks",1708771695.0,2
+aws,https://www.reddit.com/r/aws/comments/1ay99so/bedrock_adds_mistral_ai_models/,Bedrock adds Mistral AI models,"even more AI models are being added to Bedrock:  
+
+
+[https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock](https://www.aboutamazon.com/news/aws/mistral-ai-amazon-bedrock)",1708716383.0,21
+=======
 &#x200B;",1708639575.0,1
 swiggy,https://www.reddit.com/r/aws/comments/1axddzy/aws_marketplace_publishing_a_product_is_taking_so/,AWS Marketplace: publishing a product is taking SO long,"Has anyone been able to publish their products (AMI, SaaS, etc) to AWS marketplace recently? My team has tried to publish a few things since like August 2023 but I think none of the products went through the review process, its been stuck on a request to change from limited visibility to public since then.
 
 Any ideas or information will be useful, its been very frustrating.",1708625773.0,2
+>>>>>>> main
