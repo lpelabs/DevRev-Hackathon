@@ -1,5 +1,5 @@
 import {publicSDK } from '@devrev/typescript-sdk';
-import * as gplay from "google-play-scraper";
+import gplay from "google-play-scraper";
 import { ApiUtils, HTTPResponse } from './utils';
 import {LLMUtils} from './llm_utils';
 
@@ -18,10 +18,19 @@ export const run = async (events: any[]) => {
     const tags = event.input_data.resources.tags;
     const llmUtil: LLMUtils = new LLMUtils(openApiKey, "gpt-4", 200);
     let numReviews = 10;
+    let ratings = 1;
     let commentID : string | undefined;
+    
+    // Parse parameters to get ratings and numReviews
+    const paramsArray = parameters.split(" ");
+    if (paramsArray.length >= 2) {
+      ratings = parseInt(paramsArray[0]);
+      numReviews = parseInt(paramsArray[1]);
+    }
+
     if (parameters === 'help') {
       // Send a help message in CLI help format.
-      const helpMessage = `playstore_reviews_process - Fetch reviews from Google Play Store and create tickets in DevRev.\n\nUsage: /playstore_reviews_process <number_of_reviews_to_fetch>\n\n\`number_of_reviews_to_fetch\`: Number of reviews to fetch from Google Playstore. Should be a number between 1 and 100. If not specified, it defaults to 10.`;
+      const helpMessage = `playstore_reviews_process - Fetch reviews from Google Play Store and create tickets in DevRev.\n\nUsage: /playstore_reviews_process <ratings> <numReviews>\n\n\`ratings\`: Number of ratings to fetch from Google Playstore. Should be a number between 1 and 5. \n\`numReviews\`: Number of reviews to fetch from Google Playstore. Should be a number between 1 and 100. If not specified, it defaults to 10.`;
       let postResp  = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, helpMessage, 1);
       if (!postResp.success) {
         console.error(`Error while creating timeline entry: ${postResp.message}`);
@@ -29,38 +38,23 @@ export const run = async (events: any[]) => {
       }
       continue
     }
+
     let postResp: HTTPResponse = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, 'Fetching reviews from Playstore', 1);
     if (!postResp.success) {
       console.error(`Error while creating timeline entry: ${postResp.message}`);
       continue;
     }
-    if (!parameters) {
-      // Default to 10 reviews.
-      parameters = '10';
-    }
-    try {
-      numReviews = parseInt(parameters);
 
-      if (!Number.isInteger(numReviews)) {
-        throw new Error('Not a valid number');
-      }
-    } catch (err) {
-      postResp  = await apiUtil.postTextMessage(snapInId, 'Please enter a valid number', commentID);
-      if (!postResp.success) {
-        console.error(`Error while creating timeline entry: ${postResp.message}`);
-        continue;
-      }
-      commentID = postResp.data.timeline_entry.id;
+    // Default to 10 reviews if numReviews is not provided
+    if (isNaN(numReviews) || numReviews <= 0) {
+      numReviews = 10;
     }
-    // Make sure number of reviews is <= 100.
-    if (numReviews > 120) {
-      postResp  = await apiUtil.postTextMessage(snapInId, 'Please enter a number less than 120', commentID);
-      if (!postResp.success) {
-        console.error(`Error while creating timeline entry: ${postResp.message}`);
-        continue;
-      }
-      commentID = postResp.data.timeline_entry.id;
+
+    // Default to 0 ratings if ratings is not provided
+    if (isNaN(ratings) || ratings < 0 || ratings > 5) {
+      ratings = 0;
     }
+
     // Call google playstore scraper to fetch those number of reviews.
     let getReviewsResponse:any = await gplay.reviews({
       appId: inputs['app_id'],
@@ -68,6 +62,7 @@ export const run = async (events: any[]) => {
       num: numReviews,
       throttle: 10,
     });
+
     // Post an update about the number of reviews fetched.
     postResp  = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, `Fetched ${numReviews} reviews, creating tickets now.`, 1);
     if (!postResp.success) {
@@ -76,6 +71,7 @@ export const run = async (events: any[]) => {
     }
     commentID = postResp.data.timeline_entry.id;
     let reviews:gplay.IReviewsItem[] = getReviewsResponse.data;
+
     // For each review, create a ticket in DevRev.
     for(const review of reviews) {
       // Post a progress message saying creating ticket for review with review URL posted.
