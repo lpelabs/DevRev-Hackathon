@@ -62,8 +62,9 @@ def googlePlayModel(raw_data_df):
     
     review_df = pd.DataFrame()
     name_df = pd.DataFrame()
-    date_df = pd.DataFrame()
+    date_df = pd.DataFrame()    
     rating_df = pd.DataFrame()
+    sentiment_df = pd.DataFrame()
     
     review_df['review'] = raw_data_df['body']
     print(f"Review Data: {review_df.head()}")
@@ -81,15 +82,16 @@ def googlePlayModel(raw_data_df):
     final_df = pd.concat([swot_embeddings, geographical_embeddings, date_df, rating_df], axis=1)
     final_df.to_csv("final_df.csv")
     
+    #Cluster based on SWOT 
+    #Cluster based on Geographical Data - send dataframe with continent and review
+    #Add sentiment analysis
+    
+    #For each Continent - sentiment timeline
+    #Work on weaknesses prompt
+    #Work on threats prompt
+    #
+    
+    
     print(f"Final df is {final_df}")
 
-def trainModel(dataset_df):
-    """
-    This will train the model based on the given data.
-    
-    Input:
-    dataset_df - A dataframe containing the review data from various sources
-    The columns are ,sEmbeddings,wEmbeddings,oEmbeddings,tEmbeddings,continentEmbeddings,created_at,rating
-    """
-    
     
