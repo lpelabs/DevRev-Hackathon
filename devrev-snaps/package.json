@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@langchain/community": "^0.0.32",
+    "@langchain/openai": "^0.0.14",
+    "google-play-scraper": "^10.0.0",
+    "langchain": "^0.1.21"
+  }
+}
