@@ -10,7 +10,7 @@ import numpy as np
 import torch 
 import torch.nn as nn 
 from prompting import request_chat_gpt_api
-from prompts import SWOT_PROMPT,NOISE_PROMPT,SENTIMENT_PROMPT
+from prompts import SWOT_PROMPT,NOISE_PROMPT,SENTIMENT_PROMPT, WEAKNESS_PROMPT, THREATS_PROMPT
 from sentence_transformers import SentenceTransformer
 
 def generateEmbeddings(body):
@@ -47,6 +47,23 @@ def usefulDataframeEmbeddings(reviews_df):
 def sentimentDataframeEmbeddings(reviews_df):
     reviews_df['sentiment'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(SENTIMENT_PROMPT,x).split()[1]))
     return reviews_df
+
+def getWeakness(reviews_df,count=None):
+    reviews_list = reviews_df['review'].tolist()
+    reviews_string = ' '.join(reviews_list)
+    if count is None:
+        return request_chat_gpt_api(WEAKNESS_PROMPT, reviews_string)
+    else:
+        return request_chat_gpt_api(WEAKNESS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')[:count]
+
+def getThreats(reviews_df,count=None):
+    reviews_list = reviews_df['review'].tolist()
+    reviews_string = ' '.join(reviews_list)
+    if count is None:
+        return request_chat_gpt_api(THREATS_PROMPT, reviews_string)
+    else:
+        return request_chat_gpt_api(THREATS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')[:count]
+
 
 def dataframeEmbeddings(df):
     """Create embeddings for the SWOT, and call the columns sEmbeddings, wEmbeddings, oEmbeddings, tEmbeddings

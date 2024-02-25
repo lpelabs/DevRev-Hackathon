@@ -20,10 +20,18 @@ def clean(text):
     return numpy_array
     
 
-def main(df):
+def clusteringProcess(final_df):
     embeddingColumns = ['sEmbeddings', 'wEmbeddings', 'oEmbeddings', 'tEmbeddings']
-    df[embeddingColumns] = df[embeddingColumns].applymap(clean)
+    # final_df[embeddingColumns] = final_df[embeddingColumns].applymap(clean)
+    swotClusterDict = {}
+    optimalClusterDict = {}
+
     for cols in embeddingColumns:
-        visualize_clusters_3d(df[cols].values, perform_clustering(df[cols].values, find_optimal_clusters(df[cols])))
+        print(cols)
+        optimal_clusters = find_optimal_clusters(final_df[cols])
+        optimalClusterDict[cols[0]] = optimal_clusters
+        swotClusterDict[cols[0]] = visualize_clusters_3d(final_df[cols].values, perform_clustering(final_df[cols].values, optimal_clusters))
+        
     
+    return optimalClusterDict,swotClusterDict
     
