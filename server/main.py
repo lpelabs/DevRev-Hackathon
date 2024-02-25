@@ -338,7 +338,7 @@ async def generate_csv(app_name: str = "swiggy", subreddit_name: str = "aws", ow
     
     return {"message": "Insights are being generated!"}
 
-@app.get("/get_insights")
+@app.get("/get_json")
 async def get_insights(client_name: str = "swiggy"):
     with open("./data/processed_data.json", "r") as file:
         data = json.load(file)

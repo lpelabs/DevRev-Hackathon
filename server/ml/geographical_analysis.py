@@ -1,6 +1,6 @@
-from constants import CONTINENT_LABEL, COUNTRY_LABEL
-from prompts import CONTINENT_PROMPT, COUNTRY_PROMPT
-from prompting import request_chat_gpt_api
+from .constants import CONTINENT_LABEL, COUNTRY_LABEL
+from .prompts import CONTINENT_PROMPT, COUNTRY_PROMPT
+from .prompting import request_chat_gpt_api
 import pandas as pd
 
 def getContinentSentimentDict(df):

@@ -7,7 +7,6 @@ import UserDashboard from './components/UserDashboard';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // Define routes
 const routes = [
-  { path: "/", element: <Dashboard /> },
   { path: "/client-dashboard", element: <UserDashboard /> },
 ];
 

@@ -10,10 +10,10 @@
 #Use Prophet to forecast
 #Give analytics
 
-from swot_analysis import getWeakness, getThreats, usefulDataframeEmbeddings, dataframeEmbeddings, sentimentDataframeEmbeddings, generateEmbeddings
-from geographical_analysis import geoDataframeEmbeddings, getContinentSentimentDict
-from prompting import request_chat_gpt_api
-from clusteringPipeline import clusteringProcess
+from .swot_analysis import getWeakness, getThreats, usefulDataframeEmbeddings, dataframeEmbeddings, sentimentDataframeEmbeddings, generateEmbeddings
+from .geographical_analysis import geoDataframeEmbeddings, getContinentSentimentDict
+from .prompting import request_chat_gpt_api
+from .clusteringPipeline import clusteringProcess
 import json
 import pandas as pd
 import os

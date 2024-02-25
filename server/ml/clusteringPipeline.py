@@ -1,6 +1,6 @@
 import numpy as np 
 import pandas as pd
-from clustering import find_optimal_clusters, perform_clustering, visualize_clusters_3d
+from .clustering import find_optimal_clusters, perform_clustering, visualize_clusters_3d
 import regex as re
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt

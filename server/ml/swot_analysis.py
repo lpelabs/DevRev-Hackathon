@@ -7,11 +7,10 @@ Strengths | Weaknesses | Opportunities | Threats
 
 import pandas as pd
 import numpy as np 
-import torch 
-import torch.nn as nn 
-from prompting import request_chat_gpt_api
-from prompts import SWOT_PROMPT,NOISE_PROMPT,SENTIMENT_PROMPT, WEAKNESS_PROMPT, THREATS_PROMPT
-from sentence_transformers import SentenceTransformer
+
+from .prompting import request_chat_gpt_api
+from .prompts import SWOT_PROMPT,NOISE_PROMPT,SENTIMENT_PROMPT, WEAKNESS_PROMPT, THREATS_PROMPT
+from sentence_transformers import SentenceTransformer   
 
 def generateEmbeddings(body):
     """Generate sentence embeddings for the purpose of clustering
