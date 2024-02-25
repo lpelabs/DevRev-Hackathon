@@ -20,7 +20,7 @@ def getContinentSentimentDict(df):
         x_values = x_values.dt.strftime('%Y-%m-%d')
         
         # Store X and Y coordinates in the dictionary
-        result_dict[continent] = {'X': x_values.tolist(), 'Y': y_values.tolist()}
+        result_dict[int(continent)] = {'X': x_values.tolist(), 'Y': y_values.tolist()}
         
     return result_dict
 

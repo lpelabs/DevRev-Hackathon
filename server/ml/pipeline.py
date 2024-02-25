@@ -10,10 +10,11 @@
 #Use Prophet to forecast
 #Give analytics
 
-from swot_analysis import getWeakness, getThreats
+from swot_analysis import getWeakness, getThreats, usefulDataframeEmbeddings, dataframeEmbeddings, sentimentDataframeEmbeddings, generateEmbeddings
 from geographical_analysis import geoDataframeEmbeddings, getContinentSentimentDict
 from prompting import request_chat_gpt_api
 from clusteringPipeline import clusteringProcess
+import json
 import pandas as pd
 import os
 
@@ -29,12 +30,15 @@ def runPipeline(source_name):
     """
     
     base_path = os.path.abspath("../data/")
+    save_path = os.path.abspath("../output/")
     
     if source_name == "google_play":
         df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
         #For testing purposes, take only 5 rows
         df = df.head()
-        googlePlayModel(df)
+        
+        with open(os.path.join(save_path,source_name+".json"), "w") as f:
+            json.dump(googlePlayModel(df), f)
         
     elif source_name == "twitter":
         return pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
