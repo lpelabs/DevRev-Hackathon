@@ -54,7 +54,7 @@ def getWeakness(reviews_df,count=None):
     if count is None:
         return request_chat_gpt_api(WEAKNESS_PROMPT, reviews_string)
     else:
-        return request_chat_gpt_api(WEAKNESS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')[:count]
+        return request_chat_gpt_api(WEAKNESS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')
 
 def getThreats(reviews_df,count=None):
     reviews_list = reviews_df['review'].tolist()
@@ -62,7 +62,7 @@ def getThreats(reviews_df,count=None):
     if count is None:
         return request_chat_gpt_api(THREATS_PROMPT, reviews_string)
     else:
-        return request_chat_gpt_api(THREATS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')[:count]
+        return request_chat_gpt_api(THREATS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')
 
 
 def dataframeEmbeddings(df):
