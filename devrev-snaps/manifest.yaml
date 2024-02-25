@@ -1,5 +1,5 @@
 version: "2"
-name: "Voice To Help"
+name: "Voice To Help v3"
 description: "Create a ticket by identifying customer problems from different platforms."
 
 service_account:
@@ -12,6 +12,11 @@ keyrings:
       types:
         - snap_in_secret
       display_name: OpenAI API Key
+    - name: rapid_api_key
+      description: API Key for RAPIDAPI, follow https://rapidapi.com/ to get one.
+      types:
+        - snap_in_secret
+      display_name: Rapid API Key
 
 inputs:
   organization:
@@ -113,8 +118,11 @@ functions:
     description: "Function to give an intro about the Voice To Help Snap-in."
   - name: "fetch_play_store_reviews"
     description: "Function to fetch reviews from play store."
-
-
+  - name: "insights"
+    description: "Function to get all insights"
+  # - name: "review_tweets"
+  #   description: "Function to fetch tweets from twitter."
+  
 tags:
   - name: "bug"
     description: "This is a bug."
@@ -137,16 +145,16 @@ commands:
           - "snap_in"
     usage_hint: "/info"
     function: "snapin_intro"
-  - name: "review_tweets"
-    namespace: "devrev"
-    description: "Fetched tweets from twitter with specified hashtags and username during configuration and create tickets"
-    surfaces:
-      - surface: "discussions"
-        object_types:
-          - "snap_in"
-          - "ticket"
-    usage_hint: "/review-tweets [number of tweet to fetch and process]"
-    function: "snapin_intro"
+  # - name: "review_tweets"
+  #   namespace: "devrev"
+  #   description: "Fetched tweets from twitter with specified hashtags and username during configuration and create tickets"
+  #   surfaces:
+  #     - surface: "discussions"
+  #       object_types:
+  #         - "snap_in"
+  #         - "ticket"
+  #   usage_hint: "/review-tweets [number of tweet to fetch and process]"
+  #   function: "review_tweets"
   - name: "play_store_review"
     namespace: "devrev"
     description: "Fetch reviews from play store, Process and make tickets."
@@ -156,6 +164,15 @@ commands:
           - "snap_in"
     usage_hint: "/play-store-review [rating (default value : 1)] [number of reviews to fetch and process]"
     function: "fetch_play_store_reviews"
+  - name: "insights"
+    namespace: "devrev"
+    description: "Get insights from all platforms and create tickets."
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+    usage_hint: "/insights"
+    function: "insights"
 
 automations:
     - name: periodic_ticket_creator
@@ -164,3 +181,9 @@ automations:
       event_types:
         - timer.tick
       function: ticket_creator
+    - name: get_insights
+      description: Automation to get insights from all platforms and create tickets.
+      source: timer-event-source
+      event_types:
+        - timer.tick
+      function: insights

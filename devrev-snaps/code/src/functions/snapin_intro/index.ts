@@ -12,19 +12,26 @@ export const run = async (events: any[]) => {
         const inputs = event.input_data.global_values;
         let parameters: string = event.payload.parameters.trim();
         const tags = event.input_data.resources.tags;
+        
+        const openApiKey: string = event.input_data.keyrings.openai_api_key;
+        const app_name = inputs['company_name']
+        const owner = inputs['github_owner']
+        const repo = inputs['github_repo']
+        const twitter_handle = inputs['twitter_handle']
 
-        let numReviews = 10;
-        let commentID: string | undefined;
+        const url = `https://lpe-labs.up.railway.app/generate_csv?app_name=${app_name}&subreddit_name=${app_name}&owner=${owner}&repo=${repo}&twitter_handle=${twitter_handle}&get_news_for=${app_name}`;
 
-        if (!parameters) {
-            // Send a help message in CLI help format.
-            const helpMessage = `Voice To Help Snap-in will help in gathering insights from user feedback across different channel which is in unstructured format. This will also create ticket based on the issue faced by the customer by ingesting data from different platform like twitter and google play store.`;
-            let postResp = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, helpMessage, 1);
-            if (!postResp.success) {
-                console.error(`Error while creating timeline entry: ${postResp.message}`);
-                continue;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
             }
-            continue;
+            const responseData = await response.json();
+            if (response.status === 201) {
+                return responseData;
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     }
 };
