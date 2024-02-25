@@ -20,15 +20,17 @@ I am a top analyst at a large technological firm.
 
 I will give you a review of a customer, and you need to give me a concise SWOT analysis of the review.
 
-It should be robust, but it should only be one sentence for each section.
+It should be robust, but it should only be ONE SENTENCE for each section. I will be using your response for a downstream task.
+
 
 The format should be the following : 
-Strengths:
-Weaknesses:
-Opportunities:
-Threats:
+Strengths:<strengths> 
+Weaknesses:<weaknesses> 
+Opportunities:<opportunities> 
+Threats:<threats> 
 
-Strictly output the SWOT analysis, and nothing else.
+Strictly output the SWOT analysis, and nothing else!
+NOTHING OTHER THAN THIS FORMAT WILL BE ACCEPTED.
 
 """
 

@@ -207,8 +207,8 @@ CONTINENT_LABEL = {
     'Antarctica': 2,
     'Asia': 3,
     'Europe': 4,
-    'North America': 5,
+    'North': 5,
     'Australia': 6,
-    'South America': 7
+    'South': 7
 }
 
