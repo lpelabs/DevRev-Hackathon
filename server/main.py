@@ -21,6 +21,8 @@ from helpers.remove_emoji import remove_emoji
 from helpers.use_ai import request_chat_gpt_api
 from helpers.prompts import NOISE_PROMPT, SENTIMENT_PROMPT, SWOT_PROMPT
 
+from ml.pipeline import processData
+
 from config.config import SECRETS
 import csv
 import requests
@@ -327,5 +329,17 @@ async def generate_csv(app_name: str = "swiggy", subreddit_name: str = "aws", ow
     filtered_data = get_github_issues(owner, repo)
     results = get_tweets(twitter_handle)
     news = get_news(get_news_for)
+    
+    #Run the initial data processing pipeline
+    processData(
+        client_name=app_name,
+        TESTING=False,
+    )
+    
     return {"message": "Insights are being generated!"}
 
+@app.get("/get_insights")
+async def get_insights(client_name: str = "swiggy"):
+    with open("./data/processed_data.json", "r") as file:
+        data = json.load(file)
+        return data[client_name]
