@@ -10,7 +10,7 @@
 #Use Prophet to forecast
 #Give analytics
 
-from swot_analysis import generateEmbeddings, dataframeEmbeddings
+from swot_analysis import generateEmbeddings, dataframeEmbeddings, usefulDataframeEmbeddings
 from geographical_analysis import geoDataframeEmbeddings
 from prompting import request_chat_gpt_api
 import pandas as pd
@@ -50,6 +50,16 @@ def googlePlayModel(raw_data_df):
     review_df - A dataframe containing the review data from Google Play
     """
     
+    USEFULNESS_THRESHOLD = 2
+    usefulness_df = pd.DataFrame()
+    usefulness_df['review'] = raw_data_df['body']
+    usefulness_df = usefulDataframeEmbeddings(usefulness_df)
+    print(f"Usefulness df is {usefulness_df}")
+    
+    raw_data_df = raw_data_df[usefulness_df['usefulness'] > USEFULNESS_THRESHOLD]
+    
+    print(raw_data_df.head())
+    
     review_df = pd.DataFrame()
     name_df = pd.DataFrame()
     date_df = pd.DataFrame()
@@ -79,6 +89,7 @@ def trainModel(dataset_df):
     
     Input:
     dataset_df - A dataframe containing the review data from various sources
+    The columns are ,sEmbeddings,wEmbeddings,oEmbeddings,tEmbeddings,continentEmbeddings,created_at,rating
     """
     
     
