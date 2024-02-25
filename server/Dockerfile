@@ -3,7 +3,8 @@ WORKDIR /code
 # Install virtualenv 
 RUN pip install --no-cache-dir virtualenv 
 # Create and activate the virtual environment 
-RUN virtualenv venv RUN /bin/bash -c "source /code/venv/bin/activate" 
+RUN virtualenv venv 
+RUN /bin/bash -c "source /code/venv/bin/activate" 
 # Copy requirements and install them in the virtual environment 
 COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt 
