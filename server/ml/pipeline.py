@@ -24,8 +24,12 @@ def processData(client_name,TESTING=False):
     
     save_path = os.path.abspath("../output/")
     
-    with open(os.path.join(save_path,"processed.json"), "r") as f:
-        previous_data_dict = json.load(f)
+    with open(os.path.join(save_path,"processed.json"), "a+") as f:
+        f.seek(0)
+        try:
+            previous_data_dict = json.load(f)
+        except:
+            previous_data_dict = {}
     
     for source in ["google_play", "twitter", "reddit"]:
         print(f"Running pipeline for {source}")
