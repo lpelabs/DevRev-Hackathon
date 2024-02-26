@@ -1,1799 +1,576 @@
 source,url,title,body,user_html_url,created_at
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63044,Overlapping window with tf.data.experimental.make_csv_dataset,"### Issue type
+github,https://api.github.com/repos/radix-ui/icons/issues/176,Request: numbered list icon,"We have a super nice bullet-list icon, but would also be nice with a numbered one since you often have both options in rich text editors.",https://github.com/matildatrodin,2024-02-19T11:10:43Z
+github,https://api.github.com/repos/radix-ui/icons/issues/175,Request: Pipette icon,"1. <img width=""80"" alt=""Снимок экрана 2024-01-26 в 17 36 51"" src=""https://github.com/radix-ui/icons/assets/90560240/8e0fd5c1-6812-42ea-90bd-a77896789499"">
 
-Bug
+2. https://lucide.dev/icons/pipette",https://github.com/MiracleHorizon,2024-01-26T14:38:06Z
+github,https://api.github.com/repos/radix-ui/icons/issues/174,Request: Music Note Icon,"Would love an icon that has a music note and another one where it has a strike through it to indicate it is muted
+Would be nice to have an icon for SFX and another for music",https://github.com/MorningLit,2024-01-20T23:52:41Z
+github,https://api.github.com/repos/radix-ui/icons/issues/173,Request: Bug icon,"Having a dedicated, native bug icon would be amazing :D",https://github.com/Ronny011-dy,2023-12-09T17:55:31Z
+github,https://api.github.com/repos/radix-ui/icons/issues/172,React icons jsx typescript issue,"Not sure how I would go about fixing this. Can anyone help out. Thanks!
 
-### Have you reproduced the bug with TensorFlow Nightly?
+![Screenshot 2023-11-30 at 2 55 27 PM](https://github.com/radix-ui/icons/assets/34463193/ceb6ac7a-71e6-48fe-8f10-78850489b1ac)
+",https://github.com/thejasonxie,2023-11-30T19:57:19Z
+github,https://api.github.com/repos/radix-ui/icons/issues/171,Cursor does not change to pointer on hover over copy-to-clipboard icon,"When I hover over the copy-to-clipboard icon on the website, the cursor does not change to a pointer as expected. It remains as the default arrow cursor
+![Screenshot from 2023-09-22 18-14-48](https://github.com/radix-ui/icons/assets/91425128/85212ea4-9a67-4438-82d7-0b653bc4c2ac)
+",https://github.com/lokeshvasnik,2023-09-22T12:48:31Z
+github,https://api.github.com/repos/radix-ui/icons/issues/170,Update README for RN,"I added information regarding the [React Native version of Radix icons](https://github.com/Eronred/radix-ui-react-native-icons).
 
-Yes
+![cover](https://github.com/radix-ui/icons/assets/43992376/fba85d41-e9a8-4e4b-af62-1f3ab9ea3de2)
+",https://github.com/Eronred,2023-09-16T11:22:24Z
+github,https://api.github.com/repos/radix-ui/icons/issues/169,Request: YouTube Icon,"Hello,
 
-### Source
+Been using radix icons for a personal project and thought of requesting the YouTube icon here in case anyone also has the interest :) ",https://github.com/tomasfrancisco,2023-09-16T07:32:27Z
+github,https://api.github.com/repos/radix-ui/icons/issues/168,"Request: thumb up, thumb down","thumb up, thumb down",https://github.com/guotie,2023-09-15T13:44:44Z
+github,https://api.github.com/repos/radix-ui/icons/issues/167,Request: Microphone icon,"Hello team,
+Great project! :) I'd like to make a request for a microphone icon in the future.
+Thanks",https://github.com/luismbcr,2023-09-09T21:58:27Z
+github,https://api.github.com/repos/radix-ui/icons/issues/165,Request: funnel icon,Would be great to represent filters,https://github.com/atrakh,2023-08-22T21:28:50Z
+github,https://api.github.com/repos/radix-ui/icons/issues/164,Request: printer icon,,https://github.com/Eldemarkki,2023-08-08T17:44:47Z
+github,https://api.github.com/repos/radix-ui/icons/issues/163,Update Icon Following the Release of Twitter(X)'s Brand Toolkit,"With the release of Twitter's new Brand Toolkit, it is necessary to update our current icon to align with the latest guidelines. The Brand Toolkit includes important information about the visual and branding rules that we must adhere to.
 
-source
+You can find the new Brand Toolkit at the following link:
+https://about.twitter.com/en/who-we-are/brand-toolkit
 
-### TensorFlow version
+Please review the toolkit and make the necessary adjustments to icon.
+",https://github.com/hiro0218,2023-08-08T03:42:53Z
+github,https://api.github.com/repos/radix-ui/icons/issues/161,Request: Phone icon,,https://github.com/smorimoto,2023-08-01T14:53:22Z
+github,https://api.github.com/repos/radix-ui/icons/issues/160,"Feature Suggestion: Radix Icons Site - On icon click, default to copy icon name instead of svg, or give options","## What
+- On icon click, default to copy icon name instead of svg, or give options
 
-2.8
+## Why
+- I doubt designers or developers would be using the website to copy svgs regularly.
+- Use case 1: Designers will likely use figma or sketch to get the icons in the correct frame size, etc
+- Use case 2: UI developers would likely use the npm library, and icon names would make the most sense
+- Use case 3: Self hosters would likely use a bulk import, using a zip containing all icons rather than one at a time.
+- Use case 4: Users on other programs / use cases not as popular will likely require bulk import, and get the icons via the zip as well.
 
-### Custom code
+## Where
+- https://icons.radix-ui.com/
+",https://github.com/tkodev,2023-07-10T15:51:40Z
+github,https://api.github.com/repos/radix-ui/icons/issues/158,Request: Sparkles Icon,"Hi, nowadays more and more apps are adding AI related features and I've noticed that most of them are represented by a sparkles icon.
 
-No
-
-### OS platform and distribution
-
-_No response_
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-_No response_
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-Window dataset coming from the  tf.data.experimental.make_csv_dataset is not working as expected
-
-### Standalone code to reproduce the issue
-
-```shell
-I'm trying to transform some data read from CSV files using tf.data pipelines and overlapping windows and its not working as expected. All the documentation is not providing clear explanation on how to deal with this case. The columns of the csv files are 'timestamp','open','high', 'low', 'close', 'volume'.
-
-
-dataset = tf.data.experimental.make_csv_dataset(
-    file_pattern=""/path/stock/*1min*.csv"",
-    batch_size=1,
-    num_epochs=1,
-    shuffle=False,
-    header=False,
-    column_names=['timestamp','open','high', 'low', 'close', 'volume'],
-    column_defaults=[tf.string, tf.float32, tf.float32, tf.float32, tf.float32, tf.float32]
-).window(
-    size=5,  # Number of rows per window
-    shift=1,  # Stride for overlapping windows
-    stride=1
-)
-```
-This produces the following structure:
-```
--WindowDataset
---OrderedDict
----VariantDataset
-----Tensor (single element)
-----Tensor...
-```
-This is not allowing me to transform in a simple way because OrderedDict has not batch method and I cannot flatten following the documentation.
+It would be nice to have a sparkles icon in this set.",https://github.com/TheBinaryGuy,2023-07-01T16:19:04Z
+github,https://api.github.com/repos/radix-ui/icons/issues/157,Request: shopping cart/basket icon,,https://github.com/verheyenkoen,2023-06-30T18:33:45Z
+github,https://api.github.com/repos/radix-ui/icons/issues/155,stroke width not calculated when passed as a prop to CheckIcon,"I'm following the [checkbox example in the documentation](https://www.radix-ui.com/docs/primitives/components/checkbox) and added `strokeWeight` prop to `<CheckIcon />`. However, no matter what the value the weight doesn't change. I'm [looking at the code](https://github.com/radix-ui/icons/blob/master/packages/radix-icons/src/CheckIcon.tsx) and passing in the prop should work. I haven't tested this with other icons but I'm going to guess I'll see similar results. Meaning, no change.
 
 ```
-dataset = tf.data.experimental.make_csv_dataset(
-    file_pattern=""/path/stock/*1min*.csv"",
-    batch_size=1,
-    num_epochs=1,
-    shuffle=False,
-    header=False,
-    column_names=['timestamp','open','high', 'low', 'close', 'volume'],
-    column_defaults=[tf.string, tf.float32, tf.float32, tf.float32, tf.float32, tf.float32]
-).window(
-    size=5,  # Number of rows per window
-    shift=1,  # Stride for overlapping windows
-    stride=1
-).flat_map(lambda window: window.batch(5))
-```
-Gives the following error:
-```
-AttributeError                            Traceback (most recent call last)
-
-<ipython-input-47-46d1550f08a0> in <cell line: 1>()
-     11     shift=1,  # Stride for overlapping windows
-     12     stride=1
----> 13 ).flat_map(lambda window: window.batch(5))
-
-19 frames
-
-/tmp/__autograph_generated_filersrgq3km.py in <lambda>(lscope)
-      3 
-      4     def inner_factory(ag__):
-----> 5         tf__lam = lambda window: ag__.with_function_scope(lambda lscope: ag__.converted_call(window.batch, (5,), None, lscope), 'lscope', ag__.STD)
-      6         return tf__lam
-      7     return inner_factory
-
-AttributeError: in user code:
-
-    File ""<ipython-input-47-46d1550f08a0>"", line 13, in None  *
-        lambda window: window.batch(5)
-
-    AttributeError: 'collections.OrderedDict' object has no attribute 'batch'
-```
-If I try to batch the datasets of the OrderedDict, I get the following error
-
----------------------------------------------------------------------------
-```
-AttributeError                            Traceback (most recent call last)
-
-<ipython-input-59-16e14170c082> in <cell line: 25>()
-     23 
-     24 
----> 25 data = dataset.map(extract)
-     26 
-     27 
-
-35 frames
-
-/usr/local/lib/python3.10/dist-packages/tensorflow/python/framework/tensor.py in __getattr__(self, name)
-    259         tf.experimental.numpy.experimental_enable_numpy_behavior()
-    260       """""")
---> 261     self.__getattribute__(name)
-    262 
-    263   @property
-
-AttributeError: in user code:
-
-    File ""<ipython-input-59-16e14170c082>"", line 3, in extract  *
-        opens = data.get('open').flat_map(lambda x: x.batch(5))
-
-    AttributeError: 'SymbolicTensor' object has no attribute 'batch'
-```
-This is becoming extremely confusing.
-
-What would be a the right way to transform this structure so that I can later apply better transformations to build a timeseries dataset.
+<CheckIcon color={colors.white} strokeWidth={4} />
 ```
 
-
-### Relevant log output
-
-_No response_",https://github.com/ek-ex,2024-02-24T20:39:20Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63043,Running gemma model in Mac m1 gets xla_compile_on_demand_op error,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-binary
-
-### TensorFlow version
-
-2.15.0
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-macOS Sonoma 14.1.2
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.9
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-Macbook pro m1 16G
-
-### Current behavior?
-
-I expect get the model working, if I can help adding support to missing features I probably need some guidance but I can help 😸
-
-Keras version: 3.0.5
-
-I try same TensorFlow and Keras version using cuda on linux and I get the model working 🙈
-
-### Standalone code to reproduce the issue
-
-```shell
-import keras
-import keras_nlp
-import numpy as np
-
-gemma_lm = keras_nlp.models.GemmaCausalLM.from_preset(""gemma_2b_en"")
-out = gemma_lm.generate(""Keras is a"", max_length=30)
-print(out)
-```
-
-
-### Relevant log output
-
-```shell
-Low level error:
-
-` W tensorflow/core/framework/op_kernel.cc:1839] OP_REQUIRES failed at xla_compile_on_demand_op.cc:292 : NOT_FOUND: could not find registered platform with id: 0x1320e1750`
-
-Python get this error:
-
-
-Traceback (most recent call last):
-  File ""/Users/lmanrique/Try/gemma/main.py"", line 6, in <module>
-    gemma_lm.generate(""Keras is a"", max_length=30)
-  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 269, in generate
-    outputs = [generate(x) for x in inputs]
-  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 269, in <listcomp>
-    outputs = [generate(x) for x in inputs]
-  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 253, in generate
-    return generate_function(x, end_token_id=end_token_id)
-  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/tensorflow/python/util/traceback_utils.py"", line 153, in error_handler
-    raise e.with_traceback(filtered_tb) from None
-  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/tensorflow/python/eager/execute.py"", line 53, in quick_execute
-    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
-tensorflow.python.framework.errors_impl.NotFoundError: Graph execution error:
-```
-```
-",https://github.com/lgemc,2024-02-24T02:45:55Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63042,NotFoundError: /home/chengjun/stylegan2-master/dnnlib/tflib/_cudacache/fused_bias_act_347e82e8919aeb0d5c7dc989e996c091.so: undefined symbol: _ZN10tensorflow12OpDefBuilder4AttrENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 1.14
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-linux ubuntu 22.04
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.6
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-11.4.0
-
-### CUDA/cuDNN version
-
-10.0/7.6.5
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-When I tried to run stylegan2 on the server, I configured all the environments as required but got an error at runtime. 
-
-
-### Standalone code to reproduce the issue
-
-```shell
-https://github.com/NVlabs/stylegan2
-
-CUDA_VISIBLE_DEVICES=0 python run_training.py --num-gpus=1 --data-dir=/home/chengjun/datasets --config=config-f --dataset=my-custom-dataset --total-kimg=100000
-this is my running command.
-```
-
-
-### Relevant log output
-
-```shell
-tensorflow.python.framework.errors_impl.NotFoundError: /home/chengjun/stylegan2-master/dnnlib/tflib/_cudacache/fused_bias_act_347e82e8919aeb0d5c7dc989e996c091.so: undefined symbol: _ZN10tensorflow12OpDefBuilder4AttrENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
-```
-",https://github.com/shiqing1239,2024-02-24T00:58:12Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63037,`tf.raw_ops.UnravelIndex` can leads to eigen assertion failure,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.17
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Linux Ubuntu 22.04 LTS
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.11.7
-
-### Bazel version
-
-6.5.0
-
-### GCC/compiler version
-
-clang 16
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-Similar to #63036.
-
-`tf.raw_ops.UnravelIndex` can leads to eigen assertion failure [here](https://gitlab.com/libeigen/eigen/-/blob/aa6964bf3a34fd607837dd8123bc42465185c4f8/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h#L156):
-```C++
-eigen_assert(input_dims[i] > 0);
-```
-Note that it is executed without error message in release build.
-
-### Standalone code to reproduce the issue
-
-```Python
-import tensorflow as tf
-
-tf.raw_ops.UnravelIndex(
-    indices=tf.constant([],dtype=tf.int32),
-    dims=[1,1,1,1],
-    name=None
-)
-```
-
-
-### Relevant log output
-
-Release build: outputs nothing
-
-Debug build:
-```shell
-python: external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:156: Eigen::TensorEvaluator<const Eigen::TensorBroadcastingOp<const Eigen::array<long, 2>, const Eigen::TensorReshapingOp<const Eigen::array<long, 2>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>>, Eigen::DefaultDevice>::TensorEvaluator(const XprType &, const Device &) [Derived = const Eigen::TensorBroadcastingOp<const Eigen::array<long, 2>, const Eigen::TensorReshapingOp<const Eigen::array<long, 2>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>>, Device = Eigen::DefaultDevice]: Assertion `input_dims[i] > 0' failed.
-Aborted (core dumped)
-```
-",https://github.com/Sehun0819,2024-02-23T13:57:04Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63036,`tf.raw_ops.Substr` can lead to eigen assertion failure,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.17
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Linux Ubuntu 22.04 LTS
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.11.7
-
-### Bazel version
-
-6.5.0
-
-### GCC/compiler version
-
-clang 16
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-The below code triggers eigen assertion failure [here](https://gitlab.com/libeigen/eigen/-/blob/aa6964bf3a34fd607837dd8123bc42465185c4f8/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h#L156):
-```C++
-      eigen_assert(input_dims[i] > 0);
-```
-Note that it is executed without error message in release build.
-
-### Standalone code to reproduce the issue
-
-```Python
-import tensorflow as tf
-
-tf.raw_ops.Substr(
-    input=""abc"",
-    pos=tf.constant([],dtype=tf.int32),
-    len=tf.constant([],dtype=tf.int32),
-    unit='BYTE',
-    name=None
-)
-```
-
-
-### Relevant log output
-
-Release build: Outputs nothing
-
-Debug build:
-```shell
-python: external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:156: Eigen::TensorEvaluator<const Eigen::TensorBroadcastingOp<const Eigen::array<long, 1>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>, Eigen::DefaultDevice>::TensorEvaluator(const XprType &, const Device &) [Derived = const Eigen::TensorBroadcastingOp<const Eigen::array<long, 1>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>, Device = Eigen::DefaultDevice]: Assertion `input_dims[i] > 0' failed.
-Aborted (core dumped)
-```
-",https://github.com/Sehun0819,2024-02-23T13:48:20Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63035,SVDF layer implementation compatible with TFLite’s SVDF operator,"Although TFLite has a built-in SVDF operator (as listed [here](https://www.tensorflow.org/mlir/tfl_ops#tflsvdf_tflsvdfop), and whose implementation can be seen [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/kernels/internal/reference/svdf.h)), currently, Tensorflow doesn't have a keras layer implementation for the SVDF operation.
-I was wondering what would be the sequence of operations (using Tensorflow's Python library) needed so that they could be fused and recognized as an SVDF operator after converting to TFLite.",https://github.com/VictorDominguite,2024-02-23T13:33:04Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63034,`tf.raw_ops.AvgPool`: negative kernel size is not checked at shape inference step,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.17
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Linux Ubuntu 22.04 LTS
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.11.7
-
-### Bazel version
-
-6.5.0
-
-### GCC/compiler version
-
-clang 16
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-Currently shape inference step of `tf.raw_ops.AvgPool` allows negative kernel size.
-Note that debug build rejects it [here](https://github.com/tensorflow/tensorflow/blob/7ba14e559de0112cbf59dc6db6f8c6a18283642a/tensorflow/core/framework/common_shape_fns.cc#L1393-L1394):
-```C++
-  TF_RETURN_IF_ERROR(GetWindowedOutputSizeFromDims(
-      c, in_rows_dim, kernel_rows, stride_rows, padding, &output_rows));
-```
-, where `kernel_rows` is converted to `DimensionOrConstant` and ends up with assertion failure [here](https://github.com/tensorflow/tensorflow/blob/7ba14e559de0112cbf59dc6db6f8c6a18283642a/tensorflow/core/framework/shape_inference.h#L890-L895):
-```C++
-inline DimensionOrConstant::DimensionOrConstant(int64_t val) : val(val) {
-  DCHECK(val >= 0 || val == InferenceContext::kUnknownDim)
-      << ""Dimension must be non-negative or equal to ""
-         ""InferenceContext::kUnknownDim but got ""
-      << val;
-}
-```
-
-
-### Standalone code to reproduce the issue
-
-```Python
-import tensorflow as tf
-
-tf.compat.v1.disable_eager_execution()
-
-x = tf.raw_ops.AvgPool(
-    value=tf.random.normal([1,1,1,1]),
-    ksize=[1,-2,1,1],
-    strides=[1,1,1,1],
-    padding=""SAME"",
-    data_format='NHWC',
-    name=None
-)
-
-print(x)
-```
-
-
-### Relevant log output
-
-Release Build:
-```shell
-Tensor(""AvgPool:0"", shape=(1, 1, 1, 1), dtype=float32)
-```
-
-Debug Build:
-```shell
-2024-02-23 22:18:43.783609: F ./tensorflow/core/framework/shape_inference.h:891] Check failed: val >= 0 || val == InferenceContext::kUnknownDim Dimension must be non-negative or equal to InferenceContext::kUnknownDim but got -2
-Aborted (core dumped)
-```
-",https://github.com/Sehun0819,2024-02-23T13:29:12Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63033,`tf.raw_ops.ConjugateTranspose`: negative value of `perm` can lead to out-of-bounds read,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.17
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Linux Ubuntu 22.04 LTS
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.11.7
-
-### Bazel version
-
-6.5.0
-
-### GCC/compiler version
-
-clang 16
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-In `tf.raw_ops.ConjugateTranspose`, negative value of `perm` can lead to out-of-bounds read.
-[Here](https://github.com/tensorflow/tensorflow/blob/617b5e97d6a9a71e1972dfe6fead5bf460094658/tensorflow/core/kernels/transpose_functor_cpu.cc#L52),
-```C++
-        i_idx += ratio * in_strides[perm[i]];
-```
-as there is no guard which checks validity of `perm`, when its value is -1 `in_strides[perm[i]]` can be an out-of-bounds reading(I guess -1 would be interpreted as an `SIZE_T_MAX` or something).
-Note that the below code ends up with absl assertion failure in debug build.
-
-### Standalone code to reproduce the issue
-
-```Python
-import tensorflow as tf
-
-tf.raw_ops.ConjugateTranspose(
-    x=tf.random.normal([2]),
-    perm=[-1])
-```
-
-
-### Relevant log output
-
-Release Build:
-```shell
-    Outputs nothing
-```
-
-Debug Build:
-```shell
-python: external/com_google_absl/absl/container/inlined_vector.h:363: auto absl::InlinedVector<long, 8>::operator[](size_type)::(anonymous class)::operator()() const [T = long, N = 8, A = std::allocator<long>]: Assertion `false && ""i < size()""' failed.
-Aborted (core dumped)
-```
-",https://github.com/Sehun0819,2024-02-23T13:09:32Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63032,add go protobuf-files,,https://github.com/clmforever,2024-02-23T07:35:43Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63031,Confusing result of tf.argsort/argmax/argmin/ given a boolean axis,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-2.15.0
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-_No response_
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-_No response_
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-These three APIs tf.argsort/argmax/argmin will accept boolean axis such as True and False, which confuses me. Indeed, the documentation claims that the type of axis for tf.argmax and tf.argmin should be integer (https://www.tensorflow.org/api_docs/python/tf/math/argmax, https://www.tensorflow.org/api_docs/python/tf/math/argmin).
-
-Moreover, tf.argsort can also accept string variable.
-
-Taking a closer look, I find this code: https://github.com/tensorflow/tensorflow/blob/74cafb3ee7ce22dc2593127a2a6d8e78425e2640/tensorflow/python/ops/sort_ops.py#L179
-
-It seems that argsort will convert any value of axis to integer using the `int()` call. 
-However, such silent handling might make user confuse because the actual behavior deviates from the documentation.
-
-
-### Standalone code to reproduce the issue
-
-```shell
-import tensorflow as tf
-values = tf.constant([[3,1,4,1,5,9,2,6], [3,4,5,1,2,3,4,0]])
-axis = True
-print(tf.argsort(values,axis))  # tf.Tensor([[1 3 0 2] [3 0 1 2]], shape=(2, 4), dtype=int32)
-print(tf.argmax(values,axis))  # tf.Tensor([2 2], shape=(2,), dtype=int64)
-print(tf.argmin(values,axis))  # tf.Tensor([1 3], shape=(2,), dtype=int64)
-axis = '-1'
-print(tf.argsort(values, axis))  # tf.Tensor([[1 3 0 2] [3 0 1 2]], shape=(2, 4),dtype=int32)
-```
-
-
-### Relevant log output
-
-_No response_",https://github.com/drewshark,2024-02-22T22:00:23Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63030,[oneDNN] Add oneDNN version of SparseMatrixMatMul (v2),"This is version 2 of #62883, which should fix the build on ARM64.
-
-Adds `_MklNativeSparseMatrixMatMul` and its accompanying kernel, which uses oneDNN to multiply a CSR sparse matrix by a dense tensor. The op is enabled with an environment variable (`TF_ENABLE_ONEDNN_SPMM`), so is entirely opt-in. It also includes tests and a benchmark, which we've used below to measure its performance against the existing kernel.
-
-The performance looks promising particularly for larger shapes, and is optimized to use the AVX2 and AVX512 ISAs. These results were collected using the new benchmark in `tensorflow/core/kernels/mkl/mkl_sparse_matrix_matmul_op_benchmark.cc` on an Intel Xeon Platinum 8480 with hyperthreading enabled. To minimize NUMA effects, we bound it to the first socket.
-
-Configuration (NNZ_M_K_N) | Eigen Time (ns) | oneDNN Time (ns) | Ratio
--- | -- | -- | --
-128_8_512_1 | 15300 | 18598 | 0.82
-128_16_512_1 | 14778 | 18551 | 0.80
-128_128_512_1 | 18613 | 19165 | 0.97
-128_4096_4096_1 | 151525 | 35904 | 4.22
-1024_4096_4096_1 | 161593 | 37041 | 4.36
-16384_4096_4096_1 | 163055 | 49355 | 3.30
-128_8_1024_16 | 17307 | 18420 | 0.94
-128_16_1024_16 | 17765 | 18678 | 0.95
-128_128_1024_16 | 19247 | 19200 | 1.00
-128_4096_4096_128 | 160341 | 140894 | 1.14
-128_4096_4096_1024 | 181590 | 156980 | 1.16
-1024_8_1024_16 | 24265 | 19502 | 1.24
-1024_16_1024_16 | 24223 | 20448 | 1.18
-1024_128_1024_16 | 26013 | 20396 | 1.28
-1024_4096_4096_128 | 157612 | 139688 | 1.13
-1024_4096_4096_1024 | 177549 | 160973 | 1.10
-16384_8_1024_16 | 153005 | 36643 | 4.18
-16384_16_1024_16 | 152853 | 36597 | 4.18
-16384_128_1024_16 | 153600 | 31928 | 4.81
-16384_4096_4096_128 | 166061 | 142494 | 1.17
-16384_4096_4096_1024 | 244243 | 194536 | 1.26
-16384_4096_4096_4096 | 654950 | 536546 | 1.22
-100_1_1000000_100 | 18230 | 19991 | 0.91
-200_1_2000000_100 | 20509 | 20818 | 0.99
-400_1_4000000_100 | 23023 | 21638 | 1.06
-400_4_1000000_100 | 22164 | 21349 | 1.04
-800_4_2000000_100 | 26180 | 23374 | 1.12
-1600_4_4000000_100 | 40538 | 28622 | 1.42
-800_8_1000000_100 | 27015 | 23231 | 1.16
-1600_8_2000000_100 | 39953 | 27894 | 1.43
-3200_8_4000000_100 | 77708 | 42709 | 1.82",https://github.com/matthew-olson-intel,2024-02-22T20:34:18Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63029,How the data member `data_` of TensorBuffer is destroyed?,"From the `TensorBuffer ` definition, I notice there is a member `data_`
-https://github.com/tensorflow/tensorflow/blob/b7ee894eba3b725eafdd70b088029e907f7943c7/tensorflow/core/framework/tensor.h#L108
-
-I am curious about how this void pointer will be destroyed?
-
-I find `RefCounted::Unref` has the logic of `delete`, especially the following line:
-
-https://github.com/tensorflow/tensorflow/blob/b7ee894eba3b725eafdd70b088029e907f7943c7/third_party/xla/third_party/tsl/tsl/platform/refcount.h#L336
-
-but it seems the above line did not delete what the void pointer `data_` is pointing to.",https://github.com/shizidushu,2024-02-22T18:57:36Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63028,Reverts a0d7ace8e2fd948920a0fee3618cb4fcc98eb513,"Reverts a0d7ace8e2fd948920a0fee3618cb4fcc98eb513
-",https://github.com/kanglant,2024-02-22T18:53:04Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63027,Tensorflow cannot find libdevice.so consistently,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-No
-
-### Source
-
-source
-
-### TensorFlow version
-
-2.14.0
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Ubuntu 20.04.1
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.10
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-CUDA 11.8, cuDNN 8.7.0.84
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-I am running inference using Tensorflow 2.14 installed via `pip` on a model written for Tensorflow 2.4. The model works but sometimes crashes unexpectedly. Tensorflow log suggests it cannot find a file at the path throwing an error:
-
-`${CONDA_PREFIX}/envs/dp5_cascade/lib/python3.10/site-packages/tensorflow/python/platform/../../libtensorflow_framework.so.2/../../nvidia/cuda_nvcc/nvvm/libdevice/libdevice.10.bc:-1:-1: Could not open input file: Not a directory`
-
-or inserts a mystery character and then also throws an error:
-
-`2024-02-22 14:00:25.171585: F tensorflow/compiler/xla/service/gpu/llvm_gpu_backend/utils.cc:32] /home/rk582/miniconda3/envs/dp5_cascade/lib/python3.10/site-packages/tensorflow/python/platform/../../libtensorflow_framework.so.2�/../../nvidia/cuda_nvcc/nvvm/libdevice/libdevice.10.bc:-1:-1: Could not open input file: No such file or directory`
-
-However, there is definitely a file at `${CONDA_PREFIX}/envs/dp5_cascade/lib/python3.10/site-packages/nvidia/cuda_nvcc/nvvm/libdevice/libdevice.10.bc` so I do not know why would the code look for a file in such a roundabout way.
-
-Are there any environment variables one can set to ensure consistent function?
-
-nb I am dealing with a legacy code base with the author long gone and it is too hard to untangle it from a larger package due to their design decisions
-
-
-### Standalone code to reproduce the issue
-
-```shell
-from tensorflow.keras.models import load_model
-
-
-model = load_model(path_to_model, custom_objects = (some custom objects), compile = False)
-model.compile()
-
-yhat = model(input)
-```
-
-
-### Relevant log output
-
-```shell
-2024-02-21 16:44:51.345095: I tensorflow/core/util/port.cc:111] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2024-02-21 16:44:51.366345: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-2024-02-21 16:44:51.366366: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-2024-02-21 16:44:51.366380: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-2024-02-21 16:44:51.370317: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-02-21 16:44:52.290366: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.293186: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.293275: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.294092: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.294204: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.294275: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.330931: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.331051: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.331135: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:894] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
-2024-02-21 16:44:52.331200: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1886] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 5503 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080, pci bus id: 0000:01:00.0, compute capability: 8.6
-==========================
-
-2024-02-21 16:44:52.658956: F tensorflow/compiler/xla/service/gpu/llvm_gpu_backend/utils.cc:32] /home/rk582/miniconda3/envs/dp5_cascade/lib/python3.10/site-packages/tensorflow/python/platform/../../libtensorflow_framework.so.2�/../../nvidia/cuda_nvcc/nvvm/libdevice/libdevice.10.bc:-1:-1: Could not open input file: No such file or directory
-```
-",https://github.com/ruslankotl,2024-02-22T16:04:42Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63026,Support legalization of tf.SplitV op for dynamic shapes,"Hi all,
-
-This patch implements the legalization of `tf.SplitV` op for dynamic shapes, which is helpful for dynamic shape compilation
-May I get reviews for it?
-
-- Testing:  the following tests all passed
-```
-   tensorflow/compiler/mlir/tf2xla/tests:all_tests \
-   tensorflow/compiler/mlir/tensorflow/tests:all_tests
-```
-
-Thanks.
-Best regards,
-Jie",https://github.com/DamonFool,2024-02-22T08:03:19Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63025,Failure in convert Gemma 2B models to TfLite,"I tried converting Google Gemma 2B models to TfLite. Found it ending in failure 
-
-### 1. System information
-
--  Ubuntu 22.04
-- TensorFlow installation (installed with keras-nlp) :
-- TensorFlow library (installed with keras-nlp):
-
-### 2. Code
-```
-import os
-import keras
-import os
-import numpy as np
-import keras_nlp
-import tensorflow as tf
-import tensorflow_datasets as tfds
-import tensorflow_text as tf_text
-from tensorflow import keras
-from tensorflow.lite.python import interpreter
-import time
-from keras_nlp.backend import ops
-
-os.environ[""KAGGLE_USERNAME""] = ""rag""
-os.environ[""KAGGLE_KEY""] = 'e7c'
-os.environ[""KERAS_BACKEND""] = ""tensorflow""  # Or ""tensorflow"" or ""torch"".
-
-preprocessor = keras_nlp.models.GemmaCausalLMPreprocessor.from_preset('gemma_2b_en', sequence_length=4096, add_end_token=True
-)
-generator = keras_nlp.models.GemmaCausalLM.from_preset(""gemma_2b_en"")
-
-def run_inference(input, generate_tflite):
-  interp = interpreter.InterpreterWithCustomOps(
-      model_content=generate_tflite,
-      custom_op_registerers=tf_text.tflite_registrar.SELECT_TFTEXT_OPS)
-  interp.get_signature_list()
-
-  preprocessor_output = preprocessor.generate_preprocess(
-    input, sequence_length=preprocessor.sequence_length
-  )
-  generator = interp.get_signature_runner('serving_default')
-  output = generator(preprocessor_output)
-  output = preprocessor.generate_postprocess(output[""output_0""])
-  print(""\nGenerated with TFLite:\n"", output)
-
-generate_function = generator.make_generate_function()
-concrete_func = generate_function.get_concrete_function({
-  ""token_ids"": tf.TensorSpec([None, 4096]),
-  ""padding_mask"": tf.TensorSpec([None, 4096])
-})
-
-
-converter = tf.lite.TFLiteConverter.from_concrete_functions([concrete_func],
-                                                            generator)
-converter.target_spec.supported_ops = [
-  tf.lite.OpsSet.TFLITE_BUILTINS, # enable TensorFlow Lite ops.
-  tf.lite.OpsSet.SELECT_TF_OPS # enable TensorFlow ops.
-]
-converter.allow_custom_ops = True
-converter.target_spec.experimental_select_user_tf_ops = [""UnsortedSegmentJoin"", ""UpperBound""]
-converter._experimental_guarantee_all_funcs_one_use = True
-generate_tflite = converter.convert()
-run_inference(""I'm enjoying a"", generate_tflite)
-
-with open('unquantized_mistral.tflite', 'wb') as f:
-  f.write(generate_tflite)
-```
-### 3. Failure after conversion
-
-I am getting this error:
-
-tensorflow/core.py"":65:1))))))))))))))))))))))))))]): error: missing attribute 'value'
-LLVM ERROR: Failed to infer result type(s).
-Aborted (core dumped)
-
-### 5. (optional) Any other info / logs
-
-```
-2024-02-22 06:34:41.094712: W tensorflow/compiler/mlir/lite/python/tf_tfl_flatbuffer_helpers.cc:378] Ignored output_format.
-2024-02-22 06:34:41.094742: W tensorflow/compiler/mlir/lite/python/tf_tfl_flatbuffer_helpers.cc:381] Ignored drop_control_dependency.
-2024-02-22 06:34:41.095691: I tensorflow/cc/saved_model/reader.cc:83] Reading SavedModel from: /tmp/tmp58p378bn
-2024-02-22 06:34:41.140303: I tensorflow/cc/saved_model/reader.cc:51] Reading meta graph with tags { serve }
-2024-02-22 06:34:41.140329: I tensorflow/cc/saved_model/reader.cc:146] Reading SavedModel debug info (if present) from: /tmp/tmp58p378bn
-2024-02-22 06:34:41.233389: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:388] MLIR V1 optimization pass is not enabled
-2024-02-22 06:34:41.264724: I tensorflow/cc/saved_model/loader.cc:233] Restoring SavedModel bundle.
-2024-02-22 06:34:43.697440: I tensorflow/cc/saved_model/loader.cc:217] Running initialization op on SavedModel bundle at path: /tmp/tmp58p378bn
-2024-02-22 06:34:44.189111: I tensorflow/cc/saved_model/loader.cc:316] SavedModel load for tags { serve }; Status: success: OK. Took 3093423 microseconds.
-2024-02-22 06:34:45.009212: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
-loc(fused[""ReadVariableOp:"", callsite(""decoder_block_0_1/attention_1/attention_output_1/Cast/ReadVariableOp@__inference_generate_step_12229""(""/workspace/gem.py"":38:1) at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_causal_lm.py"":258:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_causal_lm.py"":235:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_causal_lm.py"":212:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_causal_lm.py"":214:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/layers/layer.py"":816:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/ops/operation.py"":42:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":157:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_decoder_block.py"":147:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/layers/layer.py"":816:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/ops/operation.py"":42:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":157:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras_nlp/models/gemma/gemma_attention.py"":193:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/layers/layer.py"":816:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":118:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/ops/operation.py"":42:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/utils/traceback_utils.py"":157:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/einsum_dense.py"":218:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/ops/numpy.py"":2414:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/backend/tensorflow/numpy.py"":90:1 at callsite(""/usr/local/lib/python3.10/dist-packages/keras/src/backend/tensorflow/numpy.py"":91:1 at ""/usr/local/lib/python3.10/dist-packages/keras/src/backend/tensorflow/core.py"":65:1))))))))))))))))))))))))))]): error: missing attribute 'value'
-LLVM ERROR: Failed to infer result type(s).
-Aborted (core dumped)
-```
-",https://github.com/RageshAntonyHM,2024-02-22T07:33:01Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63024,How to use Hand pose detection module in iOS?,"I want to use Hand Pose Detection module in iOS (Swift), So which pod I use or any reference source code available.",https://github.com/vnanaware111,2024-02-22T06:40:45Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63023,Pallas like kernel language for TensorFlow,"### Issue type
-
-Feature Request
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.15
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-_No response_
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-_No response_
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-JAX provided [Pallas](https://jax.readthedocs.io/en/latest/pallas/tpu.html) to write TPU and GPU kernel. It would be great if TensorFlow had a similar feature.
-
-",https://github.com/edwardyehuang,2024-02-22T04:33:47Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63022,tfl: mul_test: optimize the MultiDimBroadcastSubshard tests,"Optimize to avoid doing duplicate calculation to speed up the cases *MultiDimBroadcastSubshard*.
-
-This improves the execution time for example from 1m11.090s to 1m10.645s.",https://github.com/keyonjie,2024-02-22T00:26:45Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63021,load_model() cannot load model from previous version,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.14 and tf 2.15
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-_No response_
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-_No response_
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-Hello, 
-
-I was trying to load a model I previously saved with tf 2.14, and got the displayed error. I realized that the model was saved with tf 2.14, and the environment I was trying to load the model in was tf 2.15. I'm not sure if this is an expected behavior, but it seemed odd since the version difference wasn't that big.
-
-### Standalone code to reproduce the issue
-
-```shell
-# previously saved model with tf 2.14
-# import tensorflow as tf
-# from tensorflow import keras
-# import numpy as np
-
-# # print version
-# print(tf.__version__)
-
-# # random data
-# data = np.random.random((100, 10))
-# labels = np.random.random((100, ))
-
-# # simple model
-# normalizer = keras.layers.Normalization()
-# normalizer.adapt(data)
-# model = keras.Sequential()
-# model.add(normalizer)
-# model.add(keras.layers.Dense(10))
-# model.add(keras.layers.Dense(1))
-# model.compile(loss='mean_squared_error', optimizer='adam')
-# model.fit(data, labels, epochs=10, verbose=2)
-# model.save('test.keras')
-
-
-### loading with tf 2.15 ###
-import tensorflow as tf
-from tensorflow import keras
-
-# print version
-print(tf.__version__)
-
-# load model
-model = keras.models.load_model('test.keras')
-```
-
-
-### Relevant log output
-
-```shell
-2.15.0
-
-Traceback (most recent call last):
-  File ""/work/users/e/n/enesk/phakinpro/test_load.py"", line 8, in <module>
-    model = keras.models.load_model('test.keras')
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/saving/saving_api.py"", line 254, in load_model
-    return saving_lib.load_model(
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/saving/saving_lib.py"", line 281, in load_model
-    raise e
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/saving/saving_lib.py"", line 246, in load_model
-    model = deserialize_keras_object(
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/saving/serialization_lib.py"", line 728, in deserialize_keras_object
-    instance = cls.from_config(inner_config)
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/engine/sequential.py"", line 471, in from_config
-    model.add(layer)
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/tensorflow/python/trackable/base.py"", line 204, in _method_wrapper
-    result = method(self, *args, **kwargs)
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/utils/traceback_utils.py"", line 70, in error_handler
-    raise e.with_traceback(filtered_tb) from None
-  File ""/nas/longleaf/home/enesk/miniforge3/envs/tf/lib/python3.9/site-packages/keras/src/layers/preprocessing/normalization.py"", line 188, in build
-    raise ValueError(
-ValueError: All `axis` values to be kept must have known shape. Got axis: (-1,), input shape: [None, None], with unknown axis at index: 1
-```
-",https://github.com/eneskelestemur,2024-02-21T23:21:33Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63019,Dataset is never fully read when caching to disk,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-No
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.13.1
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-Windows 11
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-Python 3.9.13
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-When displaying the dataset elements for viewing with either `train_data.take(1)` or `train_data.take(1).cache()` it always shows the message ""The calling iterator did not fully read the dataset being cached..."".
-
-The following has already been tried, but the same message always appears:
-
-```python
-# train_data = train_data.cache()
-# train_data = train_data.take(1)
-# train_data = train_data.take(1).cache()
-# train_data = train_data.take(1).prefetch(tf.data.experimental.AUTOTUNE)
-```
-There is a similar problem but the bot closed it due to inactivity: #60174 
-
-
-### Standalone code to reproduce the issue
-
-```shell
-import tensorflow_datasets as tfds
-import matplotlib.pyplot as plt
-
-data, metadata = tfds.load(
-    name='fashion_mnist',
-    as_supervised=True,
-    with_info=True)
-train_data = data['train']
-categories = metadata.features['label'].names
-
-plt.suptitle('First Item')
-for image, label_index in train_data.take(1):
-    plt.imshow(image, cmap='binary')
-    plt.xlabel(categories[label_index])
-    plt.colorbar()
-    plt.grid(visible=False)
-    plt.show()
-```
-
-
-### Relevant log output
-
-```shell
-2024-02-21 14:07:32.650452: W tensorflow/core/kernels/data/cache_dataset_ops.cc:854] The calling iterator did not fully read the dataset being cached. In order to avoid unexpected truncation of the dataset, the partially cached contents of the dataset  will be discarded. This can happen if you have an input pipeline similar to `dataset.cache().take(k).repeat()`. You should use `dataset.take(k).cache().repeat()` instead.
-```
-",https://github.com/vanskarner,2024-02-21T19:14:40Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63018,${BUILD_NUM_JOBS} not defined in TF lite building script leads to crash,"### Issue type
-
-Build/Install
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-2.15.0
-
-### Custom code
-
-No
-
-### OS platform and distribution
-
-Ubuntu 22.04
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.10
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-in line 126 of file: `tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh`
-```
-cmake --build . --verbose -j ${BUILD_NUM_JOBS} -t _pywrap_tensorflow_interpreter_wrapper
-```
-the variable `${BUILD_NUM_JOBS}` is never defined. When compilation fo TF lite is carried out with cmake (docker, native) there is no limit in the number of processes used for compilation. This leads to a massive RAM/swap usage and in some cases when these resources run out, a crash (with logged error: `Killed signal terminated program cc1plus`).
-
-The `${BUILD_NUM_JOBS}` variable should be set earlier in the script or replaced with a `-j 4`.
-
-
-
-
-
-### Standalone code to reproduce the issue
-
-```shell
-PYTHON=python3 tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh native
-```
-
-
-### Relevant log output
-
-_No response_",https://github.com/feranick,2024-02-21T18:27:02Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63017,Build/release Python 3.11 tflite-runtime MacOS wheels to PyPI,"### Issue type
-
-Feature Request
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-2.14.0
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-MacOs
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-4.11
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-We are currently needing to run automated jobs on MacOS using tflite-runtime and Python 3.11, but the wheels on Pypi only cover Linux.
-
-### Standalone code to reproduce the issue
-
-```shell
-pip install tflite-runtime
-```
-
-
-### Relevant log output
-
-```shell
-ERROR: Could not find a version that satisfies the requirement tflite-runtime (from versions: none)
-ERROR: No matching distribution found for tflite-runtime
-```
-",https://github.com/chatnord,2024-02-21T17:38:48Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63016,tf-lite CMake: add headers into sources to correctly install them,"The headers `delegate.h` and `delegate_options.h` were missing when tensorflow lite was installed with the GPU delegates using CMake.
-
-This PR just add these 2 files into  `TFLITE_DELEGATES_GPU_SRCS` variable and it fixes the issue. It works because `TFLITE_DELEGATES_GPU_SRCS` is used to create `_ALL_TFLITE_SRCS` which is used to have `_ALL_TFLITE_HDRS` and then all headers from this variables are installed.",https://github.com/lbertho-gpsw,2024-02-21T15:13:00Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63015,[TFLite] Support for fully quantized fused custom operators,"Hi,
-
-This PR adds support for fully quantized fused custom ops with two commits:
-* The first one adds a `_tfl_no_side_effect` trait to mark a function as having no side-effect so that the dangling outputs are correctly pruned. This can also be done through the `tfl-post-quantize` pass with `enable-no-side-effect=custom_op_name=true`, the commit provides a way to do it directly from the Python API.
-* The second one propagate the `_tfl_quant_trait` and `_tfl_no_side_effect` traits on a custom op as operator attribute instead of as a custom option of the custom operator.
-
-We can then annotate a function as follow to have a fully quantizated fused op:
-```python
-def get_implements_signature():
-    implements_signature = [
-        'name: ""tan""',
-        'attr {key: ""tfl_fusable_op"" value { b: true } }',
-        'attr {key: ""_tfl_quant_trait"" value { s: ""fully_quantizable"" } }',
-        'attr {key: ""_tfl_no_side_effect"" value { b: true } }',
-    ]
-    return "" "".join(implements_signature)
-
-
-@tf.function(experimental_implements=get_implements_signature())
-def tan_f(x):
-    return tf.math.sin(x) / tf.math.cos(x)
-```",https://github.com/Tessil,2024-02-21T14:48:57Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63014,Compilation error on macos with GPU delegate,"### Issue type
-
-Build/Install
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-2.15.0
-
-### Custom code
-
-No
-
-### OS platform and distribution
-
-Macos 14.3.1
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-_No response_
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-Apple clang 15.0.0
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-I'm trying to build tensorflow-lite with the GPU delegates with CMake. It works well with Linux and Android (gcc), but for Macos (apple clang compiler) , I have a compilation error:
-`tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:72:10: error: no matching function for call to 'visit'
-  return std::visit(ObjectTypeGetter{}, object);`
-
-It complains about using std::visit on a absl::variant.
-
-My guess is that std::visit with gcc is more permissive than the standard about std::visit and allow to use it with not only std::variant but also with other variant-like. On the other side, Clang is not that permissive.
-
-I tried with the source from the 2.15.0 and also with the sources of the latest commit.
-
-### Standalone code to reproduce the issue
-
-```shell
-cd tensorflow/lite && cmake -B build -DTFLITE_ENABLE_GPU=ON && cmake --build build
-```
-
-
-### Relevant log output
-
-```shell
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:72:10: error: no matching function for call to 'visit'
-  return std::visit(ObjectTypeGetter{}, object);
-         ^~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1753:26: note: candidate template ignored: substitution failure [with _Visitor = tflite::gpu::(anonymous namespace)::ObjectTypeGetter, _Vs = <const absl::variant<std::monostate, tflite::gpu::OpenGlBuffer, tflite::gpu::OpenGlTexture, tflite::gpu::CpuMemory, tflite::gpu::OpenClBuffer, tflite::gpu::OpenClTexture, tflite::gpu::VulkanBuffer, tflite::gpu::VulkanTexture> &>]: no matching function for call to '__as_variant'
-constexpr decltype(auto) visit(_Visitor&& __visitor, _Vs&&... __vs) {
-                         ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:79:10: error: no matching function for call to 'visit'
-         std::visit(ObjectValidityChecker{def.object_def.data_type}, object);
-         ^~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1753:26: note: candidate template ignored: substitution failure [with _Visitor = tflite::gpu::(anonymous namespace)::ObjectValidityChecker, _Vs = <const absl::variant<std::monostate, tflite::gpu::OpenGlBuffer, tflite::gpu::OpenGlTexture, tflite::gpu::CpuMemory, tflite::gpu::OpenClBuffer, tflite::gpu::OpenClTexture, tflite::gpu::VulkanBuffer, tflite::gpu::VulkanTexture> &>]: no matching function for call to '__as_variant'
-constexpr decltype(auto) visit(_Visitor&& __visitor, _Vs&&... __vs) {
-                         ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:85:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<CpuMemory>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:87:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<OpenGlBuffer>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:89:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<OpenGlTexture>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:91:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<OpenClBuffer>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:93:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<OpenClTexture>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:95:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<VulkanBuffer>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-               ^
-/Users/lbertho/devel/.sx/build/tensorflow-lite/tensorflow/lite/delegates/gpu/api.cc:97:14: error: no matching function for call to 'holds_alternative'
-      return std::holds_alternative<VulkanTexture>(obj);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/variant:1502:16: note: candidate template ignored: could not match 'std::variant' against 'absl::variant'
-constexpr bool holds_alternative(const variant<_Types...>& __v) noexcept {
-```
-",https://github.com/lbertho-gpsw,2024-02-21T14:45:55Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63013,tf.math.bincount incorrect with large values,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-No
-
-### Source
-
-source
-
-### TensorFlow version
-
-v2.15.0
-
-### Custom code
-
-No
-
-### OS platform and distribution
-
-Ubuntu 22.04
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.10
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-12.0
-
-### GPU model and memory
-
-RTX 3090Ti
-
-### Current behavior?
-
-The `tf.math.bincount` function returns incorrect results with medium size values, even though those don't exceed int32. Using int64 seems to work around the bug, at least at the number ranges that I tested.
-
-This problem seems to have been introduced between 2.13 and 2.14, but still exists with 2.15.
-
-### Standalone code to reproduce the issue
-
-```shell
-The expected result of the following function is `100000`.
-
-
-tf.reduce_sum(tf.math.bincount(tf.range(100000)))
-```
-```
-
-
-### Relevant log output
-
-```shell
->>> tf.reduce_sum(tf.math.bincount(tf.range(50000)))
-<tf.Tensor: shape=(), dtype=int32, numpy=42950>
->>> tf.reduce_sum(tf.math.bincount(tf.range(45000)))
-<tf.Tensor: shape=(), dtype=int32, numpy=45000>
->>> tf.reduce_sum(tf.math.bincount(tf.range(47000)))
-<tf.Tensor: shape=(), dtype=int32, numpy=45692>
->>> tf.reduce_sum(tf.math.bincount(tf.range(47000), dtype=tf.int64))
-<tf.Tensor: shape=(), dtype=int64, numpy=47000>
-```
-",https://github.com/cbreak-black,2024-02-21T13:04:28Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63012,Unit test failures with Python 3.12 and gcc,"### Issue type
-
-Bug
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-Yes
-
-### Source
-
-source
-
-### TensorFlow version
-
-git HEAD
-
-### Custom code
-
-No
-
-### OS platform and distribution
-
-Ubuntu 20.04
-
-### Mobile device
-
-n/a
-
-### Python version
-
-3.12.1
-
-### Bazel version
-
-6.5.0
-
-### GCC/compiler version
-
-10.2.1
-
-### CUDA/cuDNN version
-
-n/a
-
-### GPU model and memory
-
-n/a
-
-### Current behavior?
-
-The following tests fail
-//tensorflow/python/eager:backprop_test_cpu
-//tensorflow/python/eager/polymorphic_function:tracing_compilation_test
-//tensorflow/python/eager:forwardprop_test_cpu
-//tensorflow/python/saved_model:load_test_cpu
-//tensorflow/python/eager/polymorphic_function:polymorphic_function_test_cpu
-
-### Standalone code to reproduce the issue
-
-```shell
-bazel test --test_timeout=500,900,3000,-1 --copt=-flax-vector-conversions --test_env=TF2_BEHAVIOR=1 --define=tf_api_version=2 --test_size_filters=small,medium --test_lang_filters=py,cc --test_output=errors --verbose_failures=true --notest_verbose_timeout_warnings --action_env=PYTHON_BIN_PATH=/usr/local/bin/python3 --test_env=PORTSERVER_ADDRESS=@unittest-portserver --build_tag_filters=-no_oss,-oss_excluded,-oss_serial,-v1only,-benchmark-test,-no_aarch64,-gpu,-tpu,-no_oss_py39,-no_oss_py310 --test_tag_filters=-no_oss,-oss_excluded,-oss_serial,-v1only,-benchmark-test,-no_aarch64,-gpu,-tpu,-no_oss_py39,-no_oss_py310 --build_tests_only -- //tensorflow/... -//tensorflow/compiler/tf2tensorrt/... -//tensorflow/core/tpu/... -//tensorflow/go/... -//tensorflow/java/... -//tensorflow/python/integration_testing/... -//tensorflow/tools/toolchains/... -//tensorflow/lite/...
-```
-
-
-### Relevant log output
-
-```shell
-FAIL: test_functions_cleaned_LoadWithPython (__main__.SingleCycleTests)
-SingleCycleTests.test_functions_cleaned_LoadWithPython
-test_functions_cleaned_LoadWithPython(use_cpp_bindings=False)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File ""/home/andrew/src/tf_test/tensorflow-git/bazel-ci_build-cache/.cache/bazel/_bazel_andrew/eab0d61a99b6696edb3d2aff87b585e8/execroot/org_tensorflow/bazel-out/aarch64-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/absl_py/absl/testing/parameterized.py"", line 314, in bound_param_test
-    return test_method(self, **testcase_params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File ""/home/andrew/src/tf_test/tensorflow-git/bazel-ci_build-cache/.cache/bazel/_bazel_andrew/eab0d61a99b6696edb3d2aff87b585e8/execroot/org_tensorflow/bazel-out/aarch64-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/org_tensorflow/tensorflow/python/framework/test_util.py"", line 823, in decorator
-    assert not obj_count_by_type, (
-AssertionError: The following objects were newly created: Counter({'list': 330, 'Operation': 270, 'TensorShape': 147})
-
-----------------------------------------------------------------------
-Ran 2 tests in 1.571s
-
-FAILED (failures=1, skipped=1)
-```
-",https://github.com/elfringham,2024-02-21T13:02:23Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63010,Load and do inference of model.hdf5 in c++,"### Issue type
-
-Support
-
-### Have you reproduced the bug with TensorFlow Nightly?
-
-No
-
-### Source
-
-source
-
-### TensorFlow version
-
-tf 2.14.0
-
-### Custom code
-
-Yes
-
-### OS platform and distribution
-
-_No response_
-
-### Mobile device
-
-_No response_
-
-### Python version
-
-3.11.5
-
-### Bazel version
-
-_No response_
-
-### GCC/compiler version
-
-_No response_
-
-### CUDA/cuDNN version
-
-_No response_
-
-### GPU model and memory
-
-_No response_
-
-### Current behavior?
-
-Hi,
-Please provide instructions on how to load a CNN model in C++ script to run and do inference.
-Thanks
-
-### Standalone code to reproduce the issue
-
-```shell
--
-```
-
-
-### Relevant log output
-
-_No response_",https://github.com/devahh,2024-02-21T09:51:49Z
-github,https://api.github.com/repos/tensorflow/tensorflow/issues/63009,"CONV1D , MAX POOLING 1D","I want to embed tflite model in my mcu, but conv1D, MAX Pooling 1D was used in the model. But that function doesn't exist in the mutable ops list.
-
-Going Googling, I saw the answer that Conv1D wraps to Conv2D automatically when converting from Stackoverflow to tflite(https://stackoverflow.com/questions/67481996/custom-op-is-replaced-by-another-ops).
-
-So should I use 'conv2d' and 'maxpooling2D' for mutable ops when embedding my model (conv1D, with maxpooling1D)?",https://github.com/hammnii-study,2024-02-21T08:36:39Z
+<img width=""839"" alt=""Screenshot 2023-05-15 at 4 41 18 PM"" src=""https://github.com/radix-ui/icons/assets/27756216/bb690f39-83e7-4af8-91f5-cf55fde8cdcb"">
+",https://github.com/mikeyamato,2023-05-15T23:52:21Z
+github,https://api.github.com/repos/radix-ui/icons/issues/154,Canonical version numbering and release notes,"There doesn't seem to be a central log of release notes or verison number for radix icons, and what info does exist across various sources is wildly inconsistent. 
+
+As of this writing:
+
+**1.3.0** in https://github.com/radix-ui/icons/blob/master/packages/radix-icons/package.json
+
+![Screenshot 2023-05-11 at 7 26 55 PM](https://github.com/radix-ui/icons/assets/24631198/10229efe-661c-44e8-9c02-659c9b0ea36e)
+
+**1.0.3** in https://github.com/radix-ui/icons/tree/master
+
+![Screenshot 2023-05-11 at 7 24 48 PM](https://github.com/radix-ui/icons/assets/24631198/124b91e8-a2a5-4285-a152-43c03e1f308a)
+
+**4.0.0** on https://www.npmjs.com/package/@modulz/radix-icons
+
+![Screenshot 2023-05-11 at 7 25 18 PM](https://github.com/radix-ui/icons/assets/24631198/d97a6379-eee5-442f-9259-7768663ade11)
+
+",https://github.com/PeterTYLiu,2023-05-11T23:36:52Z
+github,https://api.github.com/repos/radix-ui/icons/issues/153,Request: book icon,"could be a notebook, or a regular book -- something to indicate reading documentation",https://github.com/louh,2023-04-22T15:02:19Z
+github,https://api.github.com/repos/radix-ui/icons/issues/152,Request: Magnet Icon,This will be useful for representing snap distances.,https://github.com/tresabhi,2023-03-27T15:06:17Z
+github,https://api.github.com/repos/radix-ui/icons/issues/151,Icon Request: Tag / Category Icon,Would be nice to have a standard icon representing taxonomies such as tags or categories,https://github.com/patrickedqvist,2023-03-21T13:53:26Z
+github,https://api.github.com/repos/radix-ui/icons/issues/149,chore(deps): bump minimist from 1.2.5 to 1.2.8,"Bumps [minimist](https://github.com/minimistjs/minimist) from 1.2.5 to 1.2.8.
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href=""https://github.com/minimistjs/minimist/blob/main/CHANGELOG.md"">minimist's changelog</a>.</em></p>
+<blockquote>
+<h2><a href=""https://github.com/minimistjs/minimist/compare/v1.2.7...v1.2.8"">v1.2.8</a> - 2023-02-09</h2>
+<h3>Merged</h3>
+<ul>
+<li>[Fix] Fix long option followed by single dash <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/pull/17""><code>[#17](https://github.com/minimistjs/minimist/issues/17)</code></a></li>
+<li>[Tests] Remove duplicate test <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/pull/12""><code>[#12](https://github.com/minimistjs/minimist/issues/12)</code></a></li>
+<li>[Fix] opt.string works with multiple aliases <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/pull/10""><code>[#10](https://github.com/minimistjs/minimist/issues/10)</code></a></li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>[Fix] Fix long option followed by single dash (<a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/17"">#17</a>) <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/15""><code>[#15](https://github.com/minimistjs/minimist/issues/15)</code></a></li>
+<li>[Tests] Remove duplicate test (<a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/12"">#12</a>) <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/8""><code>[#8](https://github.com/minimistjs/minimist/issues/8)</code></a></li>
+<li>[Fix] Fix long option followed by single dash <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/15""><code>[#15](https://github.com/minimistjs/minimist/issues/15)</code></a></li>
+<li>[Fix] opt.string works with multiple aliases (<a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/10"">#10</a>) <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/9""><code>[#9](https://github.com/minimistjs/minimist/issues/9)</code></a></li>
+<li>[Fix] Fix handling of short option with non-trivial equals <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/5""><code>[#5](https://github.com/minimistjs/minimist/issues/5)</code></a></li>
+<li>[Tests] Remove duplicate test <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/8""><code>[#8](https://github.com/minimistjs/minimist/issues/8)</code></a></li>
+<li>[Fix] opt.string works with multiple aliases <a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/9""><code>[#9](https://github.com/minimistjs/minimist/issues/9)</code></a></li>
+</ul>
+<h3>Commits</h3>
+<ul>
+<li>Merge tag 'v0.2.3' <a href=""https://github.com/minimistjs/minimist/commit/a0267947c7870fc5847cf2d437fbe33f392767da""><code>a026794</code></a></li>
+<li>[eslint] fix indentation and whitespace <a href=""https://github.com/minimistjs/minimist/commit/5368ca4147e974138a54cc0dc4cea8f756546b70""><code>5368ca4</code></a></li>
+<li>[eslint] fix indentation and whitespace <a href=""https://github.com/minimistjs/minimist/commit/e5f5067259ceeaf0b098d14bec910f87e58708c7""><code>e5f5067</code></a></li>
+<li>[eslint] more cleanup <a href=""https://github.com/minimistjs/minimist/commit/62fde7d935f83417fb046741531a9e2346a36976""><code>62fde7d</code></a></li>
+<li>[eslint] more cleanup <a href=""https://github.com/minimistjs/minimist/commit/36ac5d0d95e4947d074e5737d94814034ca335d1""><code>36ac5d0</code></a></li>
+<li>[meta] add <code>auto-changelog</code> <a href=""https://github.com/minimistjs/minimist/commit/73923d223553fca08b1ba77e3fbc2a492862ae4c""><code>73923d2</code></a></li>
+<li>[actions] add reusable workflows <a href=""https://github.com/minimistjs/minimist/commit/d80727df77bfa9e631044d7f16368d8f09242c91""><code>d80727d</code></a></li>
+<li>[eslint] add eslint; rules to enable later are warnings <a href=""https://github.com/minimistjs/minimist/commit/48bc06a1b41f00e9cdf183db34f7a51ba70e98d4""><code>48bc06a</code></a></li>
+<li>[eslint] fix indentation <a href=""https://github.com/minimistjs/minimist/commit/34b0f1ccaa45183c3c4f06a91f9b405180a6f982""><code>34b0f1c</code></a></li>
+<li>[readme] rename and add badges <a href=""https://github.com/minimistjs/minimist/commit/5df0fe49211bd09a3636f8686a7cb3012c3e98f0""><code>5df0fe4</code></a></li>
+<li>[Dev Deps] switch from <code>covert</code> to <code>nyc</code> <a href=""https://github.com/minimistjs/minimist/commit/a48b128fdb8d427dfb20a15273f83e38d97bef07""><code>a48b128</code></a></li>
+<li>[Dev Deps] update <code>covert</code>, <code>tape</code>; remove unnecessary <code>tap</code> <a href=""https://github.com/minimistjs/minimist/commit/f0fb958e9a1fe980cdffc436a211b0bda58f621b""><code>f0fb958</code></a></li>
+<li>[meta] create FUNDING.yml; add <code>funding</code> in package.json <a href=""https://github.com/minimistjs/minimist/commit/3639e0c819359a366387e425ab6eabf4c78d3caa""><code>3639e0c</code></a></li>
+<li>[meta] use <code>npmignore</code> to autogenerate an npmignore file <a href=""https://github.com/minimistjs/minimist/commit/be2e038c342d8333b32f0fde67a0026b79c8150e""><code>be2e038</code></a></li>
+<li>Only apps should have lockfiles <a href=""https://github.com/minimistjs/minimist/commit/282b570e7489d01b03f2d6d3dabf79cd3e5f84cf""><code>282b570</code></a></li>
+<li>isConstructorOrProto adapted from PR <a href=""https://github.com/minimistjs/minimist/commit/ef9153fc52b6cea0744b2239921c5dcae4697f11""><code>ef9153f</code></a></li>
+<li>[Dev Deps] update <code>@ljharb/eslint-config</code>, <code>aud</code> <a href=""https://github.com/minimistjs/minimist/commit/098873c213cdb7c92e55ae1ef5aa1af3a8192a79""><code>098873c</code></a></li>
+<li>[Dev Deps] update <code>@ljharb/eslint-config</code>, <code>aud</code> <a href=""https://github.com/minimistjs/minimist/commit/3124ed3e46306301ebb3c834874ce0241555c2c4""><code>3124ed3</code></a></li>
+<li>[meta] add <code>safe-publish-latest</code> <a href=""https://github.com/minimistjs/minimist/commit/4b927de696d561c636b4f43bf49d4597cb36d6d6""><code>4b927de</code></a></li>
+<li>[Tests] add <code>aud</code> in <code>posttest</code> <a href=""https://github.com/minimistjs/minimist/commit/b32d9bd0ab340f4e9f8c3a97ff2a4424f25fab8c""><code>b32d9bd</code></a></li>
+<li>[meta] update repo URLs <a href=""https://github.com/minimistjs/minimist/commit/f9fdfc032c54884d9a9996a390c63cd0719bbe1a""><code>f9fdfc0</code></a></li>
+<li>[actions] Avoid 0.6 tests due to build failures <a href=""https://github.com/minimistjs/minimist/commit/ba92fe6ebbdc0431cca9a2ea8f27beb492f5e4ec""><code>ba92fe6</code></a></li>
+<li>[Dev Deps] update <code>tape</code> <a href=""https://github.com/minimistjs/minimist/commit/950eaa74f112e04d23e9c606c67472c46739b473""><code>950eaa7</code></a></li>
+<li>[Dev Deps] add missing <code>npmignore</code> dev dep <a href=""https://github.com/minimistjs/minimist/commit/3226afaf09e9d127ca369742437fe6e88f752d6b""><code>3226afa</code></a></li>
+<li>Merge tag 'v0.2.2' <a href=""https://github.com/minimistjs/minimist/commit/980d7ac61a0b4bd552711251ac107d506b23e41f""><code>980d7ac</code></a></li>
+</ul>
+<h2><a href=""https://github.com/minimistjs/minimist/compare/v1.2.6...v1.2.7"">v1.2.7</a> - 2022-10-10</h2>
+<h3>Commits</h3>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>... (truncated)</p>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/minimistjs/minimist/commit/6901ee286bc4c16da6830b48b46ce1574703cea1""><code>6901ee2</code></a> v1.2.8</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/a0267947c7870fc5847cf2d437fbe33f392767da""><code>a026794</code></a> Merge tag 'v0.2.3'</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/c0b26618322e94adea26c68e613ef0be482c6c63""><code>c0b2661</code></a> v0.2.3</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/63b8fee87b8e7a003216d5d77ba5d6decf3cfb0d""><code>63b8fee</code></a> [Fix] Fix long option followed by single dash (<a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/17"">#17</a>)</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/72239e6f0ea77d8be0ad4f682b7ae7d142144395""><code>72239e6</code></a> [Tests] Remove duplicate test (<a href=""https://github-redirect.dependabot.com/minimistjs/minimist/issues/12"">#12</a>)</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/34b0f1ccaa45183c3c4f06a91f9b405180a6f982""><code>34b0f1c</code></a> [eslint] fix indentation</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/3226afaf09e9d127ca369742437fe6e88f752d6b""><code>3226afa</code></a> [Dev Deps] add missing <code>npmignore</code> dev dep</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/098873c213cdb7c92e55ae1ef5aa1af3a8192a79""><code>098873c</code></a> [Dev Deps] update <code>@ljharb/eslint-config</code>, <code>aud</code></li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/9ec4d279ced72ea2f60237218e71cc03aa0dfdd6""><code>9ec4d27</code></a> [Fix] Fix long option followed by single dash</li>
+<li><a href=""https://github.com/minimistjs/minimist/commit/ba92fe6ebbdc0431cca9a2ea8f27beb492f5e4ec""><code>ba92fe6</code></a> [actions] Avoid 0.6 tests due to build failures</li>
+<li>Additional commits viewable in <a href=""https://github.com/minimistjs/minimist/compare/v1.2.5...v1.2.8"">compare view</a></li>
+</ul>
+</details>
+<details>
+<summary>Maintainer changes</summary>
+<p>This version was pushed to npm by <a href=""https://www.npmjs.com/~ljharb"">ljharb</a>, a new releaser for minimist since your current version.</p>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=minimist&package-manager=npm_and_yarn&previous-version=1.2.5&new-version=1.2.8)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2023-03-04T04:35:37Z
+github,https://api.github.com/repos/radix-ui/icons/issues/148,chore(deps): bump dns-packet from 5.3.1 to 5.4.0,"Bumps [dns-packet](https://github.com/mafintosh/dns-packet) from 5.3.1 to 5.4.0.
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href=""https://github.com/mafintosh/dns-packet/blob/master/CHANGELOG.md"">dns-packet's changelog</a>.</em></p>
+<blockquote>
+<h1>Version 5.4.0 - 2022-06-14</h1>
+<ul>
+<li>Feature: Added support for the SSHFP record type.</li>
+</ul>
+<h1>Version 5.2.0 - 2019-02-21</h1>
+<ul>
+<li>Feature: Added support for de/encoding certain OPT options.</li>
+</ul>
+<h1>Version 5.1.0 - 2019-01-22</h1>
+<ul>
+<li>Feature: Added support for the RP record type.</li>
+</ul>
+<h1>Version 5.0.0 - 2018-06-01</h1>
+<ul>
+<li>Breaking: Node.js 6.0.0 or greater is now required.</li>
+<li>Feature: Added support for DNSSEC record types.</li>
+</ul>
+<h1>Version 4.1.0 - 2018-02-11</h1>
+<ul>
+<li>Feature: Added support for the MX record type.</li>
+</ul>
+<h1>Version 4.0.0 - 2018-02-04</h1>
+<ul>
+<li>Feature: Added <code>streamEncode</code> and <code>streamDecode</code> methods for encoding TCP packets.</li>
+<li>Breaking: Changed the decoded value of TXT records to an array of Buffers. This is to accomodate DNS-SD records which rely on the individual strings record being separated.</li>
+<li>Breaking: Renamed the <code>flag_trunc</code> and <code>flag_auth</code> to <code>flag_tc</code> and <code>flag_aa</code> to match the names of these in the dns standards.</li>
+</ul>
+<h1>Version 3.0.0 - 2018-01-12</h1>
+<ul>
+<li>Breaking: The <code>class</code> option has been changed from integer to string.</li>
+</ul>
+<h1>Version 2.0.0 - 2018-01-11</h1>
+<ul>
+<li>Breaking: Converted module to ES2015, now requires Node.js 4.0 or greater</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/mafintosh/dns-packet/commit/31d3caf3261dd0a15b867dfb827347c1b175289a""><code>31d3caf</code></a> 5.4.0</li>
+<li><a href=""https://github.com/mafintosh/dns-packet/commit/0fc249c64adda0c71a2641cfde02d684052c13cf""><code>0fc249c</code></a> add SSHFP to readme</li>
+<li><a href=""https://github.com/mafintosh/dns-packet/commit/fab30b25888edd6122c8323de91f82be3ae88f14""><code>fab30b2</code></a> Implement SSHFP records (<a href=""https://github-redirect.dependabot.com/mafintosh/dns-packet/issues/80"">#80</a>)</li>
+<li><a href=""https://github.com/mafintosh/dns-packet/commit/a5ee7897e22fd6e81ee65f048cefafe52d34c474""><code>a5ee789</code></a> test node 18</li>
+<li><a href=""https://github.com/mafintosh/dns-packet/commit/bd33c5f690c54609bf50365c646810dd19921f40""><code>bd33c5f</code></a> switch to GitHub Actions (<a href=""https://github-redirect.dependabot.com/mafintosh/dns-packet/issues/83"">#83</a>)</li>
+<li>See full diff in <a href=""https://github.com/mafintosh/dns-packet/compare/v5.3.1...5.4.0"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=dns-packet&package-manager=npm_and_yarn&previous-version=5.3.1&new-version=5.4.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2023-03-02T21:23:07Z
+github,https://api.github.com/repos/radix-ui/icons/issues/147,chore(deps): bump json5 from 1.0.1 to 1.0.2,"Bumps [json5](https://github.com/json5/json5) from 1.0.1 to 1.0.2.
+<details>
+<summary>Release notes</summary>
+<p><em>Sourced from <a href=""https://github.com/json5/json5/releases"">json5's releases</a>.</em></p>
+<blockquote>
+<h2>v1.0.2</h2>
+<ul>
+<li>Fix: Properties with the name <code>__proto__</code> are added to objects and arrays. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/199"">#199</a>) This also fixes a prototype pollution vulnerability reported by Jonathan Gregson! (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/295"">#295</a>). This has been backported to v1. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/298"">#298</a>)</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href=""https://github.com/json5/json5/blob/main/CHANGELOG.md"">json5's changelog</a>.</em></p>
+<blockquote>
+<h3>Unreleased [<a href=""https://github.com/json5/json5/tree/main"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.2.3...HEAD"">diff</a>]</h3>
+<h3>v2.2.3 [<a href=""https://github.com/json5/json5/tree/v2.2.3"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.2.2...v2.2.3"">diff</a>]</h3>
+<ul>
+<li>Fix: json5@2.2.3 is now the 'latest' release according to npm instead of
+v1.0.2. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/299"">#299</a>)</li>
+</ul>
+<h3>v2.2.2 [<a href=""https://github.com/json5/json5/tree/v2.2.2"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.2.1...v2.2.2"">diff</a>]</h3>
+<ul>
+<li>Fix: Properties with the name <code>__proto__</code> are added to objects and arrays.
+(<a href=""https://github-redirect.dependabot.com/json5/json5/issues/199"">#199</a>) This also fixes a prototype pollution vulnerability reported by
+Jonathan Gregson! (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/295"">#295</a>).</li>
+</ul>
+<h3>v2.2.1 [<a href=""https://github.com/json5/json5/tree/v2.2.1"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.2.0...v2.2.1"">diff</a>]</h3>
+<ul>
+<li>Fix: Removed dependence on minimist to patch CVE-2021-44906. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/266"">#266</a>)</li>
+</ul>
+<h3>v2.2.0 [<a href=""https://github.com/json5/json5/tree/v2.2.0"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.1.3...v2.2.0"">diff</a>]</h3>
+<ul>
+<li>New: Accurate and documented TypeScript declarations are now included. There
+is no need to install <code>@types/json5</code>. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/236"">#236</a>, <a href=""https://github-redirect.dependabot.com/json5/json5/issues/244"">#244</a>)</li>
+</ul>
+<h3>v2.1.3 [<a href=""https://github.com/json5/json5/tree/v2.1.3"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.1.2...v2.1.3"">diff</a>]</h3>
+<ul>
+<li>Fix: An out of memory bug when parsing numbers has been fixed. (<a href=""https://github-redirect.dependabot.com/json5/json5/issues/228"">#228</a>,
+<a href=""https://github-redirect.dependabot.com/json5/json5/issues/229"">#229</a>)</li>
+</ul>
+<h3>v2.1.2 [<a href=""https://github.com/json5/json5/tree/v2.1.2"">code</a>, <a href=""https://github.com/json5/json5/compare/v2.1.1...v2.1.2"">diff</a>]</h3>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>... (truncated)</p>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/json5/json5/commit/a62db1e51e1031d92ac260f5bb38bbed1fdbc754""><code>a62db1e</code></a> 1.0.2</li>
+<li><a href=""https://github.com/json5/json5/commit/e0c23fe458a77c0b2cdb271376be5d8d0908133c""><code>e0c23fe</code></a> docs: update CHANGELOG for v1.0.2</li>
+<li><a href=""https://github.com/json5/json5/commit/62a65408408d40aeea14c7869ed327acead12972""><code>62a6540</code></a> fix: add <strong>proto</strong> to objects and arrays</li>
+<li>See full diff in <a href=""https://github.com/json5/json5/compare/v1.0.1...v1.0.2"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=json5&package-manager=npm_and_yarn&previous-version=1.0.1&new-version=1.0.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2023-01-07T09:06:15Z
+github,https://api.github.com/repos/radix-ui/icons/issues/146,chore(deps): bump decode-uri-component from 0.2.0 to 0.2.2,"Bumps [decode-uri-component](https://github.com/SamVerschueren/decode-uri-component) from 0.2.0 to 0.2.2.
+<details>
+<summary>Release notes</summary>
+<p><em>Sourced from <a href=""https://github.com/SamVerschueren/decode-uri-component/releases"">decode-uri-component's releases</a>.</em></p>
+<blockquote>
+<h2>v0.2.2</h2>
+<ul>
+<li>Prevent overwriting previously decoded tokens  980e0bf</li>
+</ul>
+<p><a href=""https://github.com/SamVerschueren/decode-uri-component/compare/v0.2.1...v0.2.2"">https://github.com/SamVerschueren/decode-uri-component/compare/v0.2.1...v0.2.2</a></p>
+<h2>v0.2.1</h2>
+<ul>
+<li>Switch to GitHub workflows  76abc93</li>
+<li>Fix issue where decode throws - fixes <a href=""https://github-redirect.dependabot.com/SamVerschueren/decode-uri-component/issues/6"">#6</a>  746ca5d</li>
+<li>Update license (<a href=""https://github-redirect.dependabot.com/SamVerschueren/decode-uri-component/issues/1"">#1</a>)  486d7e2</li>
+<li>Tidelift tasks  a650457</li>
+<li>Meta tweaks  66e1c28</li>
+</ul>
+<p><a href=""https://github.com/SamVerschueren/decode-uri-component/compare/v0.2.0...v0.2.1"">https://github.com/SamVerschueren/decode-uri-component/compare/v0.2.0...v0.2.1</a></p>
+</blockquote>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/a0eea469d26eb0df668b081672cdb9581feb78eb""><code>a0eea46</code></a> 0.2.2</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/980e0bf09b64d94f1aa79012f895816c30ffd152""><code>980e0bf</code></a> Prevent overwriting previously decoded tokens</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/3c8a373dd4837e89b3f970e01295dd03e1405a33""><code>3c8a373</code></a> 0.2.1</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/76abc939783fe3900fadb7d384a74d324d5557f3""><code>76abc93</code></a> Switch to GitHub workflows</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/746ca5dcb6667c5d364e782d53c542830e4c10b9""><code>746ca5d</code></a> Fix issue where decode throws - fixes <a href=""https://github-redirect.dependabot.com/SamVerschueren/decode-uri-component/issues/6"">#6</a></li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/486d7e26d3a8c0fbe860fb651fe1bc98c2f2be30""><code>486d7e2</code></a> Update license (<a href=""https://github-redirect.dependabot.com/SamVerschueren/decode-uri-component/issues/1"">#1</a>)</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/a65045724e6234acef87f31da499d4807b20b134""><code>a650457</code></a> Tidelift tasks</li>
+<li><a href=""https://github.com/SamVerschueren/decode-uri-component/commit/66e1c2834c0e189201cb65196ec3101372459b02""><code>66e1c28</code></a> Meta tweaks</li>
+<li>See full diff in <a href=""https://github.com/SamVerschueren/decode-uri-component/compare/v0.2.0...v0.2.2"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=decode-uri-component&package-manager=npm_and_yarn&previous-version=0.2.0&new-version=0.2.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2022-12-04T09:10:26Z
+github,https://api.github.com/repos/radix-ui/icons/issues/143,"TypeError: ""__esModule"" is read-only ","Importing and using icons throws an error as you can see below
+
+![image](https://user-images.githubusercontent.com/55200060/199371737-457c3071-1ea7-4dc2-852f-52e11583637d.png)
+![image](https://user-images.githubusercontent.com/55200060/199372171-98b3586d-1658-4f30-8eef-db13f79266ca.png)
+
+
+It's a `remix.js` project using `react 18.2.0` and `""@radix-ui/react-icons"": ""^1.1.1""`
+
+It may be a problem with the bundling of the code
+
+
+",https://github.com/NRodriguezcuellar,2022-11-02T01:18:05Z
+github,https://api.github.com/repos/radix-ui/icons/issues/142,"Add directory icons: outline, filled, open and closed","Hi, I would like to contribute by adding **4 directory/folder icons**:
+
+- Directory
+- DirectoryFilled
+- DirectoryOpen
+- DirectoryOpenFilled
+
+Following this [pull request (#96)](https://github.com/radix-ui/icons/pull/96#issue-1027167768) pattern. I copied the Figma file, added the 4 icons in the `Objects` category, exported the SVG, implemented the React components based on the other Icons and added it to the website.
+
+This closes the following [Request: Folder / FolderFilled icon #84](https://github.com/radix-ui/icons/issues/84#issue-958482249)
+
+---
+
+PR checklist:
+
+- [ ] Figma: icon shapes use “Scale” constraint
+- [ ] Figma: icon components are sorted Z-A in the file
+- [ ] Figma: icon components are built with a single union or compound shape when possible
+- [ ] Figma: library changes are published
+- [x] SVG: icons render correctly in a browser
+- [x] SVG: icons are exported with `width=""15"" height=""15"" viewBox=""0 0 15 15""`
+- [x] SVG: no icons are exported with `stroke`
+- [x] SVG: no icons are exported with `clip-path`
+- [x] SVG: no icons exceed 5 KB
+- [x] Website is up to date
+- [ ] Sketch file is up to date
+- [ ] IconJar file is up to date
+  - [ ] Icon names in the IconJar library are correct
+  - [ ] Version in the IconJar library description is correct
+",https://github.com/xDellTog,2022-10-18T17:06:24Z
+github,https://api.github.com/repos/radix-ui/icons/issues/140,chore(deps): bump parse-url from 6.0.0 to 6.0.5,"Bumps [parse-url](https://github.com/IonicaBizau/parse-url) from 6.0.0 to 6.0.5.
+<details>
+<summary>Commits</summary>
+<ul>
+<li>See full diff in <a href=""https://github.com/IonicaBizau/parse-url/compare/6.0.0...6.0.5"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=parse-url&package-manager=npm_and_yarn&previous-version=6.0.0&new-version=6.0.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2022-09-15T20:21:42Z
+github,https://api.github.com/repos/radix-ui/icons/issues/139,chore(deps): bump terser from 4.8.0 to 4.8.1,"Bumps [terser](https://github.com/terser/terser) from 4.8.0 to 4.8.1.
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href=""https://github.com/terser/terser/blob/master/CHANGELOG.md"">terser's changelog</a>.</em></p>
+<blockquote>
+<h2>v4.8.1 (backport)</h2>
+<ul>
+<li>Security fix for RegExps that should not be evaluated (regexp DDOS)</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li>See full diff in <a href=""https://github.com/terser/terser/commits"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=terser&package-manager=npm_and_yarn&previous-version=4.8.0&new-version=4.8.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language
+- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language
+- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language
+- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language
+
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/radix-ui/icons/network/alerts).
+
+</details>",https://github.com/apps/dependabot,2022-07-20T13:47:19Z

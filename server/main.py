@@ -55,6 +55,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def get_play_store_reviews(app_name: str):
     print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
 
@@ -70,7 +71,7 @@ def get_play_store_reviews(app_name: str):
         sort=Sort.NEWEST,  # defaults to Sort.NEWEST
         count=100,  # defaults to 100
     )
-    
+
     play_review = []
     for review in result:
         play_review.append(
@@ -100,6 +101,7 @@ def get_play_store_reviews(app_name: str):
 
     print("Reviews successfully written to CSV file.")  # Debugging print statement
     return result
+
 
 def get_subreddit(subreddit_name: str):
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
@@ -178,7 +180,8 @@ def get_subreddit(subreddit_name: str):
         print(f"An error occurred: {e}")  # Debugging print statement
         return "An error occurred while appending reviews to voc_data.csv."
 
-def get_github_issues(owner: str,repo: str):
+
+def get_github_issues(owner: str, repo: str):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
     headers = {
         "Accept": "application/vnd.github+json",
@@ -187,43 +190,50 @@ def get_github_issues(owner: str,repo: str):
     }
 
     print(f"Sending request to: {url}")  # Debugging statement
-    response = requests.get(url, headers=headers)
-    issues = response.json()
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an exception for 4xx or 5xx status codes
 
-    print(f"Received {len(issues)} issues")  # Debugging statement
+        issues = response.json()
+        print(f"Received {len(issues)} issues")  # Debugging statement
 
-    filtered_data = []
-    for issue in issues:
-        filtered_data.append(
-            {
-                "source": "github",
-                "url": issue["url"],
-                "title": issue["title"],
-                "body": issue["body"],
-                "user_html_url": issue["user"]["html_url"],
-                "created_at": issue["created_at"],
-            }
-        )
+        filtered_data = []
+        for issue in issues:
+            filtered_data.append(
+                {
+                    "source": "github",
+                    "url": issue["url"],
+                    "title": issue["title"],
+                    "body": issue["body"],
+                    "user_html_url": issue["user"]["html_url"],
+                    "created_at": issue["created_at"],
+                }
+            )
 
-    print(f"Filtered data contains {len(filtered_data)} issues")  # Debugging statement
+        print(
+            f"Filtered data contains {len(filtered_data)} issues"
+        )  # Debugging statement
 
-    if filtered_data:
-        fieldnames = filtered_data[0].keys()  # Extract keys as field names
-    else:
-        fieldnames = []
+        if filtered_data:
+            fieldnames = filtered_data[0].keys()  # Extract keys as field names
+        else:
+            fieldnames = []
 
-    with open("./data/github_voc_data.csv", "w", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for issue in filtered_data:
-            writer.writerow(issue)
+        with open(
+            "./data/github_voc_data.csv", "w", newline="", encoding="utf-8"
+        ) as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for issue in filtered_data:
+                writer.writerow(issue)
 
-    df = pd.read_csv("./data/github_voc_data.csv")
-    df.to_excel("./data/github_issues.xlsx", index=False)
+        print("Data saved to ./data/github_issues.xlsx")  # Debugging statement
 
-    print("Data saved to ./data/github_issues.xlsx")  # Debugging statement
+        return filtered_data
+    except requests.exceptions.RequestException as e:
+        print(f"Error during request: {e}")
+        return None
 
-    return filtered_data
 
 def get_tweets(twitter_handle: str):
     url = "https://twitter154.p.rapidapi.com/search/search"
@@ -280,6 +290,7 @@ def get_tweets(twitter_handle: str):
 
     return result["results"]
 
+
 def get_news(company_name: str):
     """
     Scrapes news from a given URL and saves it to a CSV file. Currently, the function scrapes headlines and paragraphs from the URL and saves them to a CSV file.
@@ -308,6 +319,7 @@ def get_news(company_name: str):
 
     return news
 
+
 def use_ai():
     review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
     score = request_chat_gpt_api(NOISE_PROMPT, review)
@@ -318,28 +330,38 @@ def use_ai():
 
     # to csv
 
+
 @app.get("/")
 async def read_root():
     return {"message": "Server is running!"}
 
+
 @app.get("/generate_csv")
-async def generate_csv(app_name: str = "swiggy", subreddit_name: str = "aws", owner: str = "marcdhi", repo: str = "", twitter_handle: str = "swiggy", get_news_for: str = ""):
+async def generate_csv(
+    app_name: str = "swiggy",
+    subreddit_name: str = "aws",
+    owner: str = "marcdhi",
+    repo: str = "",
+    twitter_handle: str = "swiggy",
+    get_news_for: str = "",
+):
     get_play_store_reviews(app_name)
     get_subreddit(subreddit_name)
     filtered_data = get_github_issues(owner, repo)
     results = get_tweets(twitter_handle)
     news = get_news(get_news_for)
-    
-    #Run the initial data processing pipeline
+
+    # Run the initial data processing pipeline
     processData(
         client_name=app_name,
         TESTING=False,
     )
-    
+
     return {"message": "Insights are being generated!"}
+
 
 @app.get("/get_json")
 async def get_insights(client_name: str = "swiggy"):
     with open("./data/processed_data.json", "r") as file:
         data = json.load(file)
-        return { "data" : data[client_name]}
+        return {"data": data[client_name]}

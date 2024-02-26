@@ -1421,3 +1421,1119 @@ swiggy,https://www.reddit.com/r/aws/comments/1axddzy/aws_marketplace_publishing_
 
 Any ideas or information will be useful, its been very frustrating.",1708625773.0,2
 >>>>>>> main
+aws,https://www.reddit.com/r/aws/comments/1b0g30v/guidance_on_daily_background_job/,Guidance on daily background job,"Hello everyone, I have a challenge I need to solve for my company and hope I can have some of your guidance. It's a background job with an async dependency on a third-party API and I can't seem to design a solution I'm happy for.
+
+So I have 100s of websites in my database. Each websites has 1000s of pages. Each page needs to be checked against a Google API to know if these pages are indexed or not. 
+
+We store OAuth2.0 credentials (access / refresh tokens for each websites). Tokens, once refreshed, expire in 1 hour. My constraints are that the API limits 2000 pages queries per websites per day. Verifying a page takes can take around 3 seconds for Google to return a response. 
+
+At the end, I need to store the response in our PSQL database. 
+
+To solve this, I want to build background jobs that are running everyday. I want it to be reliable, easy to manage and cost-effective. If possible, I'd like the database load to be low as well as I've read that doing many reads / write constantly isn't optimised. I'd note that my PSQL database is the same as the user-facing one, I have only one database across the whole infrastructure.
+
+I've thought about the following:
+
+**AWS Lambda Workflow**
+
+Use a Lambda triggered by an EventBridge event. This Lambda feeds pages into an SQS queue. This queue is consumed by another Lambda that will process messages with 1 message = 1 page. At the end of its execution, it stores the result (around 5 seconds on avg.). I can leverage concurrency to invoke multiple Lambdas all at once. To reduce database load, I thought about storing the results in something else than my database - a sort of intermediary (CSV in S3, or another database?).
+
+**AWS Fargate Workflow**
+
+Use a Lambda triggered by an EventBridge Event that will spawn an ECS Fargate Task with 1 Task = 1 website. The task will process all pages for a given website and bulk insert the results in my database. As we rely on Fargate for a lot of our features, and even if our quota is high (1000 concurrent tasks invocations) I'd prefer not using this method.
+
+\------------------
+
+Naturally, I'd pick the first workflow but I'm unsure of it. I feel like it's a bit bloated to have 1000s of invocations of Lambdas for this as it's just a job that needs to runs everyday (if that makes sense). If you have a better solution / other services that could help I'm all ears. Thanks in advance! 
+
+P.S. love this sub, it has been very helpful in the past.",1708949708.0,5
+aws,https://www.reddit.com/r/aws/comments/1b0ic1s/how_does_rds_mutliaz_works/,How does RDS mutli-AZ works?,"Tried to enable it or 10T test database it became available in under a minute. AWS support claims no lazy loading is used. 
+Where can I read up on internal implementation? I am uneasy switching DB that is in heavy use. Documentation mentions increased latency after the switch but no details why and how. Support claims we can just switch it's no big deal.
+Thank you.",1708956400.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0kbz0/new_public_file_browser_for_amazon_s3_aka_how_do/,"New - Public File Browser for Amazon S3 (AKA ""How do I do Directory Indexes on S3?"")","For a long time I've wanted to move some public files I've had on a web server to S3 but there was always a gap, there is no option for directory indexes like you see in Apache and Nginx. There are a few DIY solutions online but nothing that felt simple and native.
+
+So I built this solution and had it published on the official AWS Samples GitHub. It deploys a new bucket with the UI already set up to index it, you just have to move files into the bucket you want to make public. Cost is effectively an S3 LIST call for every page load and then the CloudFront+S3 GET cost when someone actually downloads a file.
+
+[GitHub - AWS Samples - Public File Browser for Amazon S3](https://github.com/aws-samples/public-file-browser-for-amazon-s3)
+
+>Sample code to deploy a website and a ""public files"" S3 bucket which can be loaded with any files an administrator wishes to publish publicly online.
+
+https://preview.redd.it/0gwjdu5x6ykc1.png?width=2044&format=png&auto=webp&s=8a334bb1d74571642f9e860a75536e8d0a8c6d01
+
+&#x200B;",1708961585.0,1
+aws,https://aws.amazon.com/blogs/aws/new-aws-region-in-mexico-is-in-the-works/,In the Works - AWS Region in Mexico,,1708960873.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0jqwp/route53_delegation_question/,Route53 delegation question ,"Just a sanity check for than anything.
+
+In my route account I have a hosted zone:
+
+- example.com
+
+In my development account I have a hosted zone:
+
+- dev.example.com
+
+I have copied the Nameservers from dev.example.com to an NS record in example.com, also called dev.example.com to allow for delegation.
+
+Question...
+
+Will the Nameservers created for dev.example.com ever change periodically unexpectedly, or will they remain constant unless redeployed? 
+
+I'd hate to frantically have to update NS records in example.com because of something unforeseen!
+
+Many Thanks!",1708960132.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0d1i6/s3_transitioning_not_working/,S3 transitioning not working,"Hello everyone, 
+I  wanted to store cloudwatch logs into glacier, so i created a lambda which will create cloudwatch export job every 30 mins yo a whitelisted cloudwatch log groups. Now the problem i am facing, the bucket has lifecycle rule which will transition the obj to glacier after 1 day from creation date. But its not working as expected some obj went to glacier and others are still in standard. From the metrics it says 20gb are in glacier and 8 in standard but when i take a random obj it still in standard.
+Another observation i did was i uploaded a file and did head-object api call and it did not have the expiration key.
+Any idea what can be an issue.
+Thanks in advance
+
+Edit: i am using glacier instanst retrieval so i dont need to store glacier metadata overhead",1708937929.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0janj/rds_bluegreen_deployment_on_postgres/,RDS Blue/Green deployment on Postgres - non-descriptive error?,"I am trying to create a Blue/Green deployment for our Postgres instance, which is a 12.17 writer+reader cluster.
+
+I have checked all pre-requisites listed at https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres , and have attempted to create a Blue/Green deployment with Postgres 14.10 for the Green cluster.
+
+However, creation fails with status ""Invalid configuration"" on the Blue/Green Deployment, and ""Incompatible-create"" on the created Green cluster. Unfortunately, no additional error information is provided in the ""Events & Logs"" or in CloudTrail, just the following:
+
+>Creation of blue/green deployment failed due to incompatible parameter settings. See https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres to help resolve the issues, then delete and recreate the blue/green deployment.
+
+Since my database settings match the requirement, what else could I check to see the exact reason for this failure?",1708958996.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0j7s0/docker_remote_cached_layers/,Docker remote cached layers,"
+Curious if anyone experienced success or a  gotcha with using this new ECR feature.  In concept this would be a huge win for my situation, because I always use gitlab shared runners the docker layers are never cached.  
+
+My hope is using this would basically enable cached layers magically. 
+
+In my situation, all images ( of many services ) go into the same ECR repo.  It seems like the caching would still work because I can define an image tag that will hold the cache. 
+
+https://aws.amazon.com/blogs/containers/announcing-remote-cache-support-in-amazon-ecr-for-buildkit-clients/",1708958787.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0cvsi/is_step_scaling_supported_by_aws_lambda/,Is step scaling supported by aws lambda ?,"I was trying to setup step scaling with aws lambda with application autoscaling and it's throwing me the 400 error   
+
+
+    TestScalingTarget/...zation/UpperPolicy Resource handler returned message: ""Account is not authorized (Service: ApplicationAutoScaling, Status Code: 400, Request ID: 5d539e72-2d8e-402c-8f11-
+    478c7ceeb461)"" (RequestToken: 8be7a0b4-6011-ae29-8477-bf00bc70d336, HandlerErrorCode: GeneralServiceException)
+
+
+I am not sure if it is supported by aws lambda. I am trying to add or remove provisioned concurrency based on provisioned concurrency utilization. Here is the code  
+
+
+    from datetime import datetime, timedelta
+    from aws_cdk import (
+        Duration,
+        Stack,
+        # aws_sqs as sqs,
+        aws_lambda as _lambda,
+        aws_applicationautoscaling as appscaling,
+        aws_cloudwatch,
+        RemovalPolicy,
+    )
+    from constructs import Construct
+    import aws_cdk as cdk
+    
+    
+    class StepScalingTestStack(Stack):
+        def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+            super().__init__(scope, construct_id, **kwargs)
+    
+            # Create Lambda function
+            fn = _lambda.Function(
+                self,
+                ""AutoScalingTestFunction"",
+                runtime=_lambda.Runtime.PYTHON_3_8,
+                handler=""index.handler"",
+                code=_lambda.Code.from_asset(""lambda""),
+                memory_size=128,
+                timeout=Duration.seconds(2),
+            )
+    
+            version = fn.current_version
+    
+            alias = _lambda.Alias(
+                self,
+                id=""lambda_alias"",
+                alias_name=""ProvisionedConcurrency"",
+                version=version,
+                provisioned_concurrent_executions=1,
+            )
+    
+            target = appscaling.ScalableTarget(
+                self,
+                ""TestScalingTarget"",
+                service_namespace=appscaling.ServiceNamespace.LAMBDA,
+                max_capacity=20,
+                min_capacity=2,
+                resource_id=f""function:{fn.function_name}:ProvisionedConcurrency"",
+                scalable_dimension=""lambda:function:ProvisionedConcurrency"",
+            )
+            target.node.add_dependency(alias)
+    
+            metric = aws_cloudwatch.Metric(
+                metric_name=""ProvisionedConcurrencyUtilization"",
+                namespace=""AWS/Lambda"",
+                statistic=""avg"",
+                dimensions_map={
+                    ""FunctionName"": fn.function_name,
+                    ""Resource"": f""{fn.function_name}:ProvisionedConcurrency""
+                },
+                period=Duration.seconds(5),
+                unit=aws_cloudwatch.Unit.COUNT,
+            )
+    
+            target.scale_on_metric(
+                ""ScaleToUtilization"",
+                metric=metric,
+                scaling_steps=[
+                   
+                    appscaling.ScalingInterval(upper=0.7, change=2),
+                    appscaling.ScalingInterval(lower=0.7, change=16),
+                    appscaling.ScalingInterval(lower=0.9, change=20),
+                ],
+                adjustment_type=appscaling.AdjustmentType.EXACT_CAPACITY,
+                metric_aggregation_type=appscaling.MetricAggregationType.AVERAGE,
+            )
+    
+
+
+And [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html) I can't find lambda listed but I tried and it's not working .",1708937235.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0iiso/tutorial_on_lambda_function_cannot_be_closed/,Tutorial on Lambda function cannot be closed,"So i’ve been working with lambda functions for the past 6 months but ever since last week, any time I access the lambda console in chrome, the right sidebar containing a tutorial is constantly extended, and no matter how I try to close it or complete the tutorial it is still there, effectively occupying a lot of space on screen.
+
+Why is this happening and what can I do?
+
+",1708956902.0,0
+aws,https://www.reddit.com/r/aws/comments/1b0dxos/ecs_container_metrics/,ECS container metrics,"Hi,  
+
+
+i would like to ask for help regarding ECS container metric. specifically for storage  
+we would like to monitor the utilization of the storage, is cloudwatch agent applicable?  
+
+
+thanks  
+",1708941652.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0dv33/not_able_to_mount_fsx_on_windows_server/,Not able to mount Fsx on Windows server,"I have created an Amazon FSx for NetApp ONTAP. I am able to ping and SSH into the file system from my Windows Server. However, when attempting to mount it using the command net use Z: \corp.example.com\new_share, I encounter the following error:
+
+System error 53 has occurred.
+The network path was not found.
+
+I have added the Windows server to an Active Directory. When attempting to do the same with the Storage Virtual Machine, I encounter the following errors (See attached).",1708941361.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0a9g3/update_opensearch_and_it_reset_the/,Update OpenSearch and it reset the data/indices/admin user,"Hi all,
+
+I have updated AWS OpenSearch to OpenSearch\_2\_11\_R20231113-P3 over the weekend.
+
+My data - indices, users (admin account), security settings are wiped off.
+
+This is the 1st time updating and encountered this.
+
+Any idea how to update OpenSearch properly?
+
+Thanks.",1708926896.0,4
+aws,https://www.reddit.com/r/aws/comments/1azrnnp/rds_cost_exploded_when_i_created_a_serverless/,RDS Cost Exploded When I Created a Serverless Instance,"I have been running a very simple RDS for the past year or so with a steady monthly cost. A few days ago I wanted to created a serverless instance with read/write endpoints. Within 1 day my costs exploded without even connecting to it once. What is going on? I had to delete it in hopes that it will work.. here is a picture of my bill
+
+&#x200B;
+
+https://preview.redd.it/0jtpzirqarkc1.png?width=878&format=png&auto=webp&s=6df1a9d3111077b6b9475854e5d8b38cb08ae086",1708877716.0,39
+aws,https://www.reddit.com/r/aws/comments/1b04lem/workspaces_and_entra_id_users/,Workspaces and Entra ID users,"Hi all, I am wondering what the best option is for my use case. I have an existing domain and have created some users in Entra ID. I'd like to be able to deploy VMs in AWS and be able to sign-in using the Entra ID users.
+
+From what I can tell, I'd have to use AD Connector and provision a managed domain in entra ID. From a cost perspective this is kinda of costly, it will be at least 150/mo for the connector and managed domain at the lowest tier.
+
+Are there any other ways to authenticate using Entra ID users from an AWS workspaces VM without deploying a managed domain or AWS Managed AD? ",1708909265.0,4
+aws,https://www.reddit.com/r/aws/comments/1b01qxd/how_to_perform_a_dynamodb_transaction_and/,How to perform a dynamodb transaction AND retrieve the value of the object which is being deleted?,"I need to delete object 'obj' and transfer it to another table. For atomicity purposes, i must retrieve the state of 'obj' as it is *during* the transaction.
+
+    response = dynamodb.transact_write_items(
+        TransactItems=[
+            {
+                # doing a conditional on a record from another table
+                'ConditionCheck': {
+                    'TableName': ""Users"",
+                    'Key': {'userId': agent_id},
+                    'ConditionExpression': ""attribute_exists(offers.#objId)
+                    'ExpressionAttributeNames': {'#objId': obj_id},
+                }
+            },
+            {
+                # Delete obj. *NEED TO RETURN IT*
+                'Delete': {
+                    'TableName': ""Objects"",
+                    'Key': {'objId': obj_id},
+                    'ConditionExpression': ""version = :versionVal"",
+                    'ExpressionAttributeValues': {':versionVal': version},
+                }
+            }
+        ]
+    )
+
+I thinkk it's possible to return the object value like so in a singular operation:
+
+    response = dynamodb.delete_item(
+        TableName=""Objects"",
+        Key={
+            ""objId"": obj_id
+        },
+        ConditionExpression=f""version = :version"",
+        ExpressionAttributeValues={
+            ':version': version
+        },
+        ReturnValues=""ALL_OLD""
+    )
+
+But i'm having issues replicating the behavior in a transaction. What's the best approach here?",1708901864.0,7
+aws,https://www.reddit.com/r/aws/comments/1b0569b/advice_on_load_balanced_ecs_bluegreen_deployments/,Advice on Load Balanced ECS Blue/Green Deployments: Handling Breaking Changes,"Forgive if any of my descriptions are off but I'm just getting started with my first load balanced ECS Blue / Green deployment setup.
+
+I've followed a few tutorials here's a basic summary of my current configuration (or as I understand it)
+
+ECS Cluster with 2 services (API & Website) each has a task to build and deploy an ECR Container  
+Load Balancer with 2 Rules  
+API Rule catches traffic from api.domain.com:  
+API Target Group 1 (100%)  
+API Target Group 2 (0%)  
+Default Rule catches remaining website traffic:  
+Website Target Group 1 (100%)  
+Website Target Group 2 (0%)  
+Code Deploy App & Groups to handle the Blue / Green Deployments
+
+Here's 2 issues i'm concerned about when deploying a breaking change:  
+1.) During a linear deployment (10% of traffic every minute) some users on Website Target Group 1 may reach out to API Target Group 2 and experience errors.
+
+2.) My Website deployment group may begin rolling out before my API deployment group and users may experience errors.
+
+**My Biggest question is:** Can I route traffic so that Website version 1 users only reach out to API version 1 and Website version 2 users only reach out to API version 2? (Especially when releasing breaking changes) **I think no matter my setup this will always be a problem and I'm curious how others handle it.**
+
+How do I best sync the deployment of the API & Website so that they are deployed a similar rate? Is this a job for Pipelines?
+
+Thanks in advance for help. I'm open to any suggestion including a completely different configuration.
+
+&#x200B;",1708910893.0,4
+aws,https://aws-pricing.com/,Another comparison of Amazon EC2 instance types,,1708867948.0,31
+aws,https://www.reddit.com/r/aws/comments/1b0g30v/guidance_on_daily_background_job/,Guidance on daily background job,"Hello everyone, I have a challenge I need to solve for my company and hope I can have some of your guidance. It's a background job with an async dependency on a third-party API and I can't seem to design a solution I'm happy for.
+
+So I have 100s of websites in my database. Each websites has 1000s of pages. Each page needs to be checked against a Google API to know if these pages are indexed or not. 
+
+We store OAuth2.0 credentials (access / refresh tokens for each websites). Tokens, once refreshed, expire in 1 hour. My constraints are that the API limits 2000 pages queries per websites per day. Verifying a page takes can take around 3 seconds for Google to return a response. 
+
+At the end, I need to store the response in our PSQL database. 
+
+To solve this, I want to build background jobs that are running everyday. I want it to be reliable, easy to manage and cost-effective. If possible, I'd like the database load to be low as well as I've read that doing many reads / write constantly isn't optimised. I'd note that my PSQL database is the same as the user-facing one, I have only one database across the whole infrastructure.
+
+I've thought about the following:
+
+**AWS Lambda Workflow**
+
+Use a Lambda triggered by an EventBridge event. This Lambda feeds pages into an SQS queue. This queue is consumed by another Lambda that will process messages with 1 message = 1 page. At the end of its execution, it stores the result (around 5 seconds on avg.). I can leverage concurrency to invoke multiple Lambdas all at once. To reduce database load, I thought about storing the results in something else than my database - a sort of intermediary (CSV in S3, or another database?).
+
+**AWS Fargate Workflow**
+
+Use a Lambda triggered by an EventBridge Event that will spawn an ECS Fargate Task with 1 Task = 1 website. The task will process all pages for a given website and bulk insert the results in my database. As we rely on Fargate for a lot of our features, and even if our quota is high (1000 concurrent tasks invocations) I'd prefer not using this method.
+
+\------------------
+
+Naturally, I'd pick the first workflow but I'm unsure of it. I feel like it's a bit bloated to have 1000s of invocations of Lambdas for this as it's just a job that needs to runs everyday (if that makes sense). If you have a better solution / other services that could help I'm all ears. Thanks in advance! 
+
+P.S. love this sub, it has been very helpful in the past.",1708949708.0,5
+aws,https://www.reddit.com/r/aws/comments/1b0ic1s/how_does_rds_mutliaz_works/,How does RDS mutli-AZ works?,"Tried to enable it or 10T test database it became available in under a minute. AWS support claims no lazy loading is used. 
+Where can I read up on internal implementation? I am uneasy switching DB that is in heavy use. Documentation mentions increased latency after the switch but no details why and how. Support claims we can just switch it's no big deal.
+Thank you.",1708956400.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0kbz0/new_public_file_browser_for_amazon_s3_aka_how_do/,"New - Public File Browser for Amazon S3 (AKA ""How do I do Directory Indexes on S3?"")","For a long time I've wanted to move some public files I've had on a web server to S3 but there was always a gap, there is no option for directory indexes like you see in Apache and Nginx. There are a few DIY solutions online but nothing that felt simple and native.
+
+So I built this solution and had it published on the official AWS Samples GitHub. It deploys a new bucket with the UI already set up to index it, you just have to move files into the bucket you want to make public. Cost is effectively an S3 LIST call for every page load and then the CloudFront+S3 GET cost when someone actually downloads a file.
+
+[GitHub - AWS Samples - Public File Browser for Amazon S3](https://github.com/aws-samples/public-file-browser-for-amazon-s3)
+
+>Sample code to deploy a website and a ""public files"" S3 bucket which can be loaded with any files an administrator wishes to publish publicly online.
+
+https://preview.redd.it/0gwjdu5x6ykc1.png?width=2044&format=png&auto=webp&s=8a334bb1d74571642f9e860a75536e8d0a8c6d01
+
+&#x200B;",1708961585.0,1
+aws,https://aws.amazon.com/blogs/aws/new-aws-region-in-mexico-is-in-the-works/,In the Works - AWS Region in Mexico,,1708960873.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0jqwp/route53_delegation_question/,Route53 delegation question ,"Just a sanity check for than anything.
+
+In my route account I have a hosted zone:
+
+- example.com
+
+In my development account I have a hosted zone:
+
+- dev.example.com
+
+I have copied the Nameservers from dev.example.com to an NS record in example.com, also called dev.example.com to allow for delegation.
+
+Question...
+
+Will the Nameservers created for dev.example.com ever change periodically unexpectedly, or will they remain constant unless redeployed? 
+
+I'd hate to frantically have to update NS records in example.com because of something unforeseen!
+
+Many Thanks!",1708960132.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0d1i6/s3_transitioning_not_working/,S3 transitioning not working,"Hello everyone, 
+I  wanted to store cloudwatch logs into glacier, so i created a lambda which will create cloudwatch export job every 30 mins yo a whitelisted cloudwatch log groups. Now the problem i am facing, the bucket has lifecycle rule which will transition the obj to glacier after 1 day from creation date. But its not working as expected some obj went to glacier and others are still in standard. From the metrics it says 20gb are in glacier and 8 in standard but when i take a random obj it still in standard.
+Another observation i did was i uploaded a file and did head-object api call and it did not have the expiration key.
+Any idea what can be an issue.
+Thanks in advance
+
+Edit: i am using glacier instanst retrieval so i dont need to store glacier metadata overhead",1708937929.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0janj/rds_bluegreen_deployment_on_postgres/,RDS Blue/Green deployment on Postgres - non-descriptive error?,"I am trying to create a Blue/Green deployment for our Postgres instance, which is a 12.17 writer+reader cluster.
+
+I have checked all pre-requisites listed at https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres , and have attempted to create a Blue/Green deployment with Postgres 14.10 for the Green cluster.
+
+However, creation fails with status ""Invalid configuration"" on the Blue/Green Deployment, and ""Incompatible-create"" on the created Green cluster. Unfortunately, no additional error information is provided in the ""Events & Logs"" or in CloudTrail, just the following:
+
+>Creation of blue/green deployment failed due to incompatible parameter settings. See https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres to help resolve the issues, then delete and recreate the blue/green deployment.
+
+Since my database settings match the requirement, what else could I check to see the exact reason for this failure?",1708958996.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0j7s0/docker_remote_cached_layers/,Docker remote cached layers,"
+Curious if anyone experienced success or a  gotcha with using this new ECR feature.  In concept this would be a huge win for my situation, because I always use gitlab shared runners the docker layers are never cached.  
+
+My hope is using this would basically enable cached layers magically. 
+
+In my situation, all images ( of many services ) go into the same ECR repo.  It seems like the caching would still work because I can define an image tag that will hold the cache. 
+
+https://aws.amazon.com/blogs/containers/announcing-remote-cache-support-in-amazon-ecr-for-buildkit-clients/",1708958787.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0cvsi/is_step_scaling_supported_by_aws_lambda/,Is step scaling supported by aws lambda ?,"I was trying to setup step scaling with aws lambda with application autoscaling and it's throwing me the 400 error   
+
+
+    TestScalingTarget/...zation/UpperPolicy Resource handler returned message: ""Account is not authorized (Service: ApplicationAutoScaling, Status Code: 400, Request ID: 5d539e72-2d8e-402c-8f11-
+    478c7ceeb461)"" (RequestToken: 8be7a0b4-6011-ae29-8477-bf00bc70d336, HandlerErrorCode: GeneralServiceException)
+
+
+I am not sure if it is supported by aws lambda. I am trying to add or remove provisioned concurrency based on provisioned concurrency utilization. Here is the code  
+
+
+    from datetime import datetime, timedelta
+    from aws_cdk import (
+        Duration,
+        Stack,
+        # aws_sqs as sqs,
+        aws_lambda as _lambda,
+        aws_applicationautoscaling as appscaling,
+        aws_cloudwatch,
+        RemovalPolicy,
+    )
+    from constructs import Construct
+    import aws_cdk as cdk
+    
+    
+    class StepScalingTestStack(Stack):
+        def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+            super().__init__(scope, construct_id, **kwargs)
+    
+            # Create Lambda function
+            fn = _lambda.Function(
+                self,
+                ""AutoScalingTestFunction"",
+                runtime=_lambda.Runtime.PYTHON_3_8,
+                handler=""index.handler"",
+                code=_lambda.Code.from_asset(""lambda""),
+                memory_size=128,
+                timeout=Duration.seconds(2),
+            )
+    
+            version = fn.current_version
+    
+            alias = _lambda.Alias(
+                self,
+                id=""lambda_alias"",
+                alias_name=""ProvisionedConcurrency"",
+                version=version,
+                provisioned_concurrent_executions=1,
+            )
+    
+            target = appscaling.ScalableTarget(
+                self,
+                ""TestScalingTarget"",
+                service_namespace=appscaling.ServiceNamespace.LAMBDA,
+                max_capacity=20,
+                min_capacity=2,
+                resource_id=f""function:{fn.function_name}:ProvisionedConcurrency"",
+                scalable_dimension=""lambda:function:ProvisionedConcurrency"",
+            )
+            target.node.add_dependency(alias)
+    
+            metric = aws_cloudwatch.Metric(
+                metric_name=""ProvisionedConcurrencyUtilization"",
+                namespace=""AWS/Lambda"",
+                statistic=""avg"",
+                dimensions_map={
+                    ""FunctionName"": fn.function_name,
+                    ""Resource"": f""{fn.function_name}:ProvisionedConcurrency""
+                },
+                period=Duration.seconds(5),
+                unit=aws_cloudwatch.Unit.COUNT,
+            )
+    
+            target.scale_on_metric(
+                ""ScaleToUtilization"",
+                metric=metric,
+                scaling_steps=[
+                   
+                    appscaling.ScalingInterval(upper=0.7, change=2),
+                    appscaling.ScalingInterval(lower=0.7, change=16),
+                    appscaling.ScalingInterval(lower=0.9, change=20),
+                ],
+                adjustment_type=appscaling.AdjustmentType.EXACT_CAPACITY,
+                metric_aggregation_type=appscaling.MetricAggregationType.AVERAGE,
+            )
+    
+
+
+And [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html) I can't find lambda listed but I tried and it's not working .",1708937235.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0iiso/tutorial_on_lambda_function_cannot_be_closed/,Tutorial on Lambda function cannot be closed,"So i’ve been working with lambda functions for the past 6 months but ever since last week, any time I access the lambda console in chrome, the right sidebar containing a tutorial is constantly extended, and no matter how I try to close it or complete the tutorial it is still there, effectively occupying a lot of space on screen.
+
+Why is this happening and what can I do?
+
+",1708956902.0,0
+aws,https://www.reddit.com/r/aws/comments/1b0dxos/ecs_container_metrics/,ECS container metrics,"Hi,  
+
+
+i would like to ask for help regarding ECS container metric. specifically for storage  
+we would like to monitor the utilization of the storage, is cloudwatch agent applicable?  
+
+
+thanks  
+",1708941652.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0dv33/not_able_to_mount_fsx_on_windows_server/,Not able to mount Fsx on Windows server,"I have created an Amazon FSx for NetApp ONTAP. I am able to ping and SSH into the file system from my Windows Server. However, when attempting to mount it using the command net use Z: \corp.example.com\new_share, I encounter the following error:
+
+System error 53 has occurred.
+The network path was not found.
+
+I have added the Windows server to an Active Directory. When attempting to do the same with the Storage Virtual Machine, I encounter the following errors (See attached).",1708941361.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0a9g3/update_opensearch_and_it_reset_the/,Update OpenSearch and it reset the data/indices/admin user,"Hi all,
+
+I have updated AWS OpenSearch to OpenSearch\_2\_11\_R20231113-P3 over the weekend.
+
+My data - indices, users (admin account), security settings are wiped off.
+
+This is the 1st time updating and encountered this.
+
+Any idea how to update OpenSearch properly?
+
+Thanks.",1708926896.0,5
+aws,https://www.reddit.com/r/aws/comments/1azrnnp/rds_cost_exploded_when_i_created_a_serverless/,RDS Cost Exploded When I Created a Serverless Instance,"I have been running a very simple RDS for the past year or so with a steady monthly cost. A few days ago I wanted to created a serverless instance with read/write endpoints. Within 1 day my costs exploded without even connecting to it once. What is going on? I had to delete it in hopes that it will work.. here is a picture of my bill
+
+&#x200B;
+
+https://preview.redd.it/0jtpzirqarkc1.png?width=878&format=png&auto=webp&s=6df1a9d3111077b6b9475854e5d8b38cb08ae086",1708877716.0,42
+aws,https://www.reddit.com/r/aws/comments/1b04lem/workspaces_and_entra_id_users/,Workspaces and Entra ID users,"Hi all, I am wondering what the best option is for my use case. I have an existing domain and have created some users in Entra ID. I'd like to be able to deploy VMs in AWS and be able to sign-in using the Entra ID users.
+
+From what I can tell, I'd have to use AD Connector and provision a managed domain in entra ID. From a cost perspective this is kinda of costly, it will be at least 150/mo for the connector and managed domain at the lowest tier.
+
+Are there any other ways to authenticate using Entra ID users from an AWS workspaces VM without deploying a managed domain or AWS Managed AD? ",1708909265.0,5
+aws,https://www.reddit.com/r/aws/comments/1b01qxd/how_to_perform_a_dynamodb_transaction_and/,How to perform a dynamodb transaction AND retrieve the value of the object which is being deleted?,"I need to delete object 'obj' and transfer it to another table. For atomicity purposes, i must retrieve the state of 'obj' as it is *during* the transaction.
+
+    response = dynamodb.transact_write_items(
+        TransactItems=[
+            {
+                # doing a conditional on a record from another table
+                'ConditionCheck': {
+                    'TableName': ""Users"",
+                    'Key': {'userId': agent_id},
+                    'ConditionExpression': ""attribute_exists(offers.#objId)
+                    'ExpressionAttributeNames': {'#objId': obj_id},
+                }
+            },
+            {
+                # Delete obj. *NEED TO RETURN IT*
+                'Delete': {
+                    'TableName': ""Objects"",
+                    'Key': {'objId': obj_id},
+                    'ConditionExpression': ""version = :versionVal"",
+                    'ExpressionAttributeValues': {':versionVal': version},
+                }
+            }
+        ]
+    )
+
+I thinkk it's possible to return the object value like so in a singular operation:
+
+    response = dynamodb.delete_item(
+        TableName=""Objects"",
+        Key={
+            ""objId"": obj_id
+        },
+        ConditionExpression=f""version = :version"",
+        ExpressionAttributeValues={
+            ':version': version
+        },
+        ReturnValues=""ALL_OLD""
+    )
+
+But i'm having issues replicating the behavior in a transaction. What's the best approach here?",1708901864.0,6
+aws,https://www.reddit.com/r/aws/comments/1b0569b/advice_on_load_balanced_ecs_bluegreen_deployments/,Advice on Load Balanced ECS Blue/Green Deployments: Handling Breaking Changes,"Forgive if any of my descriptions are off but I'm just getting started with my first load balanced ECS Blue / Green deployment setup.
+
+I've followed a few tutorials here's a basic summary of my current configuration (or as I understand it)
+
+ECS Cluster with 2 services (API & Website) each has a task to build and deploy an ECR Container  
+Load Balancer with 2 Rules  
+API Rule catches traffic from api.domain.com:  
+API Target Group 1 (100%)  
+API Target Group 2 (0%)  
+Default Rule catches remaining website traffic:  
+Website Target Group 1 (100%)  
+Website Target Group 2 (0%)  
+Code Deploy App & Groups to handle the Blue / Green Deployments
+
+Here's 2 issues i'm concerned about when deploying a breaking change:  
+1.) During a linear deployment (10% of traffic every minute) some users on Website Target Group 1 may reach out to API Target Group 2 and experience errors.
+
+2.) My Website deployment group may begin rolling out before my API deployment group and users may experience errors.
+
+**My Biggest question is:** Can I route traffic so that Website version 1 users only reach out to API version 1 and Website version 2 users only reach out to API version 2? (Especially when releasing breaking changes) **I think no matter my setup this will always be a problem and I'm curious how others handle it.**
+
+How do I best sync the deployment of the API & Website so that they are deployed a similar rate? Is this a job for Pipelines?
+
+Thanks in advance for help. I'm open to any suggestion including a completely different configuration.
+
+&#x200B;",1708910893.0,4
+aws,https://aws-pricing.com/,Another comparison of Amazon EC2 instance types,,1708867948.0,32
+aws,https://www.reddit.com/r/aws/comments/1b0g30v/guidance_on_daily_background_job/,Guidance on daily background job,"Hello everyone, I have a challenge I need to solve for my company and hope I can have some of your guidance. It's a background job with an async dependency on a third-party API and I can't seem to design a solution I'm happy for.
+
+So I have 100s of websites in my database. Each websites has 1000s of pages. Each page needs to be checked against a Google API to know if these pages are indexed or not. 
+
+We store OAuth2.0 credentials (access / refresh tokens for each websites). Tokens, once refreshed, expire in 1 hour. My constraints are that the API limits 2000 pages queries per websites per day. Verifying a page takes can take around 3 seconds for Google to return a response. 
+
+At the end, I need to store the response in our PSQL database. 
+
+To solve this, I want to build background jobs that are running everyday. I want it to be reliable, easy to manage and cost-effective. If possible, I'd like the database load to be low as well as I've read that doing many reads / write constantly isn't optimised. I'd note that my PSQL database is the same as the user-facing one, I have only one database across the whole infrastructure.
+
+I've thought about the following:
+
+**AWS Lambda Workflow**
+
+Use a Lambda triggered by an EventBridge event. This Lambda feeds pages into an SQS queue. This queue is consumed by another Lambda that will process messages with 1 message = 1 page. At the end of its execution, it stores the result (around 5 seconds on avg.). I can leverage concurrency to invoke multiple Lambdas all at once. To reduce database load, I thought about storing the results in something else than my database - a sort of intermediary (CSV in S3, or another database?).
+
+**AWS Fargate Workflow**
+
+Use a Lambda triggered by an EventBridge Event that will spawn an ECS Fargate Task with 1 Task = 1 website. The task will process all pages for a given website and bulk insert the results in my database. As we rely on Fargate for a lot of our features, and even if our quota is high (1000 concurrent tasks invocations) I'd prefer not using this method.
+
+\------------------
+
+Naturally, I'd pick the first workflow but I'm unsure of it. I feel like it's a bit bloated to have 1000s of invocations of Lambdas for this as it's just a job that needs to runs everyday (if that makes sense). If you have a better solution / other services that could help I'm all ears. Thanks in advance! 
+
+P.S. love this sub, it has been very helpful in the past.",1708949708.0,6
+aws,https://www.reddit.com/r/aws/comments/1b0ic1s/how_does_rds_mutliaz_works/,How does RDS mutli-AZ works?,"Tried to enable it or 10T test database it became available in under a minute. AWS support claims no lazy loading is used. 
+Where can I read up on internal implementation? I am uneasy switching DB that is in heavy use. Documentation mentions increased latency after the switch but no details why and how. Support claims we can just switch it's no big deal.
+Thank you.",1708956400.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0kbz0/new_public_file_browser_for_amazon_s3_aka_how_do/,"New - Public File Browser for Amazon S3 (AKA ""How do I do Directory Indexes on S3?"")","For a long time I've wanted to move some public files I've had on a web server to S3 but there was always a gap, there is no option for directory indexes like you see in Apache and Nginx. There are a few DIY solutions online but nothing that felt simple and native.
+
+So I built this solution and had it published on the official AWS Samples GitHub. It deploys a new bucket with the UI already set up to index it, you just have to move files into the bucket you want to make public. Cost is effectively an S3 LIST call for every page load and then the CloudFront+S3 GET cost when someone actually downloads a file.
+
+[GitHub - AWS Samples - Public File Browser for Amazon S3](https://github.com/aws-samples/public-file-browser-for-amazon-s3)
+
+>Sample code to deploy a website and a ""public files"" S3 bucket which can be loaded with any files an administrator wishes to publish publicly online.
+
+https://preview.redd.it/0gwjdu5x6ykc1.png?width=2044&format=png&auto=webp&s=8a334bb1d74571642f9e860a75536e8d0a8c6d01
+
+&#x200B;",1708961585.0,1
+aws,https://aws.amazon.com/blogs/aws/new-aws-region-in-mexico-is-in-the-works/,In the Works - AWS Region in Mexico,,1708960873.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0jqwp/route53_delegation_question/,Route53 delegation question ,"Just a sanity check for than anything.
+
+In my route account I have a hosted zone:
+
+- example.com
+
+In my development account I have a hosted zone:
+
+- dev.example.com
+
+I have copied the Nameservers from dev.example.com to an NS record in example.com, also called dev.example.com to allow for delegation.
+
+Question...
+
+Will the Nameservers created for dev.example.com ever change periodically unexpectedly, or will they remain constant unless redeployed? 
+
+I'd hate to frantically have to update NS records in example.com because of something unforeseen!
+
+Many Thanks!",1708960132.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0d1i6/s3_transitioning_not_working/,S3 transitioning not working,"Hello everyone, 
+I  wanted to store cloudwatch logs into glacier, so i created a lambda which will create cloudwatch export job every 30 mins yo a whitelisted cloudwatch log groups. Now the problem i am facing, the bucket has lifecycle rule which will transition the obj to glacier after 1 day from creation date. But its not working as expected some obj went to glacier and others are still in standard. From the metrics it says 20gb are in glacier and 8 in standard but when i take a random obj it still in standard.
+Another observation i did was i uploaded a file and did head-object api call and it did not have the expiration key.
+Any idea what can be an issue.
+Thanks in advance
+
+Edit: i am using glacier instanst retrieval so i dont need to store glacier metadata overhead",1708937929.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0janj/rds_bluegreen_deployment_on_postgres/,RDS Blue/Green deployment on Postgres - non-descriptive error?,"I am trying to create a Blue/Green deployment for our Postgres instance, which is a 12.17 writer+reader cluster.
+
+I have checked all pre-requisites listed at https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres , and have attempted to create a Blue/Green deployment with Postgres 14.10 for the Green cluster.
+
+However, creation fails with status ""Invalid configuration"" on the Blue/Green Deployment, and ""Incompatible-create"" on the created Green cluster. Unfortunately, no additional error information is provided in the ""Events & Logs"" or in CloudTrail, just the following:
+
+>Creation of blue/green deployment failed due to incompatible parameter settings. See https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres to help resolve the issues, then delete and recreate the blue/green deployment.
+
+Since my database settings match the requirement, what else could I check to see the exact reason for this failure?",1708958996.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0j7s0/docker_remote_cached_layers/,Docker remote cached layers,"
+Curious if anyone experienced success or a  gotcha with using this new ECR feature.  In concept this would be a huge win for my situation, because I always use gitlab shared runners the docker layers are never cached.  
+
+My hope is using this would basically enable cached layers magically. 
+
+In my situation, all images ( of many services ) go into the same ECR repo.  It seems like the caching would still work because I can define an image tag that will hold the cache. 
+
+https://aws.amazon.com/blogs/containers/announcing-remote-cache-support-in-amazon-ecr-for-buildkit-clients/",1708958787.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0cvsi/is_step_scaling_supported_by_aws_lambda/,Is step scaling supported by aws lambda ?,"I was trying to setup step scaling with aws lambda with application autoscaling and it's throwing me the 400 error   
+
+
+    TestScalingTarget/...zation/UpperPolicy Resource handler returned message: ""Account is not authorized (Service: ApplicationAutoScaling, Status Code: 400, Request ID: 5d539e72-2d8e-402c-8f11-
+    478c7ceeb461)"" (RequestToken: 8be7a0b4-6011-ae29-8477-bf00bc70d336, HandlerErrorCode: GeneralServiceException)
+
+
+I am not sure if it is supported by aws lambda. I am trying to add or remove provisioned concurrency based on provisioned concurrency utilization. Here is the code  
+
+
+    from datetime import datetime, timedelta
+    from aws_cdk import (
+        Duration,
+        Stack,
+        # aws_sqs as sqs,
+        aws_lambda as _lambda,
+        aws_applicationautoscaling as appscaling,
+        aws_cloudwatch,
+        RemovalPolicy,
+    )
+    from constructs import Construct
+    import aws_cdk as cdk
+    
+    
+    class StepScalingTestStack(Stack):
+        def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+            super().__init__(scope, construct_id, **kwargs)
+    
+            # Create Lambda function
+            fn = _lambda.Function(
+                self,
+                ""AutoScalingTestFunction"",
+                runtime=_lambda.Runtime.PYTHON_3_8,
+                handler=""index.handler"",
+                code=_lambda.Code.from_asset(""lambda""),
+                memory_size=128,
+                timeout=Duration.seconds(2),
+            )
+    
+            version = fn.current_version
+    
+            alias = _lambda.Alias(
+                self,
+                id=""lambda_alias"",
+                alias_name=""ProvisionedConcurrency"",
+                version=version,
+                provisioned_concurrent_executions=1,
+            )
+    
+            target = appscaling.ScalableTarget(
+                self,
+                ""TestScalingTarget"",
+                service_namespace=appscaling.ServiceNamespace.LAMBDA,
+                max_capacity=20,
+                min_capacity=2,
+                resource_id=f""function:{fn.function_name}:ProvisionedConcurrency"",
+                scalable_dimension=""lambda:function:ProvisionedConcurrency"",
+            )
+            target.node.add_dependency(alias)
+    
+            metric = aws_cloudwatch.Metric(
+                metric_name=""ProvisionedConcurrencyUtilization"",
+                namespace=""AWS/Lambda"",
+                statistic=""avg"",
+                dimensions_map={
+                    ""FunctionName"": fn.function_name,
+                    ""Resource"": f""{fn.function_name}:ProvisionedConcurrency""
+                },
+                period=Duration.seconds(5),
+                unit=aws_cloudwatch.Unit.COUNT,
+            )
+    
+            target.scale_on_metric(
+                ""ScaleToUtilization"",
+                metric=metric,
+                scaling_steps=[
+                   
+                    appscaling.ScalingInterval(upper=0.7, change=2),
+                    appscaling.ScalingInterval(lower=0.7, change=16),
+                    appscaling.ScalingInterval(lower=0.9, change=20),
+                ],
+                adjustment_type=appscaling.AdjustmentType.EXACT_CAPACITY,
+                metric_aggregation_type=appscaling.MetricAggregationType.AVERAGE,
+            )
+    
+
+
+And [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html) I can't find lambda listed but I tried and it's not working .",1708937235.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0iiso/tutorial_on_lambda_function_cannot_be_closed/,Tutorial on Lambda function cannot be closed,"So i’ve been working with lambda functions for the past 6 months but ever since last week, any time I access the lambda console in chrome, the right sidebar containing a tutorial is constantly extended, and no matter how I try to close it or complete the tutorial it is still there, effectively occupying a lot of space on screen.
+
+Why is this happening and what can I do?
+
+",1708956902.0,0
+aws,https://www.reddit.com/r/aws/comments/1b0dxos/ecs_container_metrics/,ECS container metrics,"Hi,  
+
+
+i would like to ask for help regarding ECS container metric. specifically for storage  
+we would like to monitor the utilization of the storage, is cloudwatch agent applicable?  
+
+
+thanks  
+",1708941652.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0dv33/not_able_to_mount_fsx_on_windows_server/,Not able to mount Fsx on Windows server,"I have created an Amazon FSx for NetApp ONTAP. I am able to ping and SSH into the file system from my Windows Server. However, when attempting to mount it using the command net use Z: \corp.example.com\new_share, I encounter the following error:
+
+System error 53 has occurred.
+The network path was not found.
+
+I have added the Windows server to an Active Directory. When attempting to do the same with the Storage Virtual Machine, I encounter the following errors (See attached).",1708941361.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0a9g3/update_opensearch_and_it_reset_the/,Update OpenSearch and it reset the data/indices/admin user,"Hi all,
+
+I have updated AWS OpenSearch to OpenSearch\_2\_11\_R20231113-P3 over the weekend.
+
+My data - indices, users (admin account), security settings are wiped off.
+
+This is the 1st time updating and encountered this.
+
+Any idea how to update OpenSearch properly?
+
+Thanks.",1708926896.0,4
+aws,https://www.reddit.com/r/aws/comments/1azrnnp/rds_cost_exploded_when_i_created_a_serverless/,RDS Cost Exploded When I Created a Serverless Instance,"I have been running a very simple RDS for the past year or so with a steady monthly cost. A few days ago I wanted to created a serverless instance with read/write endpoints. Within 1 day my costs exploded without even connecting to it once. What is going on? I had to delete it in hopes that it will work.. here is a picture of my bill
+
+&#x200B;
+
+https://preview.redd.it/0jtpzirqarkc1.png?width=878&format=png&auto=webp&s=6df1a9d3111077b6b9475854e5d8b38cb08ae086",1708877716.0,39
+aws,https://www.reddit.com/r/aws/comments/1b04lem/workspaces_and_entra_id_users/,Workspaces and Entra ID users,"Hi all, I am wondering what the best option is for my use case. I have an existing domain and have created some users in Entra ID. I'd like to be able to deploy VMs in AWS and be able to sign-in using the Entra ID users.
+
+From what I can tell, I'd have to use AD Connector and provision a managed domain in entra ID. From a cost perspective this is kinda of costly, it will be at least 150/mo for the connector and managed domain at the lowest tier.
+
+Are there any other ways to authenticate using Entra ID users from an AWS workspaces VM without deploying a managed domain or AWS Managed AD? ",1708909265.0,5
+aws,https://www.reddit.com/r/aws/comments/1b01qxd/how_to_perform_a_dynamodb_transaction_and/,How to perform a dynamodb transaction AND retrieve the value of the object which is being deleted?,"I need to delete object 'obj' and transfer it to another table. For atomicity purposes, i must retrieve the state of 'obj' as it is *during* the transaction.
+
+    response = dynamodb.transact_write_items(
+        TransactItems=[
+            {
+                # doing a conditional on a record from another table
+                'ConditionCheck': {
+                    'TableName': ""Users"",
+                    'Key': {'userId': agent_id},
+                    'ConditionExpression': ""attribute_exists(offers.#objId)
+                    'ExpressionAttributeNames': {'#objId': obj_id},
+                }
+            },
+            {
+                # Delete obj. *NEED TO RETURN IT*
+                'Delete': {
+                    'TableName': ""Objects"",
+                    'Key': {'objId': obj_id},
+                    'ConditionExpression': ""version = :versionVal"",
+                    'ExpressionAttributeValues': {':versionVal': version},
+                }
+            }
+        ]
+    )
+
+I thinkk it's possible to return the object value like so in a singular operation:
+
+    response = dynamodb.delete_item(
+        TableName=""Objects"",
+        Key={
+            ""objId"": obj_id
+        },
+        ConditionExpression=f""version = :version"",
+        ExpressionAttributeValues={
+            ':version': version
+        },
+        ReturnValues=""ALL_OLD""
+    )
+
+But i'm having issues replicating the behavior in a transaction. What's the best approach here?",1708901864.0,7
+aws,https://www.reddit.com/r/aws/comments/1b0569b/advice_on_load_balanced_ecs_bluegreen_deployments/,Advice on Load Balanced ECS Blue/Green Deployments: Handling Breaking Changes,"Forgive if any of my descriptions are off but I'm just getting started with my first load balanced ECS Blue / Green deployment setup.
+
+I've followed a few tutorials here's a basic summary of my current configuration (or as I understand it)
+
+ECS Cluster with 2 services (API & Website) each has a task to build and deploy an ECR Container  
+Load Balancer with 2 Rules  
+API Rule catches traffic from api.domain.com:  
+API Target Group 1 (100%)  
+API Target Group 2 (0%)  
+Default Rule catches remaining website traffic:  
+Website Target Group 1 (100%)  
+Website Target Group 2 (0%)  
+Code Deploy App & Groups to handle the Blue / Green Deployments
+
+Here's 2 issues i'm concerned about when deploying a breaking change:  
+1.) During a linear deployment (10% of traffic every minute) some users on Website Target Group 1 may reach out to API Target Group 2 and experience errors.
+
+2.) My Website deployment group may begin rolling out before my API deployment group and users may experience errors.
+
+**My Biggest question is:** Can I route traffic so that Website version 1 users only reach out to API version 1 and Website version 2 users only reach out to API version 2? (Especially when releasing breaking changes) **I think no matter my setup this will always be a problem and I'm curious how others handle it.**
+
+How do I best sync the deployment of the API & Website so that they are deployed a similar rate? Is this a job for Pipelines?
+
+Thanks in advance for help. I'm open to any suggestion including a completely different configuration.
+
+&#x200B;",1708910893.0,4
+aws,https://aws-pricing.com/,Another comparison of Amazon EC2 instance types,,1708867948.0,28
+aws,https://www.reddit.com/r/aws/comments/1b0g30v/guidance_on_daily_background_job/,Guidance on daily background job,"Hello everyone, I have a challenge I need to solve for my company and hope I can have some of your guidance. It's a background job with an async dependency on a third-party API and I can't seem to design a solution I'm happy for.
+
+So I have 100s of websites in my database. Each websites has 1000s of pages. Each page needs to be checked against a Google API to know if these pages are indexed or not. 
+
+We store OAuth2.0 credentials (access / refresh tokens for each websites). Tokens, once refreshed, expire in 1 hour. My constraints are that the API limits 2000 pages queries per websites per day. Verifying a page takes can take around 3 seconds for Google to return a response. 
+
+At the end, I need to store the response in our PSQL database. 
+
+To solve this, I want to build background jobs that are running everyday. I want it to be reliable, easy to manage and cost-effective. If possible, I'd like the database load to be low as well as I've read that doing many reads / write constantly isn't optimised. I'd note that my PSQL database is the same as the user-facing one, I have only one database across the whole infrastructure.
+
+I've thought about the following:
+
+**AWS Lambda Workflow**
+
+Use a Lambda triggered by an EventBridge event. This Lambda feeds pages into an SQS queue. This queue is consumed by another Lambda that will process messages with 1 message = 1 page. At the end of its execution, it stores the result (around 5 seconds on avg.). I can leverage concurrency to invoke multiple Lambdas all at once. To reduce database load, I thought about storing the results in something else than my database - a sort of intermediary (CSV in S3, or another database?).
+
+**AWS Fargate Workflow**
+
+Use a Lambda triggered by an EventBridge Event that will spawn an ECS Fargate Task with 1 Task = 1 website. The task will process all pages for a given website and bulk insert the results in my database. As we rely on Fargate for a lot of our features, and even if our quota is high (1000 concurrent tasks invocations) I'd prefer not using this method.
+
+\------------------
+
+Naturally, I'd pick the first workflow but I'm unsure of it. I feel like it's a bit bloated to have 1000s of invocations of Lambdas for this as it's just a job that needs to runs everyday (if that makes sense). If you have a better solution / other services that could help I'm all ears. Thanks in advance! 
+
+P.S. love this sub, it has been very helpful in the past.",1708949708.0,6
+aws,https://www.reddit.com/r/aws/comments/1b0ic1s/how_does_rds_mutliaz_works/,How does RDS mutli-AZ works?,"Tried to enable it or 10T test database it became available in under a minute. AWS support claims no lazy loading is used. 
+Where can I read up on internal implementation? I am uneasy switching DB that is in heavy use. Documentation mentions increased latency after the switch but no details why and how. Support claims we can just switch it's no big deal.
+Thank you.",1708956400.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0kbz0/new_public_file_browser_for_amazon_s3_aka_how_do/,"New - Public File Browser for Amazon S3 (AKA ""How do I do Directory Indexes on S3?"")","For a long time I've wanted to move some public files I've had on a web server to S3 but there was always a gap, there is no option for directory indexes like you see in Apache and Nginx. There are a few DIY solutions online but nothing that felt simple and native.
+
+So I built this solution and had it published on the official AWS Samples GitHub. It deploys a new bucket with the UI already set up to index it, you just have to move files into the bucket you want to make public. Cost is effectively an S3 LIST call for every page load and then the CloudFront+S3 GET cost when someone actually downloads a file.
+
+[GitHub - AWS Samples - Public File Browser for Amazon S3](https://github.com/aws-samples/public-file-browser-for-amazon-s3)
+
+>Sample code to deploy a website and a ""public files"" S3 bucket which can be loaded with any files an administrator wishes to publish publicly online.
+
+https://preview.redd.it/0gwjdu5x6ykc1.png?width=2044&format=png&auto=webp&s=8a334bb1d74571642f9e860a75536e8d0a8c6d01
+
+&#x200B;",1708961585.0,1
+aws,https://aws.amazon.com/blogs/aws/new-aws-region-in-mexico-is-in-the-works/,In the Works - AWS Region in Mexico,,1708960873.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0jqwp/route53_delegation_question/,Route53 delegation question ,"Just a sanity check for than anything.
+
+In my route account I have a hosted zone:
+
+- example.com
+
+In my development account I have a hosted zone:
+
+- dev.example.com
+
+I have copied the Nameservers from dev.example.com to an NS record in example.com, also called dev.example.com to allow for delegation.
+
+Question...
+
+Will the Nameservers created for dev.example.com ever change periodically unexpectedly, or will they remain constant unless redeployed? 
+
+I'd hate to frantically have to update NS records in example.com because of something unforeseen!
+
+Many Thanks!",1708960132.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0d1i6/s3_transitioning_not_working/,S3 transitioning not working,"Hello everyone, 
+I  wanted to store cloudwatch logs into glacier, so i created a lambda which will create cloudwatch export job every 30 mins yo a whitelisted cloudwatch log groups. Now the problem i am facing, the bucket has lifecycle rule which will transition the obj to glacier after 1 day from creation date. But its not working as expected some obj went to glacier and others are still in standard. From the metrics it says 20gb are in glacier and 8 in standard but when i take a random obj it still in standard.
+Another observation i did was i uploaded a file and did head-object api call and it did not have the expiration key.
+Any idea what can be an issue.
+Thanks in advance
+
+Edit: i am using glacier instanst retrieval so i dont need to store glacier metadata overhead",1708937929.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0janj/rds_bluegreen_deployment_on_postgres/,RDS Blue/Green deployment on Postgres - non-descriptive error?,"I am trying to create a Blue/Green deployment for our Postgres instance, which is a 12.17 writer+reader cluster.
+
+I have checked all pre-requisites listed at https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres , and have attempted to create a Blue/Green deployment with Postgres 14.10 for the Green cluster.
+
+However, creation fails with status ""Invalid configuration"" on the Blue/Green Deployment, and ""Incompatible-create"" on the created Green cluster. Unfortunately, no additional error information is provided in the ""Events & Logs"" or in CloudTrail, just the following:
+
+>Creation of blue/green deployment failed due to incompatible parameter settings. See https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments-creating.html#blue-green-deployments-creating-preparing-postgres to help resolve the issues, then delete and recreate the blue/green deployment.
+
+Since my database settings match the requirement, what else could I check to see the exact reason for this failure?",1708958996.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0j7s0/docker_remote_cached_layers/,Docker remote cached layers,"
+Curious if anyone experienced success or a  gotcha with using this new ECR feature.  In concept this would be a huge win for my situation, because I always use gitlab shared runners the docker layers are never cached.  
+
+My hope is using this would basically enable cached layers magically. 
+
+In my situation, all images ( of many services ) go into the same ECR repo.  It seems like the caching would still work because I can define an image tag that will hold the cache. 
+
+https://aws.amazon.com/blogs/containers/announcing-remote-cache-support-in-amazon-ecr-for-buildkit-clients/",1708958787.0,1
+aws,https://www.reddit.com/r/aws/comments/1b0cvsi/is_step_scaling_supported_by_aws_lambda/,Is step scaling supported by aws lambda ?,"I was trying to setup step scaling with aws lambda with application autoscaling and it's throwing me the 400 error   
+
+
+    TestScalingTarget/...zation/UpperPolicy Resource handler returned message: ""Account is not authorized (Service: ApplicationAutoScaling, Status Code: 400, Request ID: 5d539e72-2d8e-402c-8f11-
+    478c7ceeb461)"" (RequestToken: 8be7a0b4-6011-ae29-8477-bf00bc70d336, HandlerErrorCode: GeneralServiceException)
+
+
+I am not sure if it is supported by aws lambda. I am trying to add or remove provisioned concurrency based on provisioned concurrency utilization. Here is the code  
+
+
+    from datetime import datetime, timedelta
+    from aws_cdk import (
+        Duration,
+        Stack,
+        # aws_sqs as sqs,
+        aws_lambda as _lambda,
+        aws_applicationautoscaling as appscaling,
+        aws_cloudwatch,
+        RemovalPolicy,
+    )
+    from constructs import Construct
+    import aws_cdk as cdk
+    
+    
+    class StepScalingTestStack(Stack):
+        def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+            super().__init__(scope, construct_id, **kwargs)
+    
+            # Create Lambda function
+            fn = _lambda.Function(
+                self,
+                ""AutoScalingTestFunction"",
+                runtime=_lambda.Runtime.PYTHON_3_8,
+                handler=""index.handler"",
+                code=_lambda.Code.from_asset(""lambda""),
+                memory_size=128,
+                timeout=Duration.seconds(2),
+            )
+    
+            version = fn.current_version
+    
+            alias = _lambda.Alias(
+                self,
+                id=""lambda_alias"",
+                alias_name=""ProvisionedConcurrency"",
+                version=version,
+                provisioned_concurrent_executions=1,
+            )
+    
+            target = appscaling.ScalableTarget(
+                self,
+                ""TestScalingTarget"",
+                service_namespace=appscaling.ServiceNamespace.LAMBDA,
+                max_capacity=20,
+                min_capacity=2,
+                resource_id=f""function:{fn.function_name}:ProvisionedConcurrency"",
+                scalable_dimension=""lambda:function:ProvisionedConcurrency"",
+            )
+            target.node.add_dependency(alias)
+    
+            metric = aws_cloudwatch.Metric(
+                metric_name=""ProvisionedConcurrencyUtilization"",
+                namespace=""AWS/Lambda"",
+                statistic=""avg"",
+                dimensions_map={
+                    ""FunctionName"": fn.function_name,
+                    ""Resource"": f""{fn.function_name}:ProvisionedConcurrency""
+                },
+                period=Duration.seconds(5),
+                unit=aws_cloudwatch.Unit.COUNT,
+            )
+    
+            target.scale_on_metric(
+                ""ScaleToUtilization"",
+                metric=metric,
+                scaling_steps=[
+                   
+                    appscaling.ScalingInterval(upper=0.7, change=2),
+                    appscaling.ScalingInterval(lower=0.7, change=16),
+                    appscaling.ScalingInterval(lower=0.9, change=20),
+                ],
+                adjustment_type=appscaling.AdjustmentType.EXACT_CAPACITY,
+                metric_aggregation_type=appscaling.MetricAggregationType.AVERAGE,
+            )
+    
+
+
+And [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html) I can't find lambda listed but I tried and it's not working .",1708937235.0,3
+aws,https://www.reddit.com/r/aws/comments/1b0iiso/tutorial_on_lambda_function_cannot_be_closed/,Tutorial on Lambda function cannot be closed,"So i’ve been working with lambda functions for the past 6 months but ever since last week, any time I access the lambda console in chrome, the right sidebar containing a tutorial is constantly extended, and no matter how I try to close it or complete the tutorial it is still there, effectively occupying a lot of space on screen.
+
+Why is this happening and what can I do?
+
+",1708956902.0,0
+aws,https://www.reddit.com/r/aws/comments/1b0dxos/ecs_container_metrics/,ECS container metrics,"Hi,  
+
+
+i would like to ask for help regarding ECS container metric. specifically for storage  
+we would like to monitor the utilization of the storage, is cloudwatch agent applicable?  
+
+
+thanks  
+",1708941652.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0dv33/not_able_to_mount_fsx_on_windows_server/,Not able to mount Fsx on Windows server,"I have created an Amazon FSx for NetApp ONTAP. I am able to ping and SSH into the file system from my Windows Server. However, when attempting to mount it using the command net use Z: \corp.example.com\new_share, I encounter the following error:
+
+System error 53 has occurred.
+The network path was not found.
+
+I have added the Windows server to an Active Directory. When attempting to do the same with the Storage Virtual Machine, I encounter the following errors (See attached).",1708941361.0,2
+aws,https://www.reddit.com/r/aws/comments/1b0a9g3/update_opensearch_and_it_reset_the/,Update OpenSearch and it reset the data/indices/admin user,"Hi all,
+
+I have updated AWS OpenSearch to OpenSearch\_2\_11\_R20231113-P3 over the weekend.
+
+My data - indices, users (admin account), security settings are wiped off.
+
+This is the 1st time updating and encountered this.
+
+Any idea how to update OpenSearch properly?
+
+Thanks.",1708926896.0,4
+aws,https://www.reddit.com/r/aws/comments/1azrnnp/rds_cost_exploded_when_i_created_a_serverless/,RDS Cost Exploded When I Created a Serverless Instance,"I have been running a very simple RDS for the past year or so with a steady monthly cost. A few days ago I wanted to created a serverless instance with read/write endpoints. Within 1 day my costs exploded without even connecting to it once. What is going on? I had to delete it in hopes that it will work.. here is a picture of my bill
+
+&#x200B;
+
+https://preview.redd.it/0jtpzirqarkc1.png?width=878&format=png&auto=webp&s=6df1a9d3111077b6b9475854e5d8b38cb08ae086",1708877716.0,38
+aws,https://www.reddit.com/r/aws/comments/1b04lem/workspaces_and_entra_id_users/,Workspaces and Entra ID users,"Hi all, I am wondering what the best option is for my use case. I have an existing domain and have created some users in Entra ID. I'd like to be able to deploy VMs in AWS and be able to sign-in using the Entra ID users.
+
+From what I can tell, I'd have to use AD Connector and provision a managed domain in entra ID. From a cost perspective this is kinda of costly, it will be at least 150/mo for the connector and managed domain at the lowest tier.
+
+Are there any other ways to authenticate using Entra ID users from an AWS workspaces VM without deploying a managed domain or AWS Managed AD? ",1708909265.0,6
+aws,https://www.reddit.com/r/aws/comments/1b01qxd/how_to_perform_a_dynamodb_transaction_and/,How to perform a dynamodb transaction AND retrieve the value of the object which is being deleted?,"I need to delete object 'obj' and transfer it to another table. For atomicity purposes, i must retrieve the state of 'obj' as it is *during* the transaction.
+
+    response = dynamodb.transact_write_items(
+        TransactItems=[
+            {
+                # doing a conditional on a record from another table
+                'ConditionCheck': {
+                    'TableName': ""Users"",
+                    'Key': {'userId': agent_id},
+                    'ConditionExpression': ""attribute_exists(offers.#objId)
+                    'ExpressionAttributeNames': {'#objId': obj_id},
+                }
+            },
+            {
+                # Delete obj. *NEED TO RETURN IT*
+                'Delete': {
+                    'TableName': ""Objects"",
+                    'Key': {'objId': obj_id},
+                    'ConditionExpression': ""version = :versionVal"",
+                    'ExpressionAttributeValues': {':versionVal': version},
+                }
+            }
+        ]
+    )
+
+I thinkk it's possible to return the object value like so in a singular operation:
+
+    response = dynamodb.delete_item(
+        TableName=""Objects"",
+        Key={
+            ""objId"": obj_id
+        },
+        ConditionExpression=f""version = :version"",
+        ExpressionAttributeValues={
+            ':version': version
+        },
+        ReturnValues=""ALL_OLD""
+    )
+
+But i'm having issues replicating the behavior in a transaction. What's the best approach here?",1708901864.0,7
+aws,https://www.reddit.com/r/aws/comments/1b0569b/advice_on_load_balanced_ecs_bluegreen_deployments/,Advice on Load Balanced ECS Blue/Green Deployments: Handling Breaking Changes,"Forgive if any of my descriptions are off but I'm just getting started with my first load balanced ECS Blue / Green deployment setup.
+
+I've followed a few tutorials here's a basic summary of my current configuration (or as I understand it)
+
+ECS Cluster with 2 services (API & Website) each has a task to build and deploy an ECR Container  
+Load Balancer with 2 Rules  
+API Rule catches traffic from api.domain.com:  
+API Target Group 1 (100%)  
+API Target Group 2 (0%)  
+Default Rule catches remaining website traffic:  
+Website Target Group 1 (100%)  
+Website Target Group 2 (0%)  
+Code Deploy App & Groups to handle the Blue / Green Deployments
+
+Here's 2 issues i'm concerned about when deploying a breaking change:  
+1.) During a linear deployment (10% of traffic every minute) some users on Website Target Group 1 may reach out to API Target Group 2 and experience errors.
+
+2.) My Website deployment group may begin rolling out before my API deployment group and users may experience errors.
+
+**My Biggest question is:** Can I route traffic so that Website version 1 users only reach out to API version 1 and Website version 2 users only reach out to API version 2? (Especially when releasing breaking changes) **I think no matter my setup this will always be a problem and I'm curious how others handle it.**
+
+How do I best sync the deployment of the API & Website so that they are deployed a similar rate? Is this a job for Pipelines?
+
+Thanks in advance for help. I'm open to any suggestion including a completely different configuration.
+
+&#x200B;",1708910893.0,4
+aws,https://aws-pricing.com/,Another comparison of Amazon EC2 instance types,,1708867948.0,29
