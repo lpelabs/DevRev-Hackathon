@@ -51,7 +51,7 @@ def runPipeline(source_name, TESTING=False):
     Insights
     """
     
-    base_path = os.path.abspath("../data/")
+    base_path = os.path.abspath("./data/")
     save_path = os.path.abspath("./output/")
     
     if source_name == "google_play":

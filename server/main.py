@@ -73,9 +73,10 @@ def get_play_store_reviews(app_name: str):
     )
 
     play_review = []
-    for review in result:
+    for index, review in enumerate(result):
         play_review.append(
             {
+                "index": index,
                 "source": "Google Play Ptore",
                 "url": url,
                 "title": "Google Play Review",
@@ -124,9 +125,10 @@ def get_subreddit(subreddit_name: str):
     limit = 100  # Set the desired limit for fetched posts
 
     redditdata = []
-    for submission in subreddit.rising(limit=limit):
+    for index, submission in enumerate(subreddit.top(limit=limit)):
         redditdata.append(
             {
+                "index": index,
                 "source": f"{subreddit_name}",
                 "url": submission.url,
                 "title": submission.title,
@@ -147,7 +149,7 @@ def get_subreddit(subreddit_name: str):
     # CSV handling (adapted from Response A with improvements)
     try:
         with open(
-            "./data/new_reddit_voc_data.csv", "a", newline=""
+            "./data/new_reddit_voc_data.csv", "a", newline="", encoding="utf-8"
         ) as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
@@ -163,7 +165,7 @@ def get_subreddit(subreddit_name: str):
     except FileNotFoundError:
         print("File not found. Creating a new CSV file.")
         with open(
-            "./data/new_reddit_voc_data.csv", "w", newline=""
+            "./data/new_reddit_voc_data.csv", "w", newline="", encoding="utf-8"
         ) as csvfile:  # Create new file if needed
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
@@ -198,9 +200,10 @@ def get_github_issues(owner: str, repo: str):
         print(f"Received {len(issues)} issues")  # Debugging statement
 
         filtered_data = []
-        for issue in issues:
+        for index, issue in enumerate(issues):
             filtered_data.append(
                 {
+                    "index": index,
                     "source": "github",
                     "url": issue["url"],
                     "title": issue["title"],
@@ -260,9 +263,10 @@ def get_tweets(twitter_handle: str):
     print(f"Received {len(result['results'])} tweets")  # Debugging statement
 
     filtered_data = []
-    for tweet in result["results"]:
+    for index, tweet in enumerate(result["results"]):
         filtered_data.append(
             {
+                "index": index,
                 "source": "twitter",
                 "url": tweet["expanded_url"],
                 "title": "tweet status",
