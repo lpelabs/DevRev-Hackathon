@@ -57,52 +57,56 @@ app.add_middleware(
 
 
 def get_play_store_reviews(app_name: str):
-    print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
+    try:
 
-    query = f"{app_name} play store android app"
-    url = get_playstore_link(query, search_info=SearchInfo.URLS)
-    content_after_id = url.split("id=")[1].split("&")[0]
+        print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
 
-    print(content_after_id)
+        query = f"{app_name} play store android app"
+        url = get_playstore_link(query, search_info=SearchInfo.URLS)
+        content_after_id = url.split("id=")[1].split("&")[0]
 
-    result, continuation_token = reviews(
-        f"{content_after_id}",
-        lang="en",  # defaults to 'en'
-        sort=Sort.NEWEST,  # defaults to Sort.NEWEST
-        count=100,  # defaults to 100
-    )
+        print(content_after_id)
 
-    play_review = []
-    for index, review in enumerate(result):
-        play_review.append(
-            {
-                "index": index,
-                "source": "Google Play Ptore",
-                "url": url,
-                "title": "Google Play Review",
-                "body": review["content"],
-                "user": review["userName"],
-                "upvote": review["thumbsUpCount"],
-                "rating": review["score"],
-                "created_at": review["at"],
-            }
+        result, continuation_token = reviews(
+            f"{content_after_id}",
+            lang="en",  # defaults to 'en'
+            sort=Sort.NEWEST,  # defaults to Sort.NEWEST
+            count=100,  # defaults to 100
         )
-    print(f"Number of reviews fetched: {len(play_review)}")  # Debugging print statement
-    if any(play_review):  # Check if data exists
-        fieldnames = list(play_review[0].keys())
 
-    with open(
-        "./data/google_play_voc.csv", "a", newline="", encoding="utf-8"
-    ) as csvfile:  # Open in append mode
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        if csvfile.tell() == 0:  # Check if file is empty (write header only once)
-            writer.writeheader()
-        for issue in play_review:
-            writer.writerow(issue)
+        play_review = []
+        for index, review in enumerate(result):
+            play_review.append(
+                {
+                    "index": index,
+                    "source": "Google Play Ptore",
+                    "url": url,
+                    "title": "Google Play Review",
+                    "body": review["content"],
+                    "user": review["userName"],
+                    "upvote": review["thumbsUpCount"],
+                    "rating": review["score"],
+                    "created_at": review["at"],
+                }
+            )
+        print(f"Number of reviews fetched: {len(play_review)}")  # Debugging print statement
+        if any(play_review):  # Check if data exists
+            fieldnames = list(play_review[0].keys())
 
-    print("Reviews successfully written to CSV file.")  # Debugging print statement
-    return result
+        with open(
+            "./data/google_play_voc.csv", "a", newline="", encoding="utf-8"
+        ) as csvfile:  # Open in append mode
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            if csvfile.tell() == 0:  # Check if file is empty (write header only once)
+                writer.writeheader()
+            for issue in play_review:
+                writer.writerow(issue)
 
+        print("Reviews successfully written to CSV file.")  # Debugging print statement
+        return result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
 
 def get_subreddit(subreddit_name: str):
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
@@ -110,41 +114,44 @@ def get_subreddit(subreddit_name: str):
     Returns:
         str: A message indicating the CSV file was updated successfully.
     """
+    try:
+        client_id = CLIENT_ID  # Replace with your actual client ID
+        client_secret = CLIENT_SECRET  # Replace with actual client secret
+        user_agent = "web:devrev-forge:v1 (by /u/smooth_profit4543)"  # Replace with your actual user agent
 
-    client_id = CLIENT_ID  # Replace with your actual client ID
-    client_secret = CLIENT_SECRET  # Replace with actual client secret
-    user_agent = "web:devrev-forge:v1 (by /u/smooth_profit4543)"  # Replace with your actual user agent
-
-    reddit = praw.Reddit(
-        client_id=client_id,
-        client_secret=client_secret,
-        user_agent=user_agent,
-    )
-
-    subreddit = reddit.subreddit(subreddit_name)  # Replace with the desired subreddit
-    limit = 100  # Set the desired limit for fetched posts
-
-    redditdata = []
-    for index, submission in enumerate(subreddit.top(limit=limit)):
-        redditdata.append(
-            {
-                "index": index,
-                "source": f"{subreddit_name}",
-                "url": submission.url,
-                "title": submission.title,
-                "body": remove_emoji(submission.selftext),
-                "created_at": submission.created_utc,
-                "upvote": submission.score,
-            }
+        reddit = praw.Reddit(
+            client_id=client_id,
+            client_secret=client_secret,
+            user_agent=user_agent,
         )
-    print(f"Number of reviews fetched: {len(redditdata)}")  # Debugging print statement
 
-    # Fieldnames extraction (adapted from Response B with clarity)
-    if any(redditdata):  # Check if data exists
-        fieldnames = list(redditdata[0].keys())  # Extract from first item
-    else:
-        print("No reviews found to extract fieldnames.")
-        return "No reviews found to be added to the CSV file."
+        subreddit = reddit.subreddit(subreddit_name)  # Replace with the desired subreddit
+        limit = 100  # Set the desired limit for fetched posts
+
+        redditdata = []
+        for index, submission in enumerate(subreddit.top(limit=limit)):
+            redditdata.append(
+                {
+                    "index": index,
+                    "source": f"{subreddit_name}",
+                    "url": submission.url,
+                    "title": submission.title,
+                    "body": remove_emoji(submission.selftext),
+                    "created_at": submission.created_utc,
+                    "upvote": submission.score,
+                }
+            )
+        print(f"Number of reviews fetched: {len(redditdata)}")  # Debugging print statement
+
+        # Fieldnames extraction (adapted from Response B with clarity)
+        if any(redditdata):  # Check if data exists
+            fieldnames = list(redditdata[0].keys())  # Extract from first item
+        else:
+            print("No reviews found to extract fieldnames.")
+            return "No reviews found to be added to the CSV file."
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "An error occurred while fetching reviews from Reddit."
 
     # CSV handling (adapted from Response A with improvements)
     try:
@@ -181,7 +188,6 @@ def get_subreddit(subreddit_name: str):
         df = pd.read_csv("./data/new_reddit_voc_data.csv")
         print(f"An error occurred: {e}")  # Debugging print statement
         return "An error occurred while appending reviews to voc_data.csv."
-
 
 def get_github_issues(owner: str, repo: str):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
@@ -237,63 +243,65 @@ def get_github_issues(owner: str, repo: str):
         print(f"Error during request: {e}")
         return None
 
+def get_tweets(twitter_handle: str, issue: str):
+    try:
+        url = "https://twitter154.p.rapidapi.com/search/search"
 
-def get_tweets(twitter_handle: str):
-    url = "https://twitter154.p.rapidapi.com/search/search"
+        querystring = {
+            "query": f"{twitter_handle} #{issue}",
+            "section": "top",
+            "min_retweets": "1",
+            "min_likes": "1",
+            "limit": "20",
+            "language": "en",
+        }
 
-    querystring = {
-        "query": f"{twitter_handle} #help",
-        "section": "top",
-        "min_retweets": "1",
-        "min_likes": "1",
-        "limit": "20",
-        "language": "en",
-    }
+        headers = {
+            "X-RapidAPI-Key": RAPIDAPI_KEY,
+            "X-RapidAPI-Host": "twitter154.p.rapidapi.com",
+        }
 
-    headers = {
-        "X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "twitter154.p.rapidapi.com",
-    }
+        print(f"Sending request to: {url}")  # Debugging statement
+        response = requests.get(url, headers=headers, params=querystring)
 
-    print(f"Sending request to: {url}")  # Debugging statement
-    response = requests.get(url, headers=headers, params=querystring)
+        result = response.json()
 
-    result = response.json()
+        print(f"Received {len(result['results'])} tweets")  # Debugging statement
 
-    print(f"Received {len(result['results'])} tweets")  # Debugging statement
+        filtered_data = []
+        for index, tweet in enumerate(result["results"]):
+            filtered_data.append(
+                {
+                    "index": index,
+                    "source": "twitter",
+                    "url": tweet["expanded_url"],
+                    "title": "tweet status",
+                    "body": tweet["text"],
+                    "created_at": tweet["creation_date"],
+                    "username": tweet["user"]["username"],
+                    "upvote": tweet["favorite_count"],
+                }
+            )
 
-    filtered_data = []
-    for index, tweet in enumerate(result["results"]):
-        filtered_data.append(
-            {
-                "index": index,
-                "source": "twitter",
-                "url": tweet["expanded_url"],
-                "title": "tweet status",
-                "body": tweet["text"],
-                "created_at": tweet["creation_date"],
-                "username": tweet["user"]["username"],
-                "upvote": tweet["favorite_count"],
-            }
-        )
+        print(f"Filtered data contains {len(filtered_data)} tweets")  # Debugging statement
 
-    print(f"Filtered data contains {len(filtered_data)} tweets")  # Debugging statement
+        if filtered_data:
+            fieldnames = filtered_data[0].keys()  # Extract keys as field names
+        else:
+            fieldnames = []
 
-    if filtered_data:
-        fieldnames = filtered_data[0].keys()  # Extract keys as field names
-    else:
-        fieldnames = []
+        with open("./data/twitter_data.csv", "a", newline="", encoding="utf-8") as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for tweet in filtered_data:
+                writer.writerow(tweet)
 
-    with open("./data/twitter_data.csv", "a", newline="", encoding="utf-8") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for tweet in filtered_data:
-            writer.writerow(tweet)
+        print("Data saved to ./data/twitter_data.csv")  # Debugging statement
 
-    print("Data saved to ./data/twitter_data.csv")  # Debugging statement
-
-    return result["results"]
-
+        return result["results"]
+    except Exception as e:
+        print(f"Error during request: {e}")
+        return None
 
 def get_news(company_name: str):
     """
@@ -323,17 +331,16 @@ def get_news(company_name: str):
 
     return news
 
-
 def use_ai():
-    review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
-    score = request_chat_gpt_api(NOISE_PROMPT, review)
-    swot = request_chat_gpt_api(SWOT_PROMPT, review)
-    sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review)
+    try:
+        review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
+        score = request_chat_gpt_api(NOISE_PROMPT, review)
+        swot = request_chat_gpt_api(SWOT_PROMPT, review)
+        sentiment = request_chat_gpt_api(SENTIMENT_PROMPT, review)
 
-    print(score, swot, sentiment)
-
-    # to csv
-
+        print(score, swot, sentiment)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 @app.get("/")
 async def read_root():
@@ -344,28 +351,38 @@ async def read_root():
 async def generate_csv(
     app_name: str = "swiggy",
     subreddit_name: str = "aws",
-    owner: str = "marcdhi",
-    repo: str = "",
+    owner: str = "tensorflow",
+    repo: str = "tensorflow",
     twitter_handle: str = "swiggy",
-    get_news_for: str = "",
+    issue: str = "help",
+    get_news_for: str = "swiggy",
 ):
-    get_play_store_reviews(app_name)
-    get_subreddit(subreddit_name)
-    filtered_data = get_github_issues(owner, repo)
-    results = get_tweets(twitter_handle)
-    news = get_news(get_news_for)
+    if [app_name, subreddit_name, owner, repo, twitter_handle, issue, get_news_for] == "" or None or "N/A":
+        return {"message": "Please provide a valid input!"}
+    
+    try:
+        get_play_store_reviews(app_name)
+        get_subreddit(subreddit_name)
+        filtered_data = get_github_issues(owner, repo)
+        results = get_tweets(twitter_handle, issue)
+        news = get_news(get_news_for)
 
-    # Run the initial data processing pipeline
-    processData(
-        client_name=app_name,
-        TESTING=False,
-    )
-
-    return {"message": "Insights are being generated!"}
+        # Run the initial data processing pipeline
+        processData(
+            client_name=app_name,
+            TESTING=False,
+        )
+        return {"message": "Insights are being generated!"}
+    except Exception as e:
+        return {f"An error occurred: {e}"}
 
 
 @app.get("/get_json")
 async def get_insights(client_name: str = "swiggy"):
-    with open("./data/processed_data.json", "r") as file:
-        data = json.load(file)
-        return {"data": data[client_name]}
+    client_name = client_name.lower()
+    try:
+        with open("./output/processed.json", "r") as file:
+            data = json.load(file)
+            return {"data": data[client_name]}
+    except Exception as e:
+        return {f"An error occurred: {e}"}
