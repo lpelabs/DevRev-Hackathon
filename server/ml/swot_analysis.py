@@ -39,8 +39,14 @@ def swotDataframeEmbeddings(reviews_df):
     
     return reviews_df
 
+def getUsefulnessFromResponse(response):
+    try:
+        return int(response)
+    except:
+        return 0
+
 def usefulDataframeEmbeddings(reviews_df):
-    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(NOISE_PROMPT,x).split()[1]))
+    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: getUsefulnessFromResponse(request_chat_gpt_api(NOISE_PROMPT,x).split()[1]))
     return reviews_df
 
 def sentimentDataframeEmbeddings(reviews_df):
