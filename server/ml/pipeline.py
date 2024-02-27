@@ -18,7 +18,7 @@ import json
 import pandas as pd
 import os
 
-def processData(client_name,TESTING=False):
+def processData(client_name, subreddit_name, TESTING=False):
     client_name = client_name.lower()
     try:
         previous_data_dict = {}#One level up
@@ -35,7 +35,7 @@ def processData(client_name,TESTING=False):
         
         for source in ["google_play", "twitter", "reddit"]:
             print(f"Running pipeline for {source}")
-            processed_data_dict[source] = runPipeline(source, TESTING=TESTING)
+            processed_data_dict[source] = runPipeline(source, subreddit_name, TESTING=TESTING)
             
         previous_data_dict[client_name] = processed_data_dict
             
@@ -45,7 +45,7 @@ def processData(client_name,TESTING=False):
         print(f"Error: {e}")
         return {"error": str(e)}
 
-def runPipeline(source_name, TESTING=False):
+def runPipeline(source_name, subreddit_name, TESTING=False):
     """
     This function will run the pipeline depending on the source.
     
@@ -60,7 +60,12 @@ def runPipeline(source_name, TESTING=False):
         save_path = os.path.abspath("./output/")
         
         if source_name == "google_play":
-            df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
+            try:
+                df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
+            except Exception as e:
+                print(f"Error: {e}")
+                return {str(e)}
+                
             #For testing purposes, take only 5 rows
             if TESTING:
                 df = df.head()
@@ -72,7 +77,11 @@ def runPipeline(source_name, TESTING=False):
             return analytics
             
         elif source_name == "twitter":
-            df = pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
+            try:
+                df = pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
+            except Exception as e:
+                print(f"Error: {e}")
+                return {str(e)}
             #For testing purposes, take only 5 rows
             if TESTING:
                 df = df.head()
@@ -84,7 +93,11 @@ def runPipeline(source_name, TESTING=False):
             return analytics
                 
         elif source_name == "reddit":
-            df = pd.read_csv(os.path.join(base_path, "new_reddit_voc_data.csv"), encoding='latin1')
+            try:
+                df = pd.read_csv(os.path.join(base_path, f"new_{subreddit_name}_reddit_voc_data.csv"), encoding='latin1')
+            except Exception as e:
+                print(f"Error: {e}")
+                return {str(e)}
             #For testing purposes, take only 5 rows
             if TESTING:
                 df = df.head()

@@ -156,7 +156,7 @@ def get_subreddit(subreddit_name: str):
     # CSV handling (adapted from Response A with improvements)
     try:
         with open(
-            "./data/new_reddit_voc_data.csv", "a", newline="", encoding="utf-8"
+            f"./data/new_{subreddit_name}_reddit_voc_data.csv", "a", newline="", encoding="utf-8"
         ) as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
@@ -172,7 +172,7 @@ def get_subreddit(subreddit_name: str):
     except FileNotFoundError:
         print("File not found. Creating a new CSV file.")
         with open(
-            "./data/new_reddit_voc_data.csv", "w", newline="", encoding="utf-8"
+            f"./data/new_{subreddit_name}_reddit_voc_data.csv", "w", newline="", encoding="utf-8"
         ) as csvfile:  # Create new file if needed
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
@@ -180,12 +180,12 @@ def get_subreddit(subreddit_name: str):
                 writer.writerow(issue)
 
             df = pd.read_csv(
-                "./data/new_reddit_voc_data.csv", encoding="unicode_escape"
+                f"./data/new_{subreddit_name}_reddit_voc_data.csv", encoding="unicode_escape"
             )
             print(df)  # Debugging print statement
             return "Reddit reviews appended to a new voc_data.csv file."
     except Exception as e:  # Handle other potential errors
-        df = pd.read_csv("./data/new_reddit_voc_data.csv")
+        df = pd.read_csv(f"./data/new_{subreddit_name}_reddit_voc_data.csv")
         print(f"An error occurred: {e}")  # Debugging print statement
         return "An error occurred while appending reviews to voc_data.csv."
 
@@ -350,31 +350,37 @@ async def read_root():
 @app.get("/generate_csv")
 async def generate_csv(
     app_name: str = "swiggy",
-    subreddit_name: str = "aws",
-    owner: str = "tensorflow",
-    repo: str = "tensorflow",
+    subreddit_name: str = "",
+    owner: str = "",
+    repo: str = "",
     twitter_handle: str = "swiggy",
     issue: str = "help",
     get_news_for: str = "swiggy",
 ):
-    if [app_name, subreddit_name, owner, repo, twitter_handle, issue, get_news_for] == "" or None or "N/A":
-        return {"message": "Please provide a valid input!"}
-    
     try:
-        get_play_store_reviews(app_name)
-        get_subreddit(subreddit_name)
-        filtered_data = get_github_issues(owner, repo)
-        results = get_tweets(twitter_handle, issue)
-        news = get_news(get_news_for)
+        if app_name != "":
+            get_play_store_reviews(app_name)
+        if subreddit_name != "":
+            get_subreddit(subreddit_name)
+        if owner != "" and repo != "":
+            filtered_data = get_github_issues(owner, repo)
+        if twitter_handle != "" and issue != "":
+            results = get_tweets(twitter_handle, issue)
+        if get_news_for != "":
+            news = get_news(get_news_for)
 
         # Run the initial data processing pipeline
-        processData(
-            client_name=app_name,
-            TESTING=False,
-        )
+        if app_name != "":
+            processData(
+                client_name=app_name,
+                subreddit_name=subreddit_name,
+                TESTING=False,
+            )
+        
         return {"message": "Insights are being generated!"}
     except Exception as e:
         return {f"An error occurred: {e}"}
+
 
 
 @app.get("/get_json")

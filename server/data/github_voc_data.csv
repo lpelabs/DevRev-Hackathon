@@ -1,0 +1,1915 @@
+index,source,url,title,body,user_html_url,created_at
+0,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63071,Fix Checkfail in raw_ops.DecodeAndCropJpeg,"The API `tf.raw_ops.DecodeAndCropJpeg` can lead to assertion failure with -ve values passed to `crop_window` argument. This is true for only debug builds but not with TF official release wheels.
+
+Proposed a fix for this.May please review.
+Ref Issue: #63062 ",https://github.com/SuryanarayanaY,2024-02-27T14:24:50Z
+1,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63070,`tf.raw_ops.ArgMax`: Heap buffer overflow,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+`tf.raw_ops.ArgMax` can lead to heap buffer overflow.
+[Error location](https://github.com/tensorflow/tensorflow/blob/774b0c3e97b5ef60bfc9c54961347dd0bc3660a8/tensorflow/core/kernels/argmax_op.cc#L59):
+```C++
+    const int32_t dim = internal::SubtleMustCopy(dimension.scalar<int32>()());
+```
+It copies scalar value of `dimension` without checking exact type. Therefore when `dimension` is an `int16` it reads over the bound.
+Note that `int16` is an allowed type for `dimension` according to [opdef](https://github.com/tensorflow/tensorflow/blob/41b93a8b310086f69aab6b6369d2af9d5178881d/tensorflow/core/ops/math_ops.cc#L1153-L1160):
+```C++
+REGISTER_OP(""ArgMax"")
+    .Input(""input: T"")
+    .Input(""dimension: Tidx"")
+    .Output(""output: output_type"")
+    .Attr(""T: {realnumbertype, quantizedtype, bool}"")
+    .Attr(""Tidx: {int16, int32, int64} = DT_INT32"")
+    .Attr(""output_type: {int16, uint16, int32, int64} = DT_INT64"")
+    .SetShapeFn(ArgOpShape);
+```
+
+### Standalone code to reproduce the issue
+
+```python
+import tensorflow as tf
+
+tf.raw_ops.ArgMax(
+    input=tf.random.normal([1,1,1,1]),
+    dimension=tf.constant(1,shape=[],dtype=tf.int16),
+    output_type=tf.dtypes.int64,
+    name=None
+)
+```
+
+
+### Relevant log output
+
+The below log needs ASAN build.
+```shell
+=================================================================
+==4008222==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x609000000400 at pc 0x7fa6a0dca809 bp 0x7ffe63b29d90 sp 0x7ffe63b29d88
+READ of size 4 at 0x609000000400 thread T0
+    #0 0x7fa6a0dca808 in int const tensorflow::internal::SubtleMustCopy<int>(int const&) /proc/self/cwd/./tensorflow/core/framework/bounds_check.h:49:10
+    #1 0x7fa6a0dca808 in tensorflow::ArgOp<Eigen::ThreadPoolDevice, float, long, tensorflow::functor::ArgMax<Eigen::ThreadPoolDevice, float, long>>::Compute(tensorflow::OpKernelContext*) /proc/self/cwd/tensorflow/core/kernels/argmax_op.cc:59:25
+    #2 0x7fa6bbbfab9f in tensorflow::ThreadPoolDevice::Compute(tensorflow::OpKernel*, tensorflow::OpKernelContext*) /proc/self/cwd/tensorflow/core/common_runtime/threadpool_device.cc:185:14
+    #3 0x7fa6bb91644f in tensorflow::(anonymous namespace)::SingleThreadedExecutorImpl::Run(tensorflow::Executor::Args const&) /proc/self/cwd/tensorflow/core/common_runtime/single_threaded_executor.cc:445:15
+    #4 0x7fa6bb836ae6 in tensorflow::FunctionLibraryRuntimeImpl::RunSync(tensorflow::FunctionLibraryRuntime::Options, unsigned long, absl::lts_20230802::Span<tensorflow::Tensor const>, std::vector<tensorflow::Tensor, std::allocator<tensorflow::Tensor>>*) /proc/self/cwd/tensorflow/core/common_runtime/function.cc:1339:3
+    #5 0x7fa6bb866863 in tensorflow::ProcessFunctionLibraryRuntime::RunMultiDeviceSync(tensorflow::FunctionLibraryRuntime::Options const&, unsigned long, std::vector<std::variant<tensorflow::Tensor, tensorflow::TensorShape>, std::allocator<std::variant<tensorflow::Tensor, tensorflow::TensorShape>>>*, std::function<absl::lts_20230802::Status (tensorflow::ProcessFunctionLibraryRuntime::ComponentFunctionData const&, tensorflow::ProcessFunctionLibraryRuntime::InternalArgs*)>) const /proc/self/cwd/tensorflow/core/common_runtime/process_function_library_runtime.cc:931:16
+    #6 0x7fa6bb877e9b in tensorflow::ProcessFunctionLibraryRuntime::RunSync(tensorflow::FunctionLibraryRuntime::Options const&, unsigned long, absl::lts_20230802::Span<tensorflow::Tensor const>, std::vector<tensorflow::Tensor, std::allocator<tensorflow::Tensor>>*) const /proc/self/cwd/tensorflow/core/common_runtime/process_function_library_runtime.cc:1526:21
+    #7 0x7fa69db93761 in tensorflow::KernelAndDeviceFunc::Run(tensorflow::ScopedStepContainer*, tensorflow::EagerKernelArgs const&, std::vector<std::variant<tensorflow::Tensor, tensorflow::TensorShape>, std::allocator<std::variant<tensorflow::Tensor, tensorflow::TensorShape>>>*, tsl::CancellationManager*, std::optional<tensorflow::EagerFunctionParams> const&, std::optional<tensorflow::ManagedStackTrace> const&, tsl::CoordinationServiceAgent*) /proc/self/cwd/tensorflow/core/common_runtime/eager/kernel_and_device.cc:464:21
+    #8 0x7fa69da529f5 in tensorflow::EagerKernelExecute(tensorflow::EagerContext*, absl::lts_20230802::InlinedVector<tensorflow::TensorHandle*, 4ul, std::allocator<tensorflow::TensorHandle*>> const&, std::optional<tensorflow::EagerFunctionParams> const&, tsl::core::RefCountPtr<tensorflow::KernelAndDevice> const&, tensorflow::GraphCollector*, tsl::CancellationManager*, absl::lts_20230802::Span<tensorflow::TensorHandle*>, std::optional<tensorflow::ManagedStackTrace> const&) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2167:3
+    #9 0x7fa69da86630 in tensorflow::ExecuteNode::Run() /proc/self/cwd/./tensorflow/core/common_runtime/eager/execute_node.h:127:12
+    #10 0x7fa69db7f849 in tensorflow::EagerExecutor::SyncExecute(tensorflow::EagerNode*) /proc/self/cwd/tensorflow/core/common_runtime/eager/eager_executor.cc:128:13
+    #11 0x7fa69da512d9 in tensorflow::(anonymous namespace)::AddOrExecuteNode(tsl::core::RefCountPtr<tensorflow::KernelAndDevice>, tensorflow::EagerOperation*, tensorflow::TensorHandle**) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:1685:25
+    #12 0x7fa69da512d9 in tensorflow::(anonymous namespace)::EagerLocalExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:1760:14
+    #13 0x7fa69da4a107 in tensorflow::DoEagerExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2127:12
+    #14 0x7fa69da54bd7 in tensorflow::EagerExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2207:10
+    #15 0x7fa690dd1f99 in tensorflow::EagerOperation::Execute(absl::lts_20230802::Span<tensorflow::AbstractTensorHandle*>, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/core.cc:187:10
+    #16 0x7fa69db7959e in tensorflow::CustomDeviceOpHandler::Execute(tensorflow::ImmediateExecutionOperation*, tensorflow::ImmediateExecutionTensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/custom_device_op_handler.cc
+    #17 0x7fa6851e18f1 in TFE_Execute /proc/self/cwd/tensorflow/c/eager/c_api.cc:907:62
+    #18 0x7fa6b989418d in TFE_Py_FastPathExecute_C(_object*) /proc/self/cwd/tensorflow/python/eager/pywrap_tfe_src.cc:3979:3
+    #19 0x7fa667d2683e in pybind11_init__pywrap_tfe(pybind11::module_&)::$_60::operator()(pybind11::args) const /proc/self/cwd/tensorflow/python/tfe_wrapper.cc:1276:35
+    #20 0x7fa667d2683e in pybind11::object pybind11::detail::argument_loader<pybind11::args>::call_impl<pybind11::object, pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&, 0ul, pybind11::detail::void_type>(pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&, std::integer_sequence<unsigned long, 0ul>, pybind11::detail::void_type&&) && /proc/self/cwd/bazel-out/k8-dbg/bin/external/pybind11/_virtual_includes/pybind11/pybind11/cast.h:1443:16
+    #21 0x7fa667d2683e in std::enable_if<!std::is_void<pybind11::object>::value, pybind11::object>::type pybind11::detail::argument_loader<pybind11::args>::call<pybind11::object, pybind11::detail::void_type, pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&>(pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&) && /proc/self/cwd/bazel-out/k8-dbg/bin/external/pybind11/_virtual_includes/pybind11/pybind11/cast.h:1411:42
+    #22 0x7fa667d2683e in void pybind11::cpp_function::initialize<pybind11_init__pywrap_tfe(pybind11::module_&)::$_60, pybind11::object, pybind11::args, pybind11::name, pybind11::scope, pybind11::sibling>(pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&&, pybind11::object (*)(pybind11::args), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&)::'lambda'(pybind11::detail::function_call&)::operator()(pybind11::detail::function_call&) const /proc/self/cwd/bazel-out/k8-dbg/bin/external/pybind11/_virtual_includes/pybind11/pybind11/pybind11.h:248:69
+    #23 0x7fa667d2683e in void pybind11::cpp_function::initialize<pybind11_init__pywrap_tfe(pybind11::module_&)::$_60, pybind11::object, pybind11::args, pybind11::name, pybind11::scope, pybind11::sibling>(pybind11_init__pywrap_tfe(pybind11::module_&)::$_60&&, pybind11::object (*)(pybind11::args), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&)::'lambda'(pybind11::detail::function_call&)::__invoke(pybind11::detail::function_call&) /proc/self/cwd/bazel-out/k8-dbg/bin/external/pybind11/_virtual_includes/pybind11/pybind11/pybind11.h:223:21
+    #24 0x7fa667d67a59 in pybind11::cpp_function::dispatcher(_object*, _object*, _object*) /proc/self/cwd/bazel-out/k8-dbg/bin/external/pybind11/_virtual_includes/pybind11/pybind11/pybind11.h:939:30
+    #25 0x528186 in cfunction_call /usr/local/src/conda/python-3.11.7/Objects/methodobject.c:542:18
+    #26 0x503a0b in _PyObject_MakeTpCall /usr/local/src/conda/python-3.11.7/Objects/call.c:214:18
+    #27 0x510f32 in _PyEval_EvalFrameDefault /usr/local/src/conda/python-3.11.7/Python/ceval.c:4769:23
+    #28 0x538732 in _PyEval_EvalFrame /usr/local/src/conda/python-3.11.7/Include/internal/pycore_ceval.h:73:16
+    #29 0x538732 in _PyEval_Vector /usr/local/src/conda/python-3.11.7/Python/ceval.c:6434:24
+    #30 0x538732 in _PyFunction_Vectorcall /usr/local/src/conda/python-3.11.7/Objects/call.c:393:16
+    #31 0x5426bb in _PyVectorcall_Call /usr/local/src/conda/python-3.11.7/Objects/call.c:257:24
+    #32 0x5426bb in _PyObject_Call /usr/local/src/conda/python-3.11.7/Objects/call.c:328:16
+    #33 0x5426bb in PyObject_Call /usr/local/src/conda/python-3.11.7/Objects/call.c:355:12
+    #34 0x514ff0 in do_call_core /usr/local/src/conda/python-3.11.7/Python/ceval.c:7352:12
+    #35 0x514ff0 in _PyEval_EvalFrameDefault /usr/local/src/conda/python-3.11.7/Python/ceval.c:5376:22
+    #36 0x5cb559 in _PyEval_EvalFrame /usr/local/src/conda/python-3.11.7/Include/internal/pycore_ceval.h:73:16
+    #37 0x5cb559 in _PyEval_Vector /usr/local/src/conda/python-3.11.7/Python/ceval.c:6434:24
+    #38 0x5cac2e in PyEval_EvalCode /usr/local/src/conda/python-3.11.7/Python/ceval.c:1148:21
+    #39 0x5ebcf6 in run_eval_code_obj /usr/local/src/conda/python-3.11.7/Python/pythonrun.c:1710:9
+    #40 0x5e788f in run_mod /usr/local/src/conda/python-3.11.7/Python/pythonrun.c:1731:19
+    #41 0x5fc831 in pyrun_file /usr/local/src/conda/python-3.11.7/Python/pythonrun.c:1626:15
+    #42 0x5fbbfe in _PyRun_SimpleFileObject /usr/local/src/conda/python-3.11.7/Python/pythonrun.c:440:13
+    #43 0x5fb922 in _PyRun_AnyFileObject /usr/local/src/conda/python-3.11.7/Python/pythonrun.c:79:15
+    #44 0x5f65cd in pymain_run_file_obj /usr/local/src/conda/python-3.11.7/Modules/main.c:360:15
+    #45 0x5f65cd in pymain_run_file /usr/local/src/conda/python-3.11.7/Modules/main.c:379:15
+    #46 0x5f65cd in pymain_run_python /usr/local/src/conda/python-3.11.7/Modules/main.c:601:21
+    #47 0x5f65cd in Py_RunMain /usr/local/src/conda/python-3.11.7/Modules/main.c:680:5
+    #48 0x5bb3d8 in Py_BytesMain /usr/local/src/conda/python-3.11.7/Modules/main.c:734:12
+    #49 0x7fa791408d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #50 0x7fa791408e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #51 0x5bb222 in _start (/home/loft/anaconda3/envs/tf-latest-asan/bin/python3.11+0x5bb222)
+
+0x609000000402 is located 0 bytes after 2-byte region [0x609000000400,0x609000000402)
+allocated by thread T0 here:
+    #0 0x7fa7917ed617 in __interceptor_posix_memalign /home/runner/work/llvm-project/llvm-project/final/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x7fa6be4f6902 in tsl::port::AlignedMalloc(unsigned long, int) (/home/loft/anaconda3/envs/tf-latest-asan/lib/python3.11/site-packages/tensorflow/python/platform/../../libtensorflow_framework.so.2+0x4a18902)
+    #2 0x7fa6bc2d3bcc in tsl::(anonymous namespace)::CPUAllocator::AllocateRaw(unsigned long, unsigned long) cpu_allocator_impl.cc
+    #3 0x7fa6bc4883bc in short* tensorflow::TypedAllocator::Allocate<short>(tsl::Allocator*, unsigned long, tsl::AllocationAttributes const&) /proc/self/cwd/./tensorflow/core/framework/typed_allocator.h:47:24
+    #4 0x7fa6bc4883bc in tensorflow::(anonymous namespace)::Buffer<short>::Buffer(tsl::Allocator*, long, tsl::AllocationAttributes const&) /proc/self/cwd/tensorflow/core/framework/tensor.cc:574:21
+    #5 0x7fa6bc4883bc in tensorflow::Tensor::Tensor(tsl::Allocator*, tensorflow::DataType, tensorflow::TensorShape const&, tsl::AllocationAttributes const&) /proc/self/cwd/tensorflow/core/framework/tensor.cc:986:5
+    #6 0x7fa6bbef871d in tensorflow::OpKernelContext::allocate_tensor(tensorflow::DataType, tensorflow::TensorShape const&, tensorflow::Tensor*, tsl::AllocatorAttributes, tsl::AllocationAttributes const&) /proc/self/cwd/tensorflow/core/framework/op_kernel.cc:764:10
+    #7 0x7fa6bbef784e in tensorflow::OpKernelContext::allocate_tensor(tensorflow::DataType, tensorflow::TensorShape const&, tensorflow::Tensor*, tsl::AllocatorAttributes) /proc/self/cwd/./tensorflow/core/framework/op_kernel.h:1270:12
+    #8 0x7fa6bbef784e in tensorflow::OpKernelContext::allocate_output(int, tensorflow::TensorShape const&, tensorflow::Tensor**, tsl::AllocatorAttributes) /proc/self/cwd/tensorflow/core/framework/op_kernel.cc:822:14
+    #9 0x7fa6bbef4368 in tensorflow::OpKernelContext::allocate_output(int, tensorflow::TensorShape const&, tensorflow::Tensor**) /proc/self/cwd/tensorflow/core/framework/op_kernel.cc:728:10
+    #10 0x7fa6a9bf0207 in tensorflow::CastOpBase::Compute(tensorflow::OpKernelContext*) (/home/loft/anaconda3/envs/tf-latest-asan/lib/python3.11/site-packages/tensorflow/python/platform/../../libtensorflow_cc.so.2+0x3e9fe207)
+    #11 0x7fa6bbbfab9f in tensorflow::ThreadPoolDevice::Compute(tensorflow::OpKernel*, tensorflow::OpKernelContext*) /proc/self/cwd/tensorflow/core/common_runtime/threadpool_device.cc:185:14
+    #12 0x7fa6bb91644f in tensorflow::(anonymous namespace)::SingleThreadedExecutorImpl::Run(tensorflow::Executor::Args const&) /proc/self/cwd/tensorflow/core/common_runtime/single_threaded_executor.cc:445:15
+    #13 0x7fa6bb836ae6 in tensorflow::FunctionLibraryRuntimeImpl::RunSync(tensorflow::FunctionLibraryRuntime::Options, unsigned long, absl::lts_20230802::Span<tensorflow::Tensor const>, std::vector<tensorflow::Tensor, std::allocator<tensorflow::Tensor>>*) /proc/self/cwd/tensorflow/core/common_runtime/function.cc:1339:3
+    #14 0x7fa6bb866863 in tensorflow::ProcessFunctionLibraryRuntime::RunMultiDeviceSync(tensorflow::FunctionLibraryRuntime::Options const&, unsigned long, std::vector<std::variant<tensorflow::Tensor, tensorflow::TensorShape>, std::allocator<std::variant<tensorflow::Tensor, tensorflow::TensorShape>>>*, std::function<absl::lts_20230802::Status (tensorflow::ProcessFunctionLibraryRuntime::ComponentFunctionData const&, tensorflow::ProcessFunctionLibraryRuntime::InternalArgs*)>) const /proc/self/cwd/tensorflow/core/common_runtime/process_function_library_runtime.cc:931:16
+    #15 0x7fa6bb877e9b in tensorflow::ProcessFunctionLibraryRuntime::RunSync(tensorflow::FunctionLibraryRuntime::Options const&, unsigned long, absl::lts_20230802::Span<tensorflow::Tensor const>, std::vector<tensorflow::Tensor, std::allocator<tensorflow::Tensor>>*) const /proc/self/cwd/tensorflow/core/common_runtime/process_function_library_runtime.cc:1526:21
+    #16 0x7fa69db93761 in tensorflow::KernelAndDeviceFunc::Run(tensorflow::ScopedStepContainer*, tensorflow::EagerKernelArgs const&, std::vector<std::variant<tensorflow::Tensor, tensorflow::TensorShape>, std::allocator<std::variant<tensorflow::Tensor, tensorflow::TensorShape>>>*, tsl::CancellationManager*, std::optional<tensorflow::EagerFunctionParams> const&, std::optional<tensorflow::ManagedStackTrace> const&, tsl::CoordinationServiceAgent*) /proc/self/cwd/tensorflow/core/common_runtime/eager/kernel_and_device.cc:464:21
+    #17 0x7fa69da529f5 in tensorflow::EagerKernelExecute(tensorflow::EagerContext*, absl::lts_20230802::InlinedVector<tensorflow::TensorHandle*, 4ul, std::allocator<tensorflow::TensorHandle*>> const&, std::optional<tensorflow::EagerFunctionParams> const&, tsl::core::RefCountPtr<tensorflow::KernelAndDevice> const&, tensorflow::GraphCollector*, tsl::CancellationManager*, absl::lts_20230802::Span<tensorflow::TensorHandle*>, std::optional<tensorflow::ManagedStackTrace> const&) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2167:3
+    #18 0x7fa69da86630 in tensorflow::ExecuteNode::Run() /proc/self/cwd/./tensorflow/core/common_runtime/eager/execute_node.h:127:12
+    #19 0x7fa69db7f849 in tensorflow::EagerExecutor::SyncExecute(tensorflow::EagerNode*) /proc/self/cwd/tensorflow/core/common_runtime/eager/eager_executor.cc:128:13
+    #20 0x7fa69da512d9 in tensorflow::(anonymous namespace)::AddOrExecuteNode(tsl::core::RefCountPtr<tensorflow::KernelAndDevice>, tensorflow::EagerOperation*, tensorflow::TensorHandle**) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:1685:25
+    #21 0x7fa69da512d9 in tensorflow::(anonymous namespace)::EagerLocalExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:1760:14
+    #22 0x7fa69da4a107 in tensorflow::DoEagerExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2127:12
+    #23 0x7fa69da54bd7 in tensorflow::EagerExecute(tensorflow::EagerOperation*, tensorflow::TensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/execute.cc:2207:10
+    #24 0x7fa690dd1f99 in tensorflow::EagerOperation::Execute(absl::lts_20230802::Span<tensorflow::AbstractTensorHandle*>, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/core.cc:187:10
+    #25 0x7fa69db7959e in tensorflow::CustomDeviceOpHandler::Execute(tensorflow::ImmediateExecutionOperation*, tensorflow::ImmediateExecutionTensorHandle**, int*) /proc/self/cwd/tensorflow/core/common_runtime/eager/custom_device_op_handler.cc
+    #26 0x7fa6851e18f1 in TFE_Execute /proc/self/cwd/tensorflow/c/eager/c_api.cc:907:62
+    #27 0x7fa6b985dcbf in tensorflow::EagerCast(TFE_Context*, TFE_TensorHandle*, TF_DataType, TF_DataType, TSL_Status*) /proc/self/cwd/tensorflow/python/eager/pywrap_tensor.cc:259:3
+    #28 0x7fa6b985e67b in tensorflow::ConvertToEagerTensorUncached(TFE_Context*, _object*, tensorflow::DataType, char const*) /proc/self/cwd/tensorflow/python/eager/pywrap_tensor.cc:317:11
+    #29 0x7fa6b985f8a1 in tensorflow::ConvertToEagerTensor(TFE_Context*, _object*, tensorflow::DataType, char const*) /proc/self/cwd/tensorflow/python/eager/pywrap_tensor.cc:405:14
+    #30 0x7fa6b9860088 in EagerTensor_init /proc/self/cwd/tensorflow/python/eager/pywrap_tensor.cc:529:18
+    #31 0x5039d2 in type_call /usr/local/src/conda/python-3.11.7/Objects/typeobject.c:1103:19
+    #32 0x5039d2 in _PyObject_MakeTpCall /usr/local/src/conda/python-3.11.7/Objects/call.c:214:18
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /proc/self/cwd/./tensorflow/core/framework/bounds_check.h:49:10 in int const tensorflow::internal::SubtleMustCopy<int>(int const&)
+Shadow bytes around the buggy address:
+  0x609000000180: fa fa fa fa fa fa fa fa fd fa fa fa fa fa fa fa
+  0x609000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000280: fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000300: 04 fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000380: fd fd fd fd fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x609000000400:[02]fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000580: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x609000000680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==4008222==ABORTING
+```
+",https://github.com/Sehun0819,2024-02-27T13:06:46Z
+2,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63069,"Given Shapes are not Broadcastable, tf to tf-lite conversion error","### 1. System information
+
+Google colab as of 2024-02-27
+tf version: 2.15.0
+
+### Problem
+I receive the following error when converting a tf module from tf to tfl-lite:
+```
+RuntimeError: Given shapes, [1,436,1024,3] and [1,218,512,3], are not broadcastable.Node number 1 (SUB) failed to prepare.
+```
+Below is the relevant class:
+```
+class Inpainting(Model):
+    def __init__(self, downsample_factor, **kwargs):
+        super(Inpainting, self).__init__(**kwargs)
+        self.downsample_factor = downsample_factor
+        self.downsize = Resizing(218, 512)
+
+    @tf.function(input_signature=[
+        tf.TensorSpec(shape=(1, 218, 512, 3)),
+        tf.TensorSpec(shape=(1, 218, 512, 1)),
+        tf.TensorSpec(shape=(1, 436, 1024, 3)),
+        tf.TensorSpec(shape=(1, 436, 1024, 1)),
+        ])
+    def call(self, img_t_lr, depth_t_lr, img_t_w, depth_t_w):
+
+        img_t_wlr = self.downsize(img_t_w)
+        depth_t_wlr = self.downsize(depth_t_w)
+        assert img_t_wlr.shape[1:] == img_t_lr.shape[1:], ""must be same shape""
+        diff_color = tf.math.subtract(img_t_lr, img_t_wlr)
+        assert depth_t_lr.shape[1:] == depth_t_wlr.shape[1:], ""must be same shape""
+        diff_depth = tf.math.subtract(depth_t_lr, depth_t_wlr)
+        diff = tf.concat([diff_color, diff_depth], axis=3)
+        return diff
+```
+Please see here for the full [gist](https://colab.research.google.com/drive/18Q2-NvHFre1-1Dk2HYjTjX1MnUveERle?usp=sharing). 
+
+I am a bit surprised that this happens. Could this be a bug? 
+",https://github.com/FabianSchuetze,2024-02-27T12:44:00Z
+3,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63068,C++ API `DenseBincount` violates assertion in shape inference step,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+C++ API `DenseBincount` violates assertion in shape inference step.
+Error location is [here](https://github.com/tensorflow/tensorflow/blob/83f1804f3427ae888e62b26b5bcba8afc9e24ef7/tensorflow/core/framework/shape_inference.cc#L111-L115):
+```C++
+#ifndef NDEBUG
+  for (int i = 0; i < num_outputs(); ++i) {
+    DCHECK(output(i).IsSet()) << i << "" for "" << attrs_.SummarizeNode();
+  }
+#endif  // NDEBUG
+```
+Seems like output is not set properly in shape function of `DenseBincount`.
+Note that in release build, same code terminates normally with another diagnosis.
+
+### Standalone code to reproduce the issue
+
+```C++
+#include ""tensorflow/cc/framework/scope.h""
+#include ""tensorflow/core/graph/graph.h""
+#include ""tensorflow/core/public/session.h""
+#include ""tensorflow/cc/ops/array_ops.h""
+#include ""tensorflow/cc/ops/standard_ops.h""
+
+using namespace tensorflow;
+
+int main() {
+  SessionOptions options;
+  std::unique_ptr<tensorflow::Session>
+    session(tensorflow::NewSession(options));
+  Scope scope = Scope::NewRootScope();
+
+  Input input = 1;
+  Input size = 1;
+  Input weights = ops::RandomNormal(scope,{1,1,1,1},DT_FLOAT);
+  auto target = ops::DenseBincount(scope.WithOpName(""target""), input, size, weights);
+
+  Status status;
+  GraphDef graph_def;
+  status = scope.ToGraphDef(&graph_def);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not build graph: "" << status.message();
+  }
+
+  status = session->Create(graph_def);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not create session: "" << status.message();
+  }
+
+  std::vector<Tensor> outputs;
+  status = session->Run({}, {""target""}, {""target""}, &outputs);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not run session: "" << status.message();
+  }
+
+  return 0;
+}
+```
+
+
+### Relevant log output
+
+Release build:
+```shell
+2024-02-27 20:40:33.778448: W tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: INVALID_ARGUMENT: `weights` must be the same shape as `arr` or a length-0 `Tensor`, in which case it acts as all weights equal to 1. Received [1,1,1,1]
+         [[{{node target}}]]
+2024-02-27 20:40:33.781525: W tensorflow/core/kernels/reproduce/DenseBincount.cc:35] Could not run session: `weights` must be the same shape as `arr` or a length-0 `Tensor`, in which case it acts as all weights equal to 1. Received [1,1,1,1]
+         [[{{node target}}]]
+```
+
+Debug build:
+```shell
+2024-02-27 20:29:28.448037: F tensorflow/core/framework/shape_inference.cc:113] Check failed: output(i).IsSet() 0 for {{node target}} = DenseBincount[T=DT_FLOAT, Tidx=DT_INT32, binary_output=false, _device=""/job:localhost/replica:0/task:0/device:CPU:0""](Const_1/Const, Const_1/Const, RandomNormal)
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-27T11:46:10Z
+4,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63067,`tf.raw_ops.ExtractImagePatches`: Assertion failure in shape inference step,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+`tf.raw_ops.ExtractImagePatches` can lead to assertion failure in shape inference step.
+Error location is [here](https://github.com/tensorflow/tensorflow/blob/f5daeae21404e8d672c785cc0c4c469ddc1b1a8a/tensorflow/core/ops/array_ops.cc#L2686-L2687):
+```C++
+      TF_RETURN_IF_ERROR(c->Multiply(
+          c->Dim(input_shape, 3), ksize_rows * ksize_cols, &output_depth_dim));
+```
+Because it does not check validity of `ksize_rows * ksize_cols`, the negative value of it is fed to [`Multiply`](https://github.com/tensorflow/tensorflow/blob/83f1804f3427ae888e62b26b5bcba8afc9e24ef7/tensorflow/core/framework/shape_inference.cc#L1096C1-L1098C56):
+```C++
+Status InferenceContext::Multiply(DimensionHandle first,
+                                  DimensionOrConstant second,
+                                  DimensionHandle* out)
+```
+And it ends up with assertion failure at [a constructor of `DimensionOrConstant`](https://github.com/tensorflow/tensorflow/blob/daea84aad67d1fcc8d58c648e1da58ee576445f9/tensorflow/core/framework/shape_inference.h#L891-L896).
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+
+tf.raw_ops.ExtractImagePatches(
+    images=tf.random.normal([1,1,1,1]),
+    ksizes=[1,-1,2,1],
+    strides=[1,1,1,1],
+    rates=[1,1,1,1],
+    padding=""VALID"",
+    name=None
+)
+```
+
+
+### Relevant log output
+
+Release build: Outputs nothing
+
+Debug build:
+```shell
+2024-02-27 20:05:58.701202: F ./tensorflow/core/framework/shape_inference.h:891] Check failed: val >= 0 || val == InferenceContext::kUnknownDim Dimension must be non-negative or equal to InferenceContext::kUnknownDim but got -2
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-27T11:12:14Z
+5,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63066,C++ API `SparseFillEmptyRows` can lead to `std::length_error`,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+C++ API `SparseFillEmptyRows` can lead to `std::length_error`.
+Error location is [here](https://github.com/tensorflow/tensorflow/blob/9da417e3f63215efe995b83e7b9f9b34115a424e/tensorflow/core/kernels/fill_empty_rows_functor.h#L114C36-L114C46):
+```C++
+    std::vector<Tindex> csr_offset(dense_rows, 0);
+```
+Because lack of checking negativity, negative value of `dense_rows` is fed to the constructor of `std::vector`. By integer underflow, the value is converted to extremely large number and it ends up with `std::length_error`.
+
+### Standalone code to reproduce the issue
+
+```C++
+#include ""tensorflow/cc/framework/scope.h""
+#include ""tensorflow/core/graph/graph.h""
+#include ""tensorflow/core/public/session.h""
+#include ""tensorflow/cc/ops/array_ops.h""
+#include ""tensorflow/cc/ops/standard_ops.h""
+
+using namespace tensorflow;
+
+int main() {
+  SessionOptions options;
+  std::unique_ptr<tensorflow::Session>
+    session(tensorflow::NewSession(options));
+  Scope scope = Scope::NewRootScope();
+
+  Input indices = {{1l}};
+  Input values = {1};
+  Input dense_shape = {-1l};
+  Input default_value = 1;
+  auto target = ops::SparseFillEmptyRows(scope.WithOpName(""target""), indices, values, dense_shape, default_value);
+
+  Status status;
+  GraphDef graph_def;
+  status = scope.ToGraphDef(&graph_def);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not build graph: "" << status.message();
+  }
+
+  status = session->Create(graph_def);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not create session: "" << status.message();
+  }
+
+  std::vector<Tensor> outputs;
+  status = session->Run({}, {""target""}, {""target""}, &outputs);
+  if (!status.ok()) {
+    LOG(WARNING) << ""Could not run session: "" << status.message();
+  }
+
+  return 0;
+}
+```
+
+
+### Relevant log output
+
+```shell
+terminate called after throwing an instance of 'std::length_error'
+  what():  cannot create std::vector larger than max_size()
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-27T10:56:31Z
+6,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63065,Support for Quantized ELU is missing in TFLite MLIR converter,"**System information**
+- OS Platform and Distribution (e.g., Linux Ubuntu 16.04): WSL2 Ubuntu
+- TensorFlow installed from (source or binary): pip
+- TensorFlow version (or github SHA if from source): Latest
+
+Unlike ReLU for example, currently ELU isn't supported for 8 bit quantization in TFLite:
+![image](https://github.com/tensorflow/tensorflow/assets/45564681/55ac6736-2e5a-421e-aedf-f41e541e870d)
+I think we can confirm this by looking at ELU's definition in [tfl_ops.td](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/compiler/mlir/lite/ir/tfl_ops.td) , it doesn't have the quantizable trait.
+
+While researching upon this issue, I stumbled upon an [old stackoverflow issue ](https://stackoverflow.com/questions/67774808/is-elu-int8-quantisation-working-on-tensorflow-lite) implying that quantized ELU was once supported. Maybe it was skipped after the move to MLIR?
+
+Are there plans to support it? If not, will it be straightforward to implement it by my own?
+",https://github.com/Doomski99,2024-02-27T10:53:54Z
+7,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63064,Fix checkfail with -ve perm values in transpose_op.cc,"Passing negative values to argument perm in tf.raw_ops.Transpose will cause checkfail and coredump error. Hence validation proposed to check and raise exception.
+
+Ref issue #62995",https://github.com/SuryanarayanaY,2024-02-27T10:48:15Z
+8,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63063,`tf.raw_ops.ExtractGlimpse`: Assertion failure in shape inference step,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+`tf.raw_ops.ExtractGlimpse` can lead to assertion failure in shape inference step.
+Error location is [here](https://github.com/tensorflow/tensorflow/blob/daea84aad67d1fcc8d58c648e1da58ee576445f9/tensorflow/core/ops/image_ops.cc#L57):
+```C++
+    height = c->MakeDim(vec(0));
+```
+It makes a dim from input argument without checking negativity.
+In debug build, it ends up with assertion failure in [a constructor of `DimensionOrConstant`](https://github.com/tensorflow/tensorflow/blob/daea84aad67d1fcc8d58c648e1da58ee576445f9/tensorflow/core/framework/shape_inference.h#L891-L896).
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+
+tf.raw_ops.ExtractGlimpse(
+    input=tf.random.normal([1,1,1,1]),
+    size=[-2,-2],
+    offsets=tf.random.normal([1,2]),
+    centered=True,
+    normalized=True,
+    uniform_noise=True,
+    noise='uniform',
+    name=None
+)
+```
+
+
+### Relevant log output
+
+Release build: Outputs nothing
+
+Debug build:
+```shell
+2024-02-27 19:02:16.866010: F ./tensorflow/core/framework/shape_inference.h:891] Check failed: val >= 0 || val == InferenceContext::kUnknownDim Dimension must be non-negative or equal to InferenceContext::kUnknownDim but got -2
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-27T10:11:25Z
+9,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63062,`tf.raw_ops.DecodeAndCropJpeg`: Assertion failure in shape inference step,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+`tf.raw_ops.DecodeAndCropJpeg` can lead to assertion failure in shape inference step.
+Error location is [here](https://github.com/tensorflow/tensorflow/blob/daea84aad67d1fcc8d58c648e1da58ee576445f9/tensorflow/core/ops/image_ops.cc#L523):
+```C++
+       w = c->MakeDim(crop_window_vec(3));
+```
+It makes a dim from an input argument without checking negativity.
+In debug build, it ends up with assertion failure in [a constructor of`DimensionOrConstant`](https://github.com/tensorflow/tensorflow/blob/daea84aad67d1fcc8d58c648e1da58ee576445f9/tensorflow/core/framework/shape_inference.h#L891-L896).
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+
+tf.raw_ops.DecodeAndCropJpeg(
+    contents=""abc"",
+    crop_window=[0,0,0,-2],
+    channels=0,
+    ratio=1,
+    fancy_upscaling=True,
+    try_recover_truncated=False,
+    acceptable_fraction=1,
+    dct_method='',
+    name=None
+)
+```
+
+
+### Relevant log output
+
+Release build: Outputs nothing
+
+Debug build:
+```shell
+2024-02-27 18:41:59.133420: F ./tensorflow/core/framework/shape_inference.h:891] Check failed: val >= 0 || val == InferenceContext::kUnknownDim Dimension must be non-negative or equal to InferenceContext::kUnknownDim but got -2
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-27T09:52:15Z
+10,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63061,Getting wrong output after tflite conversion,"### 1. System information
+
+- OS Platform and Distribution = **Ubuntu 20.04**
+- TensorFlow installation (pip package or built from source): **pip installation**
+- TensorFlow library (version, if pip package or github SHA, if built from source):**tf-2.12.1**
+
+### 2. Code
+
+Model is converted using the following code:
+
+```
+def representative_data_genRGB():
+  path = '/content/gdrive/MyDrive/imx_tflite'
+  dataset_list = tf.data.Dataset.list_files(path + '/*.jpg')
+  for i in range(len(dataset_list)):
+    image = next(iter(dataset_list))
+    image = tf.io.read_file(image)
+    image = tf.io.decode_jpeg(image, channels=3)
+    image = tf.image.resize(image, [IMG_HEIGHT, IMG_WIDTH])
+    image = tf.cast(image,tf.float32)
+    image = image/255.
+    image = tf.expand_dims(image, 0)
+    yield [image]  
+
+converter = tf.lite.TFLiteConverter.from_saved_model(MODEL_TF)
+# converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter. optimizations = [tf.lite.Optimize.DEFAULT]
+converter.representative_dataset = representative_data_genRGB
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+converter.allow_custom_ops = True
+converter.inference_type = tf.uint8
+converter.inference_input_type = tf.uint8
+converter.inference_output_type = tf.uint8
+converter.target_spec.supported_types = [tf.int8]
+
+tflite_model = converter.convert()
+
+with open(MODEL_TFLITE, ""wb"") as f:
+  f.write(tflite_model)
+
+```
+
+
+### 3. Failure after conversion
+If the conversion is successful, but the generated model is wrong, then state what is wrong:
+Following Code is used for the prediction:
+```
+try:
+  import tflite_runtime.interpreter as tfl  # prefer tflite_runtime if installed
+except ImportError:
+  import tensorflow.lite as tfl
+MODEL_TFLITE = MODEL_TFLITE
+interpreter = tfl.Interpreter(model_path=MODEL_TFLITE)  # load TFLite model
+interpreter.allocate_tensors()  # allocate
+input_details = interpreter.get_input_details()  # inputs
+output_details = interpreter.get_output_details()
+img = cv2.imread('20221104084515525.jpg')
+# img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+resized = cv2.resize(img,(IMG_WIDTH,IMG_HEIGHT))/255  
+if(len(img.shape) == 3):
+    image = np.expand_dims(resized, axis=0)
+b,h, w, ch = image.shape  # batch, channel, height, width
+inp,out  = input_details[0], output_details[0]
+# inp,out1, out2, out3, out4  = input_details[0], output_details[0], output_details[1], output_details[2], output_details[3]
+int8 = inp['dtype'] == np.uint8  # is TFLite quantized uint8 model
+if int8:
+    scale, zero_point = inp['quantization']
+    image = (image / scale + zero_point).astype(np.uint8)  # de-scale         
+interpreter.set_tensor(inp['index'], image)
+interpreter.invoke()
+predict = interpreter.get_tensor(out['index'])
+
+if int8:
+    if out['quantization'] != (0.0, 0):
+        scale, zero_point = out['quantization']
+        predict = (predict.astype(np.float32) - zero_point) * scale  # re-scale
+```
+
+- **Model produces wrong results:**
+The attached images shows the results before and after conversion for the same input image:
+Before Conversion/Keras Model Results:
+![keras_model_output](https://github.com/tensorflow/tensorflow/assets/38773738/2d4b2abb-4495-4654-9a7f-01671ebee9a9)
+
+After converting into tflite/tflite model results:
+![tflite_output](https://github.com/tensorflow/tensorflow/assets/38773738/236754e7-4886-44e1-9b37-a5c0d8553bc1)
+
+
+
+### 5. (optional) Any other info / logs
+Following are the logs while converting:
+
+```
+2024-02-27 17:15:02.854021: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+2024-02-27 17:15:02.930861: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+2024-02-27 17:15:03.008753: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+2024-02-27 17:15:06.708407: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+2024-02-27 17:15:06.810894: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+2024-02-27 17:15:06.903451: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'inputs' with dtype float and shape [?,?,?,?]
+	 [[{{node inputs}}]]
+WARNING:absl:Found untraced functions such as _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op while saving (showing 5 of 31). These functions will not be directly callable after loading.
+INFO:tensorflow:Assets written to: /home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model/assets
+INFO:tensorflow:Assets written to: /home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model/assets
+2024-02-27 17:15:11.449645: W tensorflow/compiler/mlir/lite/python/tf_tfl_flatbuffer_helpers.cc:364] Ignored output_format.
+2024-02-27 17:15:11.449671: W tensorflow/compiler/mlir/lite/python/tf_tfl_flatbuffer_helpers.cc:367] Ignored drop_control_dependency.
+2024-02-27 17:15:11.449833: I tensorflow/cc/saved_model/reader.cc:45] Reading SavedModel from: /home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model
+2024-02-27 17:15:11.461083: I tensorflow/cc/saved_model/reader.cc:89] Reading meta graph with tags { serve }
+2024-02-27 17:15:11.461098: I tensorflow/cc/saved_model/reader.cc:130] Reading SavedModel debug info (if present) from: /home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model
+2024-02-27 17:15:11.496457: I tensorflow/cc/saved_model/loader.cc:231] Restoring SavedModel bundle.
+2024-02-27 17:15:11.679895: I tensorflow/cc/saved_model/loader.cc:215] Running initialization op on SavedModel bundle at path: /home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model
+2024-02-27 17:15:11.754645: I tensorflow/cc/saved_model/loader.cc:314] SavedModel load for tags { serve }; Status: success: OK. Took 304813 microseconds.
+2024-02-27 17:15:12.143006: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype string and shape [43]
+	 [[{{node Placeholder/_0}}]]
+2024-02-27 17:15:12.143348: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype string and shape [43]
+	 [[{{node Placeholder/_0}}]]
+fully_quantize: 0, inference_type: 6, input_inference_type: UINT8, output_inference_type: UINT8
+/home/couger/2nd_shared_dataset/Custom_modelRGBPruned/202422717152_tf2.12-py3.10_96X144-4-channelRGB/model.tflite
+
+```
+
+",https://github.com/priyakansal,2024-02-27T08:24:46Z
+11,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63060,"Fixing the typos, repetitions in  interpreter.py","Fixing the typos, repetitions in  interpreter.py",https://github.com/LakshmiKalaKadali,2024-02-27T06:12:32Z
+12,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63059,[oneDNN] Adding a check to verify if gamma and beta are Const,This PR resolves a segmentation fault for ResNet-DPED performance benchmark. The segmentation fault resulted with the following error: `[libprotobuf FATAL external/com_google_protobuf/src/google/protobuf/map.h:1293] CHECK failed: it != end(): key not found: value.` Adding a check to verify if `gamma` and `beta` are `Const` resolves the issue.,https://github.com/othakkar,2024-02-27T05:07:52Z
+13,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63057,[Tosa] Update Sin/Cos operators legalization,"- with the introduction of tosa.sin and tosa.cos ops
+- update the legalization to do direct mapping",https://github.com/Jerry-Ge,2024-02-26T19:35:05Z
+14,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63056,autoencoder implementatio,,https://github.com/menayemeskele,2024-02-26T18:54:32Z
+15,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63055,Undefined references to _mlir_ciface* symbols,"### Issue type
+
+Build/Install
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+No
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.14
+
+### Custom code
+
+No
+
+### OS platform and distribution
+
+RedHat 8.8, ppc64le
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11
+
+### Bazel version
+
+6.1
+
+### GCC/compiler version
+
+11.2
+
+### CUDA/cuDNN version
+
+12.2/8.9.6
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+Build fails with numerous undefined reference errors. 
+
+### Standalone code to reproduce the issue
+
+```shell
+NA
+```
+
+
+### Relevant log output
+
+```shell
+Below error seen during build:
+
+<myenv>/bin/../lib/gcc/powerpc64le-conda-linux-gnu/11.2.0/../../../../powerpc64le-conda-linux-gnu/bin/ld.gold: error: bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libless_gpu_less_kernels_gpu_i64_i1_kernel_generator.pic.a(less_gpu_less_kernels_gpu_i64_i1_kernel_generator_kernel.o): incompatible target
+<myenv>/bin/../lib/gcc/powerpc64le-conda-linux-gnu/11.2.0/../../../../powerpc64le-conda-linux-gnu/bin/ld.gold: error: bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libless_gpu_less_kernels_gpu_ui8_i1_kernel_generator.pic.a(less_gpu_less_kernels_gpu_ui8_i1_kernel_generator_kernel.o): incompatible target
+<myenv>/bin/../lib/gcc/powerpc64le-conda-linux-gnu/11.2.0/../../../../powerpc64le-conda-linux-gnu/bin/ld.gold: error: bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libless_gpu_less_kernels_gpu_ui16_i1_kernel_generator.pic.a(less_gpu_less_kernels_gpu_ui16_i1_kernel_generator_kernel.o): incompatible target
+<myenv>/bin/../lib/gcc/powerpc64le-conda-linux-gnu/11.2.0/../../../../powerpc64le-conda-linux-gnu/bin/ld.gold: error: bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libless_gpu_less_kernels_gpu_ui32_i1_kernel_generator.pic.a(less_gpu_less_kernels_gpu_ui32_i1_kernel_generator_kernel.o): incompatible target
+<myenv>/bin/../lib/gcc/powerpc64le-conda-linux-gnu/11.2.0/../../../../powerpc64le-conda-linux-gnu/bin/ld.gold: error: bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libless_gpu_less_kernels_gpu_ui64_i1_kernel_generator.pic.a(less_gpu_less_kernels_gpu_ui64_i1_kernel_generator_kernel.o): incompatible target
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_nextafter_op.pic.lo(gpu_op_next_after.pic.o):gpu_op_next_after.cc:function tensorflow::(anonymous namespace)::MlirNextAfterGPUDT_FLOATDT_FLOATOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_NextAfter_GPU_DT_FLOAT_DT_FLOAT'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_nextafter_op.pic.lo(gpu_op_next_after.pic.o):gpu_op_next_after.cc:function tensorflow::(anonymous namespace)::MlirNextAfterGPUDT_DOUBLEDT_DOUBLEOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_NextAfter_GPU_DT_DOUBLE_DT_DOUBLE'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_nextafter_op.pic.lo(gpu_op_next_after.pic.o):gpu_op_next_after.cc:function tensorflow::MLIROpKernel<(tensorflow::DataType)1, float, (tensorflow::DataType)1>::Compute(tensorflow::OpKernelContext*): error: undefined reference to '_mlir_ciface_NextAfter_GPU_DT_FLOAT_DT_FLOAT'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_nextafter_op.pic.lo(gpu_op_next_after.pic.o):gpu_op_next_after.cc:function tensorflow::MLIROpKernel<(tensorflow::DataType)2, double, (tensorflow::DataType)2>::Compute(tensorflow::OpKernelContext*): error: undefined reference to '_mlir_ciface_NextAfter_GPU_DT_DOUBLE_DT_DOUBLE'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_elu.pic.o):gpu_op_elu.cc:function tensorflow::(anonymous namespace)::MlirEluGPUDT_HALFDT_HALFOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Elu_GPU_DT_HALF_DT_HALF'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_elu.pic.o):gpu_op_elu.cc:function tensorflow::(anonymous namespace)::MlirEluGPUDT_FLOATDT_FLOATOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Elu_GPU_DT_FLOAT_DT_FLOAT'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_elu.pic.o):gpu_op_elu.cc:function tensorflow::(anonymous namespace)::MlirEluGPUDT_DOUBLEDT_DOUBLEOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Elu_GPU_DT_DOUBLE_DT_DOUBLE'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_elu.pic.o):gpu_op_elu.cc:function tensorflow::MLIROpKernel<(tensorflow::DataType)19, Eigen::half, (tensorflow::DataType)19>::Compute(tensorflow::OpKernelContext*): error: undefined reference to '_mlir_ciface_Elu_GPU_DT_HALF_DT_HALF'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_relu.pic.o):gpu_op_relu.cc:function tensorflow::(anonymous namespace)::MlirReluGPUDT_HALFDT_HALFOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Relu_GPU_DT_HALF_DT_HALF'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_relu.pic.o):gpu_op_relu.cc:function tensorflow::(anonymous namespace)::MlirReluGPUDT_FLOATDT_FLOATOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Relu_GPU_DT_FLOAT_DT_FLOAT'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_relu.pic.o):gpu_op_relu.cc:function tensorflow::(anonymous namespace)::MlirReluGPUDT_DOUBLEDT_DOUBLEOp::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Relu_GPU_DT_DOUBLE_DT_DOUBLE'
+bazel-out/ppc-opt/bin/tensorflow/core/kernels/mlir_generated/libgpu_relu_op.pic.lo(gpu_op_relu.pic.o):gpu_op_relu.cc:function tensorflow::(anonymous namespace)::MlirReluGPUDT_INT8DT_INT8Op::Invoke(tensorflow::OpKernelContext*, llvm::SmallVectorImpl<tensorflow::UnrankedMemRef>&): error: undefined reference to '_mlir_ciface_Relu_GPU_DT_INT8_DT_INT8'
+```
+
+",https://github.com/cdeepali,2024-02-26T12:52:16Z
+16,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63054,May fix checkfail in Gatherv2 Op.,"Checkfail can be triggered in GatherV2 Op with inappropriate input from this line below. https://github.com/tensorflow/tensorflow/blob/e193d8ea7776ef5c6f5d769b6fb9c070213e737a/tensorflow/core/ops/array_ops.cc#L1240-L1242.
+
+This will call UnknownShapeOfRank function and checkfail happens at line below as CHECK_GE macro call, which causes core dump error if assertion fails.
+
+https://github.com/tensorflow/tensorflow/blob/8d0c35b8b95086a2a8209fa47580b13ae8241adb/tensorflow/core/framework/shape_inference.cc#L705
+
+Hence proposing validation and raise appropriate message to the user.
+
+May fix #62985 ",https://github.com/SuryanarayanaY,2024-02-26T12:51:22Z
+17,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63052,Nan occurs when calculating the determinant of matrix including inf,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.15.0
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+When the matrix include np.inf, the tf.linalg.det returns NaN for some cases. 
+If the matrix is: [[inf, inf], [1,1]], the determinant is 0, which makes sense to me since inf\*1-inf\*1=0.
+However, if the matrix is [[inf, 1], [1, 1]], the API will directly outputs NaN instead of inf since: inf\*1 -1\*1 = inf. 
+
+### Standalone code to reproduce the issue
+
+```shell
+import tensorflow as tf
+def tensorflow_call(input):
+  return tf.linalg.det(input)
+
+input = tf.constant([[np.inf, 1], [1, 1]], dtype='float64')
+print(tf.linalg.det(input))  # nan
+
+input = tf.constant([[np.inf, np.inf], [1, 1]], dtype='float64')
+print(tf.linalg.det(input))  # 0
+```
+
+
+### Relevant log output
+
+_No response_",https://github.com/QuantumCoder4,2024-02-26T08:37:12Z
+18,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63051,"When receiving infinity complex tensor, tf.math.sigmoid outputs NaN","### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.15.0
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+Hi, 
+I was using tf.math.sigmoid and I notice that this function raises NaN when the input is inf+0.j. 
+Such result looks incorrect to me since I believe sigmoid's output should be within the range [0, 1].
+
+
+### Standalone code to reproduce the issue
+
+```shell
+import tensorflow as tf
+
+
+x = tf.constant([np.inf+0.j], dtype='complex64')
+print(tf.keras.activations.sigmoid(x))  # tf.Tensor([nan+nanj], shape=(1,), dtype=complex64)
+```
+
+
+### Relevant log output
+
+_No response_",https://github.com/QuantumCoder4,2024-02-26T07:53:51Z
+19,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63048,Image upsampling using interpolation function.,"### Issue type
+
+Feature Request
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+No
+
+### Source
+
+binary
+
+### TensorFlow version
+
+last
+
+### Custom code
+
+No
+
+### OS platform and distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+TensorfFlow now provides [a function for trilinear interpolation](https://www.tensorflow.org/graphics/api_docs/python/tfg/math/interpolation/trilinear/interpolate). However, how can we use it to upsample a 3D image ? For example, I have an image `x` of shape `(W,H,D)` and I would like to upsample it to `(W*2,H*2,D*2)`.
+
+Any help appreciated, thanks.
+
+### Standalone code to reproduce the issue
+
+```shell
+No code.
+```
+
+
+### Relevant log output
+
+_No response_",https://github.com/RocaVincent,2024-02-25T10:36:01Z
+20,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63044,Overlapping window with tf.data.experimental.make_csv_dataset,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.8
+
+### Custom code
+
+No
+
+### OS platform and distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+Window dataset coming from the  tf.data.experimental.make_csv_dataset is not working as expected
+
+### Standalone code to reproduce the issue
+
+```shell
+I'm trying to transform some data read from CSV files using tf.data pipelines and overlapping windows and its not working as expected. All the documentation is not providing clear explanation on how to deal with this case. The columns of the csv files are 'timestamp','open','high', 'low', 'close', 'volume'.
+
+
+dataset = tf.data.experimental.make_csv_dataset(
+    file_pattern=""/path/stock/*1min*.csv"",
+    batch_size=1,
+    num_epochs=1,
+    shuffle=False,
+    header=False,
+    column_names=['timestamp','open','high', 'low', 'close', 'volume'],
+    column_defaults=[tf.string, tf.float32, tf.float32, tf.float32, tf.float32, tf.float32]
+).window(
+    size=5,  # Number of rows per window
+    shift=1,  # Stride for overlapping windows
+    stride=1
+)
+```
+This produces the following structure:
+```
+-WindowDataset
+--OrderedDict
+---VariantDataset
+----Tensor (single element)
+----Tensor...
+```
+This is not allowing me to transform in a simple way because OrderedDict has not batch method and I cannot flatten following the documentation.
+
+```
+dataset = tf.data.experimental.make_csv_dataset(
+    file_pattern=""/path/stock/*1min*.csv"",
+    batch_size=1,
+    num_epochs=1,
+    shuffle=False,
+    header=False,
+    column_names=['timestamp','open','high', 'low', 'close', 'volume'],
+    column_defaults=[tf.string, tf.float32, tf.float32, tf.float32, tf.float32, tf.float32]
+).window(
+    size=5,  # Number of rows per window
+    shift=1,  # Stride for overlapping windows
+    stride=1
+).flat_map(lambda window: window.batch(5))
+```
+Gives the following error:
+```
+AttributeError                            Traceback (most recent call last)
+
+<ipython-input-47-46d1550f08a0> in <cell line: 1>()
+     11     shift=1,  # Stride for overlapping windows
+     12     stride=1
+---> 13 ).flat_map(lambda window: window.batch(5))
+
+19 frames
+
+/tmp/__autograph_generated_filersrgq3km.py in <lambda>(lscope)
+      3 
+      4     def inner_factory(ag__):
+----> 5         tf__lam = lambda window: ag__.with_function_scope(lambda lscope: ag__.converted_call(window.batch, (5,), None, lscope), 'lscope', ag__.STD)
+      6         return tf__lam
+      7     return inner_factory
+
+AttributeError: in user code:
+
+    File ""<ipython-input-47-46d1550f08a0>"", line 13, in None  *
+        lambda window: window.batch(5)
+
+    AttributeError: 'collections.OrderedDict' object has no attribute 'batch'
+```
+If I try to batch the datasets of the OrderedDict, I get the following error
+
+---------------------------------------------------------------------------
+```
+AttributeError                            Traceback (most recent call last)
+
+<ipython-input-59-16e14170c082> in <cell line: 25>()
+     23 
+     24 
+---> 25 data = dataset.map(extract)
+     26 
+     27 
+
+35 frames
+
+/usr/local/lib/python3.10/dist-packages/tensorflow/python/framework/tensor.py in __getattr__(self, name)
+    259         tf.experimental.numpy.experimental_enable_numpy_behavior()
+    260       """""")
+--> 261     self.__getattribute__(name)
+    262 
+    263   @property
+
+AttributeError: in user code:
+
+    File ""<ipython-input-59-16e14170c082>"", line 3, in extract  *
+        opens = data.get('open').flat_map(lambda x: x.batch(5))
+
+    AttributeError: 'SymbolicTensor' object has no attribute 'batch'
+```
+This is becoming extremely confusing.
+
+What would be a the right way to transform this structure so that I can later apply better transformations to build a timeseries dataset.
+```
+
+
+### Relevant log output
+
+_No response_",https://github.com/ek-ex,2024-02-24T20:39:20Z
+21,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63043,Running gemma model in Mac m1 gets xla_compile_on_demand_op error,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+binary
+
+### TensorFlow version
+
+2.15.0
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+macOS Sonoma 14.1.2
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.9
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+Macbook pro m1 16G
+
+### Current behavior?
+
+I expect get the model working, if I can help adding support to missing features I probably need some guidance but I can help 😸
+
+Keras version: 3.0.5
+
+I try same TensorFlow and Keras version using cuda on linux and I get the model working 🙈
+
+### Standalone code to reproduce the issue
+
+```shell
+import keras
+import keras_nlp
+import numpy as np
+
+gemma_lm = keras_nlp.models.GemmaCausalLM.from_preset(""gemma_2b_en"")
+out = gemma_lm.generate(""Keras is a"", max_length=30)
+print(out)
+```
+
+
+### Relevant log output
+
+```shell
+Low level error:
+
+` W tensorflow/core/framework/op_kernel.cc:1839] OP_REQUIRES failed at xla_compile_on_demand_op.cc:292 : NOT_FOUND: could not find registered platform with id: 0x1320e1750`
+
+Python get this error:
+
+
+Traceback (most recent call last):
+  File ""/Users/lmanrique/Try/gemma/main.py"", line 6, in <module>
+    gemma_lm.generate(""Keras is a"", max_length=30)
+  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 269, in generate
+    outputs = [generate(x) for x in inputs]
+  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 269, in <listcomp>
+    outputs = [generate(x) for x in inputs]
+  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/keras_nlp/src/models/generative_task.py"", line 253, in generate
+    return generate_function(x, end_token_id=end_token_id)
+  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/tensorflow/python/util/traceback_utils.py"", line 153, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File ""/Users/lmanrique/miniconda3/envs/gemma/lib/python3.9/site-packages/tensorflow/python/eager/execute.py"", line 53, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.NotFoundError: Graph execution error:
+```
+```
+",https://github.com/lgemc,2024-02-24T02:45:55Z
+22,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63042,NotFoundError: /home/chengjun/stylegan2-master/dnnlib/tflib/_cudacache/fused_bias_act_347e82e8919aeb0d5c7dc989e996c091.so: undefined symbol: _ZN10tensorflow12OpDefBuilder4AttrENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 1.14
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+linux ubuntu 22.04
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.6
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+11.4.0
+
+### CUDA/cuDNN version
+
+10.0/7.6.5
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+When I tried to run stylegan2 on the server, I configured all the environments as required but got an error at runtime. 
+
+
+### Standalone code to reproduce the issue
+
+```shell
+https://github.com/NVlabs/stylegan2
+
+CUDA_VISIBLE_DEVICES=0 python run_training.py --num-gpus=1 --data-dir=/home/chengjun/datasets --config=config-f --dataset=my-custom-dataset --total-kimg=100000
+this is my running command.
+```
+
+
+### Relevant log output
+
+```shell
+tensorflow.python.framework.errors_impl.NotFoundError: /home/chengjun/stylegan2-master/dnnlib/tflib/_cudacache/fused_bias_act_347e82e8919aeb0d5c7dc989e996c091.so: undefined symbol: _ZN10tensorflow12OpDefBuilder4AttrENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+```
+",https://github.com/shiqing1239,2024-02-24T00:58:12Z
+23,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63037,`tf.raw_ops.UnravelIndex` can leads to eigen assertion failure,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+Similar to #63036.
+
+`tf.raw_ops.UnravelIndex` can leads to eigen assertion failure [here](https://gitlab.com/libeigen/eigen/-/blob/aa6964bf3a34fd607837dd8123bc42465185c4f8/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h#L156):
+```C++
+eigen_assert(input_dims[i] > 0);
+```
+Note that it is executed without error message in release build.
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.raw_ops.UnravelIndex(
+    indices=tf.constant([],dtype=tf.int32),
+    dims=[1,1,1,1],
+    name=None
+)
+```
+
+
+### Relevant log output
+
+Release build: outputs nothing
+
+Debug build:
+```shell
+python: external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:156: Eigen::TensorEvaluator<const Eigen::TensorBroadcastingOp<const Eigen::array<long, 2>, const Eigen::TensorReshapingOp<const Eigen::array<long, 2>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>>, Eigen::DefaultDevice>::TensorEvaluator(const XprType &, const Device &) [Derived = const Eigen::TensorBroadcastingOp<const Eigen::array<long, 2>, const Eigen::TensorReshapingOp<const Eigen::array<long, 2>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>>, Device = Eigen::DefaultDevice]: Assertion `input_dims[i] > 0' failed.
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-23T13:57:04Z
+24,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63036,`tf.raw_ops.Substr` can lead to eigen assertion failure,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+The below code triggers eigen assertion failure [here](https://gitlab.com/libeigen/eigen/-/blob/aa6964bf3a34fd607837dd8123bc42465185c4f8/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h#L156):
+```C++
+      eigen_assert(input_dims[i] > 0);
+```
+Note that it is executed without error message in release build.
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.raw_ops.Substr(
+    input=""abc"",
+    pos=tf.constant([],dtype=tf.int32),
+    len=tf.constant([],dtype=tf.int32),
+    unit='BYTE',
+    name=None
+)
+```
+
+
+### Relevant log output
+
+Release build: Outputs nothing
+
+Debug build:
+```shell
+python: external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:156: Eigen::TensorEvaluator<const Eigen::TensorBroadcastingOp<const Eigen::array<long, 1>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>, Eigen::DefaultDevice>::TensorEvaluator(const XprType &, const Device &) [Derived = const Eigen::TensorBroadcastingOp<const Eigen::array<long, 1>, const Eigen::TensorMap<Eigen::Tensor<const int, 1, 1>, 16>>, Device = Eigen::DefaultDevice]: Assertion `input_dims[i] > 0' failed.
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-23T13:48:20Z
+25,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63035,SVDF layer implementation compatible with TFLite’s SVDF operator,"Although TFLite has a built-in SVDF operator (as listed [here](https://www.tensorflow.org/mlir/tfl_ops#tflsvdf_tflsvdfop), and whose implementation can be seen [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/kernels/internal/reference/svdf.h)), currently, Tensorflow doesn't have a keras layer implementation for the SVDF operation.
+I was wondering what would be the sequence of operations (using Tensorflow's Python library) needed so that they could be fused and recognized as an SVDF operator after converting to TFLite.",https://github.com/VictorDominguite,2024-02-23T13:33:04Z
+26,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63034,`tf.raw_ops.AvgPool`: negative kernel size is not checked at shape inference step,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+Currently shape inference step of `tf.raw_ops.AvgPool` allows negative kernel size.
+Note that debug build rejects it [here](https://github.com/tensorflow/tensorflow/blob/7ba14e559de0112cbf59dc6db6f8c6a18283642a/tensorflow/core/framework/common_shape_fns.cc#L1393-L1394):
+```C++
+  TF_RETURN_IF_ERROR(GetWindowedOutputSizeFromDims(
+      c, in_rows_dim, kernel_rows, stride_rows, padding, &output_rows));
+```
+, where `kernel_rows` is converted to `DimensionOrConstant` and ends up with assertion failure [here](https://github.com/tensorflow/tensorflow/blob/7ba14e559de0112cbf59dc6db6f8c6a18283642a/tensorflow/core/framework/shape_inference.h#L890-L895):
+```C++
+inline DimensionOrConstant::DimensionOrConstant(int64_t val) : val(val) {
+  DCHECK(val >= 0 || val == InferenceContext::kUnknownDim)
+      << ""Dimension must be non-negative or equal to ""
+         ""InferenceContext::kUnknownDim but got ""
+      << val;
+}
+```
+
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+
+x = tf.raw_ops.AvgPool(
+    value=tf.random.normal([1,1,1,1]),
+    ksize=[1,-2,1,1],
+    strides=[1,1,1,1],
+    padding=""SAME"",
+    data_format='NHWC',
+    name=None
+)
+
+print(x)
+```
+
+
+### Relevant log output
+
+Release Build:
+```shell
+Tensor(""AvgPool:0"", shape=(1, 1, 1, 1), dtype=float32)
+```
+
+Debug Build:
+```shell
+2024-02-23 22:18:43.783609: F ./tensorflow/core/framework/shape_inference.h:891] Check failed: val >= 0 || val == InferenceContext::kUnknownDim Dimension must be non-negative or equal to InferenceContext::kUnknownDim but got -2
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-23T13:29:12Z
+27,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63033,`tf.raw_ops.ConjugateTranspose`: negative value of `perm` can lead to out-of-bounds read,"### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+tf 2.17
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+Linux Ubuntu 22.04 LTS
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.11.7
+
+### Bazel version
+
+6.5.0
+
+### GCC/compiler version
+
+clang 16
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+In `tf.raw_ops.ConjugateTranspose`, negative value of `perm` can lead to out-of-bounds read.
+[Here](https://github.com/tensorflow/tensorflow/blob/617b5e97d6a9a71e1972dfe6fead5bf460094658/tensorflow/core/kernels/transpose_functor_cpu.cc#L52),
+```C++
+        i_idx += ratio * in_strides[perm[i]];
+```
+as there is no guard which checks validity of `perm`, when its value is -1 `in_strides[perm[i]]` can be an out-of-bounds reading(I guess -1 would be interpreted as an `SIZE_T_MAX` or something).
+Note that the below code ends up with absl assertion failure in debug build.
+
+### Standalone code to reproduce the issue
+
+```Python
+import tensorflow as tf
+
+tf.raw_ops.ConjugateTranspose(
+    x=tf.random.normal([2]),
+    perm=[-1])
+```
+
+
+### Relevant log output
+
+Release Build:
+```shell
+    Outputs nothing
+```
+
+Debug Build:
+```shell
+python: external/com_google_absl/absl/container/inlined_vector.h:363: auto absl::InlinedVector<long, 8>::operator[](size_type)::(anonymous class)::operator()() const [T = long, N = 8, A = std::allocator<long>]: Assertion `false && ""i < size()""' failed.
+Aborted (core dumped)
+```
+",https://github.com/Sehun0819,2024-02-23T13:09:32Z
+28,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63032,add go protobuf-files,,https://github.com/clmforever,2024-02-23T07:35:43Z
+29,github,https://api.github.com/repos/tensorflow/tensorflow/issues/63030,[oneDNN] Add oneDNN version of SparseMatrixMatMul (v2),"This is version 2 of #62883, which should fix the build on ARM64.
+
+Adds `_MklNativeSparseMatrixMatMul` and its accompanying kernel, which uses oneDNN to multiply a CSR sparse matrix by a dense tensor. The op is enabled with an environment variable (`TF_ENABLE_ONEDNN_SPMM`), so is entirely opt-in. It also includes tests and a benchmark, which we've used below to measure its performance against the existing kernel.
+
+The performance looks promising particularly for larger shapes, and is optimized to use the AVX2 and AVX512 ISAs. These results were collected using the new benchmark in `tensorflow/core/kernels/mkl/mkl_sparse_matrix_matmul_op_benchmark.cc` on an Intel Xeon Platinum 8480 with hyperthreading enabled. To minimize NUMA effects, we bound it to the first socket.
+
+Configuration (NNZ_M_K_N) | Eigen Time (ns) | oneDNN Time (ns) | Ratio
+-- | -- | -- | --
+128_8_512_1 | 15300 | 18598 | 0.82
+128_16_512_1 | 14778 | 18551 | 0.80
+128_128_512_1 | 18613 | 19165 | 0.97
+128_4096_4096_1 | 151525 | 35904 | 4.22
+1024_4096_4096_1 | 161593 | 37041 | 4.36
+16384_4096_4096_1 | 163055 | 49355 | 3.30
+128_8_1024_16 | 17307 | 18420 | 0.94
+128_16_1024_16 | 17765 | 18678 | 0.95
+128_128_1024_16 | 19247 | 19200 | 1.00
+128_4096_4096_128 | 160341 | 140894 | 1.14
+128_4096_4096_1024 | 181590 | 156980 | 1.16
+1024_8_1024_16 | 24265 | 19502 | 1.24
+1024_16_1024_16 | 24223 | 20448 | 1.18
+1024_128_1024_16 | 26013 | 20396 | 1.28
+1024_4096_4096_128 | 157612 | 139688 | 1.13
+1024_4096_4096_1024 | 177549 | 160973 | 1.10
+16384_8_1024_16 | 153005 | 36643 | 4.18
+16384_16_1024_16 | 152853 | 36597 | 4.18
+16384_128_1024_16 | 153600 | 31928 | 4.81
+16384_4096_4096_128 | 166061 | 142494 | 1.17
+16384_4096_4096_1024 | 244243 | 194536 | 1.26
+16384_4096_4096_4096 | 654950 | 536546 | 1.22
+100_1_1000000_100 | 18230 | 19991 | 0.91
+200_1_2000000_100 | 20509 | 20818 | 0.99
+400_1_4000000_100 | 23023 | 21638 | 1.06
+400_4_1000000_100 | 22164 | 21349 | 1.04
+800_4_2000000_100 | 26180 | 23374 | 1.12
+1600_4_4000000_100 | 40538 | 28622 | 1.42
+800_8_1000000_100 | 27015 | 23231 | 1.16
+1600_8_2000000_100 | 39953 | 27894 | 1.43
+3200_8_4000000_100 | 77708 | 42709 | 1.82",https://github.com/matthew-olson-intel,2024-02-22T20:34:18Z
