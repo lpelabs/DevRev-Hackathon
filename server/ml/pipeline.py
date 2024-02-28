@@ -33,7 +33,7 @@ def processData(client_name, subreddit_name, TESTING=False):
             except:
                 previous_data_dict = {}
         
-        for source in ["google_play", "twitter", "reddit"]:
+        for source in ["reddit", "google_play", "twitter"]:
             print(f"Running pipeline for {source}")
             processed_data_dict[source] = runPipeline(source, subreddit_name, TESTING=TESTING)
             
@@ -94,7 +94,7 @@ def runPipeline(source_name, subreddit_name, TESTING=False):
                 
         elif source_name == "reddit":
             try:
-                df = pd.read_csv(os.path.join(base_path, f"new_{subreddit_name}_reddit_voc_data.csv"), encoding='latin1')
+                df = pd.read_csv(os.path.join(base_path, f"new_{subreddit_name}_reddit_voc_data.csv"), encoding='latin1').dropna()
             except Exception as e:
                 print(f"Error: {e}")
                 return {str(e)}

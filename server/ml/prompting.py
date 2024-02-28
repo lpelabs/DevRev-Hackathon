@@ -4,7 +4,9 @@ import dotenv
 dotenv.load_dotenv()
 
 def request_chat_gpt_api(prompt, review):
-
+    # print(f"The prompt is {prompt} and review is {review}")
+    if not isinstance(review,str):
+        review = ""
     openai.api_key = os.environ['OPENAI_API_KEY']
     ppl = prompt + '\n\n' + review
 

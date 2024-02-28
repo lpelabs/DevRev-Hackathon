@@ -1,1 +1,576 @@
-{"swiggy": {"google_play": {"swot_cluster_dict": {"s": {"0": [[0.5179033671758921, -0.0814157042506766, 9.259172638254119e-17]], "1": [[-0.37275204581880084, -0.23718318362693852, 9.259172638254123e-17], [-0.14515132135709125, 0.3185988878776152, 9.259172638254117e-17]]}, "w": {"0": [[-0.5359979780503998, -0.47165607922863295, 7.883635986850234e-17], [-0.15779947046696027, 0.681120934350085, 7.883635986850235e-17]], "1": [[0.69379744851736, -0.20946485512145221, 7.883635986850234e-17]]}, "o": {"0": [[-0.7130200871245825, -0.34967639873332457, 1.6885786058267908e-16], [-0.003357620236479169, 0.6944589962000425, 1.688578605826792e-16]], "1": [[0.7163777073610614, -0.3447825974667181, 1.6885786058267918e-16]]}, "t": {"0": [[-0.012461771307816779, 0.5805625288253116, 1.2196154773205732e-16], [-0.6118555714965358, -0.29906017881097086, 1.2196154773205725e-16]], "1": [[0.6243173428043524, -0.28150235001434076, 1.219615477320573e-16]]}}, "geo_cluster_dict": {"3": 2, "1": 1}, "continent_sentiment_dict": {"1": {"X": ["2024-02-22"], "Y": [2]}, "3": {"X": ["2024-02-22", "2024-02-22"], "Y": [9, 3]}}, "work_on_weakness": ["Improvement 1: Invest in efficient logistics and delivery systems to reduce delivery time.", "Improvement 2: Introduce measures such as insulated packaging to ensure that food stays hot until it reaches the customer."], "work_on_threats": ["Suggestion 1: Improve logistics and delivery operations to assure timely delivery of orders.", "Suggestion 2: Implement measures to maintain food temperature and ensure that food is delivered hot."]}, "twitter": {"swot_cluster_dict": {"s": {"0": [[-0.24933608612951227, 6.809101107769787e-17, 7.463254058024073e-18], [-0.24933608612951216, 6.644936222279142e-17, -3.8006280871154265e-18], [-0.24933608612951216, 6.644936222279143e-17, -3.800628087115425e-18]], "1": [[0.7480082583885364, 6.699657850776022e-17, -4.600070540226001e-20]]}, "w": {"0": [[0.2977361876632932, 0.5346700894916034, -0.27949309610624246], [0.576151943955141, -0.4282909993366194, 0.1596438583888126]], "1": [[-0.37373179360397, 0.2718133708171125, 0.4048220671934302], [-0.500156338014464, -0.37819246097209647, -0.2849728294760009]]}, "o": {"0": [[-0.5644035882682751, -0.0556154705234621, 9.7763299965135e-17], [-0.5644035882682751, -0.05561547052346205, 4.963615110996375e-17]], "1": [[0.6626225656094383, -0.5835598085601076, 7.36997255375494e-17]], "2": [[0.46618461092711183, 0.6947907496070319, 7.369972553754939e-17]]}, "t": {"0": [[-0.6368925679052182, -0.2821698933855876, -0.38401089477223715], [-0.2720226854474159, 0.06235281952437192, 0.6425876733309969]], "1": [[0.6830186028778115, -0.4646603956723209, -0.024859082162727204], [0.22589665047482335, 0.6844774695335369, -0.2337176963960322]]}}, "geo_cluster_dict": {"3": 4}, "continent_sentiment_dict": {"3": {"X": ["2019-12-19", "2021-04-15", "2022-12-25", "2022-01-22"], "Y": [2, 2, 2, 2]}}, "work_on_weakness": ["Suggestion 1: Implement stringent quality control processes to ensure that customer instructions related to allergies are properly communicated to the restaurant and adhered to. ", "", "Suggestion 2: Overhaul the complaint system in the help section to give customers the option to report different types of issues, such as wrong item delivery.", "", "Suggestion 3: Improve communication with customers regarding order delays, providing honest and timely explanations.", "", "Suggestion 4: Fix the technical issues causing restaurants to not appear on the home page and show as unserviceable.", "", "Suggestion 5: Establish a system to prevent restaurants from taking orders when they are about to close to avoid forcing customers to cancel and reorder."], "work_on_threats": ["Threat 1: Allergen information not being taken into account during food preparation, risking customers' health.", "Threat 2: Absence of a specific option in the help and complaint section for incorrect items delivered.", "Threat 3: Extended delivery times and inconsistent communication about order status, causing customer dissatisfaction.", "Threat 4: Technical issues that prevent discovery and ordering process from restaurants showing as unserviceable."]}, "reddit": {"swot_cluster_dict": {"s": {"0": [[0.870599107915426, -0.4279917600743997, 7.435186446658119e-17]], "1": [[-0.4241112211503286, -0.08099581894287079, 8.614596930147388e-17], [-0.4241112211503287, -0.0809958189428709, 6.845481204913484e-17], [-0.4241112211503287, -0.0809958189428709, 6.845481204913485e-17]], "2": [[0.40173455553555987, 0.6709792169030127, 7.435186446658118e-17]]}, "w": {"0": [[0.9027545575222842, -0.22806324314716897, 0.14298673267550757]], "1": [[-0.19033897997883356, -0.4592403471911245, -0.5745580211856615], [-0.355710425636217, -0.09030967302485444, 0.576624678609871], [-0.41128083245401925, -0.09425848173957013, 0.05455524228798808]], "2": [[0.05457568054678582, 0.8718717451027177, -0.19960863238770515]]}, "o": {"0": [[0.4241082108159867, -0.14933345290127958, 0.7121304595262822]], "1": [[-0.6389397164795866, -0.1321850209668656, -0.04019727429502339], [-0.6389397164795861, -0.13218502096686557, -0.04019727429502327]], "2": [[0.6552911740474435, -0.41088067913208803, -0.49911365595233215]], "3": [[0.19848004809574213, 0.8245841739670988, -0.13262225498390381]]}, "t": {"0": [[0.573710446521405, -0.03180617116601417, 0.4981644529210034]], "1": [[-0.323364899104575, -0.44177307960705314, -0.04287399195313594], [-0.3233648991045751, -0.44177307960705336, -0.042873991953135925]], "2": [[0.5554818932657882, 0.16779600520144183, -0.49376972361461113]], "3": [[-0.48246254157804275, 0.7475563251786791, 0.08135325459987937]]}}, "work_on_weakness": ["Suggestion 1:", "Consider improving the documentation and clarity about the usage of AWS services, as customers seem to face confusion regarding the usage of certain services such as CloudFront Origin Request Policy and AWS Lambda. A possible solution could be to include detailed examples and clearer guidance in the FAQ sections, which highlight the rationale behind specific settings or components.", "", "Suggestion 2:", "Develop a feature in the existing AWS services, allowing updates to happen automatically within particular configurations such as the launch templates. This improvement will eliminate the need for manual updates by customers each time there are new releases, thus enhancing user experience and productivity. ", "", "Suggestion 3:", "Develop a more user-friendly interface or a plugin for services like Textract, that would allow users to review the Textract output side by side with the original document. This feature would greatly improve the user's ability to quickly verify and rectify any errors in the data extraction process. It could also feature an in-built feedback system to report any inaccuracies and improve the reliability of the service over time."], "work_on_threats": ["Threat 1: The company is at risk of unauthorized access due to issues with forwarding the 'Authorization' header. To address this, AWS could evaluate and provide clear guidelines on transitioning from a whitelist to black list approach privately or publicly via further policy enhancement.", "", "Threat 2: There is a notable lack of automatic updates for image IDs in launch templates, which necessitates manual interventions. To counter this issue, the company could consider implementing an automation system which fetches the latest image tags and updates the launch templates accordingly.", "", "Threat 3: The shift to asynchronous Lambda functions might lead to unexpected behaviors and problems if not properly managed. To mitigate this risk, the company could escalate awareness amongst its developers about the known issues with transitioning to asynchronous functions and consider conducting in-depth testing and systematic rollouts.", "", "Threat 4: Employee dissatisfaction and lack of feedback from the recruitment process might lead to a loss of potential talents, which can hurt the company's ability to adapt and grow. In response to this threat, the company could consider improving its recruitment and feedback process, ensuring that suitable candidates for critical roles don\u2019t feel disheartened and are given constructive criticism to aid their future applications."]}}}
+{
+    "swiggy": {
+        "reddit": {
+            "swot_cluster_dict": {
+                "s": {
+                    "0": [
+                        [
+                            0.7729018124727574,
+                            0.6347527695931579,
+                            0.01820976443165751
+                        ],
+                        [
+                            0.5927980820235926,
+                            -0.456634671547006,
+                            -0.35832031193734204
+                        ],
+                        [
+                            0.3829889835925131,
+                            -0.38842531034910804,
+                            0.43041438420353745
+                        ]
+                    ],
+                    "1": [
+                        [
+                            -0.31353312783602993,
+                            0.04992276626403909,
+                            -0.02587908470346327
+                        ],
+                        [
+                            -0.3135331278360299,
+                            0.049922766264038895,
+                            -0.025879084703463236
+                        ],
+                        [
+                            -0.3135331278360299,
+                            0.049922766264038895,
+                            -0.02587908470346325
+                        ],
+                        [
+                            -0.3135331278360299,
+                            0.049922766264038895,
+                            -0.02587908470346325
+                        ],
+                        [
+                            -0.1810232389087141,
+                            -0.03930661901723749,
+                            0.039091586819463155
+                        ],
+                        [
+                            -0.3135331278360299,
+                            0.049922766264038895,
+                            -0.02587908470346324
+                        ]
+                    ]
+                },
+                "w": {
+                    "0": [
+                        [
+                            -0.26409870913662187,
+                            0.5246653033261118,
+                            -0.005652889706830476
+                        ],
+                        [
+                            -0.15708954308021394,
+                            0.6002466933685835,
+                            -0.4095656467515303
+                        ],
+                        [
+                            0.11192694681321592,
+                            -0.19161053301739414,
+                            -0.06639048874715972
+                        ],
+                        [
+                            -0.3371608672300944,
+                            -0.2608319121106107,
+                            -0.06928332370827413
+                        ],
+                        [
+                            -0.478370714500771,
+                            -0.20031633860254233,
+                            0.25475152125698414
+                        ],
+                        [
+                            -0.06439940411514739,
+                            0.07866087562907444,
+                            0.696902867726082
+                        ],
+                        [
+                            -0.1800879618054486,
+                            -0.5159957419097289,
+                            -0.40159335395164153
+                        ]
+                    ],
+                    "1": [
+                        [
+                            0.7595477848571868,
+                            0.026068595425720067,
+                            0.08114421997932983
+                        ],
+                        [
+                            0.6097324681978945,
+                            -0.06088694210921351,
+                            -0.08031290609695922
+                        ]
+                    ]
+                },
+                "o": {
+                    "0": [
+                        [
+                            0.5774011001605958,
+                            0.7604770626720453,
+                            -0.18240897644818474
+                        ],
+                        [
+                            0.6220188216924857,
+                            -0.3482502570100133,
+                            -0.36338954449195027
+                        ],
+                        [
+                            0.6827744469468199,
+                            -0.3574554072320758,
+                            -0.04173020474157767
+                        ],
+                        [
+                            0.5597375169609856,
+                            -0.0049328757917239735,
+                            0.6170946267566962
+                        ]
+                    ],
+                    "1": [
+                        [
+                            -0.4883863771521775,
+                            -0.009967704527646575,
+                            -0.005913180214996817
+                        ],
+                        [
+                            -0.48838637715217736,
+                            -0.0099677045276465,
+                            -0.005913180214996848
+                        ],
+                        [
+                            -0.48838637715217736,
+                            -0.0099677045276465,
+                            -0.0059131802149967865
+                        ],
+                        [
+                            -0.48838637715217736,
+                            -0.0099677045276465,
+                            -0.0059131802149967865
+                        ],
+                        [
+                            -0.48838637715217736,
+                            -0.009967704527646525,
+                            -0.0059131802149967865
+                        ]
+                    ]
+                },
+                "t": {
+                    "0": [
+                        [
+                            0.7306242194903788,
+                            0.051514700931314,
+                            0.5115787282005241
+                        ],
+                        [
+                            0.5091454280761952,
+                            -0.28533304211699334,
+                            0.026089122372923226
+                        ],
+                        [
+                            0.5016383475015864,
+                            -0.4359480762755018,
+                            -0.3450599692930715
+                        ],
+                        [
+                            0.599760221627594,
+                            0.5991921762079057,
+                            -0.28478173288961045
+                        ]
+                    ],
+                    "1": [
+                        [
+                            -0.46823364333915063,
+                            0.014114848250654982,
+                            0.018434770321847142
+                        ],
+                        [
+                            -0.4682336433391508,
+                            0.014114848250655182,
+                            0.018434770321847295
+                        ],
+                        [
+                            -0.4682336433391508,
+                            0.014114848250655093,
+                            0.018434770321847257
+                        ],
+                        [
+                            -0.4682336433391508,
+                            0.014114848250655093,
+                            0.018434770321847257
+                        ],
+                        [
+                            -0.4682336433391509,
+                            0.014114848250655116,
+                            0.018434770321847333
+                        ]
+                    ]
+                }
+            },
+            "work_on_weakness": [
+                "Suggestion 1: Swiggy should continue the same old subscription benefits which were promised at the time of purchase, until the subscription ends. A sudden shift to new service benefits may upset existing users who have already paid for the original benefits. ",
+                "",
+                "Suggestion 2: Swiggy should ensure transparency in pricing of food items. Any discrepancies in the price when buying from regular account and super account should not exist.",
+                "",
+                "Suggestion 3: Swiggy should rectify the automatic addition of 'tip' every time a customer modifies the order. An optional decision made compulsory negatively affects customer experience.",
+                "",
+                "Suggestion 4: Swiggy should ensure that there are no glitches in the application especially in the payment section. The issue of the application crashing during the utilization of Amazon Pay Balance should be immediately resolved.",
+                "",
+                "Suggestion 5:  Swiggy should ensure to update the real-time status of the food order to the customers. If the restaurant marks the order as ready, the customer should be informed promptly to avoid miscommunication.",
+                "",
+                "Suggestion 6: Swiggy should devise a fair policy for restaurants for order cancellations. The restaurants should not bear the cost of commission and food wastage for Swiggy's failure to provide a rider.",
+                "",
+                "Suggestion 7: Swiggy should make sure that the geotagging of the restaurants is done accurately and shows up in search results based on proximity to the customer's location.",
+                "",
+                "Suggestion 8: Swiggy should strengthen the quality check of delivered food items and ensure providing refunds to the customers in case of substandard food or wrong delivery of food items.",
+                "",
+                "Suggestion 9: Swiggy should ensure proper packaging of food items and avoid confusion with competitor\u2019s branding on the packages delivered to the customers.",
+                "",
+                "Suggestion 10: After the update of the application, Swiggy should ensure compatibility with the dark mode on all android devices to enhance user experience."
+            ],
+            "work_on_threats": [
+                "Threat 1: Changing policies without adequate notice or agreement - Address this by always providing clear, consistent information regarding subscription details and changes. Practice transparency and provide customers ample time to adjust or opt-out if they disagree with changes.",
+                "",
+                "Threat 2: Inconsistency in pricing between subscribed and non-subscribed users - Ensure all pricing policies are clearly stated, and deal with restaurants that unfairly inflate their prices for subscribed customers. ",
+                "",
+                "Threat 3: Automatically adding tips without user consent - Alter the app to avoid automatically adding a tip, and allow customers to choose whether they want to add a tip or not. ",
+                "",
+                "Threat 4: Application crashes during payments through certain methods - Regularly perform app maintenance and bug fixes to ensure smoother operation and payment processing. ",
+                "",
+                "Threat 5: Miscommunication between the restaurant and Swiggy, leading to delays and misinformation - Improve the communication and coordination system between restaurants, delivery riders, and Swiggy to ensure real-time updates are shared across all parties.",
+                "",
+                "Threat 6: Geolocation errors causing business losses for restaurant partners - Fix current geolocation tagging system errors to ensure fairness to all restaurant partners and accuracy for customers.",
+                "",
+                "Threat 7: Issues with refund and replacement policies - Establish clear, fair, and prompt refund and replacement policies. ",
+                "",
+                "Threat 8: Incorrect packaging - Request all partnering restaurants to use correct packaging to prevent confusion or misrepresentation.",
+                "",
+                "Threat 9: Application not functioning correctly with phone settings - Regular app updates to address compatibility issues with various phone settings."
+            ]
+        },
+        "google_play": {
+            "error": "invalid literal for int() with base 10: 'product.'"
+        },
+        "twitter": {
+            "swot_cluster_dict": {
+                "s": {
+                    "0": [
+                        [
+                            -0.4525425382706742,
+                            0.040138053512065175,
+                            -0.024014446800991164
+                        ],
+                        [
+                            -0.45254253827067403,
+                            0.04013805351206541,
+                            -0.02401444680099132
+                        ],
+                        [
+                            -0.4525425382706741,
+                            0.04013805351206525,
+                            -0.024014446800991268
+                        ],
+                        [
+                            -0.4525425382706741,
+                            0.04013805351206525,
+                            -0.02401444680099127
+                        ],
+                        [
+                            -0.4525425382706741,
+                            0.04013805351206525,
+                            -0.024014446800991268
+                        ]
+                    ],
+                    "1": [
+                        [
+                            0.2755379063400954,
+                            -0.24374275870323284,
+                            -0.008254017736147845
+                        ],
+                        [
+                            0.33382637468922977,
+                            -0.3195057484437248,
+                            0.0333322196488725
+                        ],
+                        [
+                            0.3365289680773944,
+                            0.31316300350497356,
+                            0.5889616195073645
+                        ],
+                        [
+                            0.3732252323218422,
+                            -0.28111389369307865,
+                            -0.021483054725375345
+                        ],
+                        [
+                            0.34272360334910884,
+                            -0.25403298108710726,
+                            -0.11825342375461494
+                        ],
+                        [
+                            0.6008706065757001,
+                            0.5845421108618442,
+                            -0.35423110893514226
+                        ]
+                    ]
+                },
+                "w": {
+                    "0": [
+                        [
+                            0.618153173187703,
+                            -0.39054769459181526,
+                            -0.45474344963710656
+                        ],
+                        [
+                            0.10490676180433109,
+                            0.524154712593786,
+                            -0.2666546738618336
+                        ],
+                        [
+                            0.38684004247611936,
+                            0.2904855255907345,
+                            0.38111740538423644
+                        ],
+                        [
+                            0.20138289009095808,
+                            -0.08316042364399825,
+                            0.005284354724545967
+                        ],
+                        [
+                            0.40637786997621056,
+                            0.341420571635301,
+                            0.12375793478107984
+                        ]
+                    ],
+                    "1": [
+                        [
+                            -0.44710252450399307,
+                            -0.027550060029183594,
+                            -0.02731388883461705
+                        ],
+                        [
+                            0.010663560480788899,
+                            -0.46968407965271997,
+                            -0.05709093155486632
+                        ],
+                        [
+                            -0.0381515144483861,
+                            -0.3544573280733646,
+                            0.5788711816907477
+                        ],
+                        [
+                            -0.469407667594717,
+                            0.05685048893311413,
+                            -0.10331469529145165
+                        ],
+                        [
+                            -0.4110560477054232,
+                            0.026758258935758072,
+                            -0.1451803462268792
+                        ],
+                        [
+                            -0.3626065437635921,
+                            0.08573002830238831,
+                            -0.03473289117385511
+                        ]
+                    ]
+                },
+                "o": {
+                    "0": [
+                        [
+                            0.7625380214531361,
+                            -0.20983398166985703,
+                            0.0023150629399896617
+                        ],
+                        [
+                            0.7625380214531364,
+                            -0.20983398166985703,
+                            0.0023150629399895793
+                        ],
+                        [
+                            0.7625380214531364,
+                            -0.20983398166985703,
+                            0.0023150629399895533
+                        ]
+                    ],
+                    "1": [
+                        [
+                            -0.41317110186477146,
+                            -0.24099287007111325,
+                            0.12864046265991616
+                        ],
+                        [
+                            -0.36650893729395817,
+                            -0.17071541595721534,
+                            -0.27213589695449253
+                        ],
+                        [
+                            -0.3705702119698317,
+                            -0.07710971312074837,
+                            0.7272639130181299
+                        ],
+                        [
+                            -0.3829076741827194,
+                            -0.07505994186566994,
+                            -0.2788301692528037
+                        ],
+                        [
+                            -0.4254817749634048,
+                            -0.22323661329306188,
+                            -0.24678541830305703
+                        ],
+                        [
+                            -0.4033936672145128,
+                            -0.2561683949829818,
+                            -0.018769769266743442
+                        ]
+                    ],
+                    "2": [
+                        [
+                            0.037209651564894135,
+                            0.8363924471501809,
+                            -0.02316415536045869
+                        ],
+                        [
+                            0.037209651564894045,
+                            0.8363924471501805,
+                            -0.023164155360458728
+                        ]
+                    ]
+                },
+                "t": {
+                    "0": [
+                        [
+                            -0.4319145973271519,
+                            -0.2739549285991854,
+                            -0.15383709969861556
+                        ],
+                        [
+                            -0.34774421009311207,
+                            -0.17939457346899573,
+                            0.2827184149694057
+                        ],
+                        [
+                            -0.4032590080232808,
+                            -0.173229251718368,
+                            0.04560270586055821
+                        ],
+                        [
+                            -0.39993388304403066,
+                            -0.08632739247401755,
+                            -0.2747608756413761
+                        ],
+                        [
+                            -0.3363384402132551,
+                            0.05380657758171719,
+                            -0.10805476648611362
+                        ],
+                        [
+                            -0.2384066980435354,
+                            -0.08562179507744026,
+                            0.14320275608429717
+                        ]
+                    ],
+                    "1": [
+                        [
+                            0.6392763685702303,
+                            -0.24514086448235053,
+                            -0.008179407340836121
+                        ],
+                        [
+                            0.6392763685702301,
+                            -0.24514086448235048,
+                            -0.008179407340836243
+                        ],
+                        [
+                            0.6392763685702301,
+                            -0.24514086448235048,
+                            -0.008179407340836307
+                        ]
+                    ],
+                    "2": [
+                        [
+                            0.1693181533982752,
+                            0.7935495802789299,
+                            -0.5306039555429346
+                        ],
+                        [
+                            0.07044957763540048,
+                            0.6865943769244116,
+                            0.6202710424772876
+                        ]
+                    ]
+                }
+            },
+            "geo_cluster_dict": {
+                "3": 9,
+                "5": 1,
+                "-1": 1
+            },
+            "continent_sentiment_dict": {
+                "3": {
+                    "X": [
+                        "2019-12-19",
+                        "2021-04-15",
+                        "2022-12-25",
+                        "2022-01-22",
+                        "2019-10-06",
+                        "2021-11-09",
+                        "2022-01-26",
+                        "2021-06-26",
+                        "2021-07-26"
+                    ],
+                    "Y": [
+                        2,
+                        2,
+                        2,
+                        2,
+                        2,
+                        4,
+                        2,
+                        1,
+                        2
+                    ]
+                },
+                "5": {
+                    "X": [
+                        "2016-11-17"
+                    ],
+                    "Y": [
+                        5
+                    ]
+                },
+                "-1": {
+                    "X": [
+                        "2021-06-28"
+                    ],
+                    "Y": [
+                        3
+                    ]
+                }
+            },
+            "work_on_weakness": [
+                "Suggestion 1: Invest more in staff training to ensure that customer allergies and preferences are strictly adhered to. A separate section could be implemented in the food delivery platform to highlight any allergies or dietary restrictions to avoid confusion or mistakes.",
+                "",
+                "Suggestion 2: Improve the customer service and complaint system on the platform. Addition of a selection for \u2018Wrong Item Delivered\u2019 could make the complaint system more user-friendly and efficient for customers facing issues.",
+                "",
+                "Suggestion 3: Implement an efficient order tracking system to provide accurate delivery updates and to avoid confusions about order cancellations, delays, and replacements.",
+                "",
+                "Suggestion 4: Ensure the availability of restaurants in the platform is consistent. Timely updates and troubleshooting of technical glitches can avoid confusion and dissatisfaction among customers.",
+                "",
+                "Suggestion 5: Assign delivery personnel promptly to reduce waiting time for customers. Attention should be given to achieving quick order fulfillment.",
+                "",
+                "Suggestion 6: Implement quality checks to ensure the right order is delivered to the customer. This can help avoid misdeliveries and increase customer satisfaction.",
+                "",
+                "Suggestion 7: Ensure timely refunds for missing items. A streamlined refund process can help retain customer trust.",
+                "",
+                "Suggestion 8: Enhance the platform to address technical issues. This can ensure smooth communication between customers and customer care. The app should also provide real-time updates on orders to avoid confusion about deliveries."
+            ],
+            "work_on_threats": [
+                "Threat 1: Inaccurate order fulfillment and improper listening to customers' specifications endanger customers' health and company reputation.",
+                "Threat 2: Long delays in order delivery and improper communication about delivery status lead to customer dissatisfaction and potential churn.",
+                "Threat 3: Technical issues and errors within the app, preventing customers from easily resolving issues and contacting customer service, halt smooth customer journey and engagement."
+            ]
+        }
+    }
+}

@@ -8,6 +8,9 @@ If it contains vague remarks, or unecessary information, it will be less useful.
 
 If it contains specific details, and is well written, it will be more useful.
 
+If you can't give me the usefulness, give me a 0 as the score in the format:
+Usefulness: 0
+
 I want the output in the following format:
 Usefulness: Score
 

@@ -20,7 +20,7 @@ export default function UserDashboard() {
 
   const fetchData = async () => {
     const response = await axios.get(
-      `https://lpe-labs.up.railway.app/get_json?client_name=${clientFromQuery}`,
+      `http://localhost:8000/get_json?client_name=${clientFromQuery}`,
       {
         client_name: clientFromQuery,
       },
@@ -90,7 +90,7 @@ export default function UserDashboard() {
                 >
                   1. Work On Threats
                 </Label>
-                <pre>
+                {/* <pre>
                   {JSON.stringify(
                     predictions.data[`${clientFromQuery}`]["google_play"][
                       "work_on_threats"
@@ -98,8 +98,8 @@ export default function UserDashboard() {
                     null,
                     2,
                   )}
-                </pre>
-                <pre>
+                </pre> */}
+                {/* <pre>
                   {JSON.stringify(
                     predictions.data[`${clientFromQuery}`]["google_play"][
                       "work_on_threats"
@@ -107,7 +107,7 @@ export default function UserDashboard() {
                     null,
                     2,
                   )}
-                </pre>
+                </pre> */}
 
                 <Label
                   className="flex flex-col text-md font-bold text-[30px] p-5 "
@@ -115,7 +115,7 @@ export default function UserDashboard() {
                 >
                   2. Work On Weakness
                 </Label>
-                <pre>
+                {/* <pre>
                   {JSON.stringify(
                     predictions.data[`${clientFromQuery}`]["google_play"][
                       "work_on_weakness"
@@ -123,8 +123,8 @@ export default function UserDashboard() {
                     null,
                     2,
                   )}
-                </pre>
-                <pre>
+                </pre> */}
+                {/* <pre>
                   {JSON.stringify(
                     predictions.data[`${clientFromQuery}`]["google_play"][
                       "work_on_weakness"
@@ -132,7 +132,7 @@ export default function UserDashboard() {
                     null,
                     2,
                   )}
-                </pre>
+                </pre> */}
 
                 <Label
                   className="flex flex-col text-md font-bold text-[40px] p-5 underline"
@@ -149,7 +149,7 @@ export default function UserDashboard() {
                 </Label>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["twitter"][
+                    predictions.data["twitter"][
                       "work_on_threats"
                     ][0],
                     null,
@@ -158,7 +158,7 @@ export default function UserDashboard() {
                 </pre>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["twitter"][
+                    predictions.data["twitter"][
                       "work_on_threats"
                     ][1],
                     null,
@@ -174,7 +174,7 @@ export default function UserDashboard() {
                 </Label>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["twitter"][
+                    predictions.data["twitter"][
                       "work_on_weakness"
                     ][0],
                     null,
@@ -183,7 +183,7 @@ export default function UserDashboard() {
                 </pre>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["twitter"][
+                    predictions.data["twitter"][
                       "work_on_weakness"
                     ][1],
                     null,
@@ -206,7 +206,7 @@ export default function UserDashboard() {
                 </Label>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["reddit"][
+                    predictions.data["reddit"][
                       "work_on_threats"
                     ][0],
                     null,
@@ -215,7 +215,7 @@ export default function UserDashboard() {
                 </pre>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["reddit"][
+                    predictions.data["reddit"][
                       "work_on_threats"
                     ][1],
                     null,
@@ -231,7 +231,7 @@ export default function UserDashboard() {
                 </Label>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["reddit"][
+                    predictions.data["reddit"][
                       "work_on_weakness"
                     ][0],
                     null,
@@ -240,7 +240,7 @@ export default function UserDashboard() {
                 </pre>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["reddit"][
+                    predictions.data["reddit"][
                       "work_on_weakness"
                     ][1],
                     null,
@@ -249,7 +249,7 @@ export default function UserDashboard() {
                 </pre>
                 <pre>
                   {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["reddit"][
+                    predictions.data["reddit"][
                       "work_on_weakness"
                     ][2],
                     null,
@@ -257,7 +257,7 @@ export default function UserDashboard() {
                   )}
                 </pre>
 
-                <Example data={predictions.data[`${clientFromQuery}`]} />
+                <Example data={predictions.data} />
               </div>
             )}
           </div>

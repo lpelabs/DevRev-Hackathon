@@ -40,13 +40,20 @@ def swotDataframeEmbeddings(reviews_df):
     return reviews_df
 
 def getUsefulnessFromResponse(response):
-    try:
-        return int(response)
-    except:
+    if not response.lower().startswith("useful"):
+        return 0
+    if response.split()[1].isalpha():
+        return 0
+    num = response.split()[1].replace('.',' ')
+    num = int(eval(num))
+    if isinstance(num,int):
+        return num
+    else:
+        print(f"The unparsed response is {response}")
         return 0
 
 def usefulDataframeEmbeddings(reviews_df):
-    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: getUsefulnessFromResponse(request_chat_gpt_api(NOISE_PROMPT,x).split()[1]))
+    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: getUsefulnessFromResponse(request_chat_gpt_api(NOISE_PROMPT,x)))
     return reviews_df
 
 def sentimentDataframeEmbeddings(reviews_df):
