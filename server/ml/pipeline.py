@@ -160,9 +160,10 @@ def redditModel(raw_data_df):
         final_df = pd.read_csv("final_reddit_df.csv")
         
         #Cluster based on SWOT - query LLM for those many number of clusters
-        optimal_cluster_dict, swot_cluster_dict = clusteringProcess(final_df)
+        optimal_cluster_dict, swot_cluster_dict, centroid_dict = clusteringProcess(final_df)
         print(f"Swot cluster dict is {swot_cluster_dict}")
         print(f"Optimal cluster dict is {optimal_cluster_dict}")
+        print(f"Centroid dict is {centroid_dict}")
         
         #Cluster based on Geographical Data - send dataframe with continent and review
         # geo_cluster_dict = final_df['continentEmbeddings'].value_counts().to_dict()
@@ -189,7 +190,8 @@ def redditModel(raw_data_df):
             # "geo_cluster_dict": geo_cluster_dict,
             # "continent_sentiment_dict": continent_sentiment_dict,
             "work_on_weakness": work_on_weakness,
-            "work_on_threats": work_on_threats
+            "work_on_threats": work_on_threats, 
+            "centroid_dict" : centroid_dict
         }
         
         print(f"Final data dict is {final_data_dict}")
@@ -245,7 +247,7 @@ def twitterModel(raw_data_df):
         final_df = pd.read_csv("final_twitter_df.csv")
         
         #Cluster based on SWOT - query LLM for those many number of clusters
-        optimal_cluster_dict, swot_cluster_dict = clusteringProcess(final_df)
+        optimal_cluster_dict, swot_cluster_dict, centroid_dict = clusteringProcess(final_df)
         print(f"Swot cluster dict is {swot_cluster_dict}")
         print(f"Optimal cluster dict is {optimal_cluster_dict}")
         
@@ -274,7 +276,8 @@ def twitterModel(raw_data_df):
             "geo_cluster_dict": geo_cluster_dict,
             "continent_sentiment_dict": continent_sentiment_dict,
             "work_on_weakness": work_on_weakness,
-            "work_on_threats": work_on_threats
+            "work_on_threats": work_on_threats, 
+            "centroid_dict" : centroid_dict
         }
         
         print(f"Final data dict is {final_data_dict}")
@@ -331,9 +334,10 @@ def googlePlayModel(raw_data_df):
         final_df = pd.read_csv("final_google_play_df.csv")
         
         #Cluster based on SWOT - query LLM for those many number of clusters
-        optimal_cluster_dict, swot_cluster_dict = clusteringProcess(final_df)
+        optimal_cluster_dict, swot_cluster_dict, centroid_dict = clusteringProcess(final_df)
         print(f"Swot cluster dict is {swot_cluster_dict}")
         print(f"Optimal cluster dict is {optimal_cluster_dict}")
+        print(f"Centroid dict is {centroid_dict}")
         
         #Cluster based on Geographical Data - send dataframe with continent and review
         geo_cluster_dict = final_df['continentEmbeddings'].value_counts().to_dict()
@@ -360,7 +364,8 @@ def googlePlayModel(raw_data_df):
             "geo_cluster_dict": geo_cluster_dict,
             "continent_sentiment_dict": continent_sentiment_dict,
             "work_on_weakness": work_on_weakness,
-            "work_on_threats": work_on_threats
+            "work_on_threats": work_on_threats, 
+            "centroid_dict" : centroid_dict
         }
         
         print(f"Final data dict is {final_data_dict}")

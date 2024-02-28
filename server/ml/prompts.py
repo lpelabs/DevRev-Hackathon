@@ -82,10 +82,14 @@ I will give you a list of reviews given by the customer.
 
 I need you to give me the how we can address the weakness of the company based on the reviews.
 
+The analysis should be thorough and professional. 
+
+I want you to give me headers for the weaknesses, and then give me a brief explanation of the weakness.
+
 I need you to strictly follow this output format, no extra information is required for reasoning:
-Strength 1
-Strength 2
-Strength 3
+Weakness 1 : 
+Weakness 2 : 
+Weakness 3 : 
 and so on
 """
 
@@ -96,10 +100,14 @@ I will give you a list of reviews given by the customer.
 
 I need you to give me the how we can address the threats of the company based on the reviews.
 
+The analysis should be thorough and professional. 
+
+I want you to give me headers for the threats, and then give me a brief explanation of the threat.
+
 I need you to strictly follow this output format, no extra information is required for reasoning:
 
-Threat 1
-Threat 2
-Threat 3
+Threat 1 : 
+Threat 2 : 
+Threat 3 : 
 and so on
 """

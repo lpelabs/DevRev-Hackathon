@@ -25,13 +25,15 @@ def clusteringProcess(final_df):
     # final_df[embeddingColumns] = final_df[embeddingColumns].applymap(clean)
     swotClusterDict = {}
     optimalClusterDict = {}
-
+    clusterCentroidDict = {}
     for cols in embeddingColumns:
         print(cols)
         optimal_clusters = find_optimal_clusters(final_df[cols])
         optimalClusterDict[cols[0]] = optimal_clusters
-        swotClusterDict[cols[0]] = visualize_clusters_3d(final_df[cols].values, perform_clustering(final_df[cols].values, optimal_clusters))
+        clusters, cluster_centroid = perform_clustering(final_df[cols].values, optimal_clusters)
+        clusterCentroidDict[cols[0]] = cluster_centroid 
+        swotClusterDict[cols[0]] = visualize_clusters_3d(final_df[cols].values, clusters)
         
     
-    return optimalClusterDict,swotClusterDict
+    return optimalClusterDict,swotClusterDict, clusterCentroidDict
     
