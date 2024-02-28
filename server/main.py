@@ -57,6 +57,7 @@ app.add_middleware(
 
 
 def get_play_store_reviews(app_name: str):
+
     try:
         print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
 
@@ -65,6 +66,15 @@ def get_play_store_reviews(app_name: str):
         content_after_id = url.split("id=")[1].split("&")[0]
 
         print(content_after_id)
+
+        google_play_csv_file = f"./data/google_play_{app_name}_voc.csv"
+
+        if os.path.isfile(google_play_csv_file):
+            df = pd.read_csv(google_play_csv_file)
+            index_len = len(df["index"])
+        else:
+            index_len = 0
+        
 
         result, continuation_token = reviews(
             f"{content_after_id}",
@@ -77,7 +87,7 @@ def get_play_store_reviews(app_name: str):
         for index, review in enumerate(result):
             play_review.append(
                 {
-                    "index": index,
+                    "index": index + index_len,
                     "source": "Google Play Ptore",
                     "url": url,
                     "title": "Google Play Review",
@@ -95,7 +105,7 @@ def get_play_store_reviews(app_name: str):
             fieldnames = list(play_review[0].keys())
 
         with open(
-            "./data/google_play_voc.csv", "a", newline="", encoding="utf-8"
+            google_play_csv_file, "a", newline="", encoding="utf-8"
         ) as csvfile:  # Open in append mode
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:  # Check if file is empty (write header only once)
@@ -109,7 +119,6 @@ def get_play_store_reviews(app_name: str):
         print(f"An error occurred: {e}")
         return None
 
-
 def get_subreddit(subreddit_name: str):
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
 
@@ -117,6 +126,7 @@ def get_subreddit(subreddit_name: str):
         str: A message indicating the CSV file was updated successfully.
     """
     try:
+        reddit_csv_file = f"./data/new_{subreddit_name}_reddit_voc_data.csv"
         client_id = CLIENT_ID  # Replace with your actual client ID
         client_secret = CLIENT_SECRET  # Replace with actual client secret
         user_agent = "web:devrev-forge:v1 (by /u/smooth_profit4543)"  # Replace with your actual user agent
@@ -132,11 +142,18 @@ def get_subreddit(subreddit_name: str):
         )  # Replace with the desired subreddit
         limit = 20  # Set the desired limit for fetched posts
 
+        if os.path.isfile(reddit_csv_file):
+            df = pd.read_csv(reddit_csv_file)
+            index_len = len(df["index"])
+        else:
+            index_len = 0
+            
+
         redditdata = []
         for index, submission in enumerate(subreddit.top(limit=limit)):
             redditdata.append(
                 {
-                    "index": index,
+                    "index": index + index_len,
                     "source": f"{subreddit_name}",
                     "url": submission.url,
                     "title": submission.title,
@@ -162,7 +179,7 @@ def get_subreddit(subreddit_name: str):
     # CSV handling (adapted from Response A with improvements)
     try:
         with open(
-            f"./data/new_{subreddit_name}_reddit_voc_data.csv",
+            reddit_csv_file,
             "a",
             newline="",
             encoding="utf-8",
@@ -174,14 +191,14 @@ def get_subreddit(subreddit_name: str):
                 writer.writerow(issue)
 
             df = pd.read_csv(
-                "./data/new_reddit_voc_data.csv", encoding="unicode_escape"
+                reddit_csv_file, encoding="unicode_escape"
             )
             print(df)  # Debugging print statement
             return "Reddit reviews appended to voc_data.csv successfully."
     except FileNotFoundError:
         print("File not found. Creating a new CSV file.")
         with open(
-            f"./data/new_{subreddit_name}_reddit_voc_data.csv",
+            reddit_csv_file,
             "w",
             newline="",
             encoding="utf-8",
@@ -192,16 +209,15 @@ def get_subreddit(subreddit_name: str):
                 writer.writerow(issue)
 
             df = pd.read_csv(
-                f"./data/new_{subreddit_name}_reddit_voc_data.csv",
+                reddit_csv_file,
                 encoding="unicode_escape",
             )
             print(df)  # Debugging print statement
             return "Reddit reviews appended to a new voc_data.csv file."
     except Exception as e:  # Handle other potential errors
-        df = pd.read_csv(f"./data/new_{subreddit_name}_reddit_voc_data.csv")
+        df = pd.read_csv(reddit_csv_file)
         print(f"An error occurred: {e}")  # Debugging print statement
         return "An error occurred while appending reviews to voc_data.csv."
-
 
 def get_github_issues(owner: str, repo: str):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
@@ -219,11 +235,19 @@ def get_github_issues(owner: str, repo: str):
         issues = response.json()
         print(f"Received {len(issues)} issues")  # Debugging statement
 
+        csv_file_path = f"./data/{repo}_github_voc_data.csv"
+        if os.path.isfile(csv_file_path):
+            with open(csv_file_path, "r", encoding="utf-8") as csvfile:
+                df = pd.read_csv(csv_file_path)
+                index_len = len(df["index"])
+        else:
+            index_len = 0
+
         filtered_data = []
         for index, issue in enumerate(issues):
             filtered_data.append(
                 {
-                    "index": index,
+                    "index": index + index_len,
                     "source": "github",
                     "url": issue["url"],
                     "title": issue["title"],
@@ -243,23 +267,23 @@ def get_github_issues(owner: str, repo: str):
             fieldnames = []
 
         with open(
-            "./data/github_voc_data.csv", "w", newline="", encoding="utf-8"
+            csv_file_path, "w", newline="", encoding="utf-8"
         ) as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for issue in filtered_data:
                 writer.writerow(issue)
 
-        print("Data saved to ./data/github_issues.xlsx")  # Debugging statement
+        print(f"Data saved to {csv_file_path}")  # Debugging statement
 
         return filtered_data
     except requests.exceptions.RequestException as e:
         print(f"Error during request: {e}")
         return None
 
-
 def get_tweets(twitter_handle: str, issue: str):
     try:
+        twitter_csv_file = f"./data/{twitter_handle}_twitter_data.csv"
         url = "https://twitter154.p.rapidapi.com/search/search"
 
         querystring = {
@@ -283,11 +307,18 @@ def get_tweets(twitter_handle: str, issue: str):
 
         print(f"Received {len(result['results'])} tweets")  # Debugging statement
 
+        index_len = 0
+        if os.path.isfile(twitter_csv_file):
+            df = pd.read_csv(twitter_csv_file)
+            index_len = len(df["index"])
+        else:
+            index_len = 0
+
         filtered_data = []
         for index, tweet in enumerate(result["results"]):
             filtered_data.append(
                 {
-                    "index": index,
+                    "index": index + index_len,
                     "source": "twitter",
                     "url": tweet["expanded_url"],
                     "title": "tweet status",
@@ -308,20 +339,19 @@ def get_tweets(twitter_handle: str, issue: str):
             fieldnames = []
 
         with open(
-            "./data/twitter_data.csv", "a", newline="", encoding="utf-8"
+            twitter_csv_file, "a", newline="", encoding="utf-8"
         ) as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
+            if csvfile.tell() == 0:
+                writer.writeheader()
             for tweet in filtered_data:
                 writer.writerow(tweet)
-
-        print("Data saved to ./data/twitter_data.csv")  # Debugging statement
+        print(f"Data saved to {twitter_csv_file}")  # Debugging statement
 
         return result["results"]
     except Exception as e:
         print(f"Error during request: {e}")
         return None
-
 
 def get_news(company_name: str):
     """
@@ -351,7 +381,6 @@ def get_news(company_name: str):
 
     return news
 
-
 def use_ai():
     try:
         review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
@@ -363,11 +392,9 @@ def use_ai():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-
 @app.get("/")
 async def read_root():
     return {"message": "Server is running!"}
-
 
 @app.get("/generate_csv")
 async def generate_csv(
@@ -380,29 +407,30 @@ async def generate_csv(
     get_news_for: str = "swiggy",
 ):
     try:
-        # if app_name != "" and app_name != "N/A":
-        #     get_play_store_reviews(app_name)
-        # if subreddit_name != "" and subreddit_name != "N/A":
-        #     get_subreddit(subreddit_name)
-        # if owner != "" and repo != "" and owner != "N/A" and repo != "N/A":
-        #     filtered_data = get_github_issues(owner, repo)
-        # if (
-        #     twitter_handle != ""
-        #     and issue != ""
-        #     and twitter_handle != "N/A"
-        #     and issue != "N/A"
-        # ):
-        #     results = get_tweets(twitter_handle, issue)
-        # if get_news_for != "" and get_news_for != "N/A":
-        #     news = get_news(get_news_for)
+        if app_name != "" and app_name != "N/A":
+            get_play_store_reviews(app_name)
+        if subreddit_name != "" and subreddit_name != "N/A":
+            get_subreddit(subreddit_name)
+        if owner != "" and repo != "" and owner != "N/A" and repo != "N/A":
+            filtered_data = get_github_issues(owner, repo)
+        if (
+            twitter_handle != ""
+            and issue != ""
+            and twitter_handle != "N/A"
+            and issue != "N/A"
+        ):
+            results = get_tweets(twitter_handle, issue)
+        if get_news_for != "" and get_news_for != "N/A":
+            news = get_news(get_news_for)
 
         # Run the initial data processing pipeline
-        if app_name != "":
-            processData(
-                client_name=app_name,
-                subreddit_name=subreddit_name,
-                TESTING=False,
-            )
+        # if app_name != "" and app_name != "N/A":
+        #     processData(
+        #         client_name=app_name,
+        #         subreddit_name=subreddit_name,
+        #         twitter_handle=twitter_handle,
+        #         TESTING=False,
+        #     )
 
         return {"message": "Insights are being generated!"}
     except Exception as e:

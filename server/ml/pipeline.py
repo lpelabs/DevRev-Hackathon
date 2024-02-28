@@ -18,7 +18,7 @@ import json
 import pandas as pd
 import os
 
-def processData(client_name, subreddit_name, TESTING=False):
+def processData(client_name, subreddit_name, twitter_handle, TESTING=False):
     client_name = client_name.lower()
     try:
         previous_data_dict = {}#One level up
@@ -35,7 +35,7 @@ def processData(client_name, subreddit_name, TESTING=False):
         
         for source in ["reddit", "google_play", "twitter"]:
             print(f"Running pipeline for {source}")
-            processed_data_dict[source] = runPipeline(source, subreddit_name, TESTING=TESTING)
+            processed_data_dict[source] = runPipeline(source, subreddit_name, twitter_handle, client_name, TESTING=TESTING)
             
         previous_data_dict[client_name] = processed_data_dict
             
@@ -45,7 +45,7 @@ def processData(client_name, subreddit_name, TESTING=False):
         print(f"Error: {e}")
         return {"error": str(e)}
 
-def runPipeline(source_name, subreddit_name, TESTING=False):
+def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTING=False):
     """
     This function will run the pipeline depending on the source.
     
@@ -60,8 +60,9 @@ def runPipeline(source_name, subreddit_name, TESTING=False):
         save_path = os.path.abspath("./output/")
         
         if source_name == "google_play":
+            google_play_csv_file = f"google_play_{client_name}_voc.csv"
             try:
-                df = pd.read_csv(os.path.join(base_path, "google_play_voc.csv"))
+                df = pd.read_csv(os.path.join(base_path, google_play_csv_file))
             except Exception as e:
                 print(f"Error: {e}")
                 return {str(e)}
@@ -77,36 +78,43 @@ def runPipeline(source_name, subreddit_name, TESTING=False):
             return analytics
             
         elif source_name == "twitter":
-            try:
-                df = pd.read_csv(os.path.join(base_path, "twitter_data.csv"))
-            except Exception as e:
-                print(f"Error: {e}")
-                return {str(e)}
-            #For testing purposes, take only 5 rows
-            if TESTING:
-                df = df.head()
-            
-            # with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = twitterModel(df)
-            # json.dump(analytics, f)
-            
-            return analytics
+
+            if twitter_handle == "" or twitter_handle is None:
+                return {"error": "Twitter handle is empty"}
+            else:
+                try:
+                    df = pd.read_csv(os.path.join(base_path, f"{twitter_handle}_twitter_data.csv"))
+                except Exception as e:
+                    print(f"Error: {e}")
+                    return {str(e)}
+                #For testing purposes, take only 5 rows
+                if TESTING:
+                    df = df.head()
+                
+                # with open(os.path.join(save_path,source_name+".json"), "w") as f:
+                analytics = twitterModel(df)
+                # json.dump(analytics, f)
+                
+                return analytics
                 
         elif source_name == "reddit":
-            try:
-                df = pd.read_csv(os.path.join(base_path, f"new_{subreddit_name}_reddit_voc_data.csv"), encoding='latin1').dropna()
-            except Exception as e:
-                print(f"Error: {e}")
-                return {str(e)}
-            #For testing purposes, take only 5 rows
-            if TESTING:
-                df = df.head()
-            
-            # with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = redditModel(df)
-            # json.dump(analytics, f)
-            
-            return analytics
+            if subreddit_name == "" or subreddit_name is None:
+                return {"error": "Subreddit name is empty"}
+            else:
+                try:
+                    df = pd.read_csv(os.path.join(base_path, f"new_{subreddit_name}_reddit_voc_data.csv"), encoding='latin1').dropna()
+                except Exception as e:
+                    print(f"Error: {e}")
+                    return {str(e)}
+                #For testing purposes, take only 5 rows
+                if TESTING:
+                    df = df.head()
+                
+                # with open(os.path.join(save_path,source_name+".json"), "w") as f:
+                analytics = redditModel(df)
+                # json.dump(analytics, f)
+                
+                return analytics
         else:
             raise Exception("Invalid source name")
         
