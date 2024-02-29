@@ -1,12 +1,11 @@
 import { publicSDK } from '@devrev/typescript-sdk';
-import gplay from "google-play-scraper";
 import { ApiUtils, HTTPResponse } from './utils';
 import { LLMUtils } from './llm_utils';
 import axios, { AxiosResponse } from 'axios';
 
 interface QueryParams {
-  app_id: string;
-  ratings: number;
+  twitter_handle: string;
+  hashtags: string;
   numReviews: number;
 }
 
@@ -24,20 +23,19 @@ export const run = async (events: any[]) => {
     let parameters: string = event.payload.parameters.trim();
     const tags = event.input_data.resources.tags;
     const llmUtil: LLMUtils = new LLMUtils(openApiKey, "gpt-4", 200);
-    let numReviews = 10;
+    let numReviews = 2;
     let ratings = 1;
     let commentID: string | undefined;
 
     // Parse parameters to get ratings and numReviews
     const paramsArray = parameters.split(" ");
-    if (paramsArray.length >= 2) {
-      ratings = parseInt(paramsArray[0]);
-      numReviews = parseInt(paramsArray[1]);
+    if (paramsArray.length >= 1) {
+      numReviews = parseInt(paramsArray[0]);
     }
 
     if (parameters === 'help') {
       // Send a help message in CLI help format.
-      const helpMessage = `playstore_reviews_process - Fetch reviews from Google Play Store and create tickets in DevRev.\n\nUsage: /playstore_reviews_process <ratings> <numReviews>\n\n\`ratings\`: Number of ratings to fetch from Google Playstore. Should be a number between 1 and 5. \n\`numReviews\`: Number of reviews to fetch from Google Playstore. Should be a number between 1 and 100. If not specified, it defaults to 10.`;
+      const helpMessage = `twitter_reviews_process - Fetch tweets from X and create tickets in DevRev.\n\nUsage: /reviews_tweet <numReviews>\n\\n\`numReviews\`: Number of reviews to fetch from Google Playstore. Should be a number between 1 and 100. If not specified, it defaults to 2.`;
       let postResp = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, helpMessage, 1);
       if (!postResp.success) {
         console.error(`Error while creating timeline entry: ${postResp.message}`);
@@ -54,7 +52,7 @@ export const run = async (events: any[]) => {
 
     // Default to 10 reviews if numReviews is not provided
     if (isNaN(numReviews) || numReviews <= 0) {
-      numReviews = 10;
+      numReviews = 2;
     }
 
     // Default to 0 ratings if ratings is not provided
@@ -63,7 +61,7 @@ export const run = async (events: any[]) => {
     }
 
     async function postReviewData(queryParams: QueryParams): Promise<AxiosResponse<any>> {
-      const url = `https://devrev-hackathon-production.up.railway.app/playstore_reviews?app_name=${queryParams.app_id}&ratings=${queryParams.ratings}&numReviews=${queryParams.numReviews}`;
+      const url = `https://devrev-hackathon-production.up.railway.app/get_tweet?twitter_handle=${queryParams.twitter_handle}&issue=${queryParams.hashtags}&num_tweets=${queryParams.numReviews}`;
       try {
         const response = await axios.get(url);
         return response;
@@ -74,18 +72,12 @@ export const run = async (events: any[]) => {
     }
 
     const queryParams: QueryParams = {
-      app_id: inputs['app_id'],
-      ratings: ratings,
+      twitter_handle: inputs['twitter_handle'],
+      hashtags: inputs['twitter_hashtag'],
       numReviews: numReviews
     };
 
-    // // Call google playstore scraper to fetch those number of reviews.
     let getReviewsResponse: any = await postReviewData(queryParams)
-    //   appId: inputs['app_id'],
-    //   sort: gplay.sort.RATING,
-    //   num: numReviews,
-    //   throttle: 10,
-    // });
 
     // Post an update about the number of reviews fetched.
     postResp = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, `Fetched ${numReviews} reviews, creating tickets now.`, 1);
@@ -104,10 +96,10 @@ export const run = async (events: any[]) => {
         console.error(`Error while creating timeline entry: ${postResp.message}`);
         continue;
       }
-      const reviewText = `Ticket created from Playstore review ${review.reviewId}\n\n${review.content}. it has ${review.thumbsUpCount} of upvotes`;
-      const reviewTitle = `Ticket created from Playstore review id ${review.reviewId}`;
-      const reviewID = review.id;
-      const systemPrompt = `You are an expert at labelling a given Google Play Store Review as bug, feature_request, question or feedback. You are given a review provided by a user for the app ${inputs['app_id']}. You have to label the review as bug, feature_request, question or feedback. The output should be a JSON with fields "category" and "reason". The "category" field should be one of "bug", "feature_request", "question" or "feedback". The "reason" field should be a string explaining the reason for the category. \n\nReview: {review}\n\nOutput:`;
+      const reviewText = `Ticket created from tweet ${review.expanded_url}\n\n${review.text}. it has ${review.favorite_count} of upvotes. it is created at ${review.creation_date}. username is ${review.user.username} and the tweet id is ${review.tweet_id}`;
+      const reviewTitle = `Ticket created from tweet ${review.expanded_url}`;
+      const reviewID = review.tweet_id;
+      const systemPrompt = `You are an expert at labelling a given tweet as bug, feature_request, question or feedback. You are given a review provided by a user form the twitter. You have to label the review as bug, feature_request, question or feedback. The output should be a JSON with fields "category" and "reason". The "category" field should be one of "bug", "feature_request", "question" or "feedback". The "reason" field should be a string explaining the reason for the category. \n\nReview: {review}\n\nOutput:`;
       const humanPrompt = ``;
 
       let llmResponse = {};

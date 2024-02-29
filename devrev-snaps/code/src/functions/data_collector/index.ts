@@ -9,6 +9,7 @@ interface QueryParams {
   twitter_handle: string;
   issue: string;
   get_news_for: string;
+  open_ai_key: string;
 }
 
 export async function handleEvent(
@@ -16,6 +17,7 @@ export async function handleEvent(
 ) {
   const endpoint = event.execution_metadata.devrev_endpoint;
   const token = event.context.secrets.service_account_token;
+  const openApiKey: string = event.input_data.keyrings.openai_api_key;
 
   // Initialize the public SDK client
   const devrevSDK = client.setup({ endpoint, token });
@@ -24,12 +26,12 @@ export async function handleEvent(
 
   // Create a ticket. Name the ticket using the current date and time.
   async function postReviewData(queryParams: QueryParams): Promise<AxiosResponse<any>> {
-    const url = `https://devrev-hackathon-production.up.railway.app/generate_csv?app_name=${queryParams.app_id}&subreddit_name=${queryParams.subreddit_name}&owner=${queryParams.owner}&repo=${queryParams.repo}&twitter_handle=${queryParams.twitter_handle}&issue=${queryParams.issue}&get_news_for=${queryParams.get_news_for}`;
+    const url = `https://devrev-hackathon-production.up.railway.app/generate_csv?app_name=${queryParams.app_id}&subreddit_name=${queryParams.subreddit_name}&owner=${queryParams.owner}&repo=${queryParams.repo}&twitter_handle=${queryParams.twitter_handle}&issue=${queryParams.issue}&get_news_for=${queryParams.get_news_for}&open_ai_key=${queryParams.open_ai_key}`;
     try {
       const response = await axios.get(url);
 
       const createPayload: publicSDK.TimelineEntriesCreateRequest = {
-        body: "created insights by fetching latest VoC data",
+        body: "fetching latest VoC data to generate insights...",
         body_type: publicSDK.TimelineCommentBodyType.Text,
         object: snapInId,
         type: publicSDK.TimelineEntriesCreateRequestType.TimelineComment,
@@ -52,7 +54,8 @@ export async function handleEvent(
     repo: inputs['github_repo_name'],
     owner: inputs['github_owner'],
     twitter_handle: inputs['twitter_handle'],
-    issue: inputs['twitter_hashtag']
+    issue: inputs['twitter_hashtag'],
+    open_ai_key: openApiKey
   };
 
   await postReviewData(queryParams)

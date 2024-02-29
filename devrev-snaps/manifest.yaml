@@ -106,7 +106,7 @@ event_sources:
           display_name: Timer Event Source
           type: timer-events
           config:
-            # CRON expression for triggering every 10 minutes.
+            # CRON expression for triggering every 6 hour.
             cron: "0 */6 * * *"
             metadata:
                 event_key: six_hour_event
@@ -120,6 +120,8 @@ functions:
     description: "Function to fetch reviews from play store."
   - name: "insights"
     description: "Function to get all insights"
+  - name: "review_tweet"
+    description: "Function to get tweet and create tickets"
   
 tags:
   - name: "bug"
@@ -143,16 +145,16 @@ commands:
           - "snap_in"
     usage_hint: "/info"
     function: "snapin_intro"
-  # - name: "review_tweets"
-  #   namespace: "devrev"
-  #   description: "Fetched tweets from twitter with specified hashtags and username during configuration and create tickets"
-  #   surfaces:
-  #     - surface: "discussions"
-  #       object_types:
-  #         - "snap_in"
-  #         - "ticket"
-  #   usage_hint: "/review-tweets [number of tweet to fetch and process]"
-  #   function: "review_tweets"
+  - name: "review_tweet"
+    namespace: "devrev"
+    description: "Fetched tweets from twitter with specified hashtags and username during configuration and create tickets"
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+          - "ticket"
+    usage_hint: "/review-tweets [number of tweet to fetch and process]"
+    function: "review_tweet"
   - name: "play_store_review"
     namespace: "devrev"
     description: "Fetch reviews from play store, Process and make tickets."

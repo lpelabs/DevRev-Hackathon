@@ -1,5 +1,4 @@
 import { publicSDK } from '@devrev/typescript-sdk';
-import gplay from "google-play-scraper";
 import { ApiUtils, HTTPResponse } from './utils';
 import { LLMUtils } from './llm_utils';
 import axios, { AxiosResponse } from 'axios';

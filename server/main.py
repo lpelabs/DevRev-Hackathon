@@ -3,6 +3,7 @@ import os
 from fastapi import HTTPException, Depends, status, Query, FastAPI
 import logging
 import requests
+import re
 
 from google_play_scraper import Sort, reviews
 import praw
@@ -328,14 +329,51 @@ def get_github_issues(owner: str, repo: str):
         print(f"Error during request: {e}")
         return None
 
-
-def get_tweets(twitter_handle: str, issue: str):
+@app.get("/twitter_reviews")
+def get_tweets(twitter_handle: str, issue: str, num_tweets: int):
     try:
         twitter_csv_file = f"./data/{twitter_handle}_twitter_data.csv"
         url = "https://twitter154.p.rapidapi.com/search/search"
 
+        parts = re.split(r"%20|,", issue)
+        result = " #".join(parts)
+
         querystring = {
-            "query": f"{twitter_handle} #{issue}",
+            "query": f"{twitter_handle} {result}",
+            "section": "top",
+            "min_retweets": "1",
+            "min_likes": "1",
+            "limit": num_tweets,
+            "language": "en",
+        }
+
+        headers = {
+            "X-RapidAPI-Key": RAPIDAPI_KEY,
+            "X-RapidAPI-Host": "twitter154.p.rapidapi.com",
+        }
+
+        print(f"Sending request to: {url}")  # Debugging statement
+        response = requests.get(url, headers=headers, params=querystring)
+
+        result = response.json()
+
+        print(f"Received {len(result['results'])} tweets")  # Debugging statement
+
+        return result["results"]
+    except Exception as e:
+        print(f"Error during request: {e}")
+        return None
+
+def get_tweets_csv(twitter_handle: str, issue: str):
+    try:
+        twitter_csv_file = f"./data/{twitter_handle}_twitter_data.csv"
+        url = "https://twitter154.p.rapidapi.com/search/search"
+
+        parts = re.split(r"%20|,", issue)
+        result = " #".join(parts)
+
+        querystring = {
+            "query": f"{twitter_handle} {result}",
             "section": "top",
             "min_retweets": "1",
             "min_likes": "1",
@@ -470,7 +508,7 @@ async def generate_csv(
             and twitter_handle != "N/A"
             and issue != "N/A"
         ):
-            results = get_tweets(twitter_handle, issue)
+            results = get_tweets_csv(twitter_handle, issue)
         if get_news_for != "" and get_news_for != "N/A":
             news = get_news(get_news_for)
 
