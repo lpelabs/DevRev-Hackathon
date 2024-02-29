@@ -1,5 +1,5 @@
 version: "2"
-name: "Voice To Help v4"
+name: "Voice To Help v5"
 description: "Create a ticket by identifying customer problems from different platforms."
 
 service_account:
@@ -116,12 +116,10 @@ functions:
     description: "Function to create a new ticket when triggered."
   - name: "snapin_intro"
     description: "Function to give an intro about the Voice To Help Snap-in."
-  # - name: "fetch_play_store_reviews"
-  #   description: "Function to fetch reviews from play store."
+  - name: "fetch_play_store_reviews"
+    description: "Function to fetch reviews from play store."
   - name: "insights"
     description: "Function to get all insights"
-  # - name: "review_tweets"
-  #   description: "Function to fetch tweets from twitter."
   
 tags:
   - name: "bug"
@@ -155,15 +153,15 @@ commands:
   #         - "ticket"
   #   usage_hint: "/review-tweets [number of tweet to fetch and process]"
   #   function: "review_tweets"
-  # - name: "play_store_review"
-  #   namespace: "devrev"
-  #   description: "Fetch reviews from play store, Process and make tickets."
-  #   surfaces:
-  #     - surface: "discussions"
-  #       object_types:
-  #         - "snap_in"
-  #   usage_hint: "/play-store-review [rating (default value : 1)] [number of reviews to fetch and process]"
-  #   function: "fetch_play_store_reviews"
+  - name: "play_store_review"
+    namespace: "devrev"
+    description: "Fetch reviews from play store, Process and make tickets."
+    surfaces:
+      - surface: "discussions"
+        object_types:
+          - "snap_in"
+    usage_hint: "/play-store-review [rating of review (default is 1)] [number of reviews to fetch and process]"
+    function: "fetch_play_store_reviews"
   - name: "insights"
     namespace: "devrev"
     description: "Get insights from all platforms and create tickets."
@@ -181,9 +179,3 @@ automations:
       event_types:
         - timer.tick
       function: ticket_creator
-    - name: get_insights
-      description: Automation to get insights from all platforms and create tickets.
-      source: timer-event-source
-      event_types:
-        - timer.tick
-      function: insights

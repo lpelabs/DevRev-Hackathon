@@ -56,8 +56,8 @@ app.add_middleware(
 )
 
 
-def get_play_store_reviews(app_name: str):
-
+@app.get("/playstore_reviews")
+def get_play_store_reviews(app_name: str, ratings: int, numReviews: int):
     try:
         print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
 
@@ -74,13 +74,63 @@ def get_play_store_reviews(app_name: str):
             index_len = len(df["index"])
         else:
             index_len = 0
-        
 
         result, continuation_token = reviews(
             f"{content_after_id}",
             lang="en",  # defaults to 'en'
             sort=Sort.NEWEST,  # defaults to Sort.NEWEST
-            count=20,  # defaults to 100
+            count=numReviews,  # defaults to 100
+            filter_score_with=ratings,
+        )
+
+        play_review = []
+        for index, review in enumerate(result):
+            play_review.append(
+                {
+                    "index": index + index_len,
+                    "source": "Google Play Ptore",
+                    "url": url,
+                    "title": "Google Play Review",
+                    "body": review["content"],
+                    "user": review["userName"],
+                    "upvote": review["thumbsUpCount"],
+                    "rating": review["score"],
+                    "created_at": review["at"],
+                }
+            )
+        print(
+            f"Number of reviews fetched: {len(play_review)}"
+        )  # Debugging print statement
+         # Debugging print statement
+        return result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+def get_play_store_reviews_csv(app_name: str, ratings: int, numReviews: int):
+    try:
+        print(f"Fetching reviews for app: {app_name}")  # Debugging print statement
+
+        query = f"{app_name} play store android app"
+        url = get_playstore_link(query, search_info=SearchInfo.URLS)
+        content_after_id = url.split("id=")[1].split("&")[0]
+
+        print(content_after_id)
+
+        google_play_csv_file = f"./data/google_play_{app_name}_voc.csv"
+
+        if os.path.isfile(google_play_csv_file):
+            df = pd.read_csv(google_play_csv_file)
+            index_len = len(df["index"])
+        else:
+            index_len = 0
+
+        result, continuation_token = reviews(
+            f"{content_after_id}",
+            lang="en",  # defaults to 'en'
+            sort=Sort.NEWEST,  # defaults to Sort.NEWEST
+            count=numReviews,  # defaults to 100
+            filter_score_with=ratings,
         )
 
         play_review = []
@@ -119,6 +169,7 @@ def get_play_store_reviews(app_name: str):
         print(f"An error occurred: {e}")
         return None
 
+
 def get_subreddit(subreddit_name: str):
     """Retrieves review-like posts from Reddit and appends them to a CSV file.
 
@@ -147,7 +198,6 @@ def get_subreddit(subreddit_name: str):
             index_len = len(df["index"])
         else:
             index_len = 0
-            
 
         redditdata = []
         for index, submission in enumerate(subreddit.top(limit=limit)):
@@ -190,9 +240,7 @@ def get_subreddit(subreddit_name: str):
             for issue in redditdata:
                 writer.writerow(issue)
 
-            df = pd.read_csv(
-                reddit_csv_file, encoding="unicode_escape"
-            )
+            df = pd.read_csv(reddit_csv_file, encoding="unicode_escape")
             print(df)  # Debugging print statement
             return "Reddit reviews appended to voc_data.csv successfully."
     except FileNotFoundError:
@@ -218,6 +266,7 @@ def get_subreddit(subreddit_name: str):
         df = pd.read_csv(reddit_csv_file)
         print(f"An error occurred: {e}")  # Debugging print statement
         return "An error occurred while appending reviews to voc_data.csv."
+
 
 def get_github_issues(owner: str, repo: str):
     url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
@@ -266,9 +315,7 @@ def get_github_issues(owner: str, repo: str):
         else:
             fieldnames = []
 
-        with open(
-            csv_file_path, "w", newline="", encoding="utf-8"
-        ) as csvfile:
+        with open(csv_file_path, "w", newline="", encoding="utf-8") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for issue in filtered_data:
@@ -280,6 +327,7 @@ def get_github_issues(owner: str, repo: str):
     except requests.exceptions.RequestException as e:
         print(f"Error during request: {e}")
         return None
+
 
 def get_tweets(twitter_handle: str, issue: str):
     try:
@@ -338,9 +386,7 @@ def get_tweets(twitter_handle: str, issue: str):
         else:
             fieldnames = []
 
-        with open(
-            twitter_csv_file, "a", newline="", encoding="utf-8"
-        ) as csvfile:
+        with open(twitter_csv_file, "a", newline="", encoding="utf-8") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             if csvfile.tell() == 0:
                 writer.writeheader()
@@ -352,6 +398,7 @@ def get_tweets(twitter_handle: str, issue: str):
     except Exception as e:
         print(f"Error during request: {e}")
         return None
+
 
 def get_news(company_name: str):
     """
@@ -381,6 +428,7 @@ def get_news(company_name: str):
 
     return news
 
+
 def use_ai():
     try:
         review = """google play store,https://play.google.com/store/apps/details?id=in.swiggy.android,Very useful and efficient,"Hey there, glad that we have stood up to your expectations. Thank you for the positive review and the perfect star rating. Keep Swiggying. 🙂",Anita Kuruvilla"""
@@ -392,9 +440,11 @@ def use_ai():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
 @app.get("/")
 async def read_root():
     return {"message": "Server is running!"}
+
 
 @app.get("/generate_csv")
 async def generate_csv(
@@ -408,7 +458,7 @@ async def generate_csv(
 ):
     try:
         if app_name != "" and app_name != "N/A":
-            get_play_store_reviews(app_name)
+            get_play_store_reviews_csv(app_name, 1, 20)
         if subreddit_name != "" and subreddit_name != "N/A":
             get_subreddit(subreddit_name)
         if owner != "" and repo != "" and owner != "N/A" and repo != "N/A":
