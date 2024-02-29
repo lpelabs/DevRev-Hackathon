@@ -475,7 +475,7 @@ async def generate_csv(
             news = get_news(get_news_for)
 
         # Run the initial data processing pipeline
-        if app_name != "" and app_name != "N/A":
+        if app_name != "" and app_name != "N/A" and open_ai_key != "" and open_ai_key != "N/A":
             processData(
                 client_name=app_name,
                 subreddit_name=subreddit_name,
@@ -483,6 +483,8 @@ async def generate_csv(
                 open_ai_key=open_ai_key,
                 TESTING=False,
             )
+        else:
+            print("Insufficient data to run the pipeline.")
 
         return {"message": "Insights are being generated!"}
     except Exception as e:
