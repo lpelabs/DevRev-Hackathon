@@ -4,7 +4,7 @@ import { ApiUtils, HTTPResponse } from './utils';
 import { LLMUtils } from './llm_utils';
 import axios, { AxiosResponse } from 'axios';
 
-interface ReviewData {
+interface QueryParams {
   app_id: string;
   ratings: number;
   numReviews: number;
@@ -62,14 +62,10 @@ export const run = async (events: any[]) => {
       ratings = 0;
     }
 
-    async function postReviewData(): Promise<AxiosResponse<any>> {
-      const url = `https://devrev-hackathon-production.up.railway.app/playstore_reviews`;
+    async function postReviewData(queryParams: QueryParams): Promise<AxiosResponse<any>> {
+      const url = `https://devrev-hackathon-production.up.railway.app/playstore_reviews?app_name=${queryParams.app_id}&ratings=${queryParams.ratings}&numReviews=${queryParams.numReviews}`;
       try {
-        const response = await axios.post(url, {
-          app_id: inputs['app_id'],
-          ratings: ratings,
-          numReviews: numReviews
-        });
+        const response = await axios.get(url);
         return response;
       } catch (error) {
         console.error('Error:', error);
@@ -77,8 +73,14 @@ export const run = async (events: any[]) => {
       }
     }
 
+    const queryParams: QueryParams = {
+      app_id: inputs['app_id'],
+      ratings: ratings,
+      numReviews: numReviews
+    };
+
     // // Call google playstore scraper to fetch those number of reviews.
-    let getReviewsResponse: any = await postReviewData()
+    let getReviewsResponse: any = await postReviewData(queryParams)
     //   appId: inputs['app_id'],
     //   sort: gplay.sort.RATING,
     //   num: numReviews,

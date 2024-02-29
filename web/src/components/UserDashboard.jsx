@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import Example from "./3DCharts";
+import Dashboard from "./Dashboard";
 
 export default function UserDashboard() {
   const [open, setOpen] = useState(false);
@@ -20,13 +21,11 @@ export default function UserDashboard() {
 
   const fetchData = async () => {
     const response = await axios.get(
-      `http://localhost:8000/get_json?client_name=${clientFromQuery}`,
+      `https://devrev-hackathon-production.up.railway.app/get_json?client_name=${clientFromQuery}`,
       {
         client_name: clientFromQuery,
       },
     );
-
-    // const response = await axios.get(`http://127.0.0.1:8000/get_json?client_name=${clientFromQuery}`)
 
     if (response.status === 200) {
       console.log(response.data);
@@ -38,7 +37,7 @@ export default function UserDashboard() {
   const {
     isLoading,
     error,
-    data: predictions,
+    data: pdictions,
     isFetching,
     refetch,
   } = useQuery(queryKey, fetchData, {
@@ -59,205 +58,151 @@ export default function UserDashboard() {
     retry: 1,
   });
 
-  const value = predictions?.data[`${clientFromQuery}`];
+  console.log(pdictions?.data["twitter"][
+    "work_on_weakness"
+  ])
 
   return (
     <>
-      <main className="flex">
+      <main className="flex bg-[# F7F7FF]">
         <div className="pt-2 w-full">
           <Label
-            className="flex flex-col text-md font-bold text-[50px] p-10 mx-auto justify-center items-center"
+            className="flex flex-col text-md font-bold text-[36px] p-10 mx-auto justify-center items-center text-[#1E1E24]"
             htmlFor="BU_Id"
           >
-            Insights for {clientFromQuery}
+            Insights for {clientFromQuery} based on VoC data
           </Label>
+          <Dashboard />
 
-          <div className="flex flex-wrap items-center gap-3 pl-10 mt-10 w-[80vw]">
+          <div className="flex flex-wrap items-center gap-3 mt-10 text-[#1E1E24]">
             {isLoading && <p>Loading...</p>}
             {error && <p>Error: {error.message}</p>}
-            {predictions && (
-              <div>
-                <Label
-                  className="flex flex-col text-md font-bold text-[40px] p-5 underline"
-                  htmlFor="BU_Id"
-                >
-                  Google Play Insights for {clientFromQuery}
-                </Label>
+            {pdictions && (
+              <div className="w-[90vw] m-auto">
+                {!('error' in pdictions.data["google_play"]) && (
+                  <div className="w-full bg-[#F6F5F3] p-6 rounded-xl mb-5">
+                    <Label
+                      className="flex flex-col text-md font-bold text-[40px] p-5 underline"
+                      htmlFor="BU_Id"
+                    >
+                      Insights based on VoC data for {clientFromQuery} on Google play 
+                    </Label>
 
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  1. Work On Threats
-                </Label>
-                {/* <pre>
-                  {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["google_play"][
-                      "work_on_threats"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre> */}
-                {/* <pre>
-                  {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["google_play"][
-                      "work_on_threats"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre> */}
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      1. Work On Threats
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["google_play"]["work_on_threats"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      2. Work On Weakness
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["google_play"]["work_on_weakness"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+                {!('error' in pdictions.data["twitter"]) && (
+                  <div className="w-full bg-[#F6F5F3] p-6 rounded-xl mb-5">
+                    <Label
+                      className="flex flex-col text-md font-bold text-[32px] underline"
+                      htmlFor="BU_Id"
+                    >
+                      Insights based on VoC data for {clientFromQuery} on Twitter
+                    </Label>
 
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  2. Work On Weakness
-                </Label>
-                {/* <pre>
-                  {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["google_play"][
-                      "work_on_weakness"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre> */}
-                {/* <pre>
-                  {JSON.stringify(
-                    predictions.data[`${clientFromQuery}`]["google_play"][
-                      "work_on_weakness"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre> */}
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      1. Work On Threats
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["twitter"]["work_on_threats"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      2. Work On Weakness
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["twitter"]["work_on_weakness"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+                {!('error' in pdictions.data["reddit"]) && (
+                  <div className="w-full bg-[#F6F5F3] p-6 rounded-xl ">
+                    <Label
+                      className="flex flex-col text-md font-bold text-[32px] underline"
+                      htmlFor="BU_Id"
+                    >
+                      Insights based on VoC data for {clientFromQuery} on Reddit
+                    </Label>
 
-                <Label
-                  className="flex flex-col text-md font-bold text-[40px] p-5 underline"
-                  htmlFor="BU_Id"
-                >
-                  Twitter Insights for {clientFromQuery}
-                </Label>
-
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  1. Work On Threats
-                </Label>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["twitter"][
-                      "work_on_threats"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["twitter"][
-                      "work_on_threats"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre>
-
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  2. Work On Weakness
-                </Label>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["twitter"][
-                      "work_on_weakness"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["twitter"][
-                      "work_on_weakness"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre>
-
-                <Label
-                  className="flex flex-col text-md font-bold text-[40px] p-5 underline"
-                  htmlFor="BU_Id"
-                >
-                  Reddit Insights for {clientFromQuery}
-                </Label>
-
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  1. Work On Threats
-                </Label>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["reddit"][
-                      "work_on_threats"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["reddit"][
-                      "work_on_threats"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre>
-
-                <Label
-                  className="flex flex-col text-md font-bold text-[30px] p-5 "
-                  htmlFor="BU_Id"
-                >
-                  2. Work On Weakness
-                </Label>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["reddit"][
-                      "work_on_weakness"
-                    ][0],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["reddit"][
-                      "work_on_weakness"
-                    ][1],
-                    null,
-                    2,
-                  )}
-                </pre>
-                <pre>
-                  {JSON.stringify(
-                    predictions.data["reddit"][
-                      "work_on_weakness"
-                    ][2],
-                    null,
-                    2,
-                  )}
-                </pre>
-
-                <Example data={predictions.data} />
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      1. Work On Threats
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["reddit"]["work_on_threats"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <Label
+                      className="flex flex-col text-md font-bold text-[24px] my-5 mb-3 text-[#111D4A]"
+                      htmlFor="BU_Id"
+                    >
+                      2. Work On Weakness
+                    </Label>
+                    <ul className="bg-[#EEECE8] p-3 rounded-xl">
+                      {pdictions?.data["reddit"]["work_on_weakness"]?.map((data, index) => {
+                        return (
+                          <li key={index} className="mb-2 pl-5">
+                            {data}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+                <Example data={pdictions.data} />
               </div>
             )}
           </div>
