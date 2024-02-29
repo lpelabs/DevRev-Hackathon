@@ -52,7 +52,12 @@ def perform_clustering(embeddings, num_clusters):
     kmeans = KMeans(n_clusters=num_clusters, init='k-means++', random_state=42)
     embeddings_reshaped = np.vstack(embeddings)  # Convert the list of embeddings to a 2D array
     clusters = kmeans.fit_predict(embeddings_reshaped)
-    return clusters
+    centroids = kmeans.cluster_centers_
+    cluster_centroids = {}
+    for i, center in enumerate(centroids):
+        cluster_centroids[i] = center.tolist()
+        
+    return clusters, cluster_centroids
 
 
 def visualize_clusters_3d(embeddings, clusters):
