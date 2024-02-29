@@ -455,6 +455,7 @@ async def generate_csv(
     twitter_handle: str = "swiggy",
     issue: str = "help",
     get_news_for: str = "swiggy",
+    open_ai_key: str = "",
 ):
     try:
         if app_name != "" and app_name != "N/A":
@@ -474,13 +475,14 @@ async def generate_csv(
             news = get_news(get_news_for)
 
         # Run the initial data processing pipeline
-        # if app_name != "" and app_name != "N/A":
-        #     processData(
-        #         client_name=app_name,
-        #         subreddit_name=subreddit_name,
-        #         twitter_handle=twitter_handle,
-        #         TESTING=False,
-        #     )
+        if app_name != "" and app_name != "N/A":
+            processData(
+                client_name=app_name,
+                subreddit_name=subreddit_name,
+                twitter_handle=twitter_handle,
+                open_ai_key=open_ai_key,
+                TESTING=False,
+            )
 
         return {"message": "Insights are being generated!"}
     except Exception as e:

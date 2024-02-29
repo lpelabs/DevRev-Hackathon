@@ -23,8 +23,8 @@ def generateEmbeddings(body):
 
 #This will create embeddings for the SWOT columns
 
-def swotDataframeEmbeddings(reviews_df):
-    reviews_df['swot_analysis'] = reviews_df['review'].apply(lambda x: request_chat_gpt_api(SWOT_PROMPT,x))
+def swotDataframeEmbeddings(reviews_df, key):
+    reviews_df['swot_analysis'] = reviews_df['review'].apply(lambda x: request_chat_gpt_api(SWOT_PROMPT,x, key))
     
     reviews_df['Strengths'] = [x.split('\n')[0] for x in reviews_df['swot_analysis']]
     reviews_df['Weaknesses'] = [x.split('\n')[1] for x in reviews_df['swot_analysis']]
@@ -52,29 +52,31 @@ def getUsefulnessFromResponse(response):
         print(f"The unparsed response is {response}")
         return 0
 
-def usefulDataframeEmbeddings(reviews_df):
-    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: getUsefulnessFromResponse(request_chat_gpt_api(NOISE_PROMPT,x)))
+def usefulDataframeEmbeddings(reviews_df, key):
+    reviews_df['usefulness'] = reviews_df['review'].apply(lambda x: getUsefulnessFromResponse(request_chat_gpt_api(NOISE_PROMPT,x, key)))
     return reviews_df
 
-def sentimentDataframeEmbeddings(reviews_df):
-    reviews_df['sentiment'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(SENTIMENT_PROMPT,x).split()[1]))
+def sentimentDataframeEmbeddings(reviews_df, key):
+    reviews_df['sentiment'] = reviews_df['review'].apply(lambda x: int(request_chat_gpt_api(SENTIMENT_PROMPT,x, key).split()[1]))
     return reviews_df
 
-def getWeakness(reviews_df,count=None):
+def getWeakness(reviews_df, count, key):
+    count = None
     reviews_list = reviews_df['review'].tolist()
     reviews_string = ' '.join(reviews_list)
     if count is None:
-        return request_chat_gpt_api(WEAKNESS_PROMPT, reviews_string)
+        return request_chat_gpt_api(WEAKNESS_PROMPT, reviews_string, key)
     else:
-        return request_chat_gpt_api(WEAKNESS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')
+        return request_chat_gpt_api(WEAKNESS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string, key).split('\n')
 
-def getThreats(reviews_df,count=None):
+def getThreats(reviews_df,count, key):
+    count = None
     reviews_list = reviews_df['review'].tolist()
     reviews_string = ' '.join(reviews_list)
     if count is None:
-        return request_chat_gpt_api(THREATS_PROMPT, reviews_string)
+        return request_chat_gpt_api(THREATS_PROMPT, reviews_string, key)
     else:
-        return request_chat_gpt_api(THREATS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string).split('\n')
+        return request_chat_gpt_api(THREATS_PROMPT+ f"\n\n I need you to give me {count} suggestions", reviews_string, key).split('\n')
 
 
 def dataframeEmbeddings(df):

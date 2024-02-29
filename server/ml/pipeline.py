@@ -18,7 +18,7 @@ import json
 import pandas as pd
 import os
 
-def processData(client_name, subreddit_name, twitter_handle, TESTING=False):
+def processData(client_name, subreddit_name, twitter_handle, key, TESTING=False):
     client_name = client_name.lower()
     try:
         previous_data_dict = {}#One level up
@@ -35,7 +35,7 @@ def processData(client_name, subreddit_name, twitter_handle, TESTING=False):
         
         for source in ["reddit", "google_play", "twitter"]:
             print(f"Running pipeline for {source}")
-            processed_data_dict[source] = runPipeline(source, subreddit_name, twitter_handle, client_name, TESTING=TESTING)
+            processed_data_dict[source] = runPipeline(source, subreddit_name, twitter_handle, client_name, key, TESTING=TESTING)
             
         previous_data_dict[client_name] = processed_data_dict
             
@@ -45,7 +45,7 @@ def processData(client_name, subreddit_name, twitter_handle, TESTING=False):
         print(f"Error: {e}")
         return {"error": str(e)}
 
-def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTING=False):
+def runPipeline(source_name, subreddit_name, twitter_handle, client_name, key, TESTING=False):
     """
     This function will run the pipeline depending on the source.
     
@@ -72,7 +72,7 @@ def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTIN
                 df = df.head()
             
             # with open(os.path.join(save_path,source_name+".json"), "w") as f:
-            analytics = googlePlayModel(df)
+            analytics = googlePlayModel(df, key)
                 # json.dump(analytics, f)
             
             return analytics
@@ -92,7 +92,7 @@ def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTIN
                     df = df.head()
                 
                 # with open(os.path.join(save_path,source_name+".json"), "w") as f:
-                analytics = twitterModel(df)
+                analytics = twitterModel(df, key)
                 # json.dump(analytics, f)
                 
                 return analytics
@@ -111,7 +111,7 @@ def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTIN
                     df = df.head()
                 
                 # with open(os.path.join(save_path,source_name+".json"), "w") as f:
-                analytics = redditModel(df)
+                analytics = redditModel(df, key)
                 # json.dump(analytics, f)
                 
                 return analytics
@@ -122,7 +122,7 @@ def runPipeline(source_name, subreddit_name, twitter_handle, client_name, TESTIN
         print(f"Error: {e}")
         return {"error": str(e)}
 
-def redditModel(raw_data_df):
+def redditModel(raw_data_df, key):
     """
     This function will train the model based on the review data from Reddit.
     
@@ -133,7 +133,7 @@ def redditModel(raw_data_df):
         USEFULNESS_THRESHOLD = 2
         usefulness_df = pd.DataFrame()
         usefulness_df['review'] = raw_data_df['body']
-        usefulness_df = usefulDataframeEmbeddings(usefulness_df)
+        usefulness_df = usefulDataframeEmbeddings(usefulness_df, key)
         print(f"Usefulness df is {usefulness_df}")
         
         raw_data_df = raw_data_df[usefulness_df['usefulness'] > USEFULNESS_THRESHOLD]
@@ -155,7 +155,7 @@ def redditModel(raw_data_df):
         # rating_df = raw_data_df['rating']
         # print(f"Rating Data: {rating_df.head()}")
         sentiment_df['review'] = raw_data_df['body']
-        sentiment_df = sentimentDataframeEmbeddings(sentiment_df)
+        sentiment_df = sentimentDataframeEmbeddings(sentiment_df, key)
         print(f"Sentiment Data: {sentiment_df.head()}")
         
         review_df['tf_embedding'] = review_df['review'].apply(lambda x: generateEmbeddings(x))
@@ -183,12 +183,12 @@ def redditModel(raw_data_df):
 
         #Work on weaknesses prompt
         no_w_clusters = optimal_cluster_dict['w']
-        work_on_weakness = getWeakness(final_df, no_w_clusters)
+        work_on_weakness = getWeakness(final_df, no_w_clusters, key)
         print(f"Work on weakness is {work_on_weakness}")
         
         #Work on threats prompt
         no_t_clusters = optimal_cluster_dict['t']
-        work_on_threats = getThreats(final_df, no_t_clusters)
+        work_on_threats = getThreats(final_df, no_t_clusters, key)
         print(f"Work on threats is {work_on_threats}")
         
         print(f"Final df is {final_df}")
@@ -209,7 +209,7 @@ def redditModel(raw_data_df):
         print(f"Error: {e}")
         return {"error": str(e)}
 
-def twitterModel(raw_data_df):
+def twitterModel(raw_data_df, key):
     """
     This function will train the model based on the review data from Twitter.
     
@@ -220,7 +220,7 @@ def twitterModel(raw_data_df):
         USEFULNESS_THRESHOLD = 2
         usefulness_df = pd.DataFrame()
         usefulness_df['review'] = raw_data_df['body']
-        usefulness_df = usefulDataframeEmbeddings(usefulness_df)
+        usefulness_df = usefulDataframeEmbeddings(usefulness_df, key)
         print(f"Usefulness df is {usefulness_df}")
         
         raw_data_df = raw_data_df[usefulness_df['usefulness'] > USEFULNESS_THRESHOLD]
@@ -242,12 +242,12 @@ def twitterModel(raw_data_df):
         # rating_df = raw_data_df['rating']
         # print(f"Rating Data: {rating_df.head()}")
         sentiment_df['review'] = raw_data_df['body']
-        sentiment_df = sentimentDataframeEmbeddings(sentiment_df)
+        sentiment_df = sentimentDataframeEmbeddings(sentiment_df, key)
         print(f"Sentiment Data: {sentiment_df.head()}")
         
         review_df['tf_embedding'] = review_df['review'].apply(lambda x: generateEmbeddings(x))
         swot_embeddings = dataframeEmbeddings(review_df)
-        geographical_embeddings = geoDataframeEmbeddings(name_df)
+        geographical_embeddings = geoDataframeEmbeddings(name_df, key)
         
         final_df = pd.concat([swot_embeddings, geographical_embeddings, sentiment_df, date_df], axis=1)
         final_df.to_csv("final_twitter_df.csv")
@@ -269,12 +269,12 @@ def twitterModel(raw_data_df):
 
         #Work on weaknesses prompt
         no_w_clusters = optimal_cluster_dict['w']
-        work_on_weakness = getWeakness(final_df, no_w_clusters)
+        work_on_weakness = getWeakness(final_df, no_w_clusters, key)
         print(f"Work on weakness is {work_on_weakness}")
         
         #Work on threats prompt
         no_t_clusters = optimal_cluster_dict['t']
-        work_on_threats = getThreats(final_df, no_t_clusters)
+        work_on_threats = getThreats(final_df, no_t_clusters, key)
         print(f"Work on threats is {work_on_threats}")
         
         print(f"Final df is {final_df}")
@@ -295,7 +295,7 @@ def twitterModel(raw_data_df):
         print(f"Error: {e}")
         return {"error": str(e)}
     
-def googlePlayModel(raw_data_df):
+def googlePlayModel(raw_data_df, key):
     """
     This function will train the model based on the review data from Google Play.
     
@@ -307,7 +307,7 @@ def googlePlayModel(raw_data_df):
         USEFULNESS_THRESHOLD = 2
         usefulness_df = pd.DataFrame()
         usefulness_df['review'] = raw_data_df['body']
-        usefulness_df = usefulDataframeEmbeddings(usefulness_df)
+        usefulness_df = usefulDataframeEmbeddings(usefulness_df, key)
         print(f"Usefulness df is {usefulness_df}")
         
         raw_data_df = raw_data_df[usefulness_df['usefulness'] > USEFULNESS_THRESHOLD]
@@ -329,12 +329,12 @@ def googlePlayModel(raw_data_df):
         rating_df = raw_data_df['rating']
         print(f"Rating Data: {rating_df.head()}")
         sentiment_df['review'] = raw_data_df['body']
-        sentiment_df = sentimentDataframeEmbeddings(sentiment_df)
+        sentiment_df = sentimentDataframeEmbeddings(sentiment_df, key)
         print(f"Sentiment Data: {sentiment_df.head()}")
         
         review_df['tf_embedding'] = review_df['review'].apply(lambda x: generateEmbeddings(x))
         swot_embeddings = dataframeEmbeddings(review_df)
-        geographical_embeddings = geoDataframeEmbeddings(name_df)
+        geographical_embeddings = geoDataframeEmbeddings(name_df, key)
         
         final_df = pd.concat([swot_embeddings, geographical_embeddings, sentiment_df, date_df, rating_df], axis=1)
         final_df.to_csv("final_google_play_df.csv")
@@ -357,12 +357,12 @@ def googlePlayModel(raw_data_df):
 
         #Work on weaknesses prompt
         no_w_clusters = optimal_cluster_dict['w']
-        work_on_weakness = getWeakness(final_df, no_w_clusters)
+        work_on_weakness = getWeakness(final_df, no_w_clusters, key)
         print(f"Work on weakness is {work_on_weakness}")
         
         #Work on threats prompt
         no_t_clusters = optimal_cluster_dict['t']
-        work_on_threats = getThreats(final_df, no_t_clusters)
+        work_on_threats = getThreats(final_df, no_t_clusters, key)
         print(f"Work on threats is {work_on_threats}")
         
         print(f"Final df is {final_df}")

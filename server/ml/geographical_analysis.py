@@ -42,14 +42,14 @@ def generateEmbeddings(df,on):
     elif on == "Countries":
         return df.apply(lambda x: countryLabel(x))
 
-def geoDataframeEmbeddings(name_df):
+def geoDataframeEmbeddings(name_df, key):
     """Create embeddings for the country and continent
 
     Args:
         name_df (csv): dataframe with names
     """
     
-    name_df['Continents'] = name_df['user'].apply(lambda x: request_chat_gpt_api(CONTINENT_PROMPT,x).split()[1])
+    name_df['Continents'] = name_df['user'].apply(lambda x: request_chat_gpt_api(CONTINENT_PROMPT,x, key).split()[1])
     
     df = pd.DataFrame()
     

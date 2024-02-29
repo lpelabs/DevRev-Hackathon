@@ -3,11 +3,12 @@ import openai
 import dotenv
 dotenv.load_dotenv()
 
-def request_chat_gpt_api(prompt, review):
+def request_chat_gpt_api(prompt, review, key):
     # print(f"The prompt is {prompt} and review is {review}")
     if not isinstance(review,str):
         review = ""
-    openai.api_key = os.environ['OPENAI_API_KEY']
+    # openai.api_key = os.environ['OPENAI_API_KEY']
+    openai.api_key = key
     ppl = prompt + '\n\n' + review
 
     completion = openai.chat.completions.create(
