@@ -1,4 +1,4 @@
-import { run } from '../functions/ticket_creator';
+import { run } from '../functions/data_collector';
 
 describe('Test some function', () => {
   it('Something', () => {

@@ -112,8 +112,8 @@ event_sources:
                 event_key: six_hour_event
 
 functions:
-  - name: "ticket_creator"
-    description: "Function to create a new ticket when triggered."
+  - name: "data_collector"
+    description: "Function that runs every 6 hours to fetch data and generate insights."
   - name: "snapin_intro"
     description: "Function to give an intro about the Voice To Help Snap-in."
   - name: "fetch_play_store_reviews"
@@ -178,4 +178,4 @@ automations:
       source: timer-event-source
       event_types:
         - timer.tick
-      function: ticket_creator
+      function: data_collector

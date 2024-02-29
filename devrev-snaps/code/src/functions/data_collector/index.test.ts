@@ -4,7 +4,7 @@ describe('Example Index Test file', () => {
   it('Testing the method', () => {
     testRunner({
       fixturePath: 'on_work_created_event.json',
-      functionName: 'ticket_creator',
+      functionName: 'data_collector',
     });
   });
 });
