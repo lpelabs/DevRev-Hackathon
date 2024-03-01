@@ -61,7 +61,7 @@ export const run = async (events: any[]) => {
     }
 
     async function postReviewData(queryParams: QueryParams): Promise<AxiosResponse<any>> {
-      const url = `https://devrev-hackathon-production.up.railway.app/get_tweet?twitter_handle=${queryParams.twitter_handle}&issue=${queryParams.hashtags}&num_tweets=${queryParams.numReviews}`;
+      const url = `https://devrev-hackathon-production.up.railway.app/twitter_reviews?twitter_handle=${queryParams.twitter_handle}&issue=${queryParams.hashtags}&num_tweets=${queryParams.numReviews}`;
       try {
         const response = await axios.get(url);
         return response;
