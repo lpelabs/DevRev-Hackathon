@@ -16,7 +16,7 @@ export const run = async (events: any[]) => {
 
         if (!parameters) {
             // Send a help message in CLI help format.
-            const helpMessage = `View Insights here -> https://lpe-labs-devrev.vercel.app/client_dashboard=${company}`;
+            const helpMessage = `View Insights here -> https://lpe-labs-devrev.vercel.app/client-dashboard?client_name=${company}`;
             let postResp = await apiUtil.postTextMessageWithVisibilityTimeout(snapInId, helpMessage, 1);
             if (!postResp.success) {
                 console.error(`Error while creating timeline entry: ${postResp.message}`);

@@ -89,7 +89,7 @@ export default function Dashboard() {
             height="400px"
             data={locationData}
           />
-          <p className="text-center text-[#5C5547] font-semibold mt-2 text-lg">distribution of customer accorss continents</p>
+          <p className="text-center text-[#5C5547] font-semibold mt-2 text-lg">Global Distribution of Customers</p>
         </div>
         : null}
     </div>

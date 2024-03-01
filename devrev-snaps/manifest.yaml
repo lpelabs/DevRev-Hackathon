@@ -92,10 +92,10 @@ inputs:
       ui:
         display_name: Twitter Username
     - name: twitter_hashtag
-      description: "hashtags to look for on twitter.In case of mutiple values, separate hashtags by comma"
+      description: "hashtags to look for on twitter.In case of mutiple values, separate hashtags by comma. i.e. help,support"
       field_type: text
       is_required: true
-      default_value: "#help"
+      default_value: "help"
       ui:
         display_name: Twitter Hashtags
 
